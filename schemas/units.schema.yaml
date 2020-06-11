@@ -1,0 +1,29 @@
+$schema: "http://json-schema.org/draft-06/schema#"
+description: an entry in the unit sheet
+properties:
+    patient:
+        type: string
+        description: patient name/identifier
+    sample:
+        type: string
+        description: either normal or tumor
+    platform:
+        type: string
+        description: must be ILLUMINA
+    readgroup:
+        type: string
+        description: unique identifier for all reads sequenced in a certain lane (rg1 for FASTQ from lane 1)
+    fq1:
+        type: string
+        description: filepath for first FASTQ file
+    fq2:
+        type: string
+        description: filepath for second FASTQ file
+
+required:
+    - patient
+    - sample
+    - readgroup
+    - platform
+    - fq1
+    - fq2

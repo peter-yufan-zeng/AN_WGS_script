@@ -44,7 +44,7 @@ rule bwa:
         ref=ref_fasta
     output:
         temp("bams/{patient}.{sample_type}.{readgroup}.aligned.bam")
-    threads: 8
+    threads: 16
     conda:
         "../envs/gatk.yml"
     shell:
@@ -69,7 +69,7 @@ rule merge_bams:
     shell:
         """
         gatk MergeBamAlignment -UNMAPPED {input.unaligned} -ALIGNED {input.aligned} \
-            -R {input.ref} -O {output} 
+            -R {input.ref} -O {output}
         """
 
 rule mark_duplicates:

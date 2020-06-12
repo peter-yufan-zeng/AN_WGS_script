@@ -43,7 +43,7 @@ if use_pon is False:
     pon_vcf = 'null'
 else :
     if config['pon_vcf'] == 'None':
-        build_pon = True 
+        build_pon = True
         pon_vcf = "pon/pon.vcf.gz"
     else:
         build_pon = False
@@ -58,11 +58,11 @@ wildcard_constraints:
     sample_type="|".join(sample_types)
 
 def get_fastq(wildcards):
-    return {'r1' : units.loc[(wildcards.patient, wildcards.sample_type, wildcards.readgroup), 'fq1'], 
+    return {'r1' : units.loc[(wildcards.patient, wildcards.sample_type, wildcards.readgroup), 'fq1'],
             'r2' : units.loc[(wildcards.patient, wildcards.sample_type, wildcards.readgroup), 'fq2']}
 
 def get_readgroups(wildcards):
-    return units.loc[(wildcards.patient, wildcards.sample_type), 
+    return units.loc[(wildcards.patient, wildcards.sample_type),
                     'readgroup'].unique().tolist()
 
 def get_dedup_input(wildcards):
@@ -105,4 +105,3 @@ def get_vcf2maf_input(wildcards):
             'vep_dir' : vep_dir,
             'alt_isoforms' : alternate_isoforms
         }
-

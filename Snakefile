@@ -222,7 +222,7 @@ rule mutect2:
 	shell:
 		"""
 		singularity exec -B $SCRATCH /gpfs/fs0/scratch/n/nicholsa/zyfniu/nfcore-sarek-2.6.img \
-		gatk --java-options "-Xmx8g" Mutect2 -R {REF} \
+		gatk --java-options "-Xmx8g" Mutect2 -R {REF_fasta} \
 		-I {input.normal}  \
 		-I {input.tumor} \
 		-normal {wildcards.patient}N \
@@ -379,7 +379,7 @@ rule gatk_filterMutect:
 		gatk --java-options "-Xmx8g" FilterMutectCalls \
 		--ob-priors {input.model} \
 		-stats {input.stats} \
-		-R {REF} \
+		-R {REF_fasta} \
 		-V {input.vcf} \
 		-L {wildcards.chr} \
 		--output {output.filter_vcf}

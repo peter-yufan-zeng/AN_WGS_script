@@ -209,14 +209,14 @@ rule Merge_Recal_Bam_and_index:
 		samtools index {output.bam} {output.index}
 		"""
 
-rule mutect2_multi:
+rule mutect2:
 	input:
 		normal = "orphan/{patient}-N/Recal/{patient}-N.recal.bam",
 		tumor = "orphan/{tumor}/Recal/{tumor}.recal.bam"
 	#	recurrence = "{sample}R/Recal/{sample}R.recal.bam"
 	output:
-		vcf = temp("results/mutect2/{patient}/{tumor}_vs_{patient}-N.{chr}.vcf"),
-		f12 = temp("results/mutect2/{patient}/{tumor}_vs_{patient}-N_f12.{chr}.tar.gz")
+		vcf = temp("results/mutect2/{patient}/unfiltered_{tumor}_vs_{patient}-N.{chr}.vcf"),
+		f12 = temp("results/mutect2/{patient}/unfiltered_{tumor}_vs_{patient}-N_f12.{chr}.tar.gz")
 	threads: 2
 	group: "mutect2"
 	shell:
@@ -233,13 +233,13 @@ rule mutect2_multi:
 		"""
 
 def concat_vcf(wildcards):
-	return expand("results/mutect2/" + wildcards.patient + "/" + wildcards.tumor + "_vs_" + wildcards.patient + "-N.{chr}.vcf", chr = CHROMOSOMES)
+	return expand("results/mutect2/" + wildcards.patient + "/unfiltered_" + wildcards.tumor + "_vs_" + wildcards.patient + "-N.{chr}.vcf", chr = CHROMOSOMES)
 
 rule merge_mutect2_vcf:
 	input:
 		concat_vcf
 	output:
-		"results/mutect2/{sample}/{tumor}_vs_{patient}-N.vcf"
+		"results/mutect2/{sample}/unfiltered_{tumor}_vs_{patient}-N.vcf"
 	threads: 2
 	group: "mutect2"
 	shell:
@@ -249,13 +249,13 @@ rule merge_mutect2_vcf:
 		"""
 
 def concat_vcf_stats(wildcards):
-	return expand("results/mutect2/" + wildcards.patient + "/" + wildcards.tumor + "_vs_" + wildcards.patient + "-N.{chr}.vcf.stats", chr = CHROMOSOMES)
+	return expand("results/mutect2/" + wildcards.patient + "/unfiltered_" + wildcards.tumor + "_vs_" + wildcards.patient + "-N.{chr}.vcf.stats", chr = CHROMOSOMES)
 
 rule merge_stats:
 	input:
 		concat_vcf_stats
 	output:
-		"results/mutect2/{patient}/{tumor}_vs_{patient}-N_merged.stats"
+		"results/mutect2/{patient}/unfiltered_{tumor}_vs_{patient}-N_merged.stats"
 	threads: 2
 	group: "mutect2"
 	run:
@@ -267,13 +267,13 @@ rule merge_stats:
 		shell(cmd)
 
 def concat_vcf_f12(wildcards):
-	return expand("results/mutect2/" + wildcards.patient + "/" + wildcards.tumor + "_vs_" + wildcards.patient + "-N_f12.{chr}.tar.gz", chr = CHROMOSOMES)
+	return expand("results/mutect2/" + wildcards.patient + "/unfiltered_" + wildcards.tumor + "_vs_" + wildcards.patient + "-N_f12.{chr}.tar.gz", chr = CHROMOSOMES)
 
 rule gatk_LearnOrientationModel:
 	input:
 		concat_vcf_f12
 	output:
-		model = "results/mutect2/{patient}/{tumor}_read_orientation_model.tar.gz"
+		model = "results/mutect2/{patient}/unfiltered_{tumor}_read_orientation_model.tar.gz"
 	group: "mutect2"
 	run:
 		import os, glob
@@ -346,9 +346,9 @@ rule gatk_calcContam_primary:
 
 rule index_unfiltered_vcf:
 	input:
-		vcf = "results/mutect2/{patient}/{tumor}_vs_{patient}-N.vcf",
+		vcf = "results/mutect2/{patient}/unfiltered_{tumor}_vs_{patient}-N.vcf",
 	output:
-		vcf_tbi = "results/mutect2/{patient}/{tumor}_vs_{patient}-N.vcf.idx"
+		vcf_tbi = "results/mutect2/{patient}/unfiltered_{tumor}_vs_{patient}-N.vcf.idx"
 	threads: 2
 	group: "mutect2"
 	shell:
@@ -363,12 +363,12 @@ rule gatk_filterMutect:
 	input:
 		#p_contamTable = "results/mutect2/{patient}/{tumor}_calContam.table",
 		#p_segment = "results/mutect2/{patient}/{tumor}_tumor.segment",
-		vcf_tbi = "results/mutect2/{patient}/{tumor}_vs_{patient}-N.vcf.idx",
+		vcf_tbi = "results/mutect2/{patient}/unfiltered_{tumor}_vs_{patient}-N.vcf.idx",
 		# r_contamTable = "results/mutect2/{patient}/recurrence_calContam.table",
 		# r_segment = "results/mutect2/{patient}/recurrence_tumor.segment",
-		vcf = "results/mutect2/{patient}/{tumor}_vs_{patient}-N.vcf",
-		model = "results/mutect2/{patient}/{tumor}_read_orientation_model.tar.gz",
-		stats = "results/mutect2/{patient}/{tumor}_vs_{patient}-N_merged.stats"
+		vcf = "results/mutect2/{patient}/unfiltered_{tumor}_vs_{patient}-N.vcf",
+		model = "results/mutect2/{patient}/unfiltered_{tumor}_read_orientation_model.tar.gz",
+		stats = "results/mutect2/{patient}/unfiltered_{tumor}_vs_{patient}-N_merged.stats"
 	output:
 		filter_vcf = temp("results/mutect2/{patient}/filtered_{tumor}_vs_{patient}-N.{chr}.vcf")
 	threads: 2
@@ -386,7 +386,7 @@ rule gatk_filterMutect:
 		"""
 
 def concat_vcf_filtered(wildcards):
-	return	expand("results/mutect2/" + wildcards.patient + "/filtered_" + wildcards.tumor + "_vs_" + wildcards.patient + "--N.{chr}.vcf", chr = CHROMOSOMES)
+	return	expand("results/mutect2/" + wildcards.patient + "/filtered_" + wildcards.tumor + "_vs_" + wildcards.patient + "-N.{chr}.vcf", chr = CHROMOSOMES)
 
 rule merge_mutect2_vcf_filtered:
 	input:

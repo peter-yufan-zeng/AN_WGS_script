@@ -233,7 +233,7 @@ rule mutect2_multi:
 		"""
 
 def concat_vcf(wildcards):
-	return expand("results/mutect2/" + wildcards.patient + "/" + wildcards.tumor + "_vs_" + wildcards.patient + "N.{chr}.vcf.stats", chr = CHROMOSOMES)
+	return expand("results/mutect2/" + wildcards.patient + "/" + wildcards.tumor + "_vs_" + wildcards.patient + "N.{chr}.vcf", chr = CHROMOSOMES)
 
 rule merge_mutect2_vcf:
 	input:

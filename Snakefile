@@ -233,7 +233,7 @@ rule mutect2_multi:
 		"""
 
 def concat_vcf(wildcards):
-	return expand("results/mutect2/" + wildcards.patient + "/" + wildcards.tumor + "_vs_" + wildcards.patient + "N.{chr}.vcf", chr = CHROMOSOMES)
+	return expand("results/mutect2/" + wildcards.patient + "/" + wildcards.tumor + "_vs_" + wildcards.patient + "-N.{chr}.vcf", chr = CHROMOSOMES)
 
 rule merge_mutect2_vcf:
 	input:
@@ -249,7 +249,7 @@ rule merge_mutect2_vcf:
 		"""
 
 def concat_vcf_stats(wildcards):
-	return expand("results/mutect2/" + wildcards.patient + "/" + wildcards.tumor + "_vs_" + wildcards.patient + "N.{chr}.vcf.stats", chr = CHROMOSOMES)
+	return expand("results/mutect2/" + wildcards.patient + "/" + wildcards.tumor + "_vs_" + wildcards.patient + "-N.{chr}.vcf.stats", chr = CHROMOSOMES)
 
 rule merge_stats:
 	input:
@@ -267,7 +267,7 @@ rule merge_stats:
 		shell(cmd)
 
 def concat_vcf_f12(wildcards):
-	return expand("results/mutect2/" + wildcards.patient + "/" + wildcards.tumor + "_vs_" + wildcards.patient + "N_f12.{chr}.tar.gz", chr = CHROMOSOMES)
+	return expand("results/mutect2/" + wildcards.patient + "/" + wildcards.tumor + "_vs_" + wildcards.patient + "-N_f12.{chr}.tar.gz", chr = CHROMOSOMES)
 
 rule gatk_LearnOrientationModel:
 	input:
@@ -386,7 +386,7 @@ rule gatk_filterMutect:
 		"""
 
 def concat_vcf_filtered(wildcards):
-	return	expand("results/mutect2/" + wildcards.patient + "/filtered_" + wildcards.tumor + "_vs_" + wildcards.patient + "N.{chr}.vcf", chr = CHROMOSOMES)
+	return	expand("results/mutect2/" + wildcards.patient + "/filtered_" + wildcards.tumor + "_vs_" + wildcards.patient + "--N.{chr}.vcf", chr = CHROMOSOMES)
 
 rule merge_mutect2_vcf_filtered:
 	input:

@@ -34,8 +34,12 @@ rule all:
 	input:
 		expand("QC/{sample_lane}/{sample_lane}_R1_fastqc.html", sample_lane = SAMPLE_LANE),
 		expand("orphan/{sample}/Recal/{sample}.recal.bam", sample = SAMPLE),
-		expand("results/mutect2/{patient}/filtered_{tumor}_vs_{patient}-N.vcf.idx",zip, patient = [x[:-2] for x in TUMOR],
-		tumor = TUMOR) ### using zip https://endrebak.gitbooks.io/the-snakemake-book/chapters/expand/expand.html
+        ### using zip https://endrebak.gitbooks.io/the-snakemake-book/chapters/expand/expand.html
+		expand("results/mutect2/{patient}/{tumor}_vs_{patient}-N_snpEff.ann.vcf.gz",zip, patient = [x[:-2] for x in TUMOR],tumor = TUMOR),
+        expand("results/Manta/{patient}/Manta_{tumor}_vs_{patient}-N.candidateSV.ann.vcf.gz",zip, patient = [x[:-2] for x in TUMOR],tumor = TUMOR),
+        expand("results/Manta/{patient}/Manta_{tumor}_vs_{patient}-N.candidateSmallIndels.ann.vcf.gz",zip, patient = [x[:-2] for x in TUMOR],tumor = TUMOR),
+        expand("results/Manta/{patient}/Manta_{tumor}_vs_{patient}-N.diploidSV.ann.vcf.gz",zip, patient = [x[:-2] for x in TUMOR],tumor = TUMOR),
+        expand("results/Manta/{patient}/Manta_{tumor}_vs_{patient}-N.somaticSV.ann.vcf.gz",zip, patient = [x[:-2] for x in TUMOR],tumor = TUMOR)
 
 def bwa_mem_fastq1(wildcards):
 	return expand(INPUT[INPUT.Sample_Lane == wildcards.sample_lane].Fastq1)
@@ -227,8 +231,8 @@ rule mutect2:
 		-I {input.tumor} \
 		-normal {wildcards.patient}N \
 		-L {wildcards.chr} \
-		--germline-resource {GERMLINE} \
-		--panel-of-normals {PON} --f1r2-tar-gz {output.f12} \
+		--germline-resource {REF_gnomAD} \
+		--panel-of-normals {REF_pon} --f1r2-tar-gz {output.f12} \
 		-O {output.vcf}
 		"""
 
@@ -414,26 +418,96 @@ rule index_filtered_vcf:
 		--output {output.vcf_tbi}
 		"""
 
-# rule annotate:
-# 	input:
-# 		vcf = "results/mutect2/{patient}/forced_{patient}R_vs_{patient}-N.{chr}.vcf"
-# 	output:
-#
-# 	threads: 2
-# 	group: "mutect2"
-# 	shell:
-# 		"""
-# 		singularity exec -B $SCRATCH /gpfs/fs0/scratch/n/nicholsa/zyfniu/nfcore-sarek-2.6.img \
-# 		snpEff -Xmx8g \
-#         ${snpeffDb} \
-#         -csvStats ${reducedVCF}_snpEff.csv \
-#         -nodownload \
-#         ${cache} \
-#         -canon \
-#         -v \
-#         ${vcf} \
-#         > ${reducedVCF}_snpEff.ann.vcf
-# 		mv snpEff_summary.html ${reducedVCF}_snpEff.html
-# 		bgzip < ${vcf} > ${vcf}.gz
-# 		tabix ${vcf}.gz
-# 		"""
+rule manta:
+	input:
+        normal = "orphan/{patient}-N/Recal/{patient}-N.recal.bam",
+        tumor = "orphan/{tumor}/Recal/{tumor}.recal.bam"
+	output:
+        sv = "results/Manta/{patient}/Manta_{tumor}_vs_{patient}-N.candidateSV.vcf.gz",
+        smallindel = "results/Manta/{patient}/Manta_{tumor}_vs_{patient}-N.candidateSmallIndels.vcf.gz",
+        diploidSV = "results/Manta/{patient}/Manta_{tumor}_vs_{patient}-N.diploidSV.vcf.gz",
+        somaticSV = "results/Manta/{patient}/Manta_{tumor}_vs_{patient}-N.somaticSV.vcf.gz"
+	threads: 70
+	group: "manta"
+    shell:
+        """
+        singularity exec -B $SCRATCH /gpfs/fs0/scratch/n/nicholsa/zyfniu/nfcore-sarek-2.6.img \
+        configManta.py \
+            --normalBam {input.normal} \
+            --tumorBam  {input.tumor} \
+            --reference {REF_fasta} \
+            --runDir Manta
+        singularity exec -B $SCRATCH /gpfs/fs0/scratch/n/nicholsa/zyfniu/nfcore-sarek-2.6.img \
+        python Manta/runWorkflow.py -m local -j {threads}
+        mv Manta/results/variants/candidateSmallIndels.vcf.gz \
+            results/Manta/{wildcards.patient}/Manta_{wildcards.tumor}_vs_{wildcards.patient}-N.candidateSmallIndels.vcf.gz
+        mv Manta/results/variants/candidateSmallIndels.vcf.gz.tbi \
+            results/Manta/{wildcards.patient}/Manta_{wildcards.tumor}_vs_{wildcards.patient}-N.candidateSmallIndels.vcf.gz.tbi
+        mv Manta/results/variants/candidateSV.vcf.gz \
+            results/Manta/{wildcards.patient}/Manta_{wildcards.tumor}_vs_{wildcards.patient}-N.candidateSV.vcf.gz
+        mv Manta/results/variants/candidateSV.vcf.gz.tbi \
+            results/Manta/{wildcards.patient}/Manta_{wildcards.tumor}_vs_{wildcards.patient}-N.candidateSV.vcf.gz.tbi
+        mv Manta/results/variants/diploidSV.vcf.gz \
+            results/Manta/{wildcards.patient}/Manta_{wildcards.tumor}_vs_{wildcards.patient}-N.diploidSV.vcf.gz
+        mv Manta/results/variants/diploidSV.vcf.gz.tbi \
+            results/Manta/{wildcards.patient}/Manta_{wildcards.tumor}_vs_{wildcards.patient}-N.diploidSV.vcf.gz.tbi
+        mv Manta/results/variants/somaticSV.vcf.gz \
+            results/Manta/{wildcards.patient}/Manta_{wildcards.tumor}_vs_{wildcards.patient}-N.somaticSV.vcf.gz
+        mv Manta/results/variants/somaticSV.vcf.gz.tbi \
+            results/Manta/{wildcards.patient}/Manta_{wildcards.tumor}_vs_{wildcards.patient}-N.somaticSV.vcf.gz.tbi
+        """
+
+rule annotate_mutect2:
+	input:
+		vcf = "results/mutect2/{patient}/filtered_{tumor}_vs_{patient}-N.vcf"
+	output:
+        annotatedvcf = "results/mutect2/{patient}/{tumor}_vs_{patient}-N_snpEff.ann.vcf"
+	threads: 2
+	group: "mutect2"
+	shell:
+		"""
+		singularity exec $SCRATCH/nfcore-sareksnpeff-2.6.GRCh38.img \
+		snpEff -Xmx8g \
+        GRCh38.86 \
+        -csvStats {wildcards.tumor}_snpEff.csv \
+        -nodownload \
+        -canon \
+        -v \
+        {input} \
+        > {output}
+        mv snpEff_summary.html results/mutect2/{wildcards.patient}/{wildcards.tumor}_snpEff.html
+        """
+
+rule zip_snpeff_mutect2:
+	input:
+		annotatedvcf = "results/mutect2/{patient}/{tumor}_vs_{patient}-N_snpEff.ann.vcf"
+	output:
+        annotatedvcf = "results/mutect2/{patient}/{tumor}_vs_{patient}-N_snpEff.ann.vcf.gz"
+	threads: 2
+	group: "mutect2"
+	shell:
+        """
+		bgzip < {input} > {output}
+		tabix {output}
+		"""
+
+rule annotate_manta:
+	input:
+		vcf = "results/Manta/{patient}/Manta_{tumor}_vs_{patient}-N.{structure}.vcf.gz"
+	output:
+        annotatedvcf = "results/Manta/{patient}/Manta_{tumor}_vs_{patient}-N.{structure}.ann.vcf.gz"
+	threads: 2
+	group: "mutect2"
+	shell:
+		"""
+		singularity exec $SCRATCH/nfcore-sareksnpeff-2.6.GRCh38.img \
+		snpEff -Xmx8g \
+        GRCh38.86 \
+        -csvStats {wildcards.tumor}_{structure}_snpEff.csv \
+        -nodownload \
+        -canon \
+        -v \
+        {input} \
+        > {output}
+        mv snpEff_summary.html results/Manta/{wildcards.patient}/{wildcards.tumor}_{structure}_snpEff.html
+        """

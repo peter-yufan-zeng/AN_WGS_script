@@ -23,8 +23,8 @@ REF_pon = "$SCRATCH/igenomes_ref/1000g_pon.hg38.vcf.gz"
 REF_exac_common = "/gpfs/fs0/scratch/n/nicholsa/zyfniu/igenomes_ref/somatic-hg38_small_exac_common_3.hg38.vcf.gz"
 
 CHROMOSOMES = ['chr1', 'chr2', 'chr3', 'chr4', 'chr5', 'chr6', 'chr7', 'chr8', 'chr9', 'chr10',
-               'chr11', 'chr12', 'chr13', 'chr14', 'chr15', 'chr16', 'chr17', 'chr18', 'chr19',
-               'chr20', 'chr21', 'chr22', 'chrX', 'chrY']
+			   'chr11', 'chr12', 'chr13', 'chr14', 'chr15', 'chr16', 'chr17', 'chr18', 'chr19',
+			   'chr20', 'chr21', 'chr22', 'chrX', 'chrY']
 
 
 OUTDIR = "AN_WGS/"
@@ -32,22 +32,22 @@ OUTDIR = "AN_WGS/"
 
 rule all:
 	input:
-        ###FASTQC + BWA Alignment
+		###FASTQC + BWA Alignment
 		expand("QC/{sample_lane}/{sample_lane}_R1_fastqc.html", sample_lane = SAMPLE_LANE),
 		expand("orphan/{sample}/Recal/{sample}.recal.bam", sample = SAMPLE),
-        ### using zip https://endrebak.gitbooks.io/the-snakemake-book/chapters/expand/expand.html
-        ###BAMQC + samtools_stats
-        expand("QC/{sample}/{sample}.samtools.stats.out",sample = SAMPLE),
-        expand("QC/{sample}/bamQC/qualimapReport.html",sample = SAMPLE),
-        ####
-        ####VARIANT CALLING OUTPUTS
-        ####
+		### using zip https://endrebak.gitbooks.io/the-snakemake-book/chapters/expand/expand.html
+		###BAMQC + samtools_stats
+		expand("QC/{sample}/{sample}.samtools.stats.out",sample = SAMPLE),
+		expand("QC/{sample}/bamQC/qualimapReport.html",sample = SAMPLE),
+		####
+		####VARIANT CALLING OUTPUTS
+		####
 		expand("results/mutect2/{patient}/{tumor}_vs_{patient}-N_snpEff.ann.vcf.gz",zip, patient = [x[:-2] for x in TUMOR],tumor = TUMOR),
-        #### Manta
-        expand("results/Manta/{patient}/Manta_snpeff_{tumor}_vs_{patient}-N.candidateSV.ann.vcf.gz",zip, patient = [x[:-2] for x in TUMOR],tumor = TUMOR),
-        expand("results/Manta/{patient}/Manta_snpeff_{tumor}_vs_{patient}-N.candidateSmallIndels.ann.vcf.gz",zip, patient = [x[:-2] for x in TUMOR],tumor = TUMOR),
-        expand("results/Manta/{patient}/Manta_snpeff_{tumor}_vs_{patient}-N.diploidSV.ann.vcf.gz",zip, patient = [x[:-2] for x in TUMOR],tumor = TUMOR),
-        expand("results/Manta/{patient}/Manta_snpeff_{tumor}_vs_{patient}-N.somaticSV.ann.vcf.gz",zip, patient = [x[:-2] for x in TUMOR],tumor = TUMOR)
+		#### Manta
+		expand("results/Manta/{patient}/Manta_snpeff_{tumor}_vs_{patient}-N.candidateSV.ann.vcf.gz",zip, patient = [x[:-2] for x in TUMOR],tumor = TUMOR),
+		expand("results/Manta/{patient}/Manta_snpeff_{tumor}_vs_{patient}-N.candidateSmallIndels.ann.vcf.gz",zip, patient = [x[:-2] for x in TUMOR],tumor = TUMOR),
+		expand("results/Manta/{patient}/Manta_snpeff_{tumor}_vs_{patient}-N.diploidSV.ann.vcf.gz",zip, patient = [x[:-2] for x in TUMOR],tumor = TUMOR),
+		expand("results/Manta/{patient}/Manta_snpeff_{tumor}_vs_{patient}-N.somaticSV.ann.vcf.gz",zip, patient = [x[:-2] for x in TUMOR],tumor = TUMOR)
 
 def bwa_mem_fastq1(wildcards):
 	return expand(INPUT[INPUT.Sample_Lane == wildcards.sample_lane].Fastq1)
@@ -57,8 +57,8 @@ def bwa_mem_fastq2(wildcards):
 
 rule fastqc:
 	input:
-        	fastq1 = bwa_mem_fastq1,
-        	fastq2 = bwa_mem_fastq2
+			fastq1 = bwa_mem_fastq1,
+			fastq2 = bwa_mem_fastq2
 	output:
 		o1 =  "QC/{sample_lane}/{sample_lane}_R1_fastqc.html",
 		o2 =  "QC/{sample_lane}/{sample_lane}_R2_fastqc.html",
@@ -67,14 +67,14 @@ rule fastqc:
 	threads: 10
 	group: "align"
 	shell:
-        	"""
- 		singularity exec -B $SCRATCH /gpfs/fs0/scratch/n/nicholsa/zyfniu/nfcore-sarek-2.6.img \
+			"""
+		singularity exec -B $SCRATCH /gpfs/fs0/scratch/n/nicholsa/zyfniu/nfcore-sarek-2.6.img \
 		fastqc -t {threads} {input} --outdir=QC/{wildcards.sample_lane}/
-        mv QC/{wildcards.sample_lane}/*R1*fastqc.html QC/{wildcards.sample_lane}/{wildcards.sample_lane}_R1_fastqc.html
+		mv QC/{wildcards.sample_lane}/*R1*fastqc.html QC/{wildcards.sample_lane}/{wildcards.sample_lane}_R1_fastqc.html
 		mv QC/{wildcards.sample_lane}/*R2*fastqc.html QC/{wildcards.sample_lane}/{wildcards.sample_lane}_R2_fastqc.html
 		mv QC/{wildcards.sample_lane}/*R1*fastqc.zip QC/{wildcards.sample_lane}/{wildcards.sample_lane}_R1_fastqc.zip
 		mv QC/{wildcards.sample_lane}/*R2*fastqc.zip QC/{wildcards.sample_lane}/{wildcards.sample_lane}_R2_fastqc.zip
-        	"""
+			"""
 
 def createRG(wildcards):
 		return expand("@RG\\tID:{idRun}\\tPU:{idRun}\\tSM:{idSample}\\tLB:{idSample}\\tPL:illumina",
@@ -98,7 +98,7 @@ rule bwa_mem:
 		"""
 		singularity exec -B $SCRATCH /gpfs/fs0/scratch/n/nicholsa/zyfniu/nfcore-sarek-2.6.img \
 		bwa mem -K 100000000 -R \"{params.readGroup}\" -B 3 -t {threads} -M {REF_fasta} \
-    		{input.fastq1} {input.fastq2} | singularity exec -B $SCRATCH /gpfs/fs0/scratch/n/nicholsa/zyfniu/nfcore-sarek-2.6.img \
+			{input.fastq1} {input.fastq2} | singularity exec -B $SCRATCH /gpfs/fs0/scratch/n/nicholsa/zyfniu/nfcore-sarek-2.6.img \
 		samtools sort --threads {threads} -m 2G - > {output}
 		"""
 
@@ -229,7 +229,7 @@ rule samtools_stats:
 		bam = "orphan/{sample}/Recal/{sample}.recal.bam",
 		index = "orphan/{sample}/Recal/{sample}.recal.bai"
 	output:
-        stats = "QC/{sample}/{sample}.samtools.stats.out"
+		stats = "QC/{sample}/{sample}.samtools.stats.out"
 	group: "bamqc"
 	threads: 2
 	shell:
@@ -243,22 +243,22 @@ rule bamqc:
 		bam = "orphan/{sample}/Recal/{sample}.recal.bam",
 		index = "orphan/{sample}/Recal/{sample}.recal.bai"
 	output:
-        stats = "QC/{sample}/bamQC/qualimapReport.html"
+		stats = "QC/{sample}/bamQC/qualimapReport.html"
 	group: "bamqc"
-	threads: 2
+	threads: 70
 	shell:
 		"""
 		singularity exec /gpfs/fs0/scratch/n/nicholsa/zyfniu/nfcore-sarek-2.6.img \
 		qualimap --java-mem-size=100G \
-        bamqc \
-        -bam {input.bam} \
-        --paint-chromosome-limits \
-        --genome-gc-distr HUMAN \
-        -nt {threads} \
-        -skip-duplicated \
-        --skip-dup-mode 0 \
-        -outdir QC/{wildcards.sample}/bamQC/ \
-        -outformat HTML
+		bamqc \
+		-bam {input.bam} \
+		--paint-chromosome-limits \
+		--genome-gc-distr HUMAN \
+		-nt {threads} \
+		-skip-duplicated \
+		--skip-dup-mode 0 \
+		-outdir QC/{wildcards.sample}/bamQC/ \
+		-outformat HTML
 		"""
 
 ###
@@ -473,17 +473,17 @@ rule index_filtered_vcf:
 
 rule manta:
 	input:
-        	normal = "orphan/{patient}-N/Recal/{patient}-N.recal.bam",
-        	tumor = "orphan/{tumor}/Recal/{tumor}.recal.bam"
+			normal = "orphan/{patient}-N/Recal/{patient}-N.recal.bam",
+			tumor = "orphan/{tumor}/Recal/{tumor}.recal.bam"
 	output:
-        	sv = "results/Manta/{patient}/Manta_{tumor}_vs_{patient}-N.candidateSV.vcf.gz",
-        	smallindel = "results/Manta/{patient}/Manta_{tumor}_vs_{patient}-N.candidateSmallIndels.vcf.gz",
-        	diploidSV = "results/Manta/{patient}/Manta_{tumor}_vs_{patient}-N.diploidSV.vcf.gz",
-        	somaticSV = "results/Manta/{patient}/Manta_{tumor}_vs_{patient}-N.somaticSV.vcf.gz"
+			sv = "results/Manta/{patient}/Manta_{tumor}_vs_{patient}-N.candidateSV.vcf.gz",
+			smallindel = "results/Manta/{patient}/Manta_{tumor}_vs_{patient}-N.candidateSmallIndels.vcf.gz",
+			diploidSV = "results/Manta/{patient}/Manta_{tumor}_vs_{patient}-N.diploidSV.vcf.gz",
+			somaticSV = "results/Manta/{patient}/Manta_{tumor}_vs_{patient}-N.somaticSV.vcf.gz"
 	threads: 70
 	group: "manta"
 	shell:
-        	"""
+		"""
 		singularity exec -B $SCRATCH /gpfs/fs0/scratch/n/nicholsa/zyfniu/nfcore-sarek-2.6.img \
 		configManta.py \
 		--normalBam {input.normal} \
@@ -514,7 +514,7 @@ rule annotate_mutect2:
 	input:
 		vcf = "results/mutect2/{patient}/filtered_{tumor}_vs_{patient}-N.vcf"
 	output:
-        	annotatedvcf = "results/mutect2/{patient}/{tumor}_vs_{patient}-N_snpEff.ann.vcf"
+			annotatedvcf = "results/mutect2/{patient}/{tumor}_vs_{patient}-N_snpEff.ann.vcf"
 	threads: 2
 	group: "mutect2"
 	shell:
@@ -538,7 +538,7 @@ rule zip_snpeff:
 	threads: 2
 	group: "mutect2"
 	shell:
-        """
+		"""
 		singularity exec /gpfs/fs0/scratch/n/nicholsa/zyfniu/nfcore-sarek-2.6.img bgzip < {input} > {output}
 		singularity exec /gpfs/fs0/scratch/n/nicholsa/zyfniu/nfcore-sarek-2.6.img tabix {output}
 		"""
@@ -562,8 +562,8 @@ rule annotate_manta:
 		{input} \
 		> {output}
 		mv snpEff_summary.html results/Manta/{wildcards.patient}/{wildcards.tumor}_{wildcards.structure}_snpEff.html
-        mv *snpEff.csv results/Manta/{wildcards.patient}/
-        mv *snpEff.genes.txt results/Manta/{wildcards.patient}/
+		mv *snpEff.csv results/Manta/{wildcards.patient}/
+		mv *snpEff.genes.txt results/Manta/{wildcards.patient}/
 		"""
 
 rule zip_manta:
@@ -573,7 +573,7 @@ rule zip_manta:
 	threads: 2
 	group: "manta"
 	shell:
-        """
+		"""
 		singularity exec /gpfs/fs0/scratch/n/nicholsa/zyfniu/nfcore-sarek-2.6.img bgzip < {input} > {output}
 		singularity exec /gpfs/fs0/scratch/n/nicholsa/zyfniu/nfcore-sarek-2.6.img tabix {output}
 		"""

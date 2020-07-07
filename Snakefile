@@ -49,7 +49,7 @@ rule all:
 		expand("results/Manta/{patient}/Manta_snpeff_{tumor}_vs_{patient}-N.diploidSV.ann.vcf.gz",zip, patient = [x[:-2] for x in TUMOR],tumor = TUMOR),
 		expand("results/Manta/{patient}/Manta_snpeff_{tumor}_vs_{patient}-N.somaticSV.ann.vcf.gz",zip, patient = [x[:-2] for x in TUMOR],tumor = TUMOR),
 		#### ASCAT
-		expand("results/ASCAT/{tumor}/{tumor}_vs_{patient}-N.tumor.cnvs.txt",zip, patient = [x[:-2] for x in TUMOR],tumor = TUMOR)
+		expand("results/ASCAT/{tumor}/{tumor}_vs_{patient}-N.tumor.cnvs.txt",zip, tumor = TUMOR, patient = [x[:-2] for x in TUMOR])
 
 def bwa_mem_fastq1(wildcards):
 	return expand(INPUT[INPUT.Sample_Lane == wildcards.sample_lane].Fastq1)
@@ -491,24 +491,24 @@ rule manta:
 		--normalBam {input.normal} \
 		--tumorBam  {input.tumor} \
 		--reference {REF_fasta} \
-		--runDir Manta
+		--runDir temp/Manta/{wildcards.tumor}
 		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/HPV_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
-		python Manta/runWorkflow.py -m local -j {threads}
-		mv Manta/results/variants/candidateSmallIndels.vcf.gz \
+		python temp/Manta/{wildcards.tumor}/runWorkflow.py -m local -j {threads}
+		mv temp/Manta/{wildcards.tumor}/results/variants/candidateSmallIndels.vcf.gz \
 		results/Manta/{wildcards.patient}/Manta_{wildcards.tumor}_vs_{wildcards.patient}-N.candidateSmallIndels.vcf.gz
-		mv Manta/results/variants/candidateSmallIndels.vcf.gz.tbi \
+		mv temp/Manta/{wildcards.tumor}/results/variants/candidateSmallIndels.vcf.gz.tbi \
 		results/Manta/{wildcards.patient}/Manta_{wildcards.tumor}_vs_{wildcards.patient}-N.candidateSmallIndels.vcf.gz.tbi
-		mv Manta/results/variants/candidateSV.vcf.gz \
+		mv temp/Manta/{wildcards.tumor}/results/variants/candidateSV.vcf.gz \
 		results/Manta/{wildcards.patient}/Manta_{wildcards.tumor}_vs_{wildcards.patient}-N.candidateSV.vcf.gz
-		mv Manta/results/variants/candidateSV.vcf.gz.tbi \
+		mv temp/Manta/{wildcards.tumor}/results/variants/candidateSV.vcf.gz.tbi \
 		results/Manta/{wildcards.patient}/Manta_{wildcards.tumor}_vs_{wildcards.patient}-N.candidateSV.vcf.gz.tbi
-		mv Manta/results/variants/diploidSV.vcf.gz \
+		mv temp/Manta/{wildcards.tumor}/results/variants/diploidSV.vcf.gz \
 		results/Manta/{wildcards.patient}/Manta_{wildcards.tumor}_vs_{wildcards.patient}-N.diploidSV.vcf.gz
-		mv Manta/results/variants/diploidSV.vcf.gz.tbi \
+		mv temp/Manta/{wildcards.tumor}/results/variants/diploidSV.vcf.gz.tbi \
 		results/Manta/{wildcards.patient}/Manta_{wildcards.tumor}_vs_{wildcards.patient}-N.diploidSV.vcf.gz.tbi
-		mv Manta/results/variants/somaticSV.vcf.gz \
+		mv temp/Manta/{wildcards.tumor}/results/variants/somaticSV.vcf.gz \
 		results/Manta/{wildcards.patient}/Manta_{wildcards.tumor}_vs_{wildcards.patient}-N.somaticSV.vcf.gz
-		mv Manta/results/variants/somaticSV.vcf.gz.tbi \
+		mv temp/Manta/{wildcards.tumor}/results/variants/somaticSV.vcf.gz.tbi \
 		results/Manta/{wildcards.patient}/Manta_{wildcards.tumor}_vs_{wildcards.patient}-N.somaticSV.vcf.gz.tbi
 		"""
 
@@ -587,13 +587,13 @@ rule alleleCount:
 	input:
 		bam = "orphan/{sample}/Recal/{sample}.recal.bam",
 		index = "orphan/{sample}/Recal/{sample}.recal.bai",
-		acloci = "/gpfs/fs0/scratch/n/nicholsa/zyfniu/igenomes_ref/1000G_phase3_GRCh38_maf0.3.loci"
+		acloci = "$SCRATCH/igenomes_ref/1000G_phase3_GRCh38_maf0.3.loci"
 	output: "results/alleleCount/{sample}.alleleCount"
 	threads: 2
 	group: "ascat"
 	shell:
 		"""
-		singularity exec /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
+		singularity exec  -B $SCRATCH/igenomes_ref /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
 		alleleCounter \
 		-l {input.acloci} \
 		-r {REF_fasta} \
@@ -602,27 +602,27 @@ rule alleleCount:
 		"""
 
 def getGender(wildcards):
-		return expand("{gender}", gender = INPUT[INPUT.Patient == wildcards.patient].Sex.drop_duplicates())
+		return expand("{gender}",gender = INPUT[INPUT.Patient == wildcards.patient].Sex.drop_duplicates())
 
 ###convert allele script from https://bitbucket.org/malinlarsson/somatic_wgs_pipeline/src/master/convertAlleleCounts.r
 rule ConvertAlleleCounts:
 	input:
 		normal = "results/alleleCount/{patient}-N.alleleCount",
-		tumor = "results/alleleCount/{tumor}.alleleCount"
+		tumor = "results/alleleCount/{tumor}.alleleCount",
 		script = "AN_WGS/convertAlleleCounts.r"
 	output:
-		normalBaf = "results/alleleCountConverted/{tumor}/{patient}-N.BAF",
-		tumorBaf = "results/alleleCountConverted/{tumor}/{tumor}.BAF",
-		normalLogr = "results/alleleCountConverted/{tumor}/{patient}-N.LogR",
-		tumorLogr = "results/alleleCountConverted/{tumor}/{tumor}.LogR"
+		normalBaf = "results/alleleCountConverted/{tumor}_vs_{patient}/{patient}-N.BAF",
+		tumorBaf = "results/alleleCountConverted/{tumor}_vs_{patient}/{tumor}.BAF",
+		normalLogr = "results/alleleCountConverted/{tumor}_vs_{patient}/{patient}-N.LogR",
+		tumorLogr = "results/alleleCountConverted/{tumor}_vs_{patient}/{tumor}.LogR"
 	threads: 2
-	params:
+	params: #gender = "XY"
 		gender = getGender
 	group: "ascat"
 	shell:
 		"""
 		singularity exec /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img Rscript \
-		convertAlleleCounts.r {wildcards.tumor} {input.tumor} {wildcards.patient}-N {input.normal} {params.gender}
+		AN_WGS/convertAlleleCounts.r {wildcards.tumor} {input.tumor} {wildcards.patient}-N {input.normal} {params.gender}
 		mv {wildcards.patient}-N.BAF {output.normalBaf}
 		mv {wildcards.tumor}.BAF {output.tumorBaf}
 		mv {wildcards.patient}-N.LogR {output.normalLogr}
@@ -631,11 +631,11 @@ rule ConvertAlleleCounts:
 
 rule ascat:
 	input:
-		normalBaf = "results/alleleCountConverted/{tumor}/{patient}-N.BAF",
-		tumorBaf = "results/alleleCountConverted/{tumor}/{tumor}.BAF",
-		normalLogr = "results/alleleCountConverted/{tumor}/{patient}-N.LogR",
-		tumorLogr = "results/alleleCountConverted/{tumor}/{tumor}.LogR",
-		acLociGC = "/gpfs/fs0/scratch/n/nicholsa/zyfniu/igenomes_ref/1000G_phase3_GRCh38_maf0.3.loci.gc"
+		normalBaf = "results/alleleCountConverted/{tumor}_vs_{patient}/{patient}-N.BAF",
+		tumorBaf = "results/alleleCountConverted/{tumor}_vs_{patient}/{tumor}.BAF",
+		normalLogr = "results/alleleCountConverted/{tumor}_vs_{patient}/{patient}-N.LogR",
+		tumorLogr = "results/alleleCountConverted/{tumor}_vs_{patient}/{tumor}.LogR",
+		acLociGC = "$SCRATCH/igenomes_ref/1000G_phase3_GRCh38_maf0.3.loci.gc"
 	output:
 		results = "results/ASCAT/{tumor}/{tumor}_vs_{patient}-N.tumor.cnvs.txt"
 	params:
@@ -645,16 +645,16 @@ rule ascat:
 	group: "ascat"
 	shell:
 		"""
-		for f in results/alleleCountConverted/{tumor}/*BAF results/alleleCountConverted/{tumor}/*LogR; \
-		do sed 's/chr//g' \$f > tmpFile; mv tmpFile \$f;done
+		for f in results/alleleCountConverted/{wildcards.tumor}/*BAF results/alleleCountConverted/{wildcards.tumor}/*LogR; \
+		do sed \'s/chr//g\' \$f > tmpFile; mv tmpFile \$f;done
 		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/HPV_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
-		AN_WGS/run_ascat.r \
+		Rscript AN_WGS/run_ascat.r \
         --tumorbaf {input.tumorBaf} \
         --tumorlogr {input.tumorLogr} \
         --normalbaf {input.normalBaf} \
         --normallogr {input.normalLogr} \
         --tumorname {wildcards.tumor} \
-        --basedir "results/ASCAT/{wildcards.tumor}/" \
+        --basedir results/ASCAT/{wildcards.tumor} \
         --gcfile {input.acLociGC} \
         --gender {params.gender}
 		mv results/ASCAT/{wildcards.tumor}/tumor.cnvs.txt {output.results}

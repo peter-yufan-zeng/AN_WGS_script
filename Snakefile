@@ -2,7 +2,7 @@ import pandas as pd
 import os
 
 localrules: all
-#shell.prefix("singularity exec -B $SCRATCH /gpfs/fs0/scratch/n/nicholsa/zyfniu/nfcore-sarek-2.6.img ") ### to use singularity shell for all processes
+#shell.prefix("singularity exec -B $SCRATCH /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img ") ### to use singularity shell for all processes
 
 
 SCRATCH = "/gpfs/fs0/scratch/n/nicholsa/zyfniu"
@@ -23,8 +23,8 @@ REF_pon = "$SCRATCH/igenomes_ref/1000g_pon.hg38.vcf.gz"
 REF_exac_common = "/gpfs/fs0/scratch/n/nicholsa/zyfniu/igenomes_ref/somatic-hg38_small_exac_common_3.hg38.vcf.gz"
 
 CHROMOSOMES = ['chr1', 'chr2', 'chr3', 'chr4', 'chr5', 'chr6', 'chr7', 'chr8', 'chr9', 'chr10',
-			   'chr11', 'chr12', 'chr13', 'chr14', 'chr15', 'chr16', 'chr17', 'chr18', 'chr19',
-			   'chr20', 'chr21', 'chr22', 'chrX', 'chrY']
+               'chr11', 'chr12', 'chr13', 'chr14', 'chr15', 'chr16', 'chr17', 'chr18', 'chr19',
+               'chr20', 'chr21', 'chr22', 'chrX', 'chrY']
 
 
 OUTDIR = "AN_WGS/"
@@ -32,22 +32,22 @@ OUTDIR = "AN_WGS/"
 
 rule all:
 	input:
-		###FASTQC + BWA Alignment
+        ###FASTQC + BWA Alignment
 		expand("QC/{sample_lane}/{sample_lane}_R1_fastqc.html", sample_lane = SAMPLE_LANE),
 		expand("orphan/{sample}/Recal/{sample}.recal.bam", sample = SAMPLE),
-		### using zip https://endrebak.gitbooks.io/the-snakemake-book/chapters/expand/expand.html
-		###BAMQC + samtools_stats
-		expand("QC/{sample}/{sample}.samtools.stats.out",sample = SAMPLE),
-		expand("QC/{sample}/bamQC/qualimapReport.html",sample = SAMPLE),
-		####
-		####VARIANT CALLING OUTPUTS
-		####
+        ### using zip https://endrebak.gitbooks.io/the-snakemake-book/chapters/expand/expand.html
+        ###BAMQC + samtools_stats
+        expand("QC/{sample}/{sample}.samtools.stats.out",sample = SAMPLE),
+        expand("QC/{sample}/bamQC/qualimapReport.html",sample = SAMPLE),
+        ####
+        ####VARIANT CALLING OUTPUTS
+        ####
 		expand("results/mutect2/{patient}/{tumor}_vs_{patient}-N_snpEff.ann.vcf.gz",zip, patient = [x[:-2] for x in TUMOR],tumor = TUMOR),
-		#### Manta
-		expand("results/Manta/{patient}/Manta_snpeff_{tumor}_vs_{patient}-N.candidateSV.ann.vcf.gz",zip, patient = [x[:-2] for x in TUMOR],tumor = TUMOR),
-		expand("results/Manta/{patient}/Manta_snpeff_{tumor}_vs_{patient}-N.candidateSmallIndels.ann.vcf.gz",zip, patient = [x[:-2] for x in TUMOR],tumor = TUMOR),
-		expand("results/Manta/{patient}/Manta_snpeff_{tumor}_vs_{patient}-N.diploidSV.ann.vcf.gz",zip, patient = [x[:-2] for x in TUMOR],tumor = TUMOR),
-		expand("results/Manta/{patient}/Manta_snpeff_{tumor}_vs_{patient}-N.somaticSV.ann.vcf.gz",zip, patient = [x[:-2] for x in TUMOR],tumor = TUMOR)
+        #### Manta
+        expand("results/Manta/{patient}/Manta_snpeff_{tumor}_vs_{patient}-N.candidateSV.ann.vcf.gz",zip, patient = [x[:-2] for x in TUMOR],tumor = TUMOR),
+        expand("results/Manta/{patient}/Manta_snpeff_{tumor}_vs_{patient}-N.candidateSmallIndels.ann.vcf.gz",zip, patient = [x[:-2] for x in TUMOR],tumor = TUMOR),
+        expand("results/Manta/{patient}/Manta_snpeff_{tumor}_vs_{patient}-N.diploidSV.ann.vcf.gz",zip, patient = [x[:-2] for x in TUMOR],tumor = TUMOR),
+        expand("results/Manta/{patient}/Manta_snpeff_{tumor}_vs_{patient}-N.somaticSV.ann.vcf.gz",zip, patient = [x[:-2] for x in TUMOR],tumor = TUMOR)
 
 def bwa_mem_fastq1(wildcards):
 	return expand(INPUT[INPUT.Sample_Lane == wildcards.sample_lane].Fastq1)
@@ -57,24 +57,24 @@ def bwa_mem_fastq2(wildcards):
 
 rule fastqc:
 	input:
-			fastq1 = bwa_mem_fastq1,
-			fastq2 = bwa_mem_fastq2
+        	fastq1 = bwa_mem_fastq1,
+        	fastq2 = bwa_mem_fastq2
 	output:
 		o1 =  "QC/{sample_lane}/{sample_lane}_R1_fastqc.html",
 		o2 =  "QC/{sample_lane}/{sample_lane}_R2_fastqc.html",
 		o3 =  "QC/{sample_lane}/{sample_lane}_R1_fastqc.zip",
 		o4 =  "QC/{sample_lane}/{sample_lane}_R2_fastqc.zip"
-	threads: 10
-	group: "align"
+	threads: 20
+	group: "mutect2"
 	shell:
-			"""
-		singularity exec -B $SCRATCH /gpfs/fs0/scratch/n/nicholsa/zyfniu/nfcore-sarek-2.6.img \
+        	"""
+ 		singularity exec -B $SCRATCH /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
 		fastqc -t {threads} {input} --outdir=QC/{wildcards.sample_lane}/
-		mv QC/{wildcards.sample_lane}/*R1*fastqc.html QC/{wildcards.sample_lane}/{wildcards.sample_lane}_R1_fastqc.html
+        mv QC/{wildcards.sample_lane}/*R1*fastqc.html QC/{wildcards.sample_lane}/{wildcards.sample_lane}_R1_fastqc.html
 		mv QC/{wildcards.sample_lane}/*R2*fastqc.html QC/{wildcards.sample_lane}/{wildcards.sample_lane}_R2_fastqc.html
 		mv QC/{wildcards.sample_lane}/*R1*fastqc.zip QC/{wildcards.sample_lane}/{wildcards.sample_lane}_R1_fastqc.zip
 		mv QC/{wildcards.sample_lane}/*R2*fastqc.zip QC/{wildcards.sample_lane}/{wildcards.sample_lane}_R2_fastqc.zip
-			"""
+        	"""
 
 def createRG(wildcards):
 		return expand("@RG\\tID:{idRun}\\tPU:{idRun}\\tSM:{idSample}\\tLB:{idSample}\\tPL:illumina",
@@ -96,9 +96,9 @@ rule bwa_mem:
 	shell:
 #		INPUT.loc[INPUT['Sample_Lane']=={wildcards.sample_lane},'Bam'] = {output}
 		"""
-		singularity exec -B $SCRATCH /gpfs/fs0/scratch/n/nicholsa/zyfniu/nfcore-sarek-2.6.img \
+		singularity exec -B $SCRATCH /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
 		bwa mem -K 100000000 -R \"{params.readGroup}\" -B 3 -t {threads} -M {REF_fasta} \
-			{input.fastq1} {input.fastq2} | singularity exec -B $SCRATCH /gpfs/fs0/scratch/n/nicholsa/zyfniu/nfcore-sarek-2.6.img \
+    		{input.fastq1} {input.fastq2} | singularity exec -B $SCRATCH /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
 		samtools sort --threads {threads} -m 2G - > {output}
 		"""
 
@@ -117,10 +117,10 @@ rule merge_bam_mapped_and_index:
 	run:
 		if len(input) == 1:
 			shell("mv {input} {output}")
-			shell("singularity exec -B $SCRATCH /gpfs/fs0/scratch/n/nicholsa/zyfniu/nfcore-sarek-2.6.img samtools index {output}")
+			shell("singularity exec -B $SCRATCH /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img samtools index {output}")
 		elif len(input) > 1:
 			#shell("mv {input} {output}")
-			shell("singularity exec -B $SCRATCH /gpfs/fs0/scratch/n/nicholsa/zyfniu/nfcore-sarek-2.6.img samtools merge --threads {threads} - {input} | tee {output} | singularity exec -B $SCRATCH /gpfs/fs0/scratch/n/nicholsa/zyfniu/nfcore-sarek-2.6.img samtools index -@ {threads} - ")
+			shell("singularity exec -B $SCRATCH /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img samtools merge --threads {threads} - {input} | tee {output} | singularity exec -B $SCRATCH /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img samtools index -@ {threads} - ")
 
 rule markdup:
 	input:
@@ -132,7 +132,7 @@ rule markdup:
 	group: "merge_markduplicate"
 	shell:
 		"""
-		singularity exec -B $SCRATCH /gpfs/fs0/scratch/n/nicholsa/zyfniu/nfcore-sarek-2.6.img \
+		singularity exec -B $SCRATCH /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/gatk-4.1.8.img \
 		gatk --java-options "-Xmx16G" \
 		MarkDuplicates \
 		--MAX_RECORDS_IN_RAM 50000 \
@@ -153,7 +153,7 @@ rule recalibrator:
 	group: "recalibrator"
 	shell:
 		"""
-		singularity exec -B $SCRATCH /gpfs/fs0/scratch/n/nicholsa/zyfniu/nfcore-sarek-2.6.img \
+		singularity exec -B $SCRATCH /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/gatk-4.1.8.img \
 		gatk --java-options "-Xmx8g" \
 		BaseRecalibrator \
 		-I {input} \
@@ -177,7 +177,7 @@ rule gather_recal_tbl:
 	threads: 2
 	group: "recalibrator"
 	run:
-		command = 'singularity exec -B $SCRATCH /gpfs/fs0/scratch/n/nicholsa/zyfniu/nfcore-sarek-2.6.img gatk --java-options \"-Xmx8g\" GatherBQSRReports'
+		command = 'singularity exec -B $SCRATCH /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img gatk --java-options \"-Xmx8g\" GatherBQSRReports'
 		for i in input:
 			command = command + " -I " + i
 		command = command + ' -O {output}'
@@ -192,7 +192,7 @@ rule ApplyBQSR:
 	group: "recalibrator"
 	shell:
 		"""
-		singularity exec -B $SCRATCH /gpfs/fs0/scratch/n/nicholsa/zyfniu/nfcore-sarek-2.6.img \
+		singularity exec -B $SCRATCH /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/gatk-4.1.8.img \
 		gatk --java-options "-Xmx8G" \
 		ApplyBQSR \
 		-R {REF_fasta} \
@@ -215,9 +215,9 @@ rule Merge_Recal_Bam_and_index:
 	threads: 20
 	shell:
 		"""
-		singularity exec -B $SCRATCH /gpfs/fs0/scratch/n/nicholsa/zyfniu/nfcore-sarek-2.6.img \
+		singularity exec -B $SCRATCH /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
 		samtools merge --threads {threads} {output.bam} {input}
-		singularity exec -B $SCRATCH /gpfs/fs0/scratch/n/nicholsa/zyfniu/nfcore-sarek-2.6.img \
+		singularity exec -B $SCRATCH /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
 		samtools index {output.bam} {output.index}
 		"""
 
@@ -229,12 +229,12 @@ rule samtools_stats:
 		bam = "orphan/{sample}/Recal/{sample}.recal.bam",
 		index = "orphan/{sample}/Recal/{sample}.recal.bai"
 	output:
-		stats = "QC/{sample}/{sample}.samtools.stats.out"
-	group: "bamqc"
+        	stats = "QC/{sample}/{sample}.samtools.stats.out"
+	group: "mutect2"
 	threads: 2
 	shell:
 		"""
-		singularity exec /gpfs/fs0/scratch/n/nicholsa/zyfniu/nfcore-sarek-2.6.img \
+		singularity exec /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
 		samtools stats {input.bam} > {output}
 		"""
 
@@ -243,12 +243,12 @@ rule bamqc:
 		bam = "orphan/{sample}/Recal/{sample}.recal.bam",
 		index = "orphan/{sample}/Recal/{sample}.recal.bai"
 	output:
-		stats = "QC/{sample}/bamQC/qualimapReport.html"
-	group: "bamqc"
-	threads: 70
+        	stats = "QC/{sample}/bamQC/qualimapReport.html"
+	group: "mutect2"
+	threads: 40
 	shell:
 		"""
-		singularity exec /gpfs/fs0/scratch/n/nicholsa/zyfniu/nfcore-sarek-2.6.img \
+		singularity exec /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
 		qualimap --java-mem-size=100G \
 		bamqc \
 		-bam {input.bam} \
@@ -278,7 +278,7 @@ rule mutect2:
 	group: "mutect2"
 	shell:
 		"""
-		singularity exec -B $SCRATCH /gpfs/fs0/scratch/n/nicholsa/zyfniu/nfcore-sarek-2.6.img \
+		singularity exec -B $SCRATCH /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/gatk-4.1.8.img \
 		gatk --java-options "-Xmx8g" Mutect2 -R {REF_fasta} \
 		-I {input.normal}  \
 		-I {input.tumor} \
@@ -301,7 +301,7 @@ rule merge_mutect2_vcf:
 	group: "mutect2"
 	shell:
 		"""
-		singularity exec -B $SCRATCH /gpfs/fs0/scratch/n/nicholsa/zyfniu/nfcore-sarek-2.6.img \
+		singularity exec -B $SCRATCH /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
 		vcf-concat {input} > {output}
 		"""
 
@@ -317,7 +317,7 @@ rule merge_stats:
 	group: "mutect2"
 	run:
 		import os, glob
-		cmd = "singularity exec -B $SCRATCH /gpfs/fs0/scratch/n/nicholsa/zyfniu/nfcore-sarek-2.6.img gatk MergeMutectStats "
+		cmd = "singularity exec -B $SCRATCH /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/gatk-4.1.8.img gatk MergeMutectStats "
 		for input_file in input:
 			cmd = cmd + " --stats " + input_file
 		cmd = cmd + " -O {output}"
@@ -334,7 +334,7 @@ rule gatk_LearnOrientationModel:
 	group: "mutect2"
 	run:
 		import os, glob
-		cmd = "singularity exec -B $SCRATCH /gpfs/fs0/scratch/n/nicholsa/zyfniu/nfcore-sarek-2.6.img gatk LearnReadOrientationModel "
+		cmd = "singularity exec -B $SCRATCH /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/gatk-4.1.8.img gatk LearnReadOrientationModel "
 		for input_file in input:
 			cmd = cmd + " -I " + input_file
 		cmd = cmd + " -O {output}"
@@ -355,7 +355,7 @@ rule gatk_get_pileupsummaries_normal:
 	group: "mutect2"
 	shell:
 		"""
-		singularity exec -B $SCRATCH /gpfs/fs0/scratch/n/nicholsa/zyfniu/nfcore-sarek-2.6.img \
+		singularity exec -B $SCRATCH /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/gatk-4.1.8.img \
 		gatk --java-options "-Xmx8g" GetPileupSummaries \
 		-I {input.normal} \
 		-V {input.common_biallelic_vcf} \
@@ -374,7 +374,7 @@ rule gatk_get_pileupsummaries_tumor:
 	group: "mutect2"
 	shell:
 		"""
-		singularity exec -B $SCRATCH /gpfs/fs0/scratch/n/nicholsa/zyfniu/nfcore-sarek-2.6.img \
+		singularity exec -B $SCRATCH /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/gatk-4.1.8.img \
 		gatk --java-options "-Xmx8g" GetPileupSummaries \
 		-I {input.primary} \
 		-V {input.common_biallelic_vcf} \
@@ -393,7 +393,7 @@ rule gatk_calcContam_primary:
 	group: "mutect2"
 	shell:
 		"""
-		singularity exec -B $SCRATCH /gpfs/fs0/scratch/n/nicholsa/zyfniu/nfcore-sarek-2.6.img \
+		singularity exec -B $SCRATCH /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/gatk-4.1.8.img \
 		gatk --java-options "-Xmx8g" CalculateContamination \
 		-I {input.normal} \
 		-matched {input.primary} \
@@ -410,7 +410,7 @@ rule index_unfiltered_vcf:
 	group: "mutect2"
 	shell:
 		"""
-		singularity exec -B $SCRATCH /gpfs/fs0/scratch/n/nicholsa/zyfniu/nfcore-sarek-2.6.img \
+		singularity exec -B $SCRATCH /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/gatk-4.1.8.img \
 		gatk --java-options "-Xmx8g" IndexFeatureFile \
 		-I {input.vcf} \
 		--output {output.vcf_tbi}
@@ -432,7 +432,7 @@ rule gatk_filterMutect:
 	group: "mutect2"
 	shell:
 		"""
-		singularity exec -B $SCRATCH /gpfs/fs0/scratch/n/nicholsa/zyfniu/nfcore-sarek-2.6.img \
+		singularity exec -B $SCRATCH /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/gatk-4.1.8.img \
 		gatk --java-options "-Xmx8g" FilterMutectCalls \
 		--ob-priors {input.model} \
 		-stats {input.stats} \
@@ -453,7 +453,7 @@ rule merge_mutect2_vcf_filtered:
 	threads: 2
 	group: "mutect2"
 	shell:
-		"singularity exec -B $SCRATCH /gpfs/fs0/scratch/n/nicholsa/zyfniu/nfcore-sarek-2.6.img vcf-concat {input} > {output}"
+		"singularity exec -B $SCRATCH /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img vcf-concat {input} > {output}"
 
 
 rule index_filtered_vcf:
@@ -465,7 +465,7 @@ rule index_filtered_vcf:
 	group: "mutect2"
 	shell:
 		"""
-		singularity exec -B $SCRATCH /gpfs/fs0/scratch/n/nicholsa/zyfniu/nfcore-sarek-2.6.img \
+		singularity exec -B $SCRATCH /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/gatk-4.1.8.img \
 		gatk --java-options "-Xmx8g" IndexFeatureFile \
 		-I {input.vcf} \
 		--output {output.vcf_tbi}
@@ -473,24 +473,24 @@ rule index_filtered_vcf:
 
 rule manta:
 	input:
-			normal = "orphan/{patient}-N/Recal/{patient}-N.recal.bam",
-			tumor = "orphan/{tumor}/Recal/{tumor}.recal.bam"
+        	normal = "orphan/{patient}-N/Recal/{patient}-N.recal.bam",
+        	tumor = "orphan/{tumor}/Recal/{tumor}.recal.bam"
 	output:
-			sv = "results/Manta/{patient}/Manta_{tumor}_vs_{patient}-N.candidateSV.vcf.gz",
-			smallindel = "results/Manta/{patient}/Manta_{tumor}_vs_{patient}-N.candidateSmallIndels.vcf.gz",
-			diploidSV = "results/Manta/{patient}/Manta_{tumor}_vs_{patient}-N.diploidSV.vcf.gz",
-			somaticSV = "results/Manta/{patient}/Manta_{tumor}_vs_{patient}-N.somaticSV.vcf.gz"
-	threads: 70
+        	sv = "results/Manta/{patient}/Manta_{tumor}_vs_{patient}-N.candidateSV.vcf.gz",
+        	smallindel = "results/Manta/{patient}/Manta_{tumor}_vs_{patient}-N.candidateSmallIndels.vcf.gz",
+        	diploidSV = "results/Manta/{patient}/Manta_{tumor}_vs_{patient}-N.diploidSV.vcf.gz",
+        	somaticSV = "results/Manta/{patient}/Manta_{tumor}_vs_{patient}-N.somaticSV.vcf.gz"
+	threads: 80
 	group: "manta"
 	shell:
-		"""
-		singularity exec -B $SCRATCH /gpfs/fs0/scratch/n/nicholsa/zyfniu/nfcore-sarek-2.6.img \
+        	"""
+		singularity exec -B $SCRATCH /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
 		configManta.py \
 		--normalBam {input.normal} \
 		--tumorBam  {input.tumor} \
 		--reference {REF_fasta} \
 		--runDir Manta
-		singularity exec -B $SCRATCH /gpfs/fs0/scratch/n/nicholsa/zyfniu/nfcore-sarek-2.6.img \
+		singularity exec -B $SCRATCH /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
 		python Manta/runWorkflow.py -m local -j {threads}
 		mv Manta/results/variants/candidateSmallIndels.vcf.gz \
 		results/Manta/{wildcards.patient}/Manta_{wildcards.tumor}_vs_{wildcards.patient}-N.candidateSmallIndels.vcf.gz
@@ -514,7 +514,7 @@ rule annotate_mutect2:
 	input:
 		vcf = "results/mutect2/{patient}/filtered_{tumor}_vs_{patient}-N.vcf"
 	output:
-			annotatedvcf = "results/mutect2/{patient}/{tumor}_vs_{patient}-N_snpEff.ann.vcf"
+        	annotatedvcf = "results/mutect2/{patient}/{tumor}_vs_{patient}-N_snpEff.ann.vcf"
 	threads: 2
 	group: "mutect2"
 	shell:
@@ -538,9 +538,9 @@ rule zip_snpeff:
 	threads: 2
 	group: "mutect2"
 	shell:
-		"""
-		singularity exec /gpfs/fs0/scratch/n/nicholsa/zyfniu/nfcore-sarek-2.6.img bgzip < {input} > {output}
-		singularity exec /gpfs/fs0/scratch/n/nicholsa/zyfniu/nfcore-sarek-2.6.img tabix {output}
+        	"""
+		singularity exec /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img bgzip < {input} > {output}
+		singularity exec /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img tabix {output}
 		"""
 
 rule annotate_manta:
@@ -562,18 +562,18 @@ rule annotate_manta:
 		{input} \
 		> {output}
 		mv snpEff_summary.html results/Manta/{wildcards.patient}/{wildcards.tumor}_{wildcards.structure}_snpEff.html
-		mv *snpEff.csv results/Manta/{wildcards.patient}/
-		mv *snpEff.genes.txt results/Manta/{wildcards.patient}/
+		mv {wildcards.tumor}*snpEff.csv results/Manta/{wildcards.patient}/
+		mv {wildcards.tumor}*snpEff.genes.txt results/Manta/{wildcards.patient}/
 		"""
 
 rule zip_manta:
 	input:
-		annotatedvcf = "results/mutect2/{patient}/{tumor}_vs_{patient}-N_snpEff.{structure}.ann.vcf"
-	output: annotatedvcf = "results/mutect2/{patient}/{tumor}_vs_{patient}-N_snpEff.{structure}.ann.vcf.gz"
+		annotatedvcf = "results/Manta/{patient}/Manta_snpeff_{tumor}_vs_{patient}-N.{structure}.ann.vcf"
+	output: annotatedvcf = "results/Manta/{patient}/Manta_snpeff_{tumor}_vs_{patient}-N.{structure}.ann.vcf.gz"
 	threads: 2
 	group: "manta"
 	shell:
 		"""
-		singularity exec /gpfs/fs0/scratch/n/nicholsa/zyfniu/nfcore-sarek-2.6.img bgzip < {input} > {output}
-		singularity exec /gpfs/fs0/scratch/n/nicholsa/zyfniu/nfcore-sarek-2.6.img tabix {output}
+		singularity exec /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img bgzip < {input} > {output}
+		singularity exec /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img tabix {output}
 		"""

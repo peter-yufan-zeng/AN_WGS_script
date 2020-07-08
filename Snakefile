@@ -484,10 +484,28 @@ rule index_filtered_vcf:
 		--output {output.vcf_tbi}
 		"""
 
-rule manta:
+rule config_manta:
 	input:
 			normal = "orphan/{patient}-N/Recal/{patient}-N.recal.bam",
 			tumor = "orphan/{tumor}/Recal/{tumor}.recal.bam"
+	output: temp("temp/Manta/{tumor}/runWorkflow.py")
+	threads: 2
+	group: "manta"
+	shell:
+		"""
+		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/HPV_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
+		configManta.py \
+		--normalBam {input.normal} \
+		--tumorBam  {input.tumor} \
+		--reference {REF_fasta} \
+		--runDir temp/Manta/{wildcards.tumor}
+		"""
+
+rule manta:
+	input:
+			normal = "orphan/{patient}-N/Recal/{patient}-N.recal.bam",
+			tumor = "orphan/{tumor}/Recal/{tumor}.recal.bam",
+			script = "temp/Manta/{tumor}/runWorkflow.py"
 	output:
 			sv = "results/Manta/{patient}/Manta_{tumor}_vs_{patient}-N.candidateSV.vcf.gz",
 			smallindel = "results/Manta/{patient}/Manta_{tumor}_vs_{patient}-N.candidateSmallIndels.vcf.gz",
@@ -496,15 +514,9 @@ rule manta:
 	threads: 80
 	group: "manta"
 	shell:
-			"""
+		"""
 		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/HPV_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
-		configManta.py \
-		--normalBam {input.normal} \
-		--tumorBam  {input.tumor} \
-		--reference {REF_fasta} \
-		--runDir temp/Manta/{wildcards.tumor}
-		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/HPV_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
-		python temp/Manta/{wildcards.tumor}/runWorkflow.py -m local -j {threads}
+		python {input.script} -m local -j {threads}
 		mv temp/Manta/{wildcards.tumor}/results/variants/candidateSmallIndels.vcf.gz \
 		results/Manta/{wildcards.patient}/Manta_{wildcards.tumor}_vs_{wildcards.patient}-N.candidateSmallIndels.vcf.gz
 		mv temp/Manta/{wildcards.tumor}/results/variants/candidateSmallIndels.vcf.gz.tbi \
@@ -655,8 +667,8 @@ rule ascat:
 	group: "ascat"
 	shell:
 		"""
-		for f in results/alleleCountConverted/{wildcards.tumor}/*BAF results/alleleCountConverted/{wildcards.tumor}/*LogR; \
-		do sed \'s/chr//g\' \$f > tmpFile; mv tmpFile \$f;done
+		for f in results/alleleCountConverted/{wildcards.tumor}_vs_{wildcards.patient}/*BAF results/alleleCountConverted/{wildcards.tumor}_vs_{wildcards.patient}/*LogR; \
+		do sed \'s/chr//g\' $f > tmpFile; mv tmpFile $f;done
 		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/HPV_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
 		Rscript AN_WGS/run_ascat.r \
         --tumorbaf {input.tumorBaf} \

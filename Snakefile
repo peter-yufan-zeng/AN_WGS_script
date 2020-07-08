@@ -1,10 +1,13 @@
+
 import pandas as pd
 import os
 
 localrules: all
 #shell.prefix("singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/HPV_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img ") ### to use singularity shell for all processes
 
-
+###
+### LOAD SAMPLES
+###
 SCRATCH = "/gpfs/fs0/scratch/n/nicholsa/zyfniu"
 INPUT = pd.read_table( SCRATCH + "/Sample/HPV32.tsv",names = ['Patient','Sex','n_vs_t','Sample','Lane','Fastq1','Fastq2'])
 INPUT['Lane'] = INPUT.Lane.apply(str)
@@ -15,13 +18,15 @@ PAT = INPUT.Patient.drop_duplicates()
 TUMOR = INPUT[(INPUT.n_vs_t == 1)].Sample.drop_duplicates()
 SAMPLE_LANE = INPUT.Sample_Lane
 
+###
+###	REFERENCE FILE
+###
 REF_fasta = "$SCRATCH/igenomes_ref/Homo_sapiens_assembly38.fasta"
 REF_dbsnp = "$SCRATCH/igenomes_ref/dbsnp_146.hg38.vcf.gz"
 REF_known_indels = "$SCRATCH/igenomes_ref/Mills_and_1000G_gold_standard.indels.hg38.vcf.gz"
 REF_gnomAD = "$SCRATCH/igenomes_ref/gnomAD.r2.1.1.GRCh38.PASS.AC.AF.only.vcf.gz"
 REF_pon = "$SCRATCH/igenomes_ref/1000g_pon.hg38.vcf.gz"
 REF_exac_common = "/gpfs/fs0/scratch/n/nicholsa/zyfniu/igenomes_ref/somatic-hg38_small_exac_common_3.hg38.vcf.gz"
-
 CHROMOSOMES = ['chr1', 'chr2', 'chr3', 'chr4', 'chr5', 'chr6', 'chr7', 'chr8', 'chr9', 'chr10',
 			   'chr11', 'chr12', 'chr13', 'chr14', 'chr15', 'chr16', 'chr17', 'chr18', 'chr19',
 			   'chr20', 'chr21', 'chr22', 'chrX', 'chrY']
@@ -29,7 +34,9 @@ CHROMOSOMES = ['chr1', 'chr2', 'chr3', 'chr4', 'chr5', 'chr6', 'chr7', 'chr8', '
 
 OUTDIR = "AN_WGS/"
 
-
+###
+### Final Results
+###
 rule all:
 	input:
 		###FASTQC + BWA Alignment
@@ -50,6 +57,10 @@ rule all:
 		expand("results/Manta/{patient}/Manta_snpeff_{tumor}_vs_{patient}-N.somaticSV.ann.vcf.gz",zip, patient = [x[:-2] for x in TUMOR],tumor = TUMOR),
 		#### ASCAT
 		expand("results/ASCAT/{tumor}/{tumor}_vs_{patient}-N.tumor.cnvs.txt",zip, tumor = TUMOR, patient = [x[:-2] for x in TUMOR])
+
+###
+###	Step 1: BWA-MEM Alignment
+###
 
 def bwa_mem_fastq1(wildcards):
 	return expand(INPUT[INPUT.Sample_Lane == wildcards.sample_lane].Fastq1)
@@ -557,14 +568,13 @@ rule annotate_manta:
 		singularity exec $SCRATCH/singularity_images/nfcore-sareksnpeff-2.6.GRCh38.img \
 		snpEff -Xmx8g \
 		GRCh38.86 \
-		-csvStats {wildcards.tumor}_{wildcards.structure}_snpEff.csv \
+		-csvStats results/Manta/{wildcards.patient}/{wildcards.tumor}_{wildcards.structure}_snpEff.csv \
 		-nodownload \
 		-canon \
 		-v \
 		{input} \
 		> {output}
 		mv snpEff_summary.html results/Manta/{wildcards.patient}/{wildcards.tumor}_{wildcards.structure}_snpEff.html
-		mv {wildcards.tumor}*snpEff.csv results/Manta/{wildcards.patient}/
 		mv {wildcards.tumor}*snpEff.genes.txt results/Manta/{wildcards.patient}/
 		"""
 
@@ -587,7 +597,7 @@ rule alleleCount:
 	input:
 		bam = "orphan/{sample}/Recal/{sample}.recal.bam",
 		index = "orphan/{sample}/Recal/{sample}.recal.bai",
-		acloci = "$SCRATCH/igenomes_ref/1000G_phase3_GRCh38_maf0.3.loci"
+		acloci = "/scratch/n/nicholsa/zyfniu/igenomes_ref/1000G_phase3_GRCh38_maf0.3.loci"
 	output: "results/alleleCount/{sample}.alleleCount"
 	threads: 2
 	group: "ascat"
@@ -598,7 +608,7 @@ rule alleleCount:
 		-l {input.acloci} \
 		-r {REF_fasta} \
 		-b {input.bam} \
-		-o {wildcards.sample}.alleleCount
+		-o results/alleleCount/{wildcards.sample}.alleleCount
 		"""
 
 def getGender(wildcards):
@@ -635,7 +645,7 @@ rule ascat:
 		tumorBaf = "results/alleleCountConverted/{tumor}_vs_{patient}/{tumor}.BAF",
 		normalLogr = "results/alleleCountConverted/{tumor}_vs_{patient}/{patient}-N.LogR",
 		tumorLogr = "results/alleleCountConverted/{tumor}_vs_{patient}/{tumor}.LogR",
-		acLociGC = "$SCRATCH/igenomes_ref/1000G_phase3_GRCh38_maf0.3.loci.gc"
+		acLociGC = "/scratch/n/nicholsa/zyfniu/igenomes_ref/1000G_phase3_GRCh38_maf0.3.loci.gc"
 	output:
 		results = "results/ASCAT/{tumor}/{tumor}_vs_{patient}-N.tumor.cnvs.txt"
 	params:

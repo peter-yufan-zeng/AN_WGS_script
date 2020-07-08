@@ -488,7 +488,7 @@ rule config_manta:
 	input:
 			normal = "orphan/{patient}-N/Recal/{patient}-N.recal.bam",
 			tumor = "orphan/{tumor}/Recal/{tumor}.recal.bam"
-	output: temp("temp/Manta/{tumor}/runWorkflow.py")
+	output: temp("temp/Manta/{patient}/{tumor}/runWorkflow.py")
 	threads: 2
 	group: "manta"
 	shell:
@@ -498,14 +498,14 @@ rule config_manta:
 		--normalBam {input.normal} \
 		--tumorBam  {input.tumor} \
 		--reference {REF_fasta} \
-		--runDir temp/Manta/{wildcards.tumor}
+		--runDir temp/Manta/{wildcards.patient}/{wildcards.tumor}
 		"""
 
 rule manta:
 	input:
 			normal = "orphan/{patient}-N/Recal/{patient}-N.recal.bam",
 			tumor = "orphan/{tumor}/Recal/{tumor}.recal.bam",
-			script = "temp/Manta/{tumor}/runWorkflow.py"
+			script = "temp/Manta/{patient}/{tumor}/runWorkflow.py"
 	output:
 			sv = "results/Manta/{patient}/Manta_{tumor}_vs_{patient}-N.candidateSV.vcf.gz",
 			smallindel = "results/Manta/{patient}/Manta_{tumor}_vs_{patient}-N.candidateSmallIndels.vcf.gz",
@@ -517,21 +517,21 @@ rule manta:
 		"""
 		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/HPV_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
 		python {input.script} -m local -j {threads}
-		mv temp/Manta/{wildcards.tumor}/results/variants/candidateSmallIndels.vcf.gz \
+		mv temp/Manta/{wildcards.patient}/{wildcards.tumor}/results/variants/candidateSmallIndels.vcf.gz \
 		results/Manta/{wildcards.patient}/Manta_{wildcards.tumor}_vs_{wildcards.patient}-N.candidateSmallIndels.vcf.gz
-		mv temp/Manta/{wildcards.tumor}/results/variants/candidateSmallIndels.vcf.gz.tbi \
+		mv temp/Manta/{wildcards.patient}/{wildcards.tumor}/results/variants/candidateSmallIndels.vcf.gz.tbi \
 		results/Manta/{wildcards.patient}/Manta_{wildcards.tumor}_vs_{wildcards.patient}-N.candidateSmallIndels.vcf.gz.tbi
-		mv temp/Manta/{wildcards.tumor}/results/variants/candidateSV.vcf.gz \
+		mv temp/Manta/{wildcards.patient}/{wildcards.tumor}/results/variants/candidateSV.vcf.gz \
 		results/Manta/{wildcards.patient}/Manta_{wildcards.tumor}_vs_{wildcards.patient}-N.candidateSV.vcf.gz
-		mv temp/Manta/{wildcards.tumor}/results/variants/candidateSV.vcf.gz.tbi \
+		mv temp/Manta/{wildcards.patient}/{wildcards.tumor}/results/variants/candidateSV.vcf.gz.tbi \
 		results/Manta/{wildcards.patient}/Manta_{wildcards.tumor}_vs_{wildcards.patient}-N.candidateSV.vcf.gz.tbi
-		mv temp/Manta/{wildcards.tumor}/results/variants/diploidSV.vcf.gz \
+		mv temp/Manta/{wildcards.patient}/{wildcards.tumor}/results/variants/diploidSV.vcf.gz \
 		results/Manta/{wildcards.patient}/Manta_{wildcards.tumor}_vs_{wildcards.patient}-N.diploidSV.vcf.gz
-		mv temp/Manta/{wildcards.tumor}/results/variants/diploidSV.vcf.gz.tbi \
+		mv temp/Manta/{wildcards.patient}/{wildcards.tumor}/results/variants/diploidSV.vcf.gz.tbi \
 		results/Manta/{wildcards.patient}/Manta_{wildcards.tumor}_vs_{wildcards.patient}-N.diploidSV.vcf.gz.tbi
-		mv temp/Manta/{wildcards.tumor}/results/variants/somaticSV.vcf.gz \
+		mv temp/Manta/{wildcards.patient}/{wildcards.tumor}/results/variants/somaticSV.vcf.gz \
 		results/Manta/{wildcards.patient}/Manta_{wildcards.tumor}_vs_{wildcards.patient}-N.somaticSV.vcf.gz
-		mv temp/Manta/{wildcards.tumor}/results/variants/somaticSV.vcf.gz.tbi \
+		mv temp/Manta/{wildcards.patient}/{wildcards.tumor}/results/variants/somaticSV.vcf.gz.tbi \
 		results/Manta/{wildcards.patient}/Manta_{wildcards.tumor}_vs_{wildcards.patient}-N.somaticSV.vcf.gz.tbi
 		"""
 
@@ -643,13 +643,14 @@ rule ConvertAlleleCounts:
 	group: "ascat"
 	shell:
 		"""
+		cd results/alleleCountConverted/{wildcards.tumor}_vs_{wildcards.patient}
 		singularity exec /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img Rscript \
 		AN_WGS/convertAlleleCounts.r {wildcards.tumor} {input.tumor} {wildcards.patient}-N {input.normal} {params.gender}
-		mv {wildcards.patient}-N.BAF {output.normalBaf}
-		mv {wildcards.tumor}.BAF {output.tumorBaf}
-		mv {wildcards.patient}-N.LogR {output.normalLogr}
-		mv {wildcards.tumor}.LogR {output.tumorLogr}
 		"""
+#mv {wildcards.patient}-N.BAF {output.normalBaf}
+# mv {wildcards.tumor}.BAF {output.tumorBaf}
+# mv {wildcards.patient}-N.LogR {output.normalLogr}
+# mv {wildcards.tumor}.LogR {output.tumorLogr}
 
 rule ascat:
 	input:

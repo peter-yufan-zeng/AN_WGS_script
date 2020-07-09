@@ -3,7 +3,6 @@ import pandas as pd
 import os
 
 localrules: all
-#shell.prefix("singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/HPV_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img ") ### to use singularity shell for all processes
 
 ###
 ### LOAD SAMPLES
@@ -56,7 +55,9 @@ rule all:
 		expand("results/Manta/{patient}/Manta_snpeff_{tumor}_vs_{patient}-N.diploidSV.ann.vcf.gz",zip, patient = [x[:-2] for x in TUMOR],tumor = TUMOR),
 		expand("results/Manta/{patient}/Manta_snpeff_{tumor}_vs_{patient}-N.somaticSV.ann.vcf.gz",zip, patient = [x[:-2] for x in TUMOR],tumor = TUMOR),
 		#### ASCAT
-		expand("results/ASCAT/{tumor}/{tumor}_vs_{patient}-N.tumor.cnvs.txt",zip, tumor = TUMOR, patient = [x[:-2] for x in TUMOR])
+		expand("results/ASCAT/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N.tumor.cnvs.txt",zip, tumor = TUMOR, patient = [x[:-2] for x in TUMOR]),
+		#### QC
+		expand("reports/{patient}_multiqc.html",patient = PAT)
 
 ###
 ###	Step 1: BWA-MEM Alignment
@@ -78,7 +79,7 @@ rule fastqc:
 		o3 =  "QC/{sample_lane}/{sample_lane}_R1_fastqc.zip",
 		o4 =  "QC/{sample_lane}/{sample_lane}_R2_fastqc.zip"
 	threads: 20
-	group: "mutect2"
+	group: "merge_markduplicate"
 	shell:
 			"""
 		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/HPV_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
@@ -107,7 +108,6 @@ rule bwa_mem:
 	params:
 		readGroup = createRG
 	shell:
-#		INPUT.loc[INPUT['Sample_Lane']=={wildcards.sample_lane},'Bam'] = {output}
 		"""
 		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/HPV_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
 		bwa mem -K 100000000 -R \"{params.readGroup}\" -B 3 -t {threads} -M {REF_fasta} \
@@ -139,7 +139,7 @@ rule markdup:
 	input:
 		"orphan/bwa/{sample}.merged.bam"
 	output:
-		bam = "orphan/MD/{sample}.md.bam",
+		bam = temp("orphan/MD/{sample}.md.bam"),
 		metric = "orphan/MD/{sample}.bam.metric"
 	threads: 20
 	group: "merge_markduplicate"
@@ -186,7 +186,7 @@ rule gather_recal_tbl:
 	input:
 		recal_tbl_to_gather
 	output:
-		"orphan/{sample}/Recal/{sample}.recal.table"
+		temp("orphan/{sample}/Recal/{sample}.recal.table")
 	threads: 2
 	group: "recalibrator"
 	run:
@@ -309,7 +309,7 @@ rule merge_mutect2_vcf:
 	input:
 		concat_vcf
 	output:
-		"results/mutect2/{sample}/unfiltered_{tumor}_vs_{patient}-N.vcf"
+		temp("results/mutect2/{sample}/unfiltered_{tumor}_vs_{patient}-N.vcf")
 	threads: 2
 	group: "mutect2"
 	shell:
@@ -352,10 +352,6 @@ rule gatk_LearnOrientationModel:
 			cmd = cmd + " -I " + input_file
 		cmd = cmd + " -O {output}"
 		shell(cmd)
-
-	#	gatk --java-options "-Xmx8g" LearnReadOrientationModel \
-	#	-I {input} -O {output.model}
-	#	"""
 
 rule gatk_get_pileupsummaries_normal:
 	input:
@@ -400,8 +396,8 @@ rule gatk_calcContam_primary:
 		normal = "results/mutect2/{patient}/{patient}-N_pileupsummaries.table",
 		primary = "results/mutect2/{patient}/{tumor}_pileupsummaries.table"
 	output:
-		contamTable = "results/mutect2/{patient}/{tumor}_calContam.table",
-		segment = "results/mutect2/{patient}/{tumor}_tumor.segment"
+		contamTable = temp("results/mutect2/{patient}/{tumor}_calContam.table"),
+		segment = temp("results/mutect2/{patient}/{tumor}_tumor.segment")
 	threads: 2
 	group: "mutect2"
 	shell:
@@ -431,11 +427,7 @@ rule index_unfiltered_vcf:
 
 rule gatk_filterMutect:
 	input:
-		#p_contamTable = "results/mutect2/{patient}/{tumor}_calContam.table",
-		#p_segment = "results/mutect2/{patient}/{tumor}_tumor.segment",
 		vcf_tbi = "results/mutect2/{patient}/unfiltered_{tumor}_vs_{patient}-N.vcf.idx",
-		# r_contamTable = "results/mutect2/{patient}/recurrence_calContam.table",
-		# r_segment = "results/mutect2/{patient}/recurrence_tumor.segment",
 		vcf = "results/mutect2/{patient}/unfiltered_{tumor}_vs_{patient}-N.vcf",
 		model = "results/mutect2/{patient}/unfiltered_{tumor}_read_orientation_model.tar.gz",
 		stats = "results/mutect2/{patient}/unfiltered_{tumor}_vs_{patient}-N_merged.stats"
@@ -507,10 +499,10 @@ rule manta:
 			tumor = "orphan/{tumor}/Recal/{tumor}.recal.bam",
 			script = "temp/Manta/{patient}/{tumor}/runWorkflow.py"
 	output:
-			sv = "results/Manta/{patient}/Manta_{tumor}_vs_{patient}-N.candidateSV.vcf.gz",
-			smallindel = "results/Manta/{patient}/Manta_{tumor}_vs_{patient}-N.candidateSmallIndels.vcf.gz",
-			diploidSV = "results/Manta/{patient}/Manta_{tumor}_vs_{patient}-N.diploidSV.vcf.gz",
-			somaticSV = "results/Manta/{patient}/Manta_{tumor}_vs_{patient}-N.somaticSV.vcf.gz"
+			sv = temp("results/Manta/{patient}/Manta_{tumor}_vs_{patient}-N.candidateSV.vcf.gz"),
+			smallindel = temp("results/Manta/{patient}/Manta_{tumor}_vs_{patient}-N.candidateSmallIndels.vcf.gz"),
+			diploidSV = temp("results/Manta/{patient}/Manta_{tumor}_vs_{patient}-N.diploidSV.vcf.gz"),
+			somaticSV = temp("results/Manta/{patient}/Manta_{tumor}_vs_{patient}-N.somaticSV.vcf.gz")
 	threads: 80
 	group: "manta"
 	shell:
@@ -539,7 +531,7 @@ rule annotate_mutect2:
 	input:
 		vcf = "results/mutect2/{patient}/filtered_{tumor}_vs_{patient}-N.vcf"
 	output:
-			annotatedvcf = "results/mutect2/{patient}/{tumor}_vs_{patient}-N_snpEff.ann.vcf"
+			annotatedvcf = temp("results/mutect2/{patient}/{tumor}_vs_{patient}-N_snpEff.ann.vcf")
 	threads: 2
 	group: "mutect2"
 	shell:
@@ -553,6 +545,7 @@ rule annotate_mutect2:
 		{input} \
 		> {output}
 		mv snpEff_summary.html results/mutect2/{wildcards.patient}/{wildcards.tumor}_snpEff.html
+		mv snpEff.genes.txt results/mutect2/{wildcards.patient}/{wildcards.tumor}_snpEff.genes.txt
 		"""
 
 rule zip_snpeff:
@@ -571,8 +564,8 @@ rule annotate_manta:
 	input:
 		vcf = "results/Manta/{patient}/Manta_{tumor}_vs_{patient}-N.{structure}.vcf.gz"
 	output:
-		annotatedvcf = "results/Manta/{patient}/Manta_snpeff_{tumor}_vs_{patient}-N.{structure}.ann.vcf"
-	threads: 2
+		annotatedvcf = temp("results/Manta/{patient}/Manta_snpeff_{tumor}_vs_{patient}-N.{structure}.ann.vcf")
+	threads: 80
 	group: "manta"
 	shell:
 		"""
@@ -585,7 +578,6 @@ rule annotate_manta:
 		{input} \
 		> {output}
 		mv snpEff_summary.html results/Manta/{wildcards.patient}/{wildcards.tumor}_{wildcards.structure}_snpEff.html
-		mv {wildcards.tumor}*snpEff.genes.txt results/Manta/{wildcards.patient}/
 		"""
 
 rule zip_manta:
@@ -610,7 +602,7 @@ rule alleleCount:
 		acloci = "/scratch/n/nicholsa/zyfniu/igenomes_ref/1000G_phase3_GRCh38_maf0.3.loci"
 	output: "results/ASCAT/alleleCount/{sample}.alleleCount"
 	threads: 2
-	group: "ascat"
+	group: "mutect2"
 	shell:
 		"""
 		singularity exec  -B $SCRATCH/igenomes_ref /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
@@ -631,48 +623,45 @@ rule ConvertAlleleCounts:
 		tumor = "results/ASCAT/alleleCount/{tumor}.alleleCount",
 		script = "AN_WGS/convertAlleleCounts.r"
 	output:
-		normalBaf = "results/ASCAT/{tumor}_vs_{patient}-N/{patient}-N.BAF",
-		tumorBaf = "results/ASCAT/{tumor}_vs_{patient}-N/{tumor}.BAF",
-		normalLogr = "results/ASCAT/{tumor}_vs_{patient}-N/{patient}-N.LogR",
-		tumorLogr = "results/ASCAT/{tumor}_vs_{patient}-N/{tumor}.LogR"
+		normalBaf = "/scratch/n/nicholsa/zyfniu/AN_WGS/results/ASCAT/{tumor}_vs_{patient}-N/{patient}-N.BAF",
+		tumorBaf = "/scratch/n/nicholsa/zyfniu/AN_WGS/results/ASCAT/{tumor}_vs_{patient}-N/{tumor}.BAF",
+		normalLogr = "/scratch/n/nicholsa/zyfniu/AN_WGS/results/ASCAT/{tumor}_vs_{patient}-N/{patient}-N.LogR",
+		tumorLogr = "/scratch/n/nicholsa/zyfniu/AN_WGS/results/ASCAT/{tumor}_vs_{patient}-N/{tumor}.LogR"
 	threads: 2
-	params: #gender = "XY"
-		gender = getGender
-	group: "ascat"
+	params: gender = getGender
+	group: "mutect2"
 	shell:
 		"""
 		cd results/ASCAT/{wildcards.tumor}_vs_{wildcards.patient}-N
 		singularity exec -B $SCRATCH/AN_WGS /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img Rscript \
-		/scratch/n/nicholsa/zyfniu/AN_WGS/convertAlleleCounts.r \
-		{wildcards.tumor} ../alleleCount/{wildcards.tumor}.alleleCount \
-		{wildcards.patient}-N ../alleleCount/{wildcards.patient}-N.alleleCount \
+		/scratch/n/nicholsa/zyfniu/AN_WGS/AN_WGS/convertAlleleCounts.r \
+		{wildcards.tumor} /scratch/n/nicholsa/zyfniu/AN_WGS/results/alleleCount/{wildcards.tumor}.alleleCount \
+		{wildcards.patient}-N /scratch/n/nicholsa/zyfniu/AN_WGS/results/alleleCount/{wildcards.patient}-N.alleleCount \
 		{params.gender}
 		"""
-#mv {wildcards.patient}-N.BAF {output.normalBaf}
-# mv {wildcards.tumor}.BAF {output.tumorBaf}
-# mv {wildcards.patient}-N.LogR {output.normalLogr}
-# mv {wildcards.tumor}.LogR {output.tumorLogr}
 
 rule ascat:
 	input:
-		normalBaf = "results/ASCAT/{tumor}_vs_{patient}-N/{patient}-N.BAF",
-		tumorBaf = "results/ASCAT/{tumor}_vs_{patient}-N/{tumor}.BAF",
-		normalLogr = "results/ASCAT/{tumor}_vs_{patient}-N/{patient}-N.LogR",
-		tumorLogr = "results/ASCAT/{tumor}_vs_{patient}-N/{tumor}.LogR",
+		normalBaf = "/scratch/n/nicholsa/zyfniu/AN_WGS/results/ASCAT/{tumor}_vs_{patient}-N/{patient}-N.BAF",
+		tumorBaf = "/scratch/n/nicholsa/zyfniu/AN_WGS/results/ASCAT/{tumor}_vs_{patient}-N/{tumor}.BAF",
+		normalLogr = "/scratch/n/nicholsa/zyfniu/AN_WGS/results/ASCAT/{tumor}_vs_{patient}-N/{patient}-N.LogR",
+		tumorLogr = "/scratch/n/nicholsa/zyfniu/AN_WGS/results/ASCAT/{tumor}_vs_{patient}-N/{tumor}.LogR",
 		acLociGC = "/scratch/n/nicholsa/zyfniu/igenomes_ref/1000G_phase3_GRCh38_maf0.3.loci.gc"
 	output:
 		results = "results/ASCAT/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N.tumor.cnvs.txt"
 	params:
 		gender = getGender
-		#purity_ploidy = "--purity "
-	threads: 20
-	group: "ascat"
+	threads: 8
+	group: "mutect2"
 	shell:
 		"""
-		for f in results/ASCAT/{wildcards.tumor}_vs_{wildcards.patient}/*BAF results/ASCAT/{wildcards.tumor}_vs_{wildcards.patient}/*LogR; \
-		do sed \'s/chr//g\' $f > tmpFile; mv tmpFile $f;done
-		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/HPV_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
-		Rscript AN_WGS/run_ascat.r \
+		for f in /scratch/n/nicholsa/zyfniu/AN_WGS/results/ASCAT/{wildcards.tumor}_vs_{wildcards.patient}-N/*BAF \
+		/scratch/n/nicholsa/zyfniu/AN_WGS/results/ASCAT/{wildcards.tumor}_vs_{wildcards.patient}-N/*LogR; \
+		do sed \'s/chr//g\' $f > /scratch/n/nicholsa/zyfniu/AN_WGS/results/ASCAT/{wildcards.tumor}_vs_{wildcards.patient}-N/tmpFile; \
+		mv /scratch/n/nicholsa/zyfniu/AN_WGS/results/ASCAT/{wildcards.tumor}_vs_{wildcards.patient}-N/tmpFile $f;done
+		cd results/ASCAT/{wildcards.tumor}_vs_{wildcards.patient}-N
+		singularity exec -B $SCRATCH/AN_WGS,$SCRATCH/igenomes_ref /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
+		Rscript /scratch/n/nicholsa/zyfniu/AN_WGS/AN_WGS/run_ascat.r \
         --tumorbaf {input.tumorBaf} \
         --tumorlogr {input.tumorLogr} \
         --normalbaf {input.normalBaf} \
@@ -681,6 +670,44 @@ rule ascat:
         --basedir results/ASCAT/{wildcards.tumor}_vs_{wildcards.patient}-N \
         --gcfile {input.acLociGC} \
         --gender {params.gender}
-		mv results/ASCAT/{wildcards.tumor}_vs_{wildcards.patient}-N/tumor.cnvs.txt {output.results}
+		cd ../../../
+		mv results/ASCAT/{wildcards.tumor}_vs_{wildcards.patient}-N/{wildcards.tumor}.cnvs.txt {output.results}
 		"""
+###
+### RUN MULTIQC
+###
+
+def getFinishedMutect2(wildcards):
+		return expand("results/mutect2/{patient}/{tumor}_vs_{patient}-N_snpEff.ann.vcf.gz",
+		tumor = INPUT[(INPUT.n_vs_t == 1)&(INPUT.Patient == wildcards.patient)].Sample.drop_duplicates(),
+		patient = INPUT[(INPUT.n_vs_t == 0)&(INPUT.Patient == wildcards.patient)].patient.drop_duplicates())
+
+def getFinishedManta(wildcards):
+		return expand("results/Manta/{patient}/Manta_snpeff_{tumor}_vs_{patient}-N.{structure}.ann.vcf.gz",
+		tumor = INPUT[(INPUT.n_vs_t == 1)&(INPUT.Patient == wildcards.patient)].Sample.drop_duplicates(),
+		patient = INPUT[(INPUT.n_vs_t == 0)&(INPUT.Patient == wildcards.patient)].patient.drop_duplicates(),
+		structure = ["candidateSV","candidateSmallIndels","diploidSV","somaticSV"])
+
+def getFinishedASCAT(wildcards):
+		return expand("results/ASCAT/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N.tumor.cnvs.txt",
+		tumor = INPUT[(INPUT.n_vs_t == 1)&(INPUT.Patient == wildcards.patient)].Sample.drop_duplicates(),
+		patient = INPUT[(INPUT.n_vs_t == 0)&(INPUT.Patient == wildcards.patient)].patient.drop_duplicates())
+
+rule multiqc:
+	input:
+		getFinishedMutect2,
+		getFinishedManta,
+		getFinishedASCAT
+	output:
+		"reports/{patient}_multiqc.html"
+	group: "multiqc"
+	threads: 80
+	shell:
+		"""
+		singularity exec $SCRATCH/singularity_images/nfcore-sarek-2.6.img multiqc . -n {output} \
+		results/mutect2/{wildcards.patient} results/ASCAT/*{wildcards.patient}* results/Manta/{wildcards.patient}
+		"""
+
+###
+###	END
 ###

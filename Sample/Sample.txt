@@ -1,0 +1,17 @@
+HPV5	XY	0	HPV5-N	2	/scratch/n/nicholsa/zyfniu/HPV_WGS/raw/192B_S2_L002_R1_001.fastq.gz	/scratch/n/nicholsa/zyfniu/HPV_WGS/raw/192B_S2_L002_R2_001.fastq.gz				
+HPV5	XY	1	HPV5-R	1	/scratch/n/nicholsa/zyfniu/HPV_WGS/raw/192T_S1_L001_R1_001.fastq.gz	/scratch/n/nicholsa/zyfniu/HPV_WGS/raw/192T_S1_L001_R2_001.fastq.gz				
+HPV5	XY	1	HPV5-R	2	/scratch/n/nicholsa/zyfniu/HPV_WGS/raw/192T_S1_L002_R1_001.fastq.gz	/scratch/n/nicholsa/zyfniu/HPV_WGS/raw/192T_S1_L002_R2_001.fastq.gz				
+HPV5	XY	1	HPV5-P	1	/scratch/n/nicholsa/zyfniu/HPV_WGS/raw/HPV5P_merged_R1.fastq.gz	/scratch/n/nicholsa/zyfniu/HPV_WGS/raw/HPV5P_merged_R2.fastq.gz				
+HPV2	XX	0	HPV2-N	3	/scratch/n/nicholsa/zyfniu/HPV_WGS/raw/218B_S3_L003_R1_001.fastq.gz 	/scratch/n/nicholsa/zyfniu/HPV_WGS/raw/218B_S3_L003_R2_001.fastq.gz				
+HPV2	XX	1	HPV2-P	2	/scratch/n/nicholsa/zyfniu/HPV_WGS/raw/220T_S2_L002_R1_001.fastq.gz	/scratch/n/nicholsa/zyfniu/HPV_WGS/raw/220T_S2_L002_R2_001.fastq.gz				
+HPV2	XX	1	HPV2-P	4	/scratch/n/nicholsa/zyfniu/HPV_WGS/raw/220T_S4_L004_R1_001.fastq.gz	/scratch/n/nicholsa/zyfniu/HPV_WGS/raw/220T_S4_L004_R2_001.fastq.gz				
+HPV81	XY	0	HPV81-N	3	/scratch/n/nicholsa/zyfniu/HPV_WGS/raw/325B_S3_L003_R1_001.fastq.gz 	/scratch/n/nicholsa/zyfniu/HPV_WGS/raw/325B_S3_L003_R2_001.fastq.gz 				
+HPV81	XY	1	HPV81-P	4	/scratch/n/nicholsa/zyfniu/HPV_WGS/raw/325T_S4_L004_R1_001.fastq.gz	/scratch/n/nicholsa/zyfniu/HPV_WGS/raw/325T_S4_L004_R2_001.fastq.gz				
+HPV14	XY	0	HPV14-N	8	/scratch/n/nicholsa/zyfniu/HPV_WGS/raw/HPV14N_S14_L008_R1_001.fastq.gz	/scratch/n/nicholsa/zyfniu/HPV_WGS/raw/HPV14N_S14_L008_R2_001.fastq.gz				
+HPV14	XY	1	HPV14-R	1	/scratch/n/nicholsa/zyfniu/HPV_WGS/raw/HPV14R_S1_L001_R1_001.fastq.gz	/scratch/n/nicholsa/zyfniu/HPV_WGS/raw/HPV14R_S1_L001_R2_001.fastq.gz				
+HPV16	XY	0	HPV16-N	2	/scratch/n/nicholsa/zyfniu/HPV_WGS/raw/HPV16N_S2_L002_R1_001.fastq.gz 	/scratch/n/nicholsa/zyfniu/HPV_WGS/raw/HPV16N_S2_L002_R2_001.fastq.gz				
+HPV16	XY	1	HPV16-R	3	/scratch/n/nicholsa/zyfniu/HPV_WGS/raw/HPV16R_S3_L003_R1_001.fastq.gz	/scratch/n/nicholsa/zyfniu/HPV_WGS/raw/HPV16R_S3_L003_R2_001.fastq.gz				
+HPV19	XX	0	HPV19-N	7	/scratch/n/nicholsa/zyfniu/HPV_WGS/raw/HPV19N_S1_L007_R1_001.fastq.gz	/scratch/n/nicholsa/zyfniu/HPV_WGS/raw/HPV19N_S1_L007_R2_001.fastq.gz				
+HPV19	XX	1	HPV19-R	8	/scratch/n/nicholsa/zyfniu/HPV_WGS/raw/HPV19R_S2_L008_R1_001.fastq.gz	/scratch/n/nicholsa/zyfniu/HPV_WGS/raw/HPV19R_S2_L008_R2_001.fastq.gz				
+HPV20	XX	0	HPV20-N	4	/scratch/n/nicholsa/zyfniu/HPV_WGS/raw/HPV20N_S4_L004_R1_001.fastq.gz	/scratch/n/nicholsa/zyfniu/HPV_WGS/raw/HPV20N_S4_L004_R2_001.fastq.gz				
+HPV20	XX	1	HPV20-R	5	/scratch/n/nicholsa/zyfniu/HPV_WGS/raw/HPV20R_S5_L005_R1_001.fastq.gz	/scratch/n/nicholsa/zyfniu/HPV_WGS/raw/HPV20R_S5_L005_R2_001.fastq.gz				

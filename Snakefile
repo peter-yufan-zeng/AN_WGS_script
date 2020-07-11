@@ -601,8 +601,8 @@ rule zip_manta:
 ###
 rule alleleCount:
 	input:
-		bam = "orphan/{sample}/Recal/{sample}.recal.bam",
-		index = "orphan/{sample}/Recal/{sample}.recal.bai",
+		bam = "/scratch/n/nicholsa/zyfniu/AN_WGS/orphan/{sample}/Recal/{sample}.recal.bam",
+		index = "/scratch/n/nicholsa/zyfniu/AN_WGS/orphan/{sample}/Recal/{sample}.recal.bai",
 		acloci = "/scratch/n/nicholsa/zyfniu/igenomes_ref/1000G_phase3_GRCh38_maf0.3.loci"
 	output: "/scratch/n/nicholsa/zyfniu/AN_WGS/results/ASCAT/alleleCount/{sample}.alleleCount"
 	threads: 2

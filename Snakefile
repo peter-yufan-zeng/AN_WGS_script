@@ -148,7 +148,7 @@ rule markdup:
 	group: "merge_markduplicate"
 	shell:
 		"""
-		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/HPV_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/gatk-4.1.8.img \
+		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/HPV_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/gatk-4.1.8.img \
 		gatk --java-options "-Xmx16G" \
 		MarkDuplicates \
 		--MAX_RECORDS_IN_RAM 50000 \
@@ -169,7 +169,7 @@ rule recalibrator:
 	group: "recalibrator"
 	shell:
 		"""
-		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/HPV_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/gatk-4.1.8.img \
+		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/HPV_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/gatk-4.1.8.img \
 		gatk --java-options "-Xmx8g" \
 		BaseRecalibrator \
 		-I {input} \
@@ -208,7 +208,7 @@ rule ApplyBQSR:
 	group: "recalibrator"
 	shell:
 		"""
-		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/HPV_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/gatk-4.1.8.img \
+		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/HPV_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/gatk-4.1.8.img \
 		gatk --java-options "-Xmx8G" \
 		ApplyBQSR \
 		-R {REF_fasta} \
@@ -231,9 +231,9 @@ rule Merge_Recal_Bam_and_index:
 	threads: 20
 	shell:
 		"""
-		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/HPV_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
+		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/HPV_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
 		samtools merge --threads {threads} {output.bam} {input}
-		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/HPV_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
+		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/HPV_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
 		samtools index {output.bam} {output.index}
 		"""
 
@@ -350,6 +350,7 @@ rule gatk_LearnOrientationModel:
 	output:
 		model = "/scratch/n/nicholsa/zyfniu/AN_WGS/results/mutect2/{tumor}_vs_{patient}-N/unfiltered_{tumor}_read_orientation_model.tar.gz"
 	group: "variantCalling"
+	threads: 2
 	run:
 		import os, glob
 		cmd = "singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/HPV_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/gatk-4.1.8.img gatk LearnReadOrientationModel "
@@ -496,7 +497,7 @@ rule config_manta:
 		--normalBam {input.normal} \
 		--tumorBam  {input.tumor} \
 		--reference {REF_fasta} \
-		--runDir temp/Manta/{wildcards.tumor}_vs_{wildcards.patient}-N/{wildcards.tumor}
+		--runDir temp/Manta/{wildcards.tumor}_vs_{wildcards.patient}-N
 		"""
 
 rule manta:
@@ -573,7 +574,7 @@ rule annotate_manta:
 		vcf = "/scratch/n/nicholsa/zyfniu/AN_WGS/results/Manta/{tumor}_vs_{patient}-N/Manta_{tumor}_vs_{patient}-N.{structure}.vcf.gz"
 	output:
 		annotatedvcf = temp("/scratch/n/nicholsa/zyfniu/AN_WGS/results/Manta/{tumor}_vs_{patient}-N/Manta_snpeff_{tumor}_vs_{patient}-N.{structure}.ann.vcf")
-	threads: 80
+	threads: 2
 	group: "variantCalling"
 	shell:
 		"""
@@ -662,7 +663,7 @@ rule ascat:
 		results = "/scratch/n/nicholsa/zyfniu/AN_WGS/results/ASCAT/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N.tumor.cnvs.txt"
 	params:
 		gender = getGender
-	threads: 8
+	threads: 2
 	group: "variantCalling"
 	shell:
 		"""

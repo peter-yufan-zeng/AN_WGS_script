@@ -225,8 +225,8 @@ rule Merge_Recal_Bam_and_index:
 	input:
 		recal_bam_to_gather
 	output:
-		bam = "orphan/{sample}/Recal/{sample}.recal.bam",
-		index = "orphan/{sample}/Recal/{sample}.recal.bai"
+		bam = "/scratch/n/nicholsa/zyfniu/AN_WGS/orphan/{sample}/Recal/{sample}.recal.bam",
+		index = "/scratch/n/nicholsa/zyfniu/AN_WGS/orphan/{sample}/Recal/{sample}.recal.bai"
 	group: "recalibrator"
 	threads: 20
 	shell:
@@ -242,10 +242,10 @@ rule Merge_Recal_Bam_and_index:
 ###
 rule samtools_stats:
 	input:
-		bam = "orphan/{sample}/Recal/{sample}.recal.bam",
+		bam = "/scratch/n/nicholsa/zyfniu/AN_WGS/orphan/{sample}/Recal/{sample}.recal.bam",
 		index = "orphan/{sample}/Recal/{sample}.recal.bai"
 	output:
-			stats = "QC/{sample}/{sample}.samtools.stats.out"
+			stats = "/scratch/n/nicholsa/zyfniu/AN_WGS/QC/{sample}/{sample}.samtools.stats.out"
 	group: "qc"
 	threads: 2
 	shell:
@@ -256,8 +256,8 @@ rule samtools_stats:
 
 rule bamqc:
 	input:
-		bam = "orphan/{sample}/Recal/{sample}.recal.bam",
-		index = "orphan/{sample}/Recal/{sample}.recal.bai"
+		bam = "/scratch/n/nicholsa/zyfniu/AN_WGS/orphan/{sample}/Recal/{sample}.recal.bam",
+		index = "/scratch/n/nicholsa/zyfniu/AN_WGS/orphan/{sample}/Recal/{sample}.recal.bai"
 	output:
 			stats = "QC/{sample}/bamQC/qualimapReport.html"
 	group: "qc"
@@ -457,7 +457,7 @@ rule merge_mutect2_vcf_filtered:
 	input:
 		concat_vcf_filtered
 	output:
-		"results/mutect2/{tumor}_vs_{patient}-N/filtered_{tumor}_vs_{patient}-N.vcf"
+		"/scratch/n/nicholsa/zyfniu/AN_WGS/results/mutect2/{tumor}_vs_{patient}-N/filtered_{tumor}_vs_{patient}-N.vcf"
 	threads: 2
 	group: "variantCalling"
 	shell:
@@ -493,7 +493,7 @@ rule config_manta:
 		--normalBam {input.normal} \
 		--tumorBam  {input.tumor} \
 		--reference {REF_fasta} \
-		--runDir temp/Manta/{wildcards.patient}_vs_{patient}-N/{wildcards.tumor}
+		--runDir temp/Manta/{wildcards.tumor}_vs_{wildcards.patient}-N/{wildcards.tumor}
 		"""
 
 rule manta:
@@ -512,22 +512,22 @@ rule manta:
 		"""
 		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/HPV_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
 		python {input.script} -m local -j {threads}
-		mv temp/Manta/{wildcards.patient}_vs_{patient}-N/results/variants/candidateSmallIndels.vcf.gz \
-		results/Manta/{wildcards.patient}_vs_{patient}-N/Manta_{wildcards.tumor}_vs_{wildcards.patient}-N.candidateSmallIndels.vcf.gz
-		mv temp/Manta/{wildcards.patient}_vs_{patient}-N/results/variants/candidateSmallIndels.vcf.gz.tbi \
-		results/Manta/{wildcards.patient}_vs_{patient}-N/Manta_{wildcards.tumor}_vs_{wildcards.patient}-N.candidateSmallIndels.vcf.gz.tbi
-		mv temp/Manta/{wildcards.patient}_vs_{patient}-N/results/variants/candidateSV.vcf.gz \
-		results/Manta/{wildcards.patient}_vs_{patient}-N/Manta_{wildcards.tumor}_vs_{wildcards.patient}-N.candidateSV.vcf.gz
-		mv temp/Manta/{wildcards.patient}_vs_{patient}-N/results/variants/candidateSV.vcf.gz.tbi \
-		results/Manta/{wildcards.patient}_vs_{patient}-N/Manta_{wildcards.tumor}_vs_{wildcards.patient}-N.candidateSV.vcf.gz.tbi
-		mv temp/Manta/{wildcards.patient}_vs_{patient}-N/results/variants/diploidSV.vcf.gz \
-		results/Manta/{wildcards.patient}_vs_{patient}-N/Manta_{wildcards.tumor}_vs_{wildcards.patient}-N.diploidSV.vcf.gz
-		mv temp/Manta/{wildcards.patient}_vs_{patient}-N/results/variants/diploidSV.vcf.gz.tbi \
-		results/Manta/{wildcards.patient}_vs_{patient}-N/Manta_{wildcards.tumor}_vs_{wildcards.patient}-N.diploidSV.vcf.gz.tbi
-		mv temp/Manta/{wildcards.patient}_vs_{patient}-N/results/variants/somaticSV.vcf.gz \
-		results/Manta/{wildcards.patient}_vs_{patient}-N/Manta_{wildcards.tumor}_vs_{wildcards.patient}-N.somaticSV.vcf.gz
-		mv temp/Manta/{wildcards.patient}_vs_{patient}-N/results/variants/somaticSV.vcf.gz.tbi \
-		results/Manta/{wildcards.patient}_vs_{patient}-N/Manta_{wildcards.tumor}_vs_{wildcards.patient}-N.somaticSV.vcf.gz.tbi
+		mv temp/Manta/{wildcards.tumor}_vs_{wildcards.patient}-N/results/variants/candidateSmallIndels.vcf.gz \
+		results/Manta/{wildcards.tumor}_vs_{wildcards.patient}-N/Manta_{wildcards.tumor}_vs_{wildcards.patient}-N.candidateSmallIndels.vcf.gz
+		mv temp/Manta/{wildcards.tumor}_vs_{wildcards.patient}-N/results/variants/candidateSmallIndels.vcf.gz.tbi \
+		results/Manta/{wildcards.tumor}_vs_{wildcards.patient}-N/Manta_{wildcards.tumor}_vs_{wildcards.patient}-N.candidateSmallIndels.vcf.gz.tbi
+		mv temp/Manta/{wildcards.tumor}_vs_{wildcards.patient}-N/results/variants/candidateSV.vcf.gz \
+		results/Manta/{wildcards.tumor}_vs_{wildcards.patient}-N/Manta_{wildcards.tumor}_vs_{wildcards.patient}-N.candidateSV.vcf.gz
+		mv temp/Manta/{wildcards.tumor}_vs_{wildcards.patient}-N/results/variants/candidateSV.vcf.gz.tbi \
+		results/Manta/{wildcards.tumor}_vs_{wildcards.patient}-N/Manta_{wildcards.tumor}_vs_{wildcards.patient}-N.candidateSV.vcf.gz.tbi
+		mv temp/Manta/{wildcards.tumor}_vs_{wildcards.patient}-N/results/variants/diploidSV.vcf.gz \
+		results/Manta/{wildcards.tumor}_vs_{wildcards.patient}-N/Manta_{wildcards.tumor}_vs_{wildcards.patient}-N.diploidSV.vcf.gz
+		mv temp/Manta/{wildcards.tumor}_vs_{wildcards.patient}-N/results/variants/diploidSV.vcf.gz.tbi \
+		results/Manta/{wildcards.tumor}_vs_{wildcards.patient}-N/Manta_{wildcards.tumor}_vs_{wildcards.patient}-N.diploidSV.vcf.gz.tbi
+		mv temp/Manta/{wildcards.tumor}_vs_{wildcards.patient}-N/results/variants/somaticSV.vcf.gz \
+		results/Manta/{wildcards.tumor}_vs_{wildcards.patient}-N/Manta_{wildcards.tumor}_vs_{wildcards.patient}-N.somaticSV.vcf.gz
+		mv temp/Manta/{wildcards.tumor}_vs_{wildcards.patient}-N/results/variants/somaticSV.vcf.gz.tbi \
+		results/Manta/{wildcards.tumor}_vs_{wildcards.patient}-N/Manta_{wildcards.tumor}_vs_{wildcards.patient}-N.somaticSV.vcf.gz.tbi
 		"""
 
 rule annotate_mutect2:

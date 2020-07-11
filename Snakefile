@@ -283,13 +283,13 @@ rule bamqc:
 
 rule mutect2:
 	input:
-		normal = "orphan/{patient}-N/Recal/{patient}-N.recal.bam",
-		tumor = "orphan/{tumor}/Recal/{tumor}.recal.bam"
+		normal = "/scratch/n/nicholsa/zyfniu/AN_WGS/orphan/{patient}-N/Recal/{patient}-N.recal.bam",
+		tumor = "/scratch/n/nicholsa/zyfniu/AN_WGS/orphan/{tumor}/Recal/{tumor}.recal.bam"
 	#	recurrence = "{sample}R/Recal/{sample}R.recal.bam"
 	output:
-		vcf = temp("results/mutect2/{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N.{chr}.vcf"),
-		stats = temp("results/mutect2/{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N.{chr}.vcf.stats"),
-		f12 = temp("results/mutect2/{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N_f12.{chr}.tar.gz")
+		vcf = temp("/scratch/n/nicholsa/zyfniu/AN_WGS/results/mutect2/{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N.{chr}.vcf"),
+		stats = temp("/scratch/n/nicholsa/zyfniu/AN_WGS/results/mutect2/{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N.{chr}.vcf.stats"),
+		f12 = temp("/scratch/n/nicholsa/zyfniu/AN_WGS/results/mutect2/{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N_f12.{chr}.tar.gz")
 	threads: 2
 	group: "variantCalling"
 	shell:
@@ -306,13 +306,13 @@ rule mutect2:
 		"""
 
 def concat_vcf(wildcards):
-	return expand("results/mutect2/" + wildcards.tumor + "_vs_" + wildcards.patient + "-N" + "/unfiltered_" + wildcards.tumor + "_vs_" + wildcards.patient + "-N.{chr}.vcf", chr = CHROMOSOMES)
+	return expand("/scratch/n/nicholsa/zyfniu/AN_WGS/results/mutect2/" + wildcards.tumor + "_vs_" + wildcards.patient + "-N" + "/unfiltered_" + wildcards.tumor + "_vs_" + wildcards.patient + "-N.{chr}.vcf", chr = CHROMOSOMES)
 
 rule merge_mutect2_vcf:
 	input:
 		concat_vcf
 	output:
-		temp("results/mutect2/{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N.vcf")
+		temp("/scratch/n/nicholsa/zyfniu/AN_WGS/results/mutect2/{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N.vcf")
 	threads: 2
 	group: "variantCalling"
 	shell:
@@ -322,13 +322,13 @@ rule merge_mutect2_vcf:
 		"""
 
 def concat_vcf_stats(wildcards):
-	return expand("results/mutect2/" + wildcards.tumor + "_vs_" + wildcards.patient + "-N" + "/unfiltered_" + wildcards.tumor + "_vs_" + wildcards.patient + "-N.{chr}.vcf.stats", chr = CHROMOSOMES)
+	return expand("/scratch/n/nicholsa/zyfniu/AN_WGS/results/mutect2/" + wildcards.tumor + "_vs_" + wildcards.patient + "-N" + "/unfiltered_" + wildcards.tumor + "_vs_" + wildcards.patient + "-N.{chr}.vcf.stats", chr = CHROMOSOMES)
 
 rule merge_stats:
 	input:
 		concat_vcf_stats
 	output:
-		"results/mutect2/{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N_merged.stats"
+		"/scratch/n/nicholsa/zyfniu/AN_WGS/results/mutect2/{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N_merged.stats"
 	threads: 2
 	group: "variantCalling"
 	run:
@@ -340,13 +340,13 @@ rule merge_stats:
 		shell(cmd)
 
 def concat_vcf_f12(wildcards):
-	return expand("results/mutect2/" + wildcards.tumor + "_vs_" + wildcards.patient + "-N" + "/unfiltered_" + wildcards.tumor + "_vs_" + wildcards.patient + "-N_f12.{chr}.tar.gz", chr = CHROMOSOMES)
+	return expand("/scratch/n/nicholsa/zyfniu/AN_WGS/results/mutect2/" + wildcards.tumor + "_vs_" + wildcards.patient + "-N" + "/unfiltered_" + wildcards.tumor + "_vs_" + wildcards.patient + "-N_f12.{chr}.tar.gz", chr = CHROMOSOMES)
 
 rule gatk_LearnOrientationModel:
 	input:
 		concat_vcf_f12
 	output:
-		model = "results/mutect2/{tumor}_vs_{patient}-N/unfiltered_{tumor}_read_orientation_model.tar.gz"
+		model = "/scratch/n/nicholsa/zyfniu/AN_WGS/results/mutect2/{tumor}_vs_{patient}-N/unfiltered_{tumor}_read_orientation_model.tar.gz"
 	group: "variantCalling"
 	run:
 		import os, glob
@@ -360,9 +360,9 @@ rule gatk_get_pileupsummaries_normal:
 	input:
 		##Downloaded from https://console.cloud.google.com/storage/browser/_details/gatk-best-practices/somatic-hg38/
 		common_biallelic_vcf =  REF_exac_common,
-		normal = "orphan/{patient}-N/Recal/{patient}-N.recal.bam"
+		normal = "/scratch/n/nicholsa/zyfniu/AN_WGS/orphan/{patient}-N/Recal/{patient}-N.recal.bam"
 	output:
-		summary = "results/mutect2/{tumor}_vs_{patient}-N/{patient}-N_pileupsummaries.table"
+		summary = "/scratch/n/nicholsa/zyfniu/AN_WGS/results/mutect2/{tumor}_vs_{patient}-N/{patient}-N_pileupsummaries.table"
 	threads: 2
 	group: "variantCalling"
 	shell:
@@ -379,9 +379,9 @@ rule gatk_get_pileupsummaries_tumor:
 	input:
 		##Downloaded from https://console.cloud.google.com/storage/browser/_details/gatk-best-practices/somatic-hg38/
 		common_biallelic_vcf =  REF_exac_common,
-		primary = "orphan/{tumor}/Recal/{tumor}.recal.bam"
+		primary = "/scratch/n/nicholsa/zyfniu/AN_WGS/orphan/{tumor}/Recal/{tumor}.recal.bam"
 	output:
-		summary = "results/mutect2/{tumor}_vs_{patient}-N/{tumor}_pileupsummaries.table"
+		summary = "/scratch/n/nicholsa/zyfniu/AN_WGS/results/mutect2/{tumor}_vs_{patient}-N/{tumor}_pileupsummaries.table"
 	threads: 2
 	group: "variantCalling"
 	shell:
@@ -396,11 +396,11 @@ rule gatk_get_pileupsummaries_tumor:
 
 rule gatk_calcContam_primary:
 	input:
-		normal = "results/mutect2/{tumor}_vs_{patient}-N/{patient}-N_pileupsummaries.table",
-		primary = "results/mutect2/{tumor}_vs_{patient}-N/{tumor}_pileupsummaries.table"
+		normal = "/scratch/n/nicholsa/zyfniu/AN_WGS/results/mutect2/{tumor}_vs_{patient}-N/{patient}-N_pileupsummaries.table",
+		primary = "/scratch/n/nicholsa/zyfniu/AN_WGS/results/mutect2/{tumor}_vs_{patient}-N/{tumor}_pileupsummaries.table"
 	output:
-		contamTable = temp("results/mutect2/{tumor}_vs_{patient}-N/{tumor}_calContam.table"),
-		segment = temp("results/mutect2/{tumor}_vs_{patient}-N/{tumor}_tumor.segment")
+		contamTable = temp("/scratch/n/nicholsa/zyfniu/AN_WGS/results/mutect2/{tumor}_vs_{patient}-N/{tumor}_calContam.table"),
+		segment = temp("/scratch/n/nicholsa/zyfniu/AN_WGS/results/mutect2/{tumor}_vs_{patient}-N/{tumor}_tumor.segment")
 	threads: 2
 	group: "variantCalling"
 	shell:
@@ -415,9 +415,9 @@ rule gatk_calcContam_primary:
 
 rule index_unfiltered_vcf:
 	input:
-		vcf = "results/mutect2/{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N.vcf",
+		vcf = "/scratch/n/nicholsa/zyfniu/AN_WGS/results/mutect2/{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N.vcf",
 	output:
-		vcf_tbi = "results/mutect2/{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N.vcf.idx"
+		vcf_tbi = "/scratch/n/nicholsa/zyfniu/AN_WGS/results/mutect2/{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N.vcf.idx"
 	threads: 2
 	group: "variantCalling"
 	shell:
@@ -430,12 +430,12 @@ rule index_unfiltered_vcf:
 
 rule gatk_filterMutect:
 	input:
-		vcf_tbi = "results/mutect2/{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N.vcf.idx",
-		vcf = "results/mutect2/{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N.vcf",
-		model = "results/mutect2/{tumor}_vs_{patient}-N/unfiltered_{tumor}_read_orientation_model.tar.gz",
-		stats = "results/mutect2/{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N_merged.stats"
+		vcf_tbi = "/scratch/n/nicholsa/zyfniu/AN_WGS/results/mutect2/{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N.vcf.idx",
+		vcf = "/scratch/n/nicholsa/zyfniu/AN_WGS/results/mutect2/{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N.vcf",
+		model = "/scratch/n/nicholsa/zyfniu/AN_WGS/results/mutect2/{tumor}_vs_{patient}-N/unfiltered_{tumor}_read_orientation_model.tar.gz",
+		stats = "/scratch/n/nicholsa/zyfniu/AN_WGS/results/mutect2/{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N_merged.stats"
 	output:
-		filter_vcf = temp("results/mutect2/{tumor}_vs_{patient}-N/filtered_{tumor}_vs_{patient}-N.{chr}.vcf")
+		filter_vcf = temp("/scratch/n/nicholsa/zyfniu/AN_WGS/results/mutect2/{tumor}_vs_{patient}-N/filtered_{tumor}_vs_{patient}-N.{chr}.vcf")
 	threads: 2
 	group: "variantCalling"
 	shell:
@@ -451,7 +451,7 @@ rule gatk_filterMutect:
 		"""
 
 def concat_vcf_filtered(wildcards):
-	return	expand("results/mutect2/" + wildcards.tumor + "_vs_" + wildcards.patient + "-N" + "/filtered_" + wildcards.tumor + "_vs_" + wildcards.patient + "-N.{chr}.vcf", chr = CHROMOSOMES)
+	return	expand("/scratch/n/nicholsa/zyfniu/AN_WGS/results/mutect2/" + wildcards.tumor + "_vs_" + wildcards.patient + "-N" + "/filtered_" + wildcards.tumor + "_vs_" + wildcards.patient + "-N.{chr}.vcf", chr = CHROMOSOMES)
 
 rule merge_mutect2_vcf_filtered:
 	input:
@@ -466,9 +466,9 @@ rule merge_mutect2_vcf_filtered:
 
 rule index_filtered_vcf:
 	input:
-		vcf = "results/mutect2/{tumor}_vs_{patient}-N/filtered_{tumor}_vs_{patient}-N.vcf",
+		vcf = "/scratch/n/nicholsa/zyfniu/AN_WGS/results/mutect2/{tumor}_vs_{patient}-N/filtered_{tumor}_vs_{patient}-N.vcf",
 	output:
-		vcf_tbi = "results/mutect2/{tumor}_vs_{patient}-N/filtered_{tumor}_vs_{patient}-N.vcf.idx"
+		vcf_tbi = "/scratch/n/nicholsa/zyfniu/AN_WGS/results/mutect2/{tumor}_vs_{patient}-N/filtered_{tumor}_vs_{patient}-N.vcf.idx"
 	threads: 2
 	group: "variantCalling"
 	shell:
@@ -481,9 +481,9 @@ rule index_filtered_vcf:
 
 rule config_manta:
 	input:
-			normal = "orphan/{patient}-N/Recal/{patient}-N.recal.bam",
-			tumor = "orphan/{tumor}/Recal/{tumor}.recal.bam"
-	output: temp("temp/Manta/{tumor}_vs_{patient}-N/runWorkflow.py")
+			normal = "/scratch/n/nicholsa/zyfniu/AN_WGS/orphan/{patient}-N/Recal/{patient}-N.recal.bam",
+			tumor = "/scratch/n/nicholsa/zyfniu/AN_WGS/orphan/{tumor}/Recal/{tumor}.recal.bam"
+	output: temp("/scratch/n/nicholsa/zyfniu/AN_WGS/temp/Manta/{tumor}_vs_{patient}-N/runWorkflow.py")
 	threads: 2
 	group: "variantCalling"
 	shell:
@@ -498,14 +498,14 @@ rule config_manta:
 
 rule manta:
 	input:
-			normal = "orphan/{patient}-N/Recal/{patient}-N.recal.bam",
-			tumor = "orphan/{tumor}/Recal/{tumor}.recal.bam",
-			script = "temp/Manta/{tumor}_vs_{patient}-N/runWorkflow.py"
+			normal = "/scratch/n/nicholsa/zyfniu/AN_WGS/orphan/{patient}-N/Recal/{patient}-N.recal.bam",
+			tumor = "/scratch/n/nicholsa/zyfniu/AN_WGS/orphan/{tumor}/Recal/{tumor}.recal.bam",
+			script = "/scratch/n/nicholsa/zyfniu/AN_WGS/temp/Manta/{tumor}_vs_{patient}-N/runWorkflow.py"
 	output:
-			sv = temp("results/Manta/{tumor}_vs_{patient}-N/Manta_{tumor}_vs_{patient}-N.candidateSV.vcf.gz"),
-			smallindel = temp("results/Manta/{tumor}_vs_{patient}-N/Manta_{tumor}_vs_{patient}-N.candidateSmallIndels.vcf.gz"),
-			diploidSV = temp("results/Manta/{tumor}_vs_{patient}-N/Manta_{tumor}_vs_{patient}-N.diploidSV.vcf.gz"),
-			somaticSV = temp("results/Manta/{tumor}_vs_{patient}-N/Manta_{tumor}_vs_{patient}-N.somaticSV.vcf.gz")
+			sv = temp("/scratch/n/nicholsa/zyfniu/AN_WGS/results/Manta/{tumor}_vs_{patient}-N/Manta_{tumor}_vs_{patient}-N.candidateSV.vcf.gz"),
+			smallindel = temp("/scratch/n/nicholsa/zyfniu/AN_WGS/results/Manta/{tumor}_vs_{patient}-N/Manta_{tumor}_vs_{patient}-N.candidateSmallIndels.vcf.gz"),
+			diploidSV = temp("/scratch/n/nicholsa/zyfniu/AN_WGS/results/Manta/{tumor}_vs_{patient}-N/Manta_{tumor}_vs_{patient}-N.diploidSV.vcf.gz"),
+			somaticSV = temp("/scratch/n/nicholsa/zyfniu/AN_WGS/results/Manta/{tumor}_vs_{patient}-N/Manta_{tumor}_vs_{patient}-N.somaticSV.vcf.gz")
 	threads: 80
 	group: "variantCalling"
 	shell:
@@ -586,8 +586,8 @@ rule annotate_manta:
 
 rule zip_manta:
 	input:
-		annotatedvcf = "results/Manta/{tumor}_vs_{patient}-N/Manta_snpeff_{tumor}_vs_{patient}-N.{structure}.ann.vcf"
-	output: annotatedvcf = "results/Manta/{tumor}_vs_{patient}-N/Manta_snpeff_{tumor}_vs_{patient}-N.{structure}.ann.vcf.gz"
+		annotatedvcf = "/scratch/n/nicholsa/zyfniu/AN_WGS/results/Manta/{tumor}_vs_{patient}-N/Manta_snpeff_{tumor}_vs_{patient}-N.{structure}.ann.vcf"
+	output: annotatedvcf = "/scratch/n/nicholsa/zyfniu/AN_WGS/results/Manta/{tumor}_vs_{patient}-N/Manta_snpeff_{tumor}_vs_{patient}-N.{structure}.ann.vcf.gz"
 	threads: 2
 	group: "variantCalling"
 	shell:
@@ -604,7 +604,7 @@ rule alleleCount:
 		bam = "orphan/{sample}/Recal/{sample}.recal.bam",
 		index = "orphan/{sample}/Recal/{sample}.recal.bai",
 		acloci = "/scratch/n/nicholsa/zyfniu/igenomes_ref/1000G_phase3_GRCh38_maf0.3.loci"
-	output: "results/ASCAT/alleleCount/{sample}.alleleCount"
+	output: "/scratch/n/nicholsa/zyfniu/AN_WGS/results/ASCAT/alleleCount/{sample}.alleleCount"
 	threads: 2
 	group: "variantCalling"
 	shell:
@@ -623,9 +623,9 @@ def getGender(wildcards):
 ###convert allele script from https://bitbucket.org/malinlarsson/somatic_wgs_pipeline/src/master/convertAlleleCounts.r
 rule ConvertAlleleCounts:
 	input:
-		normal = "results/ASCAT/alleleCount/{patient}-N.alleleCount",
-		tumor = "results/ASCAT/alleleCount/{tumor}.alleleCount",
-		script = "AN_WGS/convertAlleleCounts.r"
+		normal = "/scratch/n/nicholsa/zyfniu/AN_WGS/results/ASCAT/alleleCount/{patient}-N.alleleCount",
+		tumor = "/scratch/n/nicholsa/zyfniu/AN_WGS/results/ASCAT/alleleCount/{tumor}.alleleCount",
+		script = "/scratch/n/nicholsa/zyfniu/AN_WGS/AN_WGS/convertAlleleCounts.r"
 	output:
 		normalBaf = "/scratch/n/nicholsa/zyfniu/AN_WGS/results/ASCAT/{tumor}_vs_{patient}-N/{patient}-N.BAF",
 		tumorBaf = "/scratch/n/nicholsa/zyfniu/AN_WGS/results/ASCAT/{tumor}_vs_{patient}-N/{tumor}.BAF",
@@ -652,7 +652,7 @@ rule ascat:
 		tumorLogr = "/scratch/n/nicholsa/zyfniu/AN_WGS/results/ASCAT/{tumor}_vs_{patient}-N/{tumor}.LogR",
 		acLociGC = "/scratch/n/nicholsa/zyfniu/igenomes_ref/1000G_phase3_GRCh38_maf0.3.loci.gc"
 	output:
-		results = "results/ASCAT/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N.tumor.cnvs.txt"
+		results = "/scratch/n/nicholsa/zyfniu/AN_WGS/results/ASCAT/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N.tumor.cnvs.txt"
 	params:
 		gender = getGender
 	threads: 8

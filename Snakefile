@@ -246,7 +246,7 @@ rule samtools_stats:
 		index = "/scratch/n/nicholsa/zyfniu/AN_WGS/orphan/{sample}/Recal/{sample}.recal.bai"
 	output:
 			stats = "QC/{sample}/{sample}.samtools.stats.out"
-	group: "qc"
+	group: "variantCalling"
 	threads: 2
 	shell:
 		"""
@@ -261,7 +261,7 @@ rule bamqc:
 		index = "/scratch/n/nicholsa/zyfniu/AN_WGS/orphan/{sample}/Recal/{sample}.recal.bai"
 	output:
 			stats = "QC/{sample}/bamQC/qualimapReport.html"
-	group: "qc"
+	group: "variantCalling"
 	threads: 40
 	shell:
 		"""
@@ -543,7 +543,7 @@ rule annotate_mutect2:
 	group: "variantCalling"
 	shell:
 		"""
-		cd results/mutect2/{wildcards.tumor}
+		cd results/mutect2/{wildcards.tumor}_vs_{wildcards.patient}-N
 		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/HPV_WGS/raw $SCRATCH/singularity_images/nfcore-sareksnpeff-2.6.GRCh38.img \
 		snpEff -Xmx8g \
 		GRCh38.86 \
@@ -578,7 +578,7 @@ rule annotate_manta:
 	group: "variantCalling"
 	shell:
 		"""
-		cd results/mutect2/{wildcards.tumor}/
+		cd results/Manta/{wildcards.tumor}_vs_{patient}-N/
 		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/HPV_WGS/raw $SCRATCH/singularity_images/nfcore-sareksnpeff-2.6.GRCh38.img \
 		snpEff -Xmx8g \
 		GRCh38.86 \
@@ -647,8 +647,8 @@ rule ConvertAlleleCounts:
 		cd results/ASCAT/{wildcards.tumor}_vs_{wildcards.patient}-N
 		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/HPV_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img Rscript \
 		/scratch/n/nicholsa/zyfniu/AN_WGS/AN_WGS/convertAlleleCounts.r \
-		{wildcards.tumor} /scratch/n/nicholsa/zyfniu/AN_WGS/results/alleleCount/{wildcards.tumor}.alleleCount \
-		{wildcards.patient}-N /scratch/n/nicholsa/zyfniu/AN_WGS/results/alleleCount/{wildcards.patient}-N.alleleCount \
+		{wildcards.tumor} {input.tumor} \
+		{wildcards.patient}-N {input.normal} \
 		{params.gender}
 		"""
 

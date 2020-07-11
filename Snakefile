@@ -41,7 +41,7 @@ rule all:
 	input:
 		###FASTQC + BWA Alignment
 		expand("QC/{sample_lane}/{sample_lane}_R1_fastqc.html", sample_lane = SAMPLE_LANE),
-		expand("orphan/{sample}/Recal/{sample}.recal.bam", sample = SAMPLE),
+		expand("/scratch/n/nicholsa/zyfniu/AN_WGS/orphan/{sample}/Recal/{sample}.recal.bam", sample = SAMPLE),
 		### using zip https://endrebak.gitbooks.io/the-snakemake-book/chapters/expand/expand.html
 		###BAMQC + samtools_stats
 		expand("QC/{sample}/{sample}.samtools.stats.out",sample = SAMPLE),
@@ -49,14 +49,14 @@ rule all:
 		####
 		####VARIANT CALLING OUTPUTS
 		####
-		expand("results/mutect2/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N_snpEff.ann.vcf.gz",zip, patient = [x[:-2] for x in TUMOR],tumor = TUMOR),
+		expand("/scratch/n/nicholsa/zyfniu/AN_WGS/results/mutect2/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N_snpEff.ann.vcf.gz",zip, patient = [x[:-2] for x in TUMOR],tumor = TUMOR),
 		#### Manta
-		expand("results/Manta/{tumor}_vs_{patient}-N/Manta_snpeff_{tumor}_vs_{patient}-N.candidateSV.ann.vcf.gz",zip, patient = [x[:-2] for x in TUMOR],tumor = TUMOR),
-		expand("results/Manta/{tumor}_vs_{patient}-N/Manta_snpeff_{tumor}_vs_{patient}-N.candidateSmallIndels.ann.vcf.gz",zip, patient = [x[:-2] for x in TUMOR],tumor = TUMOR),
-		expand("results/Manta/{tumor}_vs_{patient}-N/Manta_snpeff_{tumor}_vs_{patient}-N.diploidSV.ann.vcf.gz",zip, patient = [x[:-2] for x in TUMOR],tumor = TUMOR),
-		expand("results/Manta/{tumor}_vs_{patient}-N/Manta_snpeff_{tumor}_vs_{patient}-N.somaticSV.ann.vcf.gz",zip, patient = [x[:-2] for x in TUMOR],tumor = TUMOR),
+		expand("/scratch/n/nicholsa/zyfniu/AN_WGS/results/Manta/{tumor}_vs_{patient}-N/Manta_snpeff_{tumor}_vs_{patient}-N.candidateSV.ann.vcf.gz",zip, patient = [x[:-2] for x in TUMOR],tumor = TUMOR),
+		expand("/scratch/n/nicholsa/zyfniu/AN_WGS/results/Manta/{tumor}_vs_{patient}-N/Manta_snpeff_{tumor}_vs_{patient}-N.candidateSmallIndels.ann.vcf.gz",zip, patient = [x[:-2] for x in TUMOR],tumor = TUMOR),
+		expand("/scratch/n/nicholsa/zyfniu/AN_WGS/results/Manta/{tumor}_vs_{patient}-N/Manta_snpeff_{tumor}_vs_{patient}-N.diploidSV.ann.vcf.gz",zip, patient = [x[:-2] for x in TUMOR],tumor = TUMOR),
+		expand("/scratch/n/nicholsa/zyfniu/AN_WGS/results/Manta/{tumor}_vs_{patient}-N/Manta_snpeff_{tumor}_vs_{patient}-N.somaticSV.ann.vcf.gz",zip, patient = [x[:-2] for x in TUMOR],tumor = TUMOR),
 		#### ASCAT
-		expand("results/ASCAT/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N.tumor.cnvs.txt",zip, tumor = TUMOR, patient = [x[:-2] for x in TUMOR])
+		expand("/scratch/n/nicholsa/zyfniu/AN_WGS/results/ASCAT/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N.tumor.cnvs.txt",zip, tumor = TUMOR, patient = [x[:-2] for x in TUMOR])
 		#### QC
 		#expand("reports/{patient}_multiqc.html",patient = PAT)
 	threads: 80

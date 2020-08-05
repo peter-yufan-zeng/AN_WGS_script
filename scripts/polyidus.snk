@@ -1,0 +1,59 @@
+import pandas as pd
+import os
+
+###
+### LOAD SAMPLES
+###
+SCRATCH = "/gpfs/fs0/scratch/n/nicholsa/zyfniu"
+INPUT = pd.read_table(config[input],names = ['Sample','Lane','Fastq1','Fastq2'])
+SAMPLE =  INPUT['Sample']
+INPUT['Sample_Lane'] = INPUT.Sample + "_" + INPUT.Lane
+TMP = "temp"
+print(INPUT)
+
+rule all:
+    input:
+        o1 = expand("/media/ionadmin/lab3/results/polyidusOutput/{sample_lane}_HpvIntegrationInfo.tsv",sample = INPUT['Sample_Lane']),
+        o2 = expand("/media/ionadmin/lab3/results/polyidusOutput/{sample_lane}_exactHpvIntegrations.tsv",sample = INPUT['Sample_Lane'])
+###
+### Run polyidus
+###
+
+def bwa_mem_fastq1(wildcards):
+    return expand(INPUT[INPUT.Sample_Lane == wildcards.sample_lane].Fastq1)
+
+def bwa_mem_fastq2(wildcards):
+	return expand(INPUT[INPUT.Sample_Lane == wildcards.sample_lane].Fastq2)
+
+rule polyidus:
+    input:
+        r1 = "TCAG/{sample_lane}_{x}_{lane}_R1_001.fastq.gz",
+        r2 = "TCAG/{sample_lane}_{x}_{lane}_R2_001.fastq.gz",
+        polyidus_script = "/media/ionadmin/b68e1a06-1bb3-442c-bb3c-553aab1edfce/bioinformatics/polyidus/src/polyidus.py"
+    output:
+        o1 = "/media/ionadmin/lab7/results/polyidusOutput/{sample_lane}/results/HpvIntegrationInfo.tsv",
+        o2 = "/media/ionadmin/lab7/results/polyidusOutput/{sample_lane}/results/exactHpvIntegrations.tsv"
+    threads: 4
+    # wildcard_constraints:
+    #     sample="[A-Za-z0-9]+"
+    shell:
+        """
+        python {input.polyidus_script} \
+        /media/ionadmin/b68e1a06-1bb3-442c-bb3c-553aab1edfce/bioinformatics/polyidus/bowtie2_index/grch38 \
+        /media/ionadmin/b68e1a06-1bb3-442c-bb3c-553aab1edfce/bioinformatics/polyidus/data/hpv16/hpv16_bowt_ind \
+        --fastq {input.r1} {input.r2} \
+        --outdir /media/ionadmin/lab7/results/polyidusOutput/{sample_lane}
+        """
+
+rule copy_files:
+    input:
+        i1 = "/media/ionadmin/lab7/results/polyidusOutput/{sample_lane}/results/HpvIntegrationInfo.tsv",
+        i2 = "/media/ionadmin/lab7/results/polyidusOutput/{sample_lane}/results/exactHpvIntegrations.tsv"
+    output:
+        o1 = "/media/ionadmin/lab3/results/polyidusOutput/{sample_lane}_HpvIntegrationInfo.tsv",
+        o2 = "/media/ionadmin/lab3/results/polyidusOutput/{sample_lane}_exactHpvIntegrations.tsv"
+    shell:
+        """
+        cp {input.i1} {output.o1}
+        cp {input.i2} {output.o2}
+        """

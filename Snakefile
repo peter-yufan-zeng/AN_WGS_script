@@ -8,7 +8,8 @@ import os
 ### LOAD SAMPLES
 ###
 SCRATCH = "/gpfs/fs0/scratch/n/nicholsa/zyfniu"
-INPUT = pd.read_table("/scratch/n/nicholsa/zyfniu/AN_WGS/AN_WGS/Sample/Sample.tsv",names = ['Patient','Sex','n_vs_t','Sample','Lane','Fastq1','Fastq2'])
+print("***INPUT FILE: " + config['input'] + "***")
+INPUT = pd.read_table(config['input'],names = ['Patient','Sex','n_vs_t','Sample','Lane','Fastq1','Fastq2'])
 INPUT['Lane'] = INPUT.Lane.apply(str)
 INPUT['Sample_Lane'] = INPUT.Sample + "_" + INPUT.Lane
 SAMPLE =  INPUT['Sample'].unique()
@@ -17,6 +18,8 @@ PAT = INPUT.Patient.drop_duplicates()
 TUMOR = INPUT[(INPUT.n_vs_t == 1)].Sample.drop_duplicates()
 SAMPLE_LANE = INPUT.Sample_Lane
 print(INPUT)
+OUTDIR = config['outdir']
+print("***OUTPUT DIRECTORY" + OUTDIR + "***")
 
 ###
 ###	REFERENCE FILE
@@ -31,37 +34,34 @@ CHROMOSOMES = ['chr1', 'chr2', 'chr3', 'chr4', 'chr5', 'chr6', 'chr7', 'chr8', '
 			   'chr11', 'chr12', 'chr13', 'chr14', 'chr15', 'chr16', 'chr17', 'chr18', 'chr19',
 			   'chr20', 'chr21', 'chr22', 'chrX', 'chrY']
 
-
-OUTDIR = "AN_WGS/"
-
 ###
 ### Final Results
 ###
 rule all:
 	input:
 		###FASTQC + BWA Alignment
-		expand("QC/{sample_lane}/{sample_lane}_R1_fastqc.html", sample_lane = SAMPLE_LANE),
-		expand("/scratch/n/nicholsa/zyfniu/AN_WGS/orphan/{sample}/Recal/{sample}.recal.bam", sample = SAMPLE),
+		expand(OUTDIR + "/QC/{sample_lane}/{sample_lane}_R1_fastqc.html", sample_lane = SAMPLE_LANE),
+		expand(OUTDIR + "/orphan/{sample}/Recal/{sample}.recal.bam", sample = SAMPLE),
 		### using zip https://endrebak.gitbooks.io/the-snakemake-book/chapters/expand/expand.html
 		###BAMQC + samtools_stats
-		expand("QC/{sample}/{sample}.samtools.stats.out",sample = SAMPLE),
-		expand("QC/{sample}/bamQC/qualimapReport.html",sample = SAMPLE),
+		expand(OUTDIR + "/QC/{sample}/{sample}.samtools.stats.out",sample = SAMPLE),
+		expand(OUTDIR + "/QC/{sample}/bamQC/qualimapReport.html",sample = SAMPLE),
 		####
 		####VARIANT CALLING OUTPUTS
 		####
-		expand("/scratch/n/nicholsa/zyfniu/AN_WGS/results/mutect2/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N_snpEff.ann.vcf.gz",zip, patient = [x[:-2] for x in TUMOR],tumor = TUMOR),
+		expand(OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N_snpEff.ann.vcf.gz",zip, patient = [x[:-2] for x in TUMOR],tumor = TUMOR),
 		#### Manta
-		expand("/scratch/n/nicholsa/zyfniu/AN_WGS/results/Manta/{tumor}_vs_{patient}-N/Manta_snpeff_{tumor}_vs_{patient}-N.candidateSV.ann.vcf.gz",zip, patient = [x[:-2] for x in TUMOR],tumor = TUMOR),
-		expand("/scratch/n/nicholsa/zyfniu/AN_WGS/results/Manta/{tumor}_vs_{patient}-N/Manta_snpeff_{tumor}_vs_{patient}-N.candidateSmallIndels.ann.vcf.gz",zip, patient = [x[:-2] for x in TUMOR],tumor = TUMOR),
-		expand("/scratch/n/nicholsa/zyfniu/AN_WGS/results/Manta/{tumor}_vs_{patient}-N/Manta_snpeff_{tumor}_vs_{patient}-N.diploidSV.ann.vcf.gz",zip, patient = [x[:-2] for x in TUMOR],tumor = TUMOR),
-		expand("/scratch/n/nicholsa/zyfniu/AN_WGS/results/Manta/{tumor}_vs_{patient}-N/Manta_snpeff_{tumor}_vs_{patient}-N.somaticSV.ann.vcf.gz",zip, patient = [x[:-2] for x in TUMOR],tumor = TUMOR),
+		expand(OUTDIR + "/results/Manta/{tumor}_vs_{patient}-N/Manta_snpeff_{tumor}_vs_{patient}-N.candidateSV.ann.vcf.gz",zip, patient = [x[:-2] for x in TUMOR],tumor = TUMOR),
+		expand(OUTDIR + "/results/Manta/{tumor}_vs_{patient}-N/Manta_snpeff_{tumor}_vs_{patient}-N.candidateSmallIndels.ann.vcf.gz",zip, patient = [x[:-2] for x in TUMOR],tumor = TUMOR),
+		expand(OUTDIR + "/results/Manta/{tumor}_vs_{patient}-N/Manta_snpeff_{tumor}_vs_{patient}-N.diploidSV.ann.vcf.gz",zip, patient = [x[:-2] for x in TUMOR],tumor = TUMOR),
+		expand(OUTDIR + "/results/Manta/{tumor}_vs_{patient}-N/Manta_snpeff_{tumor}_vs_{patient}-N.somaticSV.ann.vcf.gz",zip, patient = [x[:-2] for x in TUMOR],tumor = TUMOR),
 		#### ASCAT
-		expand("/scratch/n/nicholsa/zyfniu/AN_WGS/results/ASCAT/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N.tumor.cnvs.txt",zip, tumor = TUMOR, patient = [x[:-2] for x in TUMOR])
+		expand(OUTDIR + "/results/ASCAT/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N.tumor.cnvs.txt",zip, tumor = TUMOR, patient = [x[:-2] for x in TUMOR])
 		#### QC
 		#expand("reports/{patient}_multiqc.html",patient = PAT)
 	threads: 80
 	shell:
-		"singularity exec $SCRATCH/singularity_images/nfcore-sarek-2.6.img multiqc . -n reports/multiqc.html"
+		"singularity exec $SCRATCH/singularity_images/nfcore-sarek-2.6.img multiqc {OUTDIR} -n reports/multiqc.html"
 ###
 ###	Step 1: BWA-MEM Alignment
 ###
@@ -77,20 +77,20 @@ rule fastqc:
 			fastq1 = bwa_mem_fastq1,
 			fastq2 = bwa_mem_fastq2
 	output:
-		o1 =  "QC/{sample_lane}/{sample_lane}_R1_fastqc.html",
-		o2 =  "QC/{sample_lane}/{sample_lane}_R2_fastqc.html",
-		o3 =  "QC/{sample_lane}/{sample_lane}_R1_fastqc.zip",
-		o4 =  "QC/{sample_lane}/{sample_lane}_R2_fastqc.zip"
+		o1 = OUTDIR + "/QC/{sample_lane}/{sample_lane}_R1_fastqc.html",
+		o2 = OUTDIR + "/QC/{sample_lane}/{sample_lane}_R2_fastqc.html",
+		o3 = OUTDIR + "/QC/{sample_lane}/{sample_lane}_R1_fastqc.zip",
+		o4 = OUTDIR + "/QC/{sample_lane}/{sample_lane}_R2_fastqc.zip"
 	threads: 20
-	group: "align"
+	group: "markdup"
 	shell:
 			"""
-		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/HPV_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
-		fastqc -t {threads} {input} --outdir=QC/{wildcards.sample_lane}/
-		mv QC/{wildcards.sample_lane}/*R1*fastqc.html QC/{wildcards.sample_lane}/{wildcards.sample_lane}_R1_fastqc.html
-		mv QC/{wildcards.sample_lane}/*R2*fastqc.html QC/{wildcards.sample_lane}/{wildcards.sample_lane}_R2_fastqc.html
-		mv QC/{wildcards.sample_lane}/*R1*fastqc.zip QC/{wildcards.sample_lane}/{wildcards.sample_lane}_R1_fastqc.zip
-		mv QC/{wildcards.sample_lane}/*R2*fastqc.zip QC/{wildcards.sample_lane}/{wildcards.sample_lane}_R2_fastqc.zip
+		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS/raw,{OUTDIR} /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
+		fastqc -t {threads} {input} --outdir={OUTDIR}/QC/{wildcards.sample_lane}/
+		mv {OUTDIR}/QC/{wildcards.sample_lane}/*R1*fastqc.html {OUTDIR}/QC/{wildcards.sample_lane}/{wildcards.sample_lane}_R1_fastqc.html
+		mv {OUTDIR}/QC/{wildcards.sample_lane}/*R2*fastqc.html {OUTDIR}/QC/{wildcards.sample_lane}/{wildcards.sample_lane}_R2_fastqc.html
+		mv {OUTDIR}/QC/{wildcards.sample_lane}/*R1*fastqc.zip {OUTDIR}/QC/{wildcards.sample_lane}/{wildcards.sample_lane}_R1_fastqc.zip
+		mv {OUTDIR}/QC/{wildcards.sample_lane}/*R2*fastqc.zip {OUTDIR}/QC/{wildcards.sample_lane}/{wildcards.sample_lane}_R2_fastqc.zip
 			"""
 
 def createRG(wildcards):
@@ -105,50 +105,50 @@ rule bwa_mem:
 		#fastq1= INPUT[INPUT.Sample_Lane == {sample_lane}].Fastq1,
 		#fastq2= INPUT[INPUT.Sample_Lane == {sample_lane}].Fastq2
 	output:
-		temp("orphan/bwa/{sample_lane}.bwa.bam")
-	threads: 70
+		temp(OUTDIR +"/orphan/bwa/{sample_lane}.bwa.bam")
+	threads: 80
 	group: "align"
 	params:
 		readGroup = createRG
 	shell:
 		"""
-		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/HPV_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
+		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
 		bwa mem -K 100000000 -R \"{params.readGroup}\" -B 3 -t {threads} -M {REF_fasta} \
-			{input.fastq1} {input.fastq2} | singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/HPV_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
+			{input.fastq1} {input.fastq2} | singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
 		samtools sort --threads {threads} -m 2G - > {output}
 		"""
 
 
 def get_bams_to_merge(wildcards):
 	SAMPLE_LANE = INPUT[INPUT.Sample == wildcards.sample].Sample_Lane
-	return expand("orphan/bwa/{sample_lane}.bwa.bam", sample_lane = SAMPLE_LANE)
+	return expand(OUTDIR +"/orphan/bwa/{sample_lane}.bwa.bam", sample_lane = SAMPLE_LANE)
 
 rule merge_bam_mapped_and_index:
 	input:
 		get_bams_to_merge
 	output:
-		temp("orphan/bwa/{sample}.merged.bam")
+		temp(OUTDIR +"/orphan/bwa/{sample}.merged.bam")
 	threads: 10
 	group: "merge_markduplicate"
 	run:
 		if len(input) == 1:
 			shell("mv {input} {output}")
-			shell("singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/HPV_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img samtools index {output}")
+			shell("singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img samtools index -@ {threads} {output}")
 		elif len(input) > 1:
 			#shell("mv {input} {output}")
-			shell("singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/HPV_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img samtools merge --threads {threads} - {input} | tee {output} | singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/HPV_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img samtools index -@ {threads} - ")
+			shell("singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img samtools merge --threads {threads} - {input} | tee {output} | singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img samtools index -@ {threads} - ")
 
 rule markdup:
 	input:
-		"orphan/bwa/{sample}.merged.bam"
+		OUTDIR +"/orphan/bwa/{sample}.merged.bam"
 	output:
-		bam = temp("orphan/MD/{sample}.md.bam"),
-		metric = "orphan/MD/{sample}.bam.metric"
+		bam = temp(OUTDIR +"/orphan/MD/{sample}.md.bam"),
+		metric = OUTDIR +"/orphan/MD/{sample}.bam.metric"
 	threads: 20
 	group: "merge_markduplicate"
 	shell:
 		"""
-		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/HPV_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/gatk-4.1.8.img \
+		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/gatk-4.1.8.img \
 		gatk --java-options "-Xmx16G" \
 		MarkDuplicates \
 		--MAX_RECORDS_IN_RAM 50000 \
@@ -162,14 +162,14 @@ rule markdup:
 
 rule recalibrator:
 	input:
-		"orphan/MD/{sample}.md.bam"
+		OUTDIR +"/orphan/MD/{sample}.md.bam"
 	output:
-		temp("orphan/{sample}/Recal/{sample}.{chr}.recal.table")
+		temp(OUTDIR +"/orphan/{sample}/Recal/{sample}.{chr}.recal.table")
 	threads: 2
 	group: "recalibrator"
 	shell:
 		"""
-		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/HPV_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/gatk-4.1.8.img \
+		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/gatk-4.1.8.img \
 		gatk --java-options "-Xmx8g" \
 		BaseRecalibrator \
 		-I {input} \
@@ -183,17 +183,17 @@ rule recalibrator:
 		"""
 
 def recal_tbl_to_gather(wildcards):
-	return expand("orphan/" + wildcards.sample + "/Recal/" + wildcards.sample + ".{chr}.recal.table",chr = CHROMOSOMES)
+	return expand(OUTDIR +"/orphan/" + wildcards.sample + "/Recal/" + wildcards.sample + ".{chr}.recal.table",chr = CHROMOSOMES)
 
 rule gather_recal_tbl:
 	input:
 		recal_tbl_to_gather
 	output:
-		temp("orphan/{sample}/Recal/{sample}.recal.table")
+		temp(OUTDIR +"/orphan/{sample}/Recal/{sample}.recal.table")
 	threads: 2
 	group: "recalibrator"
 	run:
-		command = 'singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/HPV_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img gatk --java-options \"-Xmx8g\" GatherBQSRReports'
+		command = 'singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img gatk --java-options \"-Xmx8g\" GatherBQSRReports'
 		for i in input:
 			command = command + " -I " + i
 		command = command + ' -O {output}'
@@ -201,14 +201,14 @@ rule gather_recal_tbl:
 
 rule ApplyBQSR:
 	input:
-		bam = "orphan/MD/{sample}.md.bam",
-		recal_table = "orphan/{sample}/Recal/{sample}.recal.table"
+		bam = OUTDIR +"/orphan/MD/{sample}.md.bam",
+		recal_table = OUTDIR +"/orphan/{sample}/Recal/{sample}.recal.table"
 	output:
 		temp("orphan/{sample}/Recal/{sample}.recal.{chr}.bam")
 	group: "recalibrator"
 	shell:
 		"""
-		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/HPV_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/gatk-4.1.8.img \
+		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/gatk-4.1.8.img \
 		gatk --java-options "-Xmx8G" \
 		ApplyBQSR \
 		-R {REF_fasta} \
@@ -225,15 +225,15 @@ rule Merge_Recal_Bam_and_index:
 	input:
 		recal_bam_to_gather
 	output:
-		bam = "/scratch/n/nicholsa/zyfniu/AN_WGS/orphan/{sample}/Recal/{sample}.recal.bam",
-		index = "/scratch/n/nicholsa/zyfniu/AN_WGS/orphan/{sample}/Recal/{sample}.recal.bai"
+		bam = OUTDIR +"/orphan/{sample}/Recal/{sample}.recal.bam",
+		index = OUTDIR +"/orphan/{sample}/Recal/{sample}.recal.bai"
 	group: "recalibrator"
 	threads: 20
 	shell:
 		"""
-		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/HPV_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
+		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
 		samtools merge --threads {threads} {output.bam} {input}
-		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/HPV_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
+		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
 		samtools index {output.bam} {output.index}
 		"""
 
@@ -242,30 +242,30 @@ rule Merge_Recal_Bam_and_index:
 ###
 rule samtools_stats:
 	input:
-		bam = "/scratch/n/nicholsa/zyfniu/AN_WGS/orphan/{sample}/Recal/{sample}.recal.bam",
-		index = "/scratch/n/nicholsa/zyfniu/AN_WGS/orphan/{sample}/Recal/{sample}.recal.bai"
+		bam = OUTDIR +"/orphan/{sample}/Recal/{sample}.recal.bam",
+		index = OUTDIR +"/orphan/{sample}/Recal/{sample}.recal.bai"
 	output:
 			stats = "QC/{sample}/{sample}.samtools.stats.out"
 	group: "variantCalling"
 	threads: 2
 	shell:
 		"""
-		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/HPV_WGS/raw \
+		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw \
 			/gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
 		samtools stats {input.bam} > {output}
 		"""
 
 rule bamqc:
 	input:
-		bam = "/scratch/n/nicholsa/zyfniu/AN_WGS/orphan/{sample}/Recal/{sample}.recal.bam",
-		index = "/scratch/n/nicholsa/zyfniu/AN_WGS/orphan/{sample}/Recal/{sample}.recal.bai"
+		bam = OUTDIR +"/orphan/{sample}/Recal/{sample}.recal.bam",
+		index = OUTDIR +"/orphan/{sample}/Recal/{sample}.recal.bai"
 	output:
 			stats = "QC/{sample}/bamQC/qualimapReport.html"
 	group: "variantCalling"
 	threads: 40
 	shell:
 		"""
-		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/HPV_WGS/raw \
+		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw \
 			/gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
 		qualimap --java-mem-size=100G \
 		bamqc \
@@ -285,19 +285,19 @@ rule bamqc:
 
 rule mutect2:
 	input:
-		normal = "/scratch/n/nicholsa/zyfniu/AN_WGS/orphan/{patient}-N/Recal/{patient}-N.recal.bam",
-		tumor = "/scratch/n/nicholsa/zyfniu/AN_WGS/orphan/{tumor}/Recal/{tumor}.recal.bam",
+		normal = OUTDIR +"/orphan/{patient}-N/Recal/{patient}-N.recal.bam",
+		tumor = OUTDIR +"/orphan/{tumor}/Recal/{tumor}.recal.bam",
 		interval = "/scratch/n/nicholsa/zyfniu/igenomes_ref/interval-files-folder/{num}-scattered.interval_list"
 	#	recurrence = "{sample}R/Recal/{sample}R.recal.bam"
 	output:
-		vcf = temp("/scratch/n/nicholsa/zyfniu/AN_WGS/results/mutect2/{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N.{num}.vcf"),
-		stats = temp("/scratch/n/nicholsa/zyfniu/AN_WGS/results/mutect2/{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N.{num}.vcf.stats"),
-		f12 = temp("/scratch/n/nicholsa/zyfniu/AN_WGS/results/mutect2/{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N_f12.{num}.tar.gz")
+		vcf = temp(OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N.{num}.vcf"),
+		stats = temp(OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N.{num}.vcf.stats"),
+		f12 = temp(OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N_f12.{num}.tar.gz")
 	threads: 2
 	group: "variantCalling"
 	shell:
 		"""
-		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/HPV_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/gatk-4.1.8.img \
+		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/gatk-4.1.8.img \
 		gatk --java-options "-Xmx8g" Mutect2 -R {REF_fasta} \
 		-I {input.normal}  \
 		-I {input.tumor} \
@@ -309,55 +309,55 @@ rule mutect2:
 		"""
 ##SET NUMBERS FROM 0000 to 01999
 
-NUMBERS = [str(a)+str(b)+str(c)+str(d) for a in range(0,1) for b in range(0,2) for c in range(0,10) for d in range(0,10)] 
+NUMBERS = [str(a)+str(b)+str(c)+str(d) for a in range(0,1) for b in range(0,2) for c in range(0,10) for d in range(0,10)]
 
 def concat_vcf(wildcards):
-	return expand("/scratch/n/nicholsa/zyfniu/AN_WGS/results/mutect2/" + wildcards.tumor + "_vs_" + wildcards.patient + "-N" + "/unfiltered_" + wildcards.tumor + "_vs_" + wildcards.patient + "-N.{num}.vcf", num = NUMBERS)
+	return expand(OUTDIR + "/results/mutect2/" + wildcards.tumor + "_vs_" + wildcards.patient + "-N" + "/unfiltered_" + wildcards.tumor + "_vs_" + wildcards.patient + "-N.{num}.vcf", num = NUMBERS)
 
 rule merge_mutect2_vcf:
 	input:
 		concat_vcf
 	output:
-		temp("/scratch/n/nicholsa/zyfniu/AN_WGS/results/mutect2/{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N.vcf")
+		temp(OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N.vcf")
 	threads: 1
 	group: "variantCalling"
 	shell:
 		"""
-		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/HPV_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/vcftools.img \
+		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/vcftools.img \
 		vcf-concat {input} > {output}
 		"""
 
 def concat_vcf_stats(wildcards):
-	return expand("/scratch/n/nicholsa/zyfniu/AN_WGS/results/mutect2/" + wildcards.tumor + "_vs_" + wildcards.patient + "-N" + "/unfiltered_" + wildcards.tumor + "_vs_" + wildcards.patient + "-N.{num}.vcf.stats", num = NUMBERS)
+	return expand(OUTDIR + "/results/mutect2/" + wildcards.tumor + "_vs_" + wildcards.patient + "-N" + "/unfiltered_" + wildcards.tumor + "_vs_" + wildcards.patient + "-N.{num}.vcf.stats", num = NUMBERS)
 
 rule merge_stats:
 	input:
 		concat_vcf_stats
 	output:
-		"/scratch/n/nicholsa/zyfniu/AN_WGS/results/mutect2/{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N_merged.stats"
+		OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N_merged.stats"
 	threads: 2
 	group: "variantCalling"
 	run:
 		import os, glob
-		cmd = "singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/HPV_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/gatk-4.1.8.img gatk MergeMutectStats "
+		cmd = "singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/gatk-4.1.8.img gatk MergeMutectStats "
 		for input_file in input:
 			cmd = cmd + " --stats " + input_file
 		cmd = cmd + " -O {output}"
 		shell(cmd)
 
 def concat_vcf_f12(wildcards):
-	return expand("/scratch/n/nicholsa/zyfniu/AN_WGS/results/mutect2/" + wildcards.tumor + "_vs_" + wildcards.patient + "-N" + "/unfiltered_" + wildcards.tumor + "_vs_" + wildcards.patient + "-N_f12.{num}.tar.gz", num = NUMBERS)
+	return expand(OUTDIR + "/results/mutect2/" + wildcards.tumor + "_vs_" + wildcards.patient + "-N" + "/unfiltered_" + wildcards.tumor + "_vs_" + wildcards.patient + "-N_f12.{num}.tar.gz", num = NUMBERS)
 
 rule gatk_LearnOrientationModel:
 	input:
 		concat_vcf_f12
 	output:
-		model = "/scratch/n/nicholsa/zyfniu/AN_WGS/results/mutect2/{tumor}_vs_{patient}-N/unfiltered_{tumor}_read_orientation_model.tar.gz"
+		model = OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/unfiltered_{tumor}_read_orientation_model.tar.gz"
 	group: "variantCalling"
 	threads: 2
 	run:
 		import os, glob
-		cmd = "singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/HPV_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/gatk-4.1.8.img gatk LearnReadOrientationModel "
+		cmd = "singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/gatk-4.1.8.img gatk LearnReadOrientationModel "
 		for input_file in input:
 			cmd = cmd + " -I " + input_file
 		cmd = cmd + " -O {output}"
@@ -367,14 +367,14 @@ rule gatk_get_pileupsummaries_normal:
 	input:
 		##Downloaded from https://console.cloud.google.com/storage/browser/_details/gatk-best-practices/somatic-hg38/
 		common_biallelic_vcf =  REF_exac_common,
-		normal = "/scratch/n/nicholsa/zyfniu/AN_WGS/orphan/{patient}-N/Recal/{patient}-N.recal.bam"
+		normal = OUTDIR + "/orphan/{patient}-N/Recal/{patient}-N.recal.bam"
 	output:
-		summary = "/scratch/n/nicholsa/zyfniu/AN_WGS/results/mutect2/{tumor}_vs_{patient}-N/{patient}-N_pileupsummaries.table"
+		summary = OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/{patient}-N_pileupsummaries.table"
 	threads: 2
 	group: "variantCalling"
 	shell:
 		"""
-		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/HPV_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/gatk-4.1.8.img \
+		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/gatk-4.1.8.img \
 		gatk --java-options "-Xmx8g" GetPileupSummaries \
 		-I {input.normal} \
 		-V {input.common_biallelic_vcf} \
@@ -386,14 +386,14 @@ rule gatk_get_pileupsummaries_tumor:
 	input:
 		##Downloaded from https://console.cloud.google.com/storage/browser/_details/gatk-best-practices/somatic-hg38/
 		common_biallelic_vcf =  REF_exac_common,
-		primary = "/scratch/n/nicholsa/zyfniu/AN_WGS/orphan/{tumor}/Recal/{tumor}.recal.bam"
+		primary = OUTDIR + "/orphan/{tumor}/Recal/{tumor}.recal.bam"
 	output:
-		summary = "/scratch/n/nicholsa/zyfniu/AN_WGS/results/mutect2/{tumor}_vs_{patient}-N/{tumor}_pileupsummaries.table"
+		summary = OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/{tumor}_pileupsummaries.table"
 	threads: 2
 	group: "variantCalling"
 	shell:
 		"""
-		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/HPV_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/gatk-4.1.8.img \
+		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/gatk-4.1.8.img \
 		gatk --java-options "-Xmx8g" GetPileupSummaries \
 		-I {input.primary} \
 		-V {input.common_biallelic_vcf} \
@@ -403,16 +403,16 @@ rule gatk_get_pileupsummaries_tumor:
 
 rule gatk_calcContam_primary:
 	input:
-		normal = "/scratch/n/nicholsa/zyfniu/AN_WGS/results/mutect2/{tumor}_vs_{patient}-N/{patient}-N_pileupsummaries.table",
-		primary = "/scratch/n/nicholsa/zyfniu/AN_WGS/results/mutect2/{tumor}_vs_{patient}-N/{tumor}_pileupsummaries.table"
+		normal = OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/{patient}-N_pileupsummaries.table",
+		primary = OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/{tumor}_pileupsummaries.table"
 	output:
-		contamTable = temp("/scratch/n/nicholsa/zyfniu/AN_WGS/results/mutect2/{tumor}_vs_{patient}-N/{tumor}_calContam.table"),
-		segment = temp("/scratch/n/nicholsa/zyfniu/AN_WGS/results/mutect2/{tumor}_vs_{patient}-N/{tumor}_tumor.segment")
+		contamTable = temp(OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/{tumor}_calContam.table"),
+		segment = temp(OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/{tumor}_tumor.segment")
 	threads: 2
 	group: "variantCalling"
 	shell:
 		"""
-		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/HPV_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/gatk-4.1.8.img \
+		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/gatk-4.1.8.img \
 		gatk --java-options "-Xmx8g" CalculateContamination \
 		-I {input.normal} \
 		-matched {input.primary} \
@@ -422,14 +422,14 @@ rule gatk_calcContam_primary:
 
 rule index_unfiltered_vcf:
 	input:
-		vcf = "/scratch/n/nicholsa/zyfniu/AN_WGS/results/mutect2/{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N.vcf",
+		vcf = OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N.vcf",
 	output:
-		vcf_tbi = "/scratch/n/nicholsa/zyfniu/AN_WGS/results/mutect2/{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N.vcf.idx"
+		vcf_tbi = OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N.vcf.idx"
 	threads: 2
 	group: "variantCalling"
 	shell:
 		"""
-		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/HPV_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/gatk-4.1.8.img \
+		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/gatk-4.1.8.img \
 		gatk --java-options "-Xmx8g" IndexFeatureFile \
 		-I {input.vcf} \
 		--output {output.vcf_tbi}
@@ -437,18 +437,18 @@ rule index_unfiltered_vcf:
 
 rule gatk_filterMutect:
 	input:
-		vcf_tbi = "/scratch/n/nicholsa/zyfniu/AN_WGS/results/mutect2/{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N.vcf.idx",
-		vcf = "/scratch/n/nicholsa/zyfniu/AN_WGS/results/mutect2/{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N.vcf",
-		model = "/scratch/n/nicholsa/zyfniu/AN_WGS/results/mutect2/{tumor}_vs_{patient}-N/unfiltered_{tumor}_read_orientation_model.tar.gz",
-		stats = "/scratch/n/nicholsa/zyfniu/AN_WGS/results/mutect2/{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N_merged.stats",
+		vcf_tbi = OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N.vcf.idx",
+		vcf = OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N.vcf",
+		model = OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/unfiltered_{tumor}_read_orientation_model.tar.gz",
+		stats = OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N_merged.stats",
 		interval = "/scratch/n/nicholsa/zyfniu/igenomes_ref/interval-files-folder/{num}-scattered.interval_list"
 	output:
-		filter_vcf = temp("/scratch/n/nicholsa/zyfniu/AN_WGS/results/mutect2/{tumor}_vs_{patient}-N/filtered_{tumor}_vs_{patient}-N.{num}.vcf")
+		filter_vcf = temp(OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/filtered_{tumor}_vs_{patient}-N.{num}.vcf")
 	threads: 2
 	group: "variantCalling"
 	shell:
 		"""
-		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/HPV_WGS/raw \
+		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw \
 			/gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/gatk-4.1.8.img \
 		gatk --java-options "-Xmx8g" FilterMutectCalls \
 		--ob-priors {input.model} \
@@ -460,29 +460,29 @@ rule gatk_filterMutect:
 		"""
 
 def concat_vcf_filtered(wildcards):
-	return	expand("/scratch/n/nicholsa/zyfniu/AN_WGS/results/mutect2/" + wildcards.tumor + "_vs_" + wildcards.patient + "-N" + "/filtered_" + wildcards.tumor + "_vs_" + wildcards.patient + "-N.{num}.vcf", num = NUMBERS)
+	return	expand(OUTDIR + "/results/mutect2/" + wildcards.tumor + "_vs_" + wildcards.patient + "-N" + "/filtered_" + wildcards.tumor + "_vs_" + wildcards.patient + "-N.{num}.vcf", num = NUMBERS)
 
 rule merge_mutect2_vcf_filtered:
 	input:
 		concat_vcf_filtered
 	output:
-		"/scratch/n/nicholsa/zyfniu/AN_WGS/results/mutect2/{tumor}_vs_{patient}-N/filtered_{tumor}_vs_{patient}-N.vcf"
+		OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/filtered_{tumor}_vs_{patient}-N.vcf"
 	threads: 2
 	group: "variantCalling"
 	shell:
-		"singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/HPV_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/vcftools.img vcf-concat {input} > {output}"
+		"singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/vcftools.img vcf-concat {input} > {output}"
 
 
 rule index_filtered_vcf:
 	input:
-		vcf = "/scratch/n/nicholsa/zyfniu/AN_WGS/results/mutect2/{tumor}_vs_{patient}-N/filtered_{tumor}_vs_{patient}-N.vcf",
+		vcf = OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/filtered_{tumor}_vs_{patient}-N.vcf",
 	output:
-		vcf_tbi = "/scratch/n/nicholsa/zyfniu/AN_WGS/results/mutect2/{tumor}_vs_{patient}-N/filtered_{tumor}_vs_{patient}-N.vcf.idx"
+		vcf_tbi = OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/filtered_{tumor}_vs_{patient}-N.vcf.idx"
 	threads: 2
 	group: "variantCalling"
 	shell:
 		"""
-		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/HPV_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/gatk-4.1.8.img \
+		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/gatk-4.1.8.img \
 		gatk --java-options "-Xmx8g" IndexFeatureFile \
 		-I {input.vcf} \
 		--output {output.vcf_tbi}
@@ -490,14 +490,14 @@ rule index_filtered_vcf:
 
 rule config_manta:
 	input:
-		normal = "/scratch/n/nicholsa/zyfniu/AN_WGS/orphan/{patient}-N/Recal/{patient}-N.recal.bam",
-		tumor = "/scratch/n/nicholsa/zyfniu/AN_WGS/orphan/{tumor}/Recal/{tumor}.recal.bam"
-	output: "/scratch/n/nicholsa/zyfniu/AN_WGS/temp/Manta/{tumor}_vs_{patient}-N/runWorkflow.py"
+		normal = OUTDIR + "/orphan/{patient}-N/Recal/{patient}-N.recal.bam",
+		tumor = OUTDIR + "/orphan/{tumor}/Recal/{tumor}.recal.bam"
+	output: OUTDIR + "/temp/Manta/{tumor}_vs_{patient}-N/runWorkflow.py"
 	threads: 2
 	group: "variantCalling"
 	shell:
 		"""
-		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/HPV_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
+		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
 		configManta.py \
 		--normalBam {input.normal} \
 		--tumorBam  {input.tumor} \
@@ -507,18 +507,18 @@ rule config_manta:
 
 rule manta:
 	input:
-		normal = "/scratch/n/nicholsa/zyfniu/AN_WGS/orphan/{patient}-N/Recal/{patient}-N.recal.bam",
-		tumor = "/scratch/n/nicholsa/zyfniu/AN_WGS/orphan/{tumor}/Recal/{tumor}.recal.bam",
-		script = "/scratch/n/nicholsa/zyfniu/AN_WGS/temp/Manta/{tumor}_vs_{patient}-N/runWorkflow.py"
+		normal = OUTDIR + "/orphan/{patient}-N/Recal/{patient}-N.recal.bam",
+		tumor = OUTDIR + "/orphan/{tumor}/Recal/{tumor}.recal.bam",
+		script = OUTDIR + "/temp/Manta/{tumor}_vs_{patient}-N/runWorkflow.py"
 	output:
-		sv = "/scratch/n/nicholsa/zyfniu/AN_WGS/temp/Manta/{tumor}_vs_{patient}-N/results/variants/candidateSV.vcf.gz",
-		smallindel = "/scratch/n/nicholsa/zyfniu/AN_WGS/temp/Manta/{tumor}_vs_{patient}-N/results/variants/candidateSmallIndels.vcf.gz",
-		diploidSV = "/scratch/n/nicholsa/zyfniu/AN_WGS/temp/Manta/{tumor}_vs_{patient}-N/results/variants/diploidSV.vcf.gz",
-		somaticSV = "/scratch/n/nicholsa/zyfniu/AN_WGS/temp/Manta/{tumor}_vs_{patient}-N/results/variants/somaticSV.vcf.gz",
-		svIndex = "/scratch/n/nicholsa/zyfniu/AN_WGS/temp/Manta/{tumor}_vs_{patient}-N/results/variants/candidateSV.vcf.gz.tbi",
-		smallindelIndex = "/scratch/n/nicholsa/zyfniu/AN_WGS/temp/Manta/{tumor}_vs_{patient}-N/results/variants/candidateSmallIndels.vcf.gz.tbi",
-		diploidSVIndex = "/scratch/n/nicholsa/zyfniu/AN_WGS/temp/Manta/{tumor}_vs_{patient}-N/results/variants/diploidSV.vcf.gz.tbi",
-		somaticSVIndex = "/scratch/n/nicholsa/zyfniu/AN_WGS/temp/Manta/{tumor}_vs_{patient}-N/results/variants/somaticSV.vcf.gz.tbi"
+		sv = OUTDIR + "/temp/Manta/{tumor}_vs_{patient}-N/results/variants/candidateSV.vcf.gz",
+		smallindel = OUTDIR + "/temp/Manta/{tumor}_vs_{patient}-N/results/variants/candidateSmallIndels.vcf.gz",
+		diploidSV = OUTDIR + "/temp/Manta/{tumor}_vs_{patient}-N/results/variants/diploidSV.vcf.gz",
+		somaticSV = OUTDIR + "/temp/Manta/{tumor}_vs_{patient}-N/results/variants/somaticSV.vcf.gz",
+		svIndex = OUTDIR + "/temp/Manta/{tumor}_vs_{patient}-N/results/variants/candidateSV.vcf.gz.tbi",
+		smallindelIndex = OUTDIR + "/temp/Manta/{tumor}_vs_{patient}-N/results/variants/candidateSmallIndels.vcf.gz.tbi",
+		diploidSVIndex = OUTDIR + "/temp/Manta/{tumor}_vs_{patient}-N/results/variants/diploidSV.vcf.gz.tbi",
+		somaticSVIndex = OUTDIR + "/temp/Manta/{tumor}_vs_{patient}-N/results/variants/somaticSV.vcf.gz.tbi"
 	group: "manta"
 	threads: 80
 	shell:
@@ -529,11 +529,11 @@ rule manta:
 
 rule mv_manta_files:
 	input:
-		file = "/scratch/n/nicholsa/zyfniu/AN_WGS/temp/Manta/{tumor}_vs_{patient}-N/results/variants/{structure}.vcf.gz",
-		index = "/scratch/n/nicholsa/zyfniu/AN_WGS/temp/Manta/{tumor}_vs_{patient}-N/results/variants/{structure}.vcf.gz.tbi"		
-	output:	
-		file = temp("/scratch/n/nicholsa/zyfniu/AN_WGS/results/Manta/{tumor}_vs_{patient}-N/Manta_{tumor}_vs_{patient}-N.{structure}.vcf.gz"),
-		index = temp("/scratch/n/nicholsa/zyfniu/AN_WGS/results/Manta/{tumor}_vs_{patient}-N/Manta_{tumor}_vs_{patient}-N.{structure}.vcf.gz.tbi")
+		file = OUTDIR + "/temp/Manta/{tumor}_vs_{patient}-N/results/variants/{structure}.vcf.gz",
+		index = OUTDIR + "/temp/Manta/{tumor}_vs_{patient}-N/results/variants/{structure}.vcf.gz.tbi"
+	output:
+		file = temp(OUTDIR + "/results/Manta/{tumor}_vs_{patient}-N/Manta_{tumor}_vs_{patient}-N.{structure}.vcf.gz"),
+		index = temp(OUTDIR + "/results/Manta/{tumor}_vs_{patient}-N/Manta_{tumor}_vs_{patient}-N.{structure}.vcf.gz.tbi")
 	group: "manta"
 	threads: 1
 	shell:
@@ -548,15 +548,15 @@ rule mv_manta_files:
 
 rule annotate_mutect2:
 	input:
-		vcf = "/scratch/n/nicholsa/zyfniu/AN_WGS/results/mutect2/{tumor}_vs_{patient}-N/filtered_{tumor}_vs_{patient}-N.vcf"
+		vcf = OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/filtered_{tumor}_vs_{patient}-N.vcf"
 	output:
-		annotatedvcf = temp("/scratch/n/nicholsa/zyfniu/AN_WGS/results/mutect2/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N_snpEff.ann.vcf")
+		annotatedvcf = temp(OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N_snpEff.ann.vcf")
 	threads: 2
 	group: "variantCalling"
 	shell:
 		"""
-		cd results/mutect2/{wildcards.tumor}_vs_{wildcards.patient}-N
-		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/HPV_WGS/raw $SCRATCH/singularity_images/nfcore-sareksnpeff-2.6.GRCh38.img \
+		cd {OUTDIR}/results/mutect2/{wildcards.tumor}_vs_{wildcards.patient}-N
+		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw $SCRATCH/singularity_images/nfcore-sareksnpeff-2.6.GRCh38.img \
 		snpEff -Xmx8g \
 		GRCh38.86 \
 		-csvStats {wildcards.tumor}_snpEff.csv \
@@ -569,29 +569,31 @@ rule annotate_mutect2:
 
 rule zip_snpeff:
 	input:
-		annotatedvcf = "/scratch/n/nicholsa/zyfniu/AN_WGS/results/mutect2/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N_snpEff.ann.vcf"
-	output: annotatedvcf = "/scratch/n/nicholsa/zyfniu/AN_WGS/results/mutect2/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N_snpEff.ann.vcf.gz"
+		annotatedvcf = OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N_snpEff.ann.vcf"
+	output: annotatedvcf = OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N_snpEff.ann.vcf.gz"
 	threads: 2
 	group: "variantCalling"
 	shell:
 		"""
-		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/HPV_WGS/raw \
+		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw \
 			/gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img bgzip < {input} > {output}
-		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/HPV_WGS/raw \
+		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw \
 			/gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img tabix {output}
+		rm /scratch/n/nicholsa/zyfniu/AN_WGS/results/mutect2/{wildcards.tumor}_vs_{wildcards.patient}-N/*.idx -rf
+		rm /scratch/n/nicholsa/zyfniu/AN_WGS/results/mutect2/{wildcards.tumor}_vs_{wildcards.patient}-N/*.filteringStats.tsv -rf
 		"""
 
 rule annotate_manta:
 	input:
-		vcf = "/scratch/n/nicholsa/zyfniu/AN_WGS/results/Manta/{tumor}_vs_{patient}-N/Manta_{tumor}_vs_{patient}-N.{structure}.vcf.gz"
+		vcf = OUTDIR + "/results/Manta/{tumor}_vs_{patient}-N/Manta_{tumor}_vs_{patient}-N.{structure}.vcf.gz"
 	output:
-		annotatedvcf = temp("/scratch/n/nicholsa/zyfniu/AN_WGS/results/Manta/{tumor}_vs_{patient}-N/Manta_snpeff_{tumor}_vs_{patient}-N.{structure}.ann.vcf")
+		annotatedvcf = temp(OUTDIR + "/results/Manta/{tumor}_vs_{patient}-N/Manta_snpeff_{tumor}_vs_{patient}-N.{structure}.ann.vcf")
 	threads: 2
 	group: "manta"
 	shell:
 		"""
-		cd results/Manta/{wildcards.tumor}_vs_{wildcards.patient}-N
-		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/HPV_WGS/raw $SCRATCH/singularity_images/nfcore-sareksnpeff-2.6.GRCh38.img \
+		cd {OUTDIR}/results/Manta/{wildcards.tumor}_vs_{wildcards.patient}-N
+		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw $SCRATCH/singularity_images/nfcore-sareksnpeff-2.6.GRCh38.img \
 		snpEff -Xmx8g \
 		GRCh38.86 \
 		-csvStats {wildcards.tumor}_{wildcards.structure}_snpEff.csv \
@@ -604,15 +606,15 @@ rule annotate_manta:
 
 rule zip_manta:
 	input:
-		annotatedvcf = "/scratch/n/nicholsa/zyfniu/AN_WGS/results/Manta/{tumor}_vs_{patient}-N/Manta_snpeff_{tumor}_vs_{patient}-N.{structure}.ann.vcf"
-	output: annotatedvcf = "/scratch/n/nicholsa/zyfniu/AN_WGS/results/Manta/{tumor}_vs_{patient}-N/Manta_snpeff_{tumor}_vs_{patient}-N.{structure}.ann.vcf.gz"
+		annotatedvcf = OUTDIR + "/results/Manta/{tumor}_vs_{patient}-N/Manta_snpeff_{tumor}_vs_{patient}-N.{structure}.ann.vcf"
+	output: annotatedvcf = OUTDIR + "/results/Manta/{tumor}_vs_{patient}-N/Manta_snpeff_{tumor}_vs_{patient}-N.{structure}.ann.vcf.gz"
 	threads: 2
 	group: "variantCalling"
 	shell:
 		"""
-		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/HPV_WGS/raw \
+		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw \
 			/gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img bgzip < {input} > {output}
-		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/HPV_WGS/raw \
+		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw \
 			/gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img tabix {output}
 		"""
 
@@ -621,20 +623,20 @@ rule zip_manta:
 ###
 rule alleleCount:
 	input:
-		bam = "/scratch/n/nicholsa/zyfniu/AN_WGS/orphan/{sample}/Recal/{sample}.recal.bam",
-		index = "/scratch/n/nicholsa/zyfniu/AN_WGS/orphan/{sample}/Recal/{sample}.recal.bai",
+		bam = OUTDIR + "/orphan/{sample}/Recal/{sample}.recal.bam",
+		index = OUTDIR + "/orphan/{sample}/Recal/{sample}.recal.bai",
 		acloci = "/scratch/n/nicholsa/zyfniu/igenomes_ref/1000G_phase3_GRCh38_maf0.3.loci"
-	output: "/scratch/n/nicholsa/zyfniu/AN_WGS/results/ASCAT/alleleCount/{sample}.alleleCount"
+	output: OUTDIR + "/results/ASCAT/alleleCount/{sample}.alleleCount"
 	threads: 2
 	group: "variantCalling"
 	shell:
 		"""
-		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/HPV_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
+		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
 		alleleCounter \
 		-l {input.acloci} \
 		-r {REF_fasta} \
 		-b {input.bam} \
-		-o results/ASCAT/alleleCount/{wildcards.sample}.alleleCount
+		-o {OUTDIR}/results/ASCAT/alleleCount/{wildcards.sample}.alleleCount
 		"""
 
 def getGender(wildcards):
@@ -643,21 +645,21 @@ def getGender(wildcards):
 ###convert allele script from https://bitbucket.org/malinlarsson/somatic_wgs_pipeline/src/master/convertAlleleCounts.r
 rule ConvertAlleleCounts:
 	input:
-		normal = "/scratch/n/nicholsa/zyfniu/AN_WGS/results/ASCAT/alleleCount/{patient}-N.alleleCount",
-		tumor = "/scratch/n/nicholsa/zyfniu/AN_WGS/results/ASCAT/alleleCount/{tumor}.alleleCount",
-		script = "/scratch/n/nicholsa/zyfniu/AN_WGS/AN_WGS/convertAlleleCounts.r"
+		normal = OUTDIR + "/results/ASCAT/alleleCount/{patient}-N.alleleCount",
+		tumor = OUTDIR + "/results/ASCAT/alleleCount/{tumor}.alleleCount",
+		script = OUTDIR + "/AN_WGS/convertAlleleCounts.r"
 	output:
-		normalBaf = "/scratch/n/nicholsa/zyfniu/AN_WGS/results/ASCAT/{tumor}_vs_{patient}-N/{patient}-N.BAF",
-		tumorBaf = "/scratch/n/nicholsa/zyfniu/AN_WGS/results/ASCAT/{tumor}_vs_{patient}-N/{tumor}.BAF",
-		normalLogr = "/scratch/n/nicholsa/zyfniu/AN_WGS/results/ASCAT/{tumor}_vs_{patient}-N/{patient}-N.LogR",
-		tumorLogr = "/scratch/n/nicholsa/zyfniu/AN_WGS/results/ASCAT/{tumor}_vs_{patient}-N/{tumor}.LogR"
+		normalBaf = OUTDIR + "/results/ASCAT/{tumor}_vs_{patient}-N/{patient}-N.BAF",
+		tumorBaf = OUTDIR + "/results/ASCAT/{tumor}_vs_{patient}-N/{tumor}.BAF",
+		normalLogr = OUTDIR + "/results/ASCAT/{tumor}_vs_{patient}-N/{patient}-N.LogR",
+		tumorLogr = OUTDIR + "/results/ASCAT/{tumor}_vs_{patient}-N/{tumor}.LogR"
 	threads: 2
 	params: gender = getGender
 	group: "variantCalling"
 	shell:
 		"""
-		cd results/ASCAT/{wildcards.tumor}_vs_{wildcards.patient}-N
-		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/HPV_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img Rscript \
+		cd {OUTDIR}/results/ASCAT/{wildcards.tumor}_vs_{wildcards.patient}-N
+		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img Rscript \
 		/scratch/n/nicholsa/zyfniu/AN_WGS/AN_WGS/convertAlleleCounts.r \
 		{wildcards.tumor} {input.tumor} \
 		{wildcards.patient}-N {input.normal} \
@@ -666,13 +668,13 @@ rule ConvertAlleleCounts:
 
 rule ascat:
 	input:
-		normalBaf = "/scratch/n/nicholsa/zyfniu/AN_WGS/results/ASCAT/{tumor}_vs_{patient}-N/{patient}-N.BAF",
-		tumorBaf = "/scratch/n/nicholsa/zyfniu/AN_WGS/results/ASCAT/{tumor}_vs_{patient}-N/{tumor}.BAF",
-		normalLogr = "/scratch/n/nicholsa/zyfniu/AN_WGS/results/ASCAT/{tumor}_vs_{patient}-N/{patient}-N.LogR",
-		tumorLogr = "/scratch/n/nicholsa/zyfniu/AN_WGS/results/ASCAT/{tumor}_vs_{patient}-N/{tumor}.LogR",
+		normalBaf = OUTDIR + "/results/ASCAT/{tumor}_vs_{patient}-N/{patient}-N.BAF",
+		tumorBaf = OUTDIR + "/results/ASCAT/{tumor}_vs_{patient}-N/{tumor}.BAF",
+		normalLogr = OUTDIR + "/results/ASCAT/{tumor}_vs_{patient}-N/{patient}-N.LogR",
+		tumorLogr = OUTDIR + "/results/ASCAT/{tumor}_vs_{patient}-N/{tumor}.LogR",
 		acLociGC = "/scratch/n/nicholsa/zyfniu/igenomes_ref/1000G_phase3_GRCh38_maf0.3.loci.gc"
 	output:
-		results = "/scratch/n/nicholsa/zyfniu/AN_WGS/results/ASCAT/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N.tumor.cnvs.txt"
+		results = OUTDIR + "/results/ASCAT/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N.tumor.cnvs.txt"
 	params:
 		gender = getGender
 	threads: 2
@@ -683,19 +685,19 @@ rule ascat:
 		/scratch/n/nicholsa/zyfniu/AN_WGS/results/ASCAT/{wildcards.tumor}_vs_{wildcards.patient}-N/*LogR; \
 		do sed \'s/chr//g\' $f > /scratch/n/nicholsa/zyfniu/AN_WGS/results/ASCAT/{wildcards.tumor}_vs_{wildcards.patient}-N/tmpFile; \
 		mv /scratch/n/nicholsa/zyfniu/AN_WGS/results/ASCAT/{wildcards.tumor}_vs_{wildcards.patient}-N/tmpFile $f;done
-		cd results/ASCAT/{wildcards.tumor}_vs_{wildcards.patient}-N
-		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/HPV_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
+		cd {OUTDIR}/results/ASCAT/{wildcards.tumor}_vs_{wildcards.patient}-N
+		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
 		Rscript /scratch/n/nicholsa/zyfniu/AN_WGS/AN_WGS/run_ascat.r \
         --tumorbaf {input.tumorBaf} \
         --tumorlogr {input.tumorLogr} \
         --normalbaf {input.normalBaf} \
         --normallogr {input.normalLogr} \
         --tumorname {wildcards.tumor} \
-        --basedir results/ASCAT/{wildcards.tumor}_vs_{wildcards.patient}-N \
+        --basedir {OUTDIR}/results/ASCAT/{wildcards.tumor}_vs_{wildcards.patient}-N \
         --gcfile {input.acLociGC} \
         --gender {params.gender}
 		cd ../../../
-		mv results/ASCAT/{wildcards.tumor}_vs_{wildcards.patient}-N/{wildcards.tumor}.cnvs.txt {output.results}
+		mv {OUTDIR}/results/ASCAT/{wildcards.tumor}_vs_{wildcards.patient}-N/{wildcards.tumor}.cnvs.txt {output.results}
 		"""
 ###
 ### RUN MULTIQC
@@ -729,7 +731,7 @@ rule ascat:
 # 	shell:
 # 		"""
 # 		singularity exec $SCRATCH/singularity_images/nfcore-sarek-2.6.img multiqc . -n {output} \
-# 		results/mutect2/{wildcards.patient} results/ASCAT/*{wildcards.patient}* results/Manta/{wildcards.patient}
+# 		results/mutect2/{wildcards.patient}{OUTDIR}/resultsASCAT/*{wildcards.patient}* {OUTDIR}/results/Manta/{wildcards.patient}
 # 		"""
 
 ###

@@ -61,7 +61,7 @@ rule all:
 		#expand("reports/{patient}_multiqc.html",patient = PAT)
 	threads: 80
 	shell:
-		"singularity exec $SCRATCH/singularity_images/nfcore-sarek-2.6.img multiqc {OUTDIR} -n reports/multiqc.html"
+		"singularity exec -B {OUTDIR} $SCRATCH/singularity_images/nfcore-sarek-2.6.img multiqc {OUTDIR} -n {OUTDIR}/reports/multiqc.html"
 ###
 ###	Step 1: BWA-MEM Alignment
 ###
@@ -81,17 +81,17 @@ rule fastqc:
 		o2 = OUTDIR + "/QC/{sample_lane}/{sample_lane}_R2_fastqc.html",
 		o3 = OUTDIR + "/QC/{sample_lane}/{sample_lane}_R1_fastqc.zip",
 		o4 = OUTDIR + "/QC/{sample_lane}/{sample_lane}_R2_fastqc.zip"
-	threads: 20
-	group: "markdup"
+	threads: 5
+	group: "align"
 	shell:
-			"""
+		"""
 		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS/raw,{OUTDIR} /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
 		fastqc -t {threads} {input} --outdir={OUTDIR}/QC/{wildcards.sample_lane}/
 		mv {OUTDIR}/QC/{wildcards.sample_lane}/*R1*fastqc.html {OUTDIR}/QC/{wildcards.sample_lane}/{wildcards.sample_lane}_R1_fastqc.html
 		mv {OUTDIR}/QC/{wildcards.sample_lane}/*R2*fastqc.html {OUTDIR}/QC/{wildcards.sample_lane}/{wildcards.sample_lane}_R2_fastqc.html
 		mv {OUTDIR}/QC/{wildcards.sample_lane}/*R1*fastqc.zip {OUTDIR}/QC/{wildcards.sample_lane}/{wildcards.sample_lane}_R1_fastqc.zip
 		mv {OUTDIR}/QC/{wildcards.sample_lane}/*R2*fastqc.zip {OUTDIR}/QC/{wildcards.sample_lane}/{wildcards.sample_lane}_R2_fastqc.zip
-			"""
+		"""
 
 def createRG(wildcards):
 		return expand("@RG\\tID:{idRun}\\tPU:{idRun}\\tSM:{idSample}\\tLB:{idSample}\\tPL:illumina",
@@ -106,7 +106,7 @@ rule bwa_mem:
 		#fastq2= INPUT[INPUT.Sample_Lane == {sample_lane}].Fastq2
 	output:
 		temp(OUTDIR +"/orphan/bwa/{sample_lane}.bwa.bam")
-	threads: 80
+	threads: 70
 	group: "align"
 	params:
 		readGroup = createRG
@@ -133,10 +133,10 @@ rule merge_bam_mapped_and_index:
 	run:
 		if len(input) == 1:
 			shell("mv {input} {output}")
-			shell("singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img samtools index -@ {threads} {output}")
+			shell("singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS/raw,{OUTDIR} /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img samtools index -@ {threads} {output}")
 		elif len(input) > 1:
 			#shell("mv {input} {output}")
-			shell("singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img samtools merge --threads {threads} - {input} | tee {output} | singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img samtools index -@ {threads} - ")
+			shell("singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS/raw,{OUTDIR} /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img samtools merge --threads {threads} - {input} | tee {output} | singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS/raw,{OUTDIR} /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img samtools index -@ {threads} - ")
 
 rule markdup:
 	input:
@@ -148,7 +148,7 @@ rule markdup:
 	group: "merge_markduplicate"
 	shell:
 		"""
-		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/gatk-4.1.8.img \
+		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,{OUTDIR} /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/gatk-4.1.8.img \
 		gatk --java-options "-Xmx16G" \
 		MarkDuplicates \
 		--MAX_RECORDS_IN_RAM 50000 \
@@ -169,7 +169,7 @@ rule recalibrator:
 	group: "recalibrator"
 	shell:
 		"""
-		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/gatk-4.1.8.img \
+		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,{OUTDIR} /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/gatk-4.1.8.img \
 		gatk --java-options "-Xmx8g" \
 		BaseRecalibrator \
 		-I {input} \
@@ -193,7 +193,7 @@ rule gather_recal_tbl:
 	threads: 2
 	group: "recalibrator"
 	run:
-		command = 'singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img gatk --java-options \"-Xmx8g\" GatherBQSRReports'
+		command = 'singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS/raw,{OUTDIR} /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img gatk --java-options \"-Xmx8g\" GatherBQSRReports'
 		for i in input:
 			command = command + " -I " + i
 		command = command + ' -O {output}'
@@ -245,7 +245,7 @@ rule samtools_stats:
 		bam = OUTDIR +"/orphan/{sample}/Recal/{sample}.recal.bam",
 		index = OUTDIR +"/orphan/{sample}/Recal/{sample}.recal.bai"
 	output:
-			stats = "QC/{sample}/{sample}.samtools.stats.out"
+		stats = OUTDIR + "/QC/{sample}/{sample}.samtools.stats.out"
 	group: "variantCalling"
 	threads: 2
 	shell:
@@ -260,7 +260,7 @@ rule bamqc:
 		bam = OUTDIR +"/orphan/{sample}/Recal/{sample}.recal.bam",
 		index = OUTDIR +"/orphan/{sample}/Recal/{sample}.recal.bai"
 	output:
-			stats = "QC/{sample}/bamQC/qualimapReport.html"
+		stats = OUTDIR + "/QC/{sample}/bamQC/qualimapReport.html"
 	group: "variantCalling"
 	threads: 40
 	shell:
@@ -275,7 +275,7 @@ rule bamqc:
 		-nt {threads} \
 		-skip-duplicated \
 		--skip-dup-mode 0 \
-		-outdir QC/{wildcards.sample}/bamQC/ \
+		-outdir {OUTDIR}/QC/{wildcards.sample}/bamQC/ \
 		-outformat HTML
 		"""
 
@@ -502,7 +502,7 @@ rule config_manta:
 		--normalBam {input.normal} \
 		--tumorBam  {input.tumor} \
 		--reference {REF_fasta} \
-		--runDir temp/Manta/{wildcards.tumor}_vs_{wildcards.patient}-N
+		--runDir {OUTDIR}/temp/Manta/{wildcards.tumor}_vs_{wildcards.patient}-N
 		"""
 
 rule manta:
@@ -647,7 +647,7 @@ rule ConvertAlleleCounts:
 	input:
 		normal = OUTDIR + "/results/ASCAT/alleleCount/{patient}-N.alleleCount",
 		tumor = OUTDIR + "/results/ASCAT/alleleCount/{tumor}.alleleCount",
-		script = OUTDIR + "/AN_WGS/convertAlleleCounts.r"
+		script = "/scratch/n/nicholsa/zyfniu/AN_WGS/AN_WGS/convertAlleleCounts.r"
 	output:
 		normalBaf = OUTDIR + "/results/ASCAT/{tumor}_vs_{patient}-N/{patient}-N.BAF",
 		tumorBaf = OUTDIR + "/results/ASCAT/{tumor}_vs_{patient}-N/{tumor}.BAF",
@@ -681,10 +681,10 @@ rule ascat:
 	group: "variantCalling"
 	shell:
 		"""
-		for f in /scratch/n/nicholsa/zyfniu/AN_WGS/results/ASCAT/{wildcards.tumor}_vs_{wildcards.patient}-N/*BAF \
-		/scratch/n/nicholsa/zyfniu/AN_WGS/results/ASCAT/{wildcards.tumor}_vs_{wildcards.patient}-N/*LogR; \
-		do sed \'s/chr//g\' $f > /scratch/n/nicholsa/zyfniu/AN_WGS/results/ASCAT/{wildcards.tumor}_vs_{wildcards.patient}-N/tmpFile; \
-		mv /scratch/n/nicholsa/zyfniu/AN_WGS/results/ASCAT/{wildcards.tumor}_vs_{wildcards.patient}-N/tmpFile $f;done
+		for f in {OUTDIR}/results/ASCAT/{wildcards.tumor}_vs_{wildcards.patient}-N/*BAF \
+		{OUTDIR}/results/ASCAT/{wildcards.tumor}_vs_{wildcards.patient}-N/*LogR; \
+		do sed \'s/chr//g\' $f > {OUTDIR}/results/ASCAT/{wildcards.tumor}_vs_{wildcards.patient}-N/tmpFile; \
+		mv {OUTDIR}/results/ASCAT/{wildcards.tumor}_vs_{wildcards.patient}-N/tmpFile $f;done
 		cd {OUTDIR}/results/ASCAT/{wildcards.tumor}_vs_{wildcards.patient}-N
 		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
 		Rscript /scratch/n/nicholsa/zyfniu/AN_WGS/AN_WGS/run_ascat.r \

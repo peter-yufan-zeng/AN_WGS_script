@@ -8,7 +8,7 @@ import os
 ### LOAD SAMPLES
 ###
 SCRATCH = "/gpfs/fs0/scratch/n/nicholsa/zyfniu"
-print("***INPUT FILE: " + config['input'] + "***")
+print("\n***INPUT FILE: " + config['input'] + "***\n")
 INPUT = pd.read_table(config['input'],names = ['Patient','Sex','n_vs_t','Sample','Lane','Fastq1','Fastq2'])
 INPUT['Lane'] = INPUT.Lane.apply(str)
 INPUT['Sample_Lane'] = INPUT.Sample + "_" + INPUT.Lane
@@ -225,8 +225,8 @@ rule Merge_Recal_Bam_and_index:
 	input:
 		recal_bam_to_gather
 	output:
-		bam = OUTDIR +"/orphan/{sample}/Recal/{sample}.recal.bam",
-		index = OUTDIR +"/orphan/{sample}/Recal/{sample}.recal.bai"
+		bam = OUTDIR +"/Recal/{sample}.recal.bam",
+		index = OUTDIR +"/Recal/{sample}.recal.bai"
 	group: "recalibrator"
 	threads: 20
 	shell:
@@ -242,8 +242,8 @@ rule Merge_Recal_Bam_and_index:
 ###
 rule samtools_stats:
 	input:
-		bam = OUTDIR +"/orphan/{sample}/Recal/{sample}.recal.bam",
-		index = OUTDIR +"/orphan/{sample}/Recal/{sample}.recal.bai"
+		bam = OUTDIR +"/Recal/{sample}.recal.bam",
+		index = OUTDIR +"/Recal/{sample}.recal.bai"
 	output:
 		stats = OUTDIR + "/QC/{sample}/{sample}.samtools.stats.out"
 	group: "variantCalling"
@@ -257,8 +257,8 @@ rule samtools_stats:
 
 rule bamqc:
 	input:
-		bam = OUTDIR +"/orphan/{sample}/Recal/{sample}.recal.bam",
-		index = OUTDIR +"/orphan/{sample}/Recal/{sample}.recal.bai"
+		bam = OUTDIR +"/Recal/{sample}.recal.bam",
+		index = OUTDIR +"/Recal/{sample}.recal.bai"
 	output:
 		stats = OUTDIR + "/QC/{sample}/bamQC/qualimapReport.html"
 	group: "variantCalling"
@@ -285,8 +285,8 @@ rule bamqc:
 
 rule mutect2:
 	input:
-		normal = OUTDIR +"/orphan/{patient}-N/Recal/{patient}-N.recal.bam",
-		tumor = OUTDIR +"/orphan/{tumor}/Recal/{tumor}.recal.bam",
+		normal = OUTDIR +"/Recal/{patient}-N.recal.bam",
+		tumor = OUTDIR +"/Recal/{tumor}.recal.bam",
 		interval = "/scratch/n/nicholsa/zyfniu/igenomes_ref/interval-files-folder/{num}-scattered.interval_list"
 	#	recurrence = "{sample}R/Recal/{sample}R.recal.bam"
 	output:
@@ -490,8 +490,8 @@ rule index_filtered_vcf:
 
 rule config_manta:
 	input:
-		normal = OUTDIR + "/orphan/{patient}-N/Recal/{patient}-N.recal.bam",
-		tumor = OUTDIR + "/orphan/{tumor}/Recal/{tumor}.recal.bam"
+		normal = OUTDIR + "/Recal/{patient}-N.recal.bam",
+		tumor = OUTDIR + "/Recal/{tumor}.recal.bam"
 	output: OUTDIR + "/temp/Manta/{tumor}_vs_{patient}-N/runWorkflow.py"
 	threads: 2
 	group: "variantCalling"
@@ -507,8 +507,8 @@ rule config_manta:
 
 rule manta:
 	input:
-		normal = OUTDIR + "/orphan/{patient}-N/Recal/{patient}-N.recal.bam",
-		tumor = OUTDIR + "/orphan/{tumor}/Recal/{tumor}.recal.bam",
+		normal = OUTDIR + "/Recal/{patient}-N.recal.bam",
+		tumor = OUTDIR + "/{tumor}.recal.bam",
 		script = OUTDIR + "/temp/Manta/{tumor}_vs_{patient}-N/runWorkflow.py"
 	output:
 		sv = OUTDIR + "/temp/Manta/{tumor}_vs_{patient}-N/results/variants/candidateSV.vcf.gz",

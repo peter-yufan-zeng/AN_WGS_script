@@ -1,3 +1,12 @@
+#### USAGE
+#### 1) First load snakemake
+#### module load NiaEnv/2018a
+#### module load python/3.6.4-anaconda5.1.0
+#### source activate snakemake
+#### snakemake -s AN_WGS/Snakefile  --cores 1 -j 40 --cluster "sbatch -N 1 -t 20:00:00 --ntasks 80 --output=logs/%x_%j.log" --ri \
+#### --config input=AN_WGS/Sample/20200907.tsv.txt outdir=$SCRATCH/AN_WGS/20200908_HPV_HNSCC_WGS
+
+
 
 import pandas as pd
 import os
@@ -41,7 +50,7 @@ rule all:
 	input:
 		###FASTQC + BWA Alignment
 		expand(OUTDIR + "/QC/{sample_lane}/{sample_lane}_R1_fastqc.html", sample_lane = SAMPLE_LANE),
-		expand(OUTDIR + "/orphan/{sample}/Recal/{sample}.recal.bam", sample = SAMPLE),
+		expand(OUTDIR + "/Recal/{sample}.recal.bam", sample = SAMPLE),
 		### using zip https://endrebak.gitbooks.io/the-snakemake-book/chapters/expand/expand.html
 		###BAMQC + samtools_stats
 		expand(OUTDIR + "/QC/{sample}/{sample}.samtools.stats.out",sample = SAMPLE),
@@ -292,7 +301,8 @@ rule mutect2:
 	output:
 		vcf = temp(OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N.{num}.vcf"),
 		stats = temp(OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N.{num}.vcf.stats"),
-		f12 = temp(OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N_f12.{num}.tar.gz")
+		f12 = temp(OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N_f12.{num}.tar.gz"),
+		index =  temp(OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N.{num}.vcf.idx")
 	threads: 2
 	group: "variantCalling"
 	shell:
@@ -323,7 +333,7 @@ rule merge_mutect2_vcf:
 	group: "variantCalling"
 	shell:
 		"""
-		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/vcftools.img \
+		singularity exec -B $SCRATCH/igenomes_r	ef,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/vcftools.img \
 		vcf-concat {input} > {output}
 		"""
 
@@ -334,7 +344,7 @@ rule merge_stats:
 	input:
 		concat_vcf_stats
 	output:
-		OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N_merged.stats"
+		temp(OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N_merged.stats")
 	threads: 2
 	group: "variantCalling"
 	run:
@@ -443,7 +453,9 @@ rule gatk_filterMutect:
 		stats = OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N_merged.stats",
 		interval = "/scratch/n/nicholsa/zyfniu/igenomes_ref/interval-files-folder/{num}-scattered.interval_list"
 	output:
-		filter_vcf = temp(OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/filtered_{tumor}_vs_{patient}-N.{num}.vcf")
+		filter_vcf = temp(OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/filtered_{tumor}_vs_{patient}-N.{num}.vcf"),
+		filter_vcf_index = temp(OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/filtered_{tumor}_vs_{patient}-N.{num}.vcf.idx")
+		filter_vcf_stats = temp(OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/filtered_{tumor}_vs_{patient}-N.{num}.vcf.filteringStats.tsv")
 	threads: 2
 	group: "variantCalling"
 	shell:
@@ -466,7 +478,7 @@ rule merge_mutect2_vcf_filtered:
 	input:
 		concat_vcf_filtered
 	output:
-		OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/filtered_{tumor}_vs_{patient}-N.vcf"
+		temp(OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/filtered_{tumor}_vs_{patient}-N.vcf")
 	threads: 2
 	group: "variantCalling"
 	shell:
@@ -475,7 +487,7 @@ rule merge_mutect2_vcf_filtered:
 
 rule index_filtered_vcf:
 	input:
-		vcf = OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/filtered_{tumor}_vs_{patient}-N.vcf",
+		vcf = OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/filtered_{tumor}_vs_{patient}-N.vcf"
 	output:
 		vcf_tbi = OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/filtered_{tumor}_vs_{patient}-N.vcf.idx"
 	threads: 2
@@ -508,7 +520,7 @@ rule config_manta:
 rule manta:
 	input:
 		normal = OUTDIR + "/Recal/{patient}-N.recal.bam",
-		tumor = OUTDIR + "/{tumor}.recal.bam",
+		tumor = OUTDIR + "/Recal/{tumor}.recal.bam",
 		script = OUTDIR + "/temp/Manta/{tumor}_vs_{patient}-N/runWorkflow.py"
 	output:
 		sv = OUTDIR + "/temp/Manta/{tumor}_vs_{patient}-N/results/variants/candidateSV.vcf.gz",
@@ -540,6 +552,7 @@ rule mv_manta_files:
 		"""
 		cp {input.file} {output.file}
 		cp {input.index} {output.index}
+		rm {OUTDIR}/temp/Manta/{wildcards.tumor}_vs_{wildcards.patient}-N -rf
 		"""
 ###
 ###	Annotatino using SNPEFF
@@ -623,8 +636,8 @@ rule zip_manta:
 ###
 rule alleleCount:
 	input:
-		bam = OUTDIR + "/orphan/{sample}/Recal/{sample}.recal.bam",
-		index = OUTDIR + "/orphan/{sample}/Recal/{sample}.recal.bai",
+		bam = OUTDIR + "/Recal/{sample}.recal.bam",
+		index = OUTDIR + "/Recal/{sample}.recal.bai",
 		acloci = "/scratch/n/nicholsa/zyfniu/igenomes_ref/1000G_phase3_GRCh38_maf0.3.loci"
 	output: OUTDIR + "/results/ASCAT/alleleCount/{sample}.alleleCount"
 	threads: 2

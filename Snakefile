@@ -70,7 +70,10 @@ rule all:
 		#expand("reports/{patient}_multiqc.html",patient = PAT)
 	threads: 80
 	shell:
-		"singularity exec -B {OUTDIR} $SCRATCH/singularity_images/nfcore-sarek-2.6.img multiqc {OUTDIR} -n {OUTDIR}/reports/multiqc.html"
+		"""
+		singularity exec -B {OUTDIR} $SCRATCH/singularity_images/nfcore-sarek-2.6.img multiqc {OUTDIR} -n {OUTDIR}/reports/multiqc.html
+		rm {OUTDIR}/temp -rf
+		"""
 ###
 ###	Step 1: BWA-MEM Alignment
 ###
@@ -333,7 +336,7 @@ rule merge_mutect2_vcf:
 	group: "variantCalling"
 	shell:
 		"""
-		singularity exec -B $SCRATCH/igenomes_r	ef,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/vcftools.img \
+		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/vcftools.img \
 		vcf-concat {input} > {output}
 		"""
 
@@ -454,7 +457,7 @@ rule gatk_filterMutect:
 		interval = "/scratch/n/nicholsa/zyfniu/igenomes_ref/interval-files-folder/{num}-scattered.interval_list"
 	output:
 		filter_vcf = temp(OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/filtered_{tumor}_vs_{patient}-N.{num}.vcf"),
-		filter_vcf_index = temp(OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/filtered_{tumor}_vs_{patient}-N.{num}.vcf.idx")
+		filter_vcf_index = temp(OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/filtered_{tumor}_vs_{patient}-N.{num}.vcf.idx"),
 		filter_vcf_stats = temp(OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/filtered_{tumor}_vs_{patient}-N.{num}.vcf.filteringStats.tsv")
 	threads: 2
 	group: "variantCalling"
@@ -500,6 +503,10 @@ rule index_filtered_vcf:
 		--output {output.vcf_tbi}
 		"""
 
+
+####
+#### Manta
+####
 rule config_manta:
 	input:
 		normal = OUTDIR + "/Recal/{patient}-N.recal.bam",
@@ -544,15 +551,14 @@ rule mv_manta_files:
 		file = OUTDIR + "/temp/Manta/{tumor}_vs_{patient}-N/results/variants/{structure}.vcf.gz",
 		index = OUTDIR + "/temp/Manta/{tumor}_vs_{patient}-N/results/variants/{structure}.vcf.gz.tbi"
 	output:
-		file = temp(OUTDIR + "/results/Manta/{tumor}_vs_{patient}-N/Manta_{tumor}_vs_{patient}-N.{structure}.vcf.gz"),
-		index = temp(OUTDIR + "/results/Manta/{tumor}_vs_{patient}-N/Manta_{tumor}_vs_{patient}-N.{structure}.vcf.gz.tbi")
+		file = OUTDIR + "/results/Manta/{tumor}_vs_{patient}-N/Manta_{tumor}_vs_{patient}-N.{structure}.vcf.gz",
+		index = OUTDIR + "/results/Manta/{tumor}_vs_{patient}-N/Manta_{tumor}_vs_{patient}-N.{structure}.vcf.gz.tbi"
 	group: "manta"
 	threads: 1
 	shell:
 		"""
 		cp {input.file} {output.file}
 		cp {input.index} {output.index}
-		rm {OUTDIR}/temp/Manta/{wildcards.tumor}_vs_{wildcards.patient}-N -rf
 		"""
 ###
 ###	Annotatino using SNPEFF
@@ -596,6 +602,18 @@ rule zip_snpeff:
 		rm /scratch/n/nicholsa/zyfniu/AN_WGS/results/mutect2/{wildcards.tumor}_vs_{wildcards.patient}-N/*.filteringStats.tsv -rf
 		"""
 
+rule filter_mutect2_passOnly:
+	input:
+		annotatedvcf = OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N_snpEff.ann.vcf.gz"
+	output: annotatedvcf = OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N_snpEff.ann.passOnly.vcf.gz"
+	threads: 2
+	group: "variantCalling"
+	shell:
+		"""
+		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw \
+			/gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img bcftools view -f "PASS" {input} | bgzip > {output}
+		"""
+
 rule annotate_manta:
 	input:
 		vcf = OUTDIR + "/results/Manta/{tumor}_vs_{patient}-N/Manta_{tumor}_vs_{patient}-N.{structure}.vcf.gz"
@@ -622,7 +640,7 @@ rule zip_manta:
 		annotatedvcf = OUTDIR + "/results/Manta/{tumor}_vs_{patient}-N/Manta_snpeff_{tumor}_vs_{patient}-N.{structure}.ann.vcf"
 	output: annotatedvcf = OUTDIR + "/results/Manta/{tumor}_vs_{patient}-N/Manta_snpeff_{tumor}_vs_{patient}-N.{structure}.ann.vcf.gz"
 	threads: 2
-	group: "variantCalling"
+	group: "manta"
 	shell:
 		"""
 		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw \

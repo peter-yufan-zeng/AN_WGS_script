@@ -1,8 +1,8 @@
 HPVNOP15	XY	0	HPVNOP15-N	8	/scratch/n/nicholsa/zyfniu/AN_WGS/raw/NIC14157.20200814/147B_S5_L008_R1_001.fastq.gz	/scratch/n/nicholsa/zyfniu/AN_WGS/raw/NIC14157.20200814/147B_S5_L008_R2_001.fastq.gz
-HPVNOP15	XY	1	HPVNOP15-P	6	/scratch/n/nicholsa/zyfniu/AN_WGS/raw/NIC14157.20200814/147T_S4_L006_R1_001.fastq.gz 	/scratch/n/nicholsa/zyfniu/AN_WGS/raw/NIC14157.20200814/147T_S4_L006_R2_001.fastq.gz
+HPVNOP15	XY	1	HPVNOP15-P	6	/scratch/n/nicholsa/zyfniu/AN_WGS/raw/NIC14157.20200814/147T_S4_L006_R1_001.fastq.gz	/scratch/n/nicholsa/zyfniu/AN_WGS/raw/NIC14157.20200814/147T_S4_L006_R2_001.fastq.gz
 HPVNOP15	XY	1	HPVNOP15-P	7	/scratch/n/nicholsa/zyfniu/AN_WGS/raw/NIC14157.20200814/147T_S4_L007_R1_001.fastq.gz	/scratch/n/nicholsa/zyfniu/AN_WGS/raw/NIC14157.20200814/147T_S4_L007_R2_001.fastq.gz
 HPVNOP4	XX	0	HPVNOP4-N	2	/scratch/n/nicholsa/zyfniu/AN_WGS/raw/NIC14157.20200814/152B_S2_L002_R1_001.fastq.gz	/scratch/n/nicholsa/zyfniu/AN_WGS/raw/NIC14157.20200814/152B_S2_L002_R2_001.fastq.gz
-HPVNOP4	XX	1	HPVNOP4-P	1	/scratch/n/nicholsa/zyfniu/AN_WGS/raw/NIC14157.20200814/152T_S1_L001_R1_001.fastq.gz 	/scratch/n/nicholsa/zyfniu/AN_WGS/raw/NIC14157.20200814/152T_S1_L001_R2_001.fastq.gz
+HPVNOP4	XX	1	HPVNOP4-P	1	/scratch/n/nicholsa/zyfniu/AN_WGS/raw/NIC14157.20200814/152T_S1_L001_R1_001.fastq.gz	/scratch/n/nicholsa/zyfniu/AN_WGS/raw/NIC14157.20200814/152T_S1_L001_R2_001.fastq.gz
 HPVNOP4	XX	1	HPVNOP4-P	2	/scratch/n/nicholsa/zyfniu/AN_WGS/raw/NIC14157.20200814/152T_S1_L002_R1_001.fastq.gz	/scratch/n/nicholsa/zyfniu/AN_WGS/raw/NIC14157.20200814/152T_S1_L002_R2_001.fastq.gz
 HPVNOP16	XY	0	HPVNOP16-N	3	/scratch/n/nicholsa/zyfniu/AN_WGS/raw/NIC14157.20200814/161B_S3_L003_R1_001.fastq.gz	/scratch/n/nicholsa/zyfniu/AN_WGS/raw/NIC14157.20200814/161B_S3_L003_R2_001.fastq.gz
 HPVNOP16	XY	1	HPVNOP16-P	3	/scratch/n/nicholsa/zyfniu/AN_WGS/raw/NIC14157.20200814/161T_S2_L003_R1_001.fastq.gz	/scratch/n/nicholsa/zyfniu/AN_WGS/raw/NIC14157.20200814/161T_S2_L003_R2_001.fastq.gz

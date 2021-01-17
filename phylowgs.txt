@@ -1,0 +1,12 @@
+singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/phylowgs.simg python2.7 /scratch/n/nicholsa/zyfniu/singularity_images/phylowgs/parser/parse_cnvs.py -f titan -c 0.91 /scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake/results/titan/hmm/optimalClusterSolution/tumor_sample_1_cluster1.segs.txt
+
+
+singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/
+
+
+singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/phylowgs.simg python2.7 /scratch/n/nicholsa/zyfniu/singularity_images/phylowgs/parser/create_phylowgs_inputs.py --vcf-type HPV76=mutect_smchet --regions all --cnvs HPV76=cnvs.txt --tumor-sample HPV76-P HPV76=/scratch/n/nicholsa/zyfniu/AN_WGS/20200908_HPV_HNSCC_WGS/results/mutect2/HPV76-P_vs_HPV76-N/filtered_HPV76-P_vs_HPV76-N.vcf
+
+
+singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/phylowgs.simg python2.7 /scratch/n/nicholsa/zyfniu/singularity_images/phylowgs/parser/create_phylowgs_inputs.py.1 --vcf-type HPV76=mutect_smchet --regions all HPV76=/scratch/n/nicholsa/zyfniu/AN_WGS/20200908_HPV_HNSCC_WGS/results/mutect2/HPV76-P_vs_HPV76-N/filtered_HPV76-P_vs_HPV76-N.vcf
+
+singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/phylowgs.simg python2 /scratch/n/nicholsa/zyfniu/singularity_images/phylowgs/multievolve.py --num-chains 3 --ssms ssm_data.txt --cnvs cnv_data.txt

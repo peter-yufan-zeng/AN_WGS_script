@@ -1,0 +1,15 @@
+HPV33	XY	0	HPV33-N	1	/scratch/n/nicholsa/zyfniu/AN_WGS/raw/33N_R1.fastq.gz	/scratch/n/nicholsa/zyfniu/AN_WGS/raw/33N_R2.fastq.gz
+HPV33	XY	1	HPV33-P	1	/scratch/n/nicholsa/zyfniu/AN_WGS/raw/33P_R1.fastq.gz	/scratch/n/nicholsa/zyfniu/AN_WGS/raw/33P_R2.fastq.gz
+HPV33	XY	1	HPV33-R	1	/scratch/n/nicholsa/zyfniu/AN_WGS/raw/33R_R1.fastq.gz	/scratch/n/nicholsa/zyfniu/AN_WGS/raw/33R_R2.fastq.gz
+HPV34	XY	0	HPV34-N	1	/scratch/n/nicholsa/zyfniu/AN_WGS/raw/34N_R1.fastq.gz	/scratch/n/nicholsa/zyfniu/AN_WGS/raw/34N_R2.fastq.gz
+HPV34	XY	1	HPV34-P	1	/scratch/n/nicholsa/zyfniu/AN_WGS/raw/34P_R1.fastq.gz	/scratch/n/nicholsa/zyfniu/AN_WGS/raw/34P_R2.fastq.gz
+HPV34	XY	1	HPV34-R	1	/scratch/n/nicholsa/zyfniu/AN_WGS/raw/34R_R1.fastq.gz	/scratch/n/nicholsa/zyfniu/AN_WGS/raw/34R_R2.fastq.gz
+HPV35	XY	0	HPV35-N	1	/scratch/n/nicholsa/zyfniu/AN_WGS/raw/35N_R1.fastq.gz	/scratch/n/nicholsa/zyfniu/AN_WGS/raw/35N_R2.fastq.gz
+HPV35	XY	1	HPV35-P	1	/scratch/n/nicholsa/zyfniu/AN_WGS/raw/35P_R1.fastq.gz	/scratch/n/nicholsa/zyfniu/AN_WGS/raw/35P_R2.fastq.gz
+HPV35	XY	1	HPV35-R	1	/scratch/n/nicholsa/zyfniu/AN_WGS/raw/35R_R1.fastq.gz	/scratch/n/nicholsa/zyfniu/AN_WGS/raw/35R_R2.fastq.gz
+HPV54	XX	0	HPV54-N	1	/scratch/n/nicholsa/zyfniu/AN_WGS/raw/54P_R1.fastq.gz	/scratch/n/nicholsa/zyfniu/AN_WGS/raw/54N_R2.fastq.gz
+HPV54	XX	1	HPV54-P	1	/scratch/n/nicholsa/zyfniu/AN_WGS/raw/54P_R1.fastq.gz	/scratch/n/nicholsa/zyfniu/AN_WGS/raw/54P_R2.fastq.gz
+HPV54	XX	1	HPV54-R	1	/scratch/n/nicholsa/zyfniu/AN_WGS/raw/54P_R1.fastq.gz	/scratch/n/nicholsa/zyfniu/AN_WGS/raw/54R_R2.fastq.gz
+HPV70	XY	0	HPV70-N	1	/scratch/n/nicholsa/zyfniu/AN_WGS/raw/70N_R1.fastq.gz	/scratch/n/nicholsa/zyfniu/AN_WGS/raw/70N_R2.fastq.gz
+HPV70	XY	1	HPV70-P	1	/scratch/n/nicholsa/zyfniu/AN_WGS/raw/70P_R1.fastq.gz	/scratch/n/nicholsa/zyfniu/AN_WGS/raw/70P_R2.fastq.gz
+HPV70	XY	1	HPV70-R	1	/scratch/n/nicholsa/zyfniu/AN_WGS/raw/70R_R1.fastq.gz	/scratch/n/nicholsa/zyfniu/AN_WGS/raw/70R_R2.fastq.gz

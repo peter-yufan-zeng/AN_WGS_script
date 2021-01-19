@@ -129,7 +129,7 @@ rule bwa_mem:
 			{input.fastq1} {input.fastq2} > {output}
 		"""
 
-rule sort_sam_to_bam
+rule sort_sam_to_bam:
 	input:
 		sam = OUTDIR +"/orphan/{sample_lane}.bwa.sam"
 	output:
@@ -138,6 +138,7 @@ rule sort_sam_to_bam
 	params:
 		temp = OUTDIR +"/orphan/{sample_lane}/"
 	group: "align"
+	shell:
 		"""
 		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
 		samtools sort -T {params.temp} --threads {threads} -m 2G {input.sam} > {output}
@@ -152,7 +153,7 @@ rule merge_bam_mapped_and_index:
 	input:
 		get_bams_to_merge
 	output:
-		temp(OUTDIR +"/orphan/{sample_lane}/{sample}.merged.bam")
+		temp(OUTDIR +"/orphan/{sample}/{sample}.merged.bam")
 	threads: 10
 	group: "merge_markduplicate"
 	run:
@@ -165,7 +166,7 @@ rule merge_bam_mapped_and_index:
 
 rule markdup:
 	input:
-		OUTDIR +"/orphan/{sample_lane}/{sample}.merged.bam"
+		OUTDIR +"/orphan/{sample}/{sample}.merged.bam"
 	output:
 		bam = temp(OUTDIR +"/orphan/MD/{sample}.md.bam"),
 		metric = OUTDIR +"/orphan/MD/{sample}.bam.metric"

@@ -117,7 +117,7 @@ rule bwa_mem:
 		#fastq1= INPUT[INPUT.Sample_Lane == {sample_lane}].Fastq1,
 		#fastq2= INPUT[INPUT.Sample_Lane == {sample_lane}].Fastq2
 	output:
-		temp(OUTDIR +"/orphan/bwa/{sample_lane}.bwa.bam")
+		temp(OUTDIR +"/orphan/{sample_lane}/{sample_lane}.bwa.sam")
 	threads: 70
 	group: "align"
 	params:
@@ -126,20 +126,33 @@ rule bwa_mem:
 		"""
 		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
 		bwa mem -K 100000000 -R \"{params.readGroup}\" -B 3 -t {threads} -M {REF_fasta} \
-			{input.fastq1} {input.fastq2} | singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
-		samtools sort --threads {threads} -m 2G - > {output}
+			{input.fastq1} {input.fastq2} > {output}
+		"""
+
+rule sort_sam_to_bam
+	input:
+		sam = OUTDIR +"/orphan/{sample_lane}.bwa.sam"
+	output:
+		bam = OUTDIR +"/orphan/{sample_lane}/{sample_lane}.bwa.bam"
+	threads: 70
+	params:
+		temp = OUTDIR +"/orphan/{sample_lane}/"
+	group: "align"
+		"""
+		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
+		samtools sort -T {params.temp} --threads {threads} -m 2G {input.sam} > {output}
 		"""
 
 
 def get_bams_to_merge(wildcards):
 	SAMPLE_LANE = INPUT[INPUT.Sample == wildcards.sample].Sample_Lane
-	return expand(OUTDIR +"/orphan/bwa/{sample_lane}.bwa.bam", sample_lane = SAMPLE_LANE)
+	return expand(OUTDIR +"/orphan/{sample_lane}/{sample_lane}.bwa.bam", sample_lane = SAMPLE_LANE)
 
 rule merge_bam_mapped_and_index:
 	input:
 		get_bams_to_merge
 	output:
-		temp(OUTDIR +"/orphan/bwa/{sample}.merged.bam")
+		temp(OUTDIR +"/orphan/{sample_lane}/{sample}.merged.bam")
 	threads: 10
 	group: "merge_markduplicate"
 	run:
@@ -152,7 +165,7 @@ rule merge_bam_mapped_and_index:
 
 rule markdup:
 	input:
-		OUTDIR +"/orphan/bwa/{sample}.merged.bam"
+		OUTDIR +"/orphan/{sample_lane}/{sample}.merged.bam"
 	output:
 		bam = temp(OUTDIR +"/orphan/MD/{sample}.md.bam"),
 		metric = OUTDIR +"/orphan/MD/{sample}.bam.metric"

@@ -93,7 +93,7 @@ rule fastqc:
 		o2 = OUTDIR + "/QC/{sample_lane}/{sample_lane}_R2_fastqc.html",
 		o3 = OUTDIR + "/QC/{sample_lane}/{sample_lane}_R1_fastqc.zip",
 		o4 = OUTDIR + "/QC/{sample_lane}/{sample_lane}_R2_fastqc.zip"
-	threads: 5
+	threads: 80
 	group: "align"
 	shell:
 		"""
@@ -131,7 +131,7 @@ rule bwa_mem:
 
 rule sort_sam_to_bam:
 	input:
-		sam = OUTDIR +"/orphan/{sample_lane}.bwa.sam"
+		sam = OUTDIR +"/orphan/{sample_lane}/{sample_lane}.bwa.sam"
 	output:
 		bam = OUTDIR +"/orphan/{sample_lane}/{sample_lane}.bwa.bam"
 	threads: 70
@@ -140,7 +140,7 @@ rule sort_sam_to_bam:
 	group: "align"
 	shell:
 		"""
-		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
+		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS/raw,{OUTDIR} /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
 		samtools sort -T {params.temp} --threads {threads} -m 2G {input.sam} > {output}
 		"""
 
@@ -234,7 +234,7 @@ rule ApplyBQSR:
 	group: "recalibrator"
 	shell:
 		"""
-		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/gatk-4.1.8.img \
+		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,{OUTDIR} /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/gatk-4.1.8.img \
 		gatk --java-options "-Xmx8G" \
 		ApplyBQSR \
 		-R {REF_fasta} \
@@ -257,9 +257,9 @@ rule Merge_Recal_Bam_and_index:
 	threads: 20
 	shell:
 		"""
-		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
+		singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR} /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
 		samtools merge --threads {threads} {output.bam} {input}
-		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
+		singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR} /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
 		samtools index {output.bam} {output.index}
 		"""
 
@@ -276,7 +276,7 @@ rule samtools_stats:
 	threads: 2
 	shell:
 		"""
-		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw \
+		singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR} \
 			/gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
 		samtools stats {input.bam} > {output}
 		"""
@@ -291,7 +291,7 @@ rule bamqc:
 	threads: 40
 	shell:
 		"""
-		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw \
+		singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR} \
 			/gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
 		qualimap --java-mem-size=100G \
 		bamqc \
@@ -324,7 +324,7 @@ rule mutect2:
 	group: "variantCalling"
 	shell:
 		"""
-		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/gatk-4.1.8.img \
+		singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR} /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/gatk-4.1.8.img \
 		gatk --java-options "-Xmx8g" Mutect2 -R {REF_fasta} \
 		-I {input.normal}  \
 		-I {input.tumor} \
@@ -350,7 +350,7 @@ rule merge_mutect2_vcf:
 	group: "variantCalling"
 	shell:
 		"""
-		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/vcftools.img \
+		singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR} /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/vcftools.img \
 		vcf-concat {input} > {output}
 		"""
 
@@ -366,7 +366,7 @@ rule merge_stats:
 	group: "variantCalling"
 	run:
 		import os, glob
-		cmd = "singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/gatk-4.1.8.img gatk MergeMutectStats "
+		cmd = "singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR} /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/gatk-4.1.8.img gatk MergeMutectStats "
 		for input_file in input:
 			cmd = cmd + " --stats " + input_file
 		cmd = cmd + " -O {output}"
@@ -384,7 +384,7 @@ rule gatk_LearnOrientationModel:
 	threads: 2
 	run:
 		import os, glob
-		cmd = "singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/gatk-4.1.8.img gatk LearnReadOrientationModel "
+		cmd = "singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR} /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/gatk-4.1.8.img gatk LearnReadOrientationModel "
 		for input_file in input:
 			cmd = cmd + " -I " + input_file
 		cmd = cmd + " -O {output}"
@@ -401,7 +401,7 @@ rule gatk_get_pileupsummaries_normal:
 	group: "variantCalling"
 	shell:
 		"""
-		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/gatk-4.1.8.img \
+		singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR} /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/gatk-4.1.8.img \
 		gatk --java-options "-Xmx8g" GetPileupSummaries \
 		-I {input.normal} \
 		-V {input.common_biallelic_vcf} \
@@ -420,7 +420,7 @@ rule gatk_get_pileupsummaries_tumor:
 	group: "variantCalling"
 	shell:
 		"""
-		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/gatk-4.1.8.img \
+		singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR} /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/gatk-4.1.8.img \
 		gatk --java-options "-Xmx8g" GetPileupSummaries \
 		-I {input.primary} \
 		-V {input.common_biallelic_vcf} \
@@ -439,7 +439,7 @@ rule gatk_calcContam_primary:
 	group: "variantCalling"
 	shell:
 		"""
-		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/gatk-4.1.8.img \
+		singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR} /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/gatk-4.1.8.img \
 		gatk --java-options "-Xmx8g" CalculateContamination \
 		-I {input.normal} \
 		-matched {input.primary} \
@@ -456,7 +456,7 @@ rule index_unfiltered_vcf:
 	group: "variantCalling"
 	shell:
 		"""
-		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/gatk-4.1.8.img \
+		singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR} /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/gatk-4.1.8.img \
 		gatk --java-options "-Xmx8g" IndexFeatureFile \
 		-I {input.vcf} \
 		--output {output.vcf_tbi}
@@ -477,7 +477,7 @@ rule gatk_filterMutect:
 	group: "variantCalling"
 	shell:
 		"""
-		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw \
+		singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR} \
 			/gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/gatk-4.1.8.img \
 		gatk --java-options "-Xmx8g" FilterMutectCalls \
 		--ob-priors {input.model} \
@@ -499,7 +499,7 @@ rule merge_mutect2_vcf_filtered:
 	threads: 2
 	group: "variantCalling"
 	shell:
-		"singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/vcftools.img vcf-concat {input} > {output}"
+		"singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR} /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/vcftools.img vcf-concat {input} > {output}"
 
 
 rule index_filtered_vcf:
@@ -511,7 +511,7 @@ rule index_filtered_vcf:
 	group: "variantCalling"
 	shell:
 		"""
-		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/gatk-4.1.8.img \
+		singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR} /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/gatk-4.1.8.img \
 		gatk --java-options "-Xmx8g" IndexFeatureFile \
 		-I {input.vcf} \
 		--output {output.vcf_tbi}
@@ -530,7 +530,7 @@ rule config_manta:
 	group: "variantCalling"
 	shell:
 		"""
-		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
+		singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR} /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
 		configManta.py \
 		--normalBam {input.normal} \
 		--tumorBam  {input.tumor} \
@@ -556,7 +556,7 @@ rule manta:
 	threads: 80
 	shell:
 		"""
-		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
+		singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR} /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
 		python {input.script} -m local -j {threads} -g 160
 		"""
 
@@ -589,7 +589,7 @@ rule annotate_mutect2:
 	shell:
 		"""
 		cd {OUTDIR}/results/mutect2/{wildcards.tumor}_vs_{wildcards.patient}-N
-		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw $SCRATCH/singularity_images/nfcore-sareksnpeff-2.6.GRCh38.img \
+		singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR} $SCRATCH/singularity_images/nfcore-sareksnpeff-2.6.GRCh38.img \
 		snpEff -Xmx8g \
 		GRCh38.86 \
 		-csvStats {wildcards.tumor}_snpEff.csv \
@@ -608,9 +608,9 @@ rule zip_snpeff:
 	group: "variantCalling"
 	shell:
 		"""
-		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw \
+		singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR} \
 			/gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img bgzip < {input} > {output}
-		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw \
+		singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR} \
 			/gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img tabix {output}
 		rm /scratch/n/nicholsa/zyfniu/AN_WGS/results/mutect2/{wildcards.tumor}_vs_{wildcards.patient}-N/*.idx -rf
 		rm /scratch/n/nicholsa/zyfniu/AN_WGS/results/mutect2/{wildcards.tumor}_vs_{wildcards.patient}-N/*.filteringStats.tsv -rf
@@ -624,7 +624,7 @@ rule filter_mutect2_passOnly:
 	group: "variantCalling"
 	shell:
 		"""
-		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw \
+		singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR} \
 			/gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img bcftools view -f "PASS" {input} | bgzip > {output}
 		"""
 
@@ -638,7 +638,7 @@ rule annotate_manta:
 	shell:
 		"""
 		cd {OUTDIR}/results/Manta/{wildcards.tumor}_vs_{wildcards.patient}-N
-		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw $SCRATCH/singularity_images/nfcore-sareksnpeff-2.6.GRCh38.img \
+		singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR} $SCRATCH/singularity_images/nfcore-sareksnpeff-2.6.GRCh38.img \
 		snpEff -Xmx8g \
 		GRCh38.86 \
 		-csvStats {wildcards.tumor}_{wildcards.structure}_snpEff.csv \
@@ -657,9 +657,9 @@ rule zip_manta:
 	group: "manta"
 	shell:
 		"""
-		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw \
+		singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR} \
 			/gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img bgzip < {input} > {output}
-		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw \
+		singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR} \
 			/gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img tabix {output}
 		"""
 
@@ -676,7 +676,7 @@ rule alleleCount:
 	group: "variantCalling"
 	shell:
 		"""
-		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
+		singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR} /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
 		alleleCounter \
 		-l {input.acloci} \
 		-r {REF_fasta} \
@@ -704,7 +704,7 @@ rule ConvertAlleleCounts:
 	shell:
 		"""
 		cd {OUTDIR}/results/ASCAT/{wildcards.tumor}_vs_{wildcards.patient}-N
-		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img Rscript \
+		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS/AN_WGS,{OUTDIR} /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img Rscript \
 		/scratch/n/nicholsa/zyfniu/AN_WGS/AN_WGS/convertAlleleCounts.r \
 		{wildcards.tumor} {input.tumor} \
 		{wildcards.patient}-N {input.normal} \
@@ -731,7 +731,7 @@ rule ascat:
 		do sed \'s/chr//g\' $f > {OUTDIR}/results/ASCAT/{wildcards.tumor}_vs_{wildcards.patient}-N/tmpFile; \
 		mv {OUTDIR}/results/ASCAT/{wildcards.tumor}_vs_{wildcards.patient}-N/tmpFile $f;done
 		cd {OUTDIR}/results/ASCAT/{wildcards.tumor}_vs_{wildcards.patient}-N
-		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
+		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS/AN_WGS,{OUTDIR} /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
 		Rscript /scratch/n/nicholsa/zyfniu/AN_WGS/AN_WGS/run_ascat.r \
         --tumorbaf {input.tumorBaf} \
         --tumorlogr {input.tumorLogr} \

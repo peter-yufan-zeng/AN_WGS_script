@@ -1,0 +1,10 @@
+ATCWGS_42	XY	0	ATCWGS_42-N	1	/scratch/n/nicholsa/zyfniu/AN_WGS/raw/ATCWGS_42N_tube_label_ATCWGS_24N_S2_L002_R1_001.fastq.gz	/scratch/n/nicholsa/zyfniu/AN_WGS/raw/ATCWGS_42N_tube_label_ATCWGS_24N_S2_L002_R2_001.fastq.gz
+ATCWGS_42	XY	1	ATCWGS_42-A	1	/scratch/n/nicholsa/zyfniu/AN_WGS/raw/ATCWGS_42T_1_tube_label_ATCWGS_24T_1_S3_L003_R1_001.fastq.gz	/scratch/n/nicholsa/zyfniu/AN_WGS/raw/ATCWGS_42T_1_tube_label_ATCWGS_24T_1_S3_L003_R2_001.fastq.gz
+ATCWGS_42	XY	1	ATCWGS_42-B	1	/scratch/n/nicholsa/zyfniu/AN_WGS/raw/ATCWGS_42T_2_tube_label_ATCWGS_24T_2_S4_L004_R1_001.fastq.gz	/scratch/n/nicholsa/zyfniu/AN_WGS/raw/ATCWGS_42T_2_tube_label_ATCWGS_24T_2_S4_L004_R2_001.fastq.gz
+ATCWGS_42	XY	1	ATCWGS_42-C	1	/scratch/n/nicholsa/zyfniu/AN_WGS/raw/ATCWGS_42T_3_tube_label_ATCWGS_24T_3_S5_L005_R1_001.fastq.gz	/scratch/n/nicholsa/zyfniu/AN_WGS/raw/ATCWGS_42T_3_tube_label_ATCWGS_24T_3_S5_L005_R2_001.fastq.gz
+ATCWGS_42	XY	1	ATCWGS_42-D	1	/scratch/n/nicholsa/zyfniu/AN_WGS/raw/ATCWGS_42T_4_tube_label_ATCWGS_24T_4_S6_L006_R1_001.fastq.gz	/scratch/n/nicholsa/zyfniu/AN_WGS/raw/ATCWGS_42T_4_tube_label_ATCWGS_24T_4_S6_L006_R2_001.fastq.gz
+ATCWGS_42	XY	1	ATCWGS_42-E	1	/scratch/n/nicholsa/zyfniu/AN_WGS/raw/ATCWGS_42T_5_tube_label_ATCWGS_24T_5_S7_L007_R1_001.fastq.gz	/scratch/n/nicholsa/zyfniu/AN_WGS/raw/ATCWGS_42T_5_tube_label_ATCWGS_24T_5_S7_L007_R2_001.fastq.gz
+ATCWGS_42	XY	1	ATCWGS_42-R	1	/scratch/n/nicholsa/zyfniu/AN_WGS/raw/ATCWGS42_postBRAFinhib_S4_L001_R1_001.fastq.gz	/scratch/n/nicholsa/zyfniu/AN_WGS/raw/ATCWGS42_postBRAFinhib_S4_L001_R2_001.fastq.gz
+ATCWGS_42	XY	1	ATCWGS_42-R	2	/scratch/n/nicholsa/zyfniu/AN_WGS/raw/ATCWGS42_postBRAFinhib_S4_L002_R1_001.fastq.gz	/scratch/n/nicholsa/zyfniu/AN_WGS/raw/ATCWGS42_postBRAFinhib_S4_L002_R2_001.fastq.gz
+ATCWGS_42	XY	1	ATCWGS_42-R	3	/scratch/n/nicholsa/zyfniu/AN_WGS/raw/ATCWGS42_postBRAFinhib_S4_L003_R1_001.fastq.gz	/scratch/n/nicholsa/zyfniu/AN_WGS/raw/ATCWGS42_postBRAFinhib_S4_L003_R2_001.fastq.gz
+ATCWGS_42	XY	1	ATCWGS_42-R	4	/scratch/n/nicholsa/zyfniu/AN_WGS/raw/ATCWGS42_postBRAFinhib_S4_L004_R1_001.fastq.gz	/scratch/n/nicholsa/zyfniu/AN_WGS/raw/ATCWGS42_postBRAFinhib_S4_L004_R2_001.fastq.gz

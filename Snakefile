@@ -3,10 +3,8 @@
 #### module load NiaEnv/2018a
 #### module load python/3.6.4-anaconda5.1.0
 #### source activate snakemake
-#### snakemake -s AN_WGS/Snakefile  --cores 1 -j 40 --cluster "sbatch -N 1 -t 20:00:00 --ntasks 80 --output=logs/%x_%j.log" --ri \
-#### --config input=AN_WGS/Sample/20200907.tsv.txt outdir=$SCRATCH/AN_WGS/20200908_HPV_HNSCC_WGS
-
-
+#### snakemake -s AN_WGS_script/Snakefile  --cores 1 -j 40 --cluster "sbatch -N 1 -t 20:00:00 --ntasks 80 --output=logs/%x_%j.log" --ri \
+#### --config input=AN_WGS_script/Sample/20200907.tsv.txt outdir=$SCRATCH/AN_WGS_script/20200908_HPV_HNSCC_WGS
 
 import pandas as pd
 import os
@@ -28,7 +26,7 @@ TUMOR = INPUT[(INPUT.n_vs_t == 1)].Sample.drop_duplicates()
 SAMPLE_LANE = INPUT.Sample_Lane
 print(INPUT)
 OUTDIR = config['outdir']
-print("***OUTPUT DIRECTORY" + OUTDIR + "***")
+print("***OUTPUT DIRECTORY: " + OUTDIR + "***")
 
 ###
 ###	REFERENCE FILE
@@ -692,7 +690,7 @@ rule ConvertAlleleCounts:
 	input:
 		normal = OUTDIR + "/results/ASCAT/alleleCount/{patient}-N.alleleCount",
 		tumor = OUTDIR + "/results/ASCAT/alleleCount/{tumor}.alleleCount",
-		script = "/scratch/n/nicholsa/zyfniu/AN_WGS/AN_WGS/convertAlleleCounts.r"
+		script = "/scratch/n/nicholsa/zyfniu/AN_WGS/AN_WGS_script/convertAlleleCounts.r"
 	output:
 		normalBaf = OUTDIR + "/results/ASCAT/{tumor}_vs_{patient}-N/{patient}-N.BAF",
 		tumorBaf = OUTDIR + "/results/ASCAT/{tumor}_vs_{patient}-N/{tumor}.BAF",
@@ -704,8 +702,8 @@ rule ConvertAlleleCounts:
 	shell:
 		"""
 		cd {OUTDIR}/results/ASCAT/{wildcards.tumor}_vs_{wildcards.patient}-N
-		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS/AN_WGS,{OUTDIR} /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img Rscript \
-		/scratch/n/nicholsa/zyfniu/AN_WGS/AN_WGS/convertAlleleCounts.r \
+		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS/AN_WGS_script,{OUTDIR} /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img Rscript \
+		/scratch/n/nicholsa/zyfniu/AN_WGS/AN_WGS_script/convertAlleleCounts.r \
 		{wildcards.tumor} {input.tumor} \
 		{wildcards.patient}-N {input.normal} \
 		{params.gender}
@@ -731,8 +729,8 @@ rule ascat:
 		do sed \'s/chr//g\' $f > {OUTDIR}/results/ASCAT/{wildcards.tumor}_vs_{wildcards.patient}-N/tmpFile; \
 		mv {OUTDIR}/results/ASCAT/{wildcards.tumor}_vs_{wildcards.patient}-N/tmpFile $f;done
 		cd {OUTDIR}/results/ASCAT/{wildcards.tumor}_vs_{wildcards.patient}-N
-		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS/AN_WGS,{OUTDIR} /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
-		Rscript /scratch/n/nicholsa/zyfniu/AN_WGS/AN_WGS/run_ascat.r \
+		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS/AN_WGS_script,{OUTDIR} /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
+		Rscript /scratch/n/nicholsa/zyfniu/AN_WGS/AN_WGS_script/run_ascat.r \
         --tumorbaf {input.tumorBaf} \
         --tumorlogr {input.tumorLogr} \
         --normalbaf {input.normalBaf} \

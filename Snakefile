@@ -25,11 +25,38 @@ PAT = INPUT.Patient.drop_duplicates()
 TUMOR = INPUT[(INPUT.n_vs_t == 1)].Sample.drop_duplicates()
 SAMPLE_LANE = INPUT.Sample_Lane
 print(INPUT)
+
+
+###
+### GET SAMPLES TO USE MULTI-TUMOUR VARIANT CALLING
+###
+Multi = INPUT[(INPUT.n_vs_t == 1)]
+Multi = Multi[['Patient','Sample']].drop_duplicates()
+Multi.loc[:,'Combined'] = ""
+Multi.loc[:,"num_tumours"] = 1
+for x in Multi['Patient'].drop_duplicates():
+	COMBINED_mutect_samples = ""
+	print(x)
+	n = 1
+	for y in Multi[Multi.Patient == x].Sample.drop_duplicates():
+		print(y)
+		COMBINED_mutect_samples = y + "_" + COMBINED_mutect_samples
+		Multi.loc[(Multi.Patient == x),'num_tumours'] = n
+		n = n + 1
+	COMBINED_mutect_samples = COMBINED_mutect_samples[:-1]
+	Multi.loc[(Multi.Patient == x),'Combined']= COMBINED_mutect_samples
+
+Multi['path'] = OUTDIR + "/results/mutect2/"  + Multi.Combined + "_vs_" + Multi.Patient + "-N/" \
++ Multi.Combined + "vs_" + Multi.Patient + "-N_snpEff.ann.vcf.gz"
+Multi = Multi[Multi.num_tumours > 1]
+#Multi = Multi[['Patient','Combined',"path"]].drop_duplicates()
+
+### PRINT OUTPUT DIRECTORY
 OUTDIR = config['outdir']
 print("***OUTPUT DIRECTORY: " + OUTDIR + "***")
 
 ###
-###	REFERENCE FILE
+###	REFERENCE FILES
 ###
 REF_fasta = "$SCRATCH/igenomes_ref/Homo_sapiens_assembly38.fasta"
 REF_dbsnp = "$SCRATCH/igenomes_ref/dbsnp_146.hg38.vcf.gz"
@@ -40,6 +67,7 @@ REF_exac_common = "/gpfs/fs0/scratch/n/nicholsa/zyfniu/igenomes_ref/somatic-hg38
 CHROMOSOMES = ['chr1', 'chr2', 'chr3', 'chr4', 'chr5', 'chr6', 'chr7', 'chr8', 'chr9', 'chr10',
 			   'chr11', 'chr12', 'chr13', 'chr14', 'chr15', 'chr16', 'chr17', 'chr18', 'chr19',
 			   'chr20', 'chr21', 'chr22', 'chrX', 'chrY']
+
 
 ###
 ### Final Results
@@ -57,6 +85,7 @@ rule all:
 		####VARIANT CALLING OUTPUTS
 		####
 		expand(OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N_snpEff.ann.vcf.gz",zip, patient = [x[:-2] for x in TUMOR],tumor = TUMOR),
+		Multi.path.drop_duplicates().tolist(),
 		#### Manta
 		expand(OUTDIR + "/results/Manta/{tumor}_vs_{patient}-N/Manta_snpeff_{tumor}_vs_{patient}-N.candidateSV.ann.vcf.gz",zip, patient = [x[:-2] for x in TUMOR],tumor = TUMOR),
 		expand(OUTDIR + "/results/Manta/{tumor}_vs_{patient}-N/Manta_snpeff_{tumor}_vs_{patient}-N.candidateSmallIndels.ann.vcf.gz",zip, patient = [x[:-2] for x in TUMOR],tumor = TUMOR),
@@ -116,7 +145,7 @@ rule bwa_mem:
 		#fastq2= INPUT[INPUT.Sample_Lane == {sample_lane}].Fastq2
 	output:
 		temp(OUTDIR +"/orphan/{sample_lane}/{sample_lane}.bwa.sam")
-	threads: 70
+	threads: 80
 	group: "align"
 	params:
 		readGroup = createRG
@@ -304,7 +333,7 @@ rule bamqc:
 		"""
 
 ###
-### VARIANT CALLING
+### VARIANT CALLING FOR EACH TUMOUR INDIVIDUALLY
 ###
 
 rule mutect2:
@@ -514,6 +543,40 @@ rule index_filtered_vcf:
 		-I {input.vcf} \
 		--output {output.vcf_tbi}
 		"""
+
+###
+### VARIANT CALLING FOR ALL TUMOURS FROM THE SAME PATIENT USING COMBINED CALLING FROM MUTECT2
+###
+
+def get_bams_to_call(wildcards):
+	samples = Multi[Multi.Patient == wildcards.patient].Sample
+	return expand(OUTDIR +"/Recal/{tumor}.recal.bam", tumor = samples)
+
+rule mutect2_all_tumours:
+	input:
+		normal = OUTDIR +"/Recal/{patient}-N.recal.bam",
+		interval = "/scratch/n/nicholsa/zyfniu/igenomes_ref/interval-files-folder/{num}-scattered.interval_list"
+		tumor = get_bams_to_call
+	#	recurrence = "{sample}R/Recal/{sample}R.recal.bam"
+	output:
+		vcf = temp(OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/unfiltered_{tumor}vs_{patient}-N.{num}.vcf")
+		stats = temp(OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/unfiltered_{tumor}vs_{patient}-N.{num}.vcf.stats"),
+		f12 = temp(OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/unfiltered_{tumor}vs_{patient}-N_f12.{num}.tar.gz"),
+		index =  temp(OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/unfiltered_{tumor}vs_{patient}-N.{num}.vcf.idx")
+	threads: 2
+	group: "variantCalling"
+	script:
+		command = "singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR} /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/gatk-4.1.8.img \
+		gatk --java-options \"-Xmx8g\" Mutect2 -R {REF_fasta} \
+		-normal {input.normal}  \
+		-normal {wildcards.patient}-N \
+		-L {input.interval} \
+		--germline-resource {REF_gnomAD} \
+		--panel-of-normals {REF_pon} --f1r2-tar-gz {output.f12} \
+		-O {output.vcf}"
+		for i in input[201:]: ###only the tumour files
+			command = command + " -I " + i
+		shell(command)
 
 
 ####

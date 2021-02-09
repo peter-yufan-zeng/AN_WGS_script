@@ -87,6 +87,7 @@ rule all:
 		####VARIANT CALLING OUTPUTS
 		####
 		expand(OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N_snpEff.ann.vcf.gz",zip, patient = [x[:-2] for x in TUMOR],tumor = TUMOR),
+		expand(OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N_snpEff.ann.passOnly.vcf.gz",zip, patient = [x[:-2] for x in TUMOR],tumor = TUMOR),
 		Multi.path.drop_duplicates().tolist(),
 		#### Manta
 		expand(OUTDIR + "/results/Manta/{tumor}_vs_{patient}-N/Manta_snpeff_{tumor}_vs_{patient}-N.candidateSV.ann.vcf.gz",zip, patient = [x[:-2] for x in TUMOR],tumor = TUMOR),
@@ -556,27 +557,26 @@ def get_bams_to_call(wildcards):
 
 rule mutect2_all_tumours:
 	input:
-		normal = OUTDIR +"/Recal/{patient}-N.recal.bam",
 		interval = "/scratch/n/nicholsa/zyfniu/igenomes_ref/interval-files-folder/{num}-scattered.interval_list",
+		normal = OUTDIR +"/Recal/{patient}-N.recal.bam",
 		tumors = get_bams_to_call
 	#	recurrence = "{sample}R/Recal/{sample}R.recal.bam"
 	output:
-		vcf = temp(OUTDIR + "/results/mutect2/all_{tumor}_vs_{patient}-N/unfiltered_{tumor}vs_{patient}-N.{num}.vcf"),
-		stats = temp(OUTDIR + "/results/mutect2/all_{tumor}_vs_{patient}-N/unfiltered_{tumor}vs_{patient}-N.{num}.vcf.stats"),
-		f12 = temp(OUTDIR + "/results/mutect2/all_{tumor}_vs_{patient}-N/unfiltered_{tumor}vs_{patient}-N_f12.{num}.tar.gz"),
-		index =  temp(OUTDIR + "/results/mutect2/all_{tumor}_vs_{patient}-N/unfiltered_{tumor}vs_{patient}-N.{num}.vcf.idx")
+		vcf = temp(OUTDIR + "/results/mutect2/all_{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N.{num}.vcf"),
+		stats = temp(OUTDIR + "/results/mutect2/all_{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N.{num}.vcf.stats"),
+		f12 = temp(OUTDIR + "/results/mutect2/all_{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N_f12.{num}.tar.gz"),
+		index =  temp(OUTDIR + "/results/mutect2/all_{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N.{num}.vcf.idx")
 	threads: 2
 	group: "variantCalling"
 	run:
 		command = "singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR} /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/gatk-4.1.8.img \
 		gatk --java-options \"-Xmx8g\" Mutect2 -R {REF_fasta} \
-		-normal {input.normal}  \
 		-normal {wildcards.patient}-N \
 		-L {input.interval} \
 		--germline-resource {REF_gnomAD} \
 		--panel-of-normals {REF_pon} --f1r2-tar-gz {output.f12} \
 		-O {output.vcf}"
-		for i in input[201:]: ###only the tumour files
+		for i in input[2:]: ###only the tumour files
 			command = command + " -I " + i
 		shell(command)
 

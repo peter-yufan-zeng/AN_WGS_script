@@ -51,7 +51,7 @@ for x in Multi['Patient'].drop_duplicates():
 	Multi.loc[(Multi.Patient == x),'Combined']= COMBINED_mutect_samples
 
 Multi['path'] = OUTDIR + "/results/mutect2/all_"  + Multi.Combined + "_vs_" + Multi.Patient + "-N/" \
-+ Multi.Combined + "vs_" + Multi.Patient + "-N_snpEff.ann.vcf.gz"
++ Multi.Combined + "_vs_" + Multi.Patient + "-N_snpEff.ann.vcf.gz"
 Multi = Multi[Multi.num_tumours > 1]
 #Multi = Multi[['Patient','Combined',"path"]].drop_duplicates()
 
@@ -557,11 +557,11 @@ def get_bams_to_call(wildcards):
 rule mutect2_all_tumours:
 	input:
 		normal = OUTDIR +"/Recal/{patient}-N.recal.bam",
-		interval = "/scratch/n/nicholsa/zyfniu/igenomes_ref/interval-files-folder/{num}-scattered.interval_list"
-		get_bams_to_call
+		interval = "/scratch/n/nicholsa/zyfniu/igenomes_ref/interval-files-folder/{num}-scattered.interval_list",
+		tumors = get_bams_to_call
 	#	recurrence = "{sample}R/Recal/{sample}R.recal.bam"
 	output:
-		vcf = temp(OUTDIR + "/results/mutect2/all_{tumor}_vs_{patient}-N/unfiltered_{tumor}vs_{patient}-N.{num}.vcf")
+		vcf = temp(OUTDIR + "/results/mutect2/all_{tumor}_vs_{patient}-N/unfiltered_{tumor}vs_{patient}-N.{num}.vcf"),
 		stats = temp(OUTDIR + "/results/mutect2/all_{tumor}_vs_{patient}-N/unfiltered_{tumor}vs_{patient}-N.{num}.vcf.stats"),
 		f12 = temp(OUTDIR + "/results/mutect2/all_{tumor}_vs_{patient}-N/unfiltered_{tumor}vs_{patient}-N_f12.{num}.tar.gz"),
 		index =  temp(OUTDIR + "/results/mutect2/all_{tumor}_vs_{patient}-N/unfiltered_{tumor}vs_{patient}-N.{num}.vcf.idx")
@@ -705,6 +705,55 @@ rule index_filtered_vcf_all_tumour:
 		gatk --java-options "-Xmx8g" IndexFeatureFile \
 		-I {input.vcf} \
 		--output {output.vcf_tbi}
+		"""
+
+rule annotate_mutect2_all_tumour:
+	input:
+		vcf = OUTDIR + "/results/mutect2/all_{tumor}_vs_{patient}-N/filtered_{tumor}_vs_{patient}-N.vcf"
+	output:
+		annotatedvcf = temp(OUTDIR + "/results/mutect2/all_{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N_snpEff.ann.vcf")
+	threads: 2
+	group: "variantCalling"
+	shell:
+		"""
+		cd {OUTDIR}/results/mutect2/{wildcards.tumor}_vs_{wildcards.patient}-N
+		singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR} $SCRATCH/singularity_images/nfcore-sareksnpeff-2.6.GRCh38.img \
+		snpEff -Xmx8g \
+		GRCh38.86 \
+		-csvStats {wildcards.tumor}_snpEff.csv \
+		-nodownload \
+		-canon \
+		{input} \
+		> {output}
+#		mv snpEff_summary.html {wildcards.tumor}_snpEff.html
+		"""
+
+rule zip_snpeff_all_tumour:
+	input:
+		annotatedvcf = OUTDIR + "/results/mutect2/all_{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N_snpEff.ann.vcf"
+	output: annotatedvcf = OUTDIR + "/results/mutect2/all_{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N_snpEff.ann.vcf.gz"
+	threads: 2
+	group: "variantCalling"
+	shell:
+		"""
+		singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR} \
+			/gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img bgzip < {input} > {output}
+		singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR} \
+			/gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img tabix {output}
+		rm /scratch/n/nicholsa/zyfniu/AN_WGS/results/mutect2/all_{wildcards.tumor}_vs_{wildcards.patient}-N/*.idx -rf
+		rm /scratch/n/nicholsa/zyfniu/AN_WGS/results/mutect2/all_{wildcards.tumor}_vs_{wildcards.patient}-N/*.filteringStats.tsv -rf
+		"""
+
+rule filter_mutect2_passOnly_all_tumour:
+	input:
+		annotatedvcf = OUTDIR + "/results/mutect2/all_{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N_snpEff.ann.vcf.gz"
+	output: annotatedvcf = OUTDIR + "/results/mutect2/all_{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N_snpEff.ann.passOnly.vcf.gz"
+	threads: 2
+	group: "variantCalling"
+	shell:
+		"""
+		singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR} \
+			/gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img bcftools view -f "PASS" {input} | bgzip > {output}
 		"""
 
 ####

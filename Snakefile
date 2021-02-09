@@ -27,6 +27,10 @@ SAMPLE_LANE = INPUT.Sample_Lane
 print(INPUT)
 
 
+### PRINT OUTPUT DIRECTORY
+OUTDIR = config['outdir']
+print("***OUTPUT DIRECTORY: " + OUTDIR + "***")
+
 ###
 ### GET SAMPLES TO USE MULTI-TUMOUR VARIANT CALLING
 ###
@@ -46,14 +50,12 @@ for x in Multi['Patient'].drop_duplicates():
 	COMBINED_mutect_samples = COMBINED_mutect_samples[:-1]
 	Multi.loc[(Multi.Patient == x),'Combined']= COMBINED_mutect_samples
 
-Multi['path'] = OUTDIR + "/results/mutect2/"  + Multi.Combined + "_vs_" + Multi.Patient + "-N/" \
+Multi['path'] = OUTDIR + "/results/mutect2/all_"  + Multi.Combined + "_vs_" + Multi.Patient + "-N/" \
 + Multi.Combined + "vs_" + Multi.Patient + "-N_snpEff.ann.vcf.gz"
 Multi = Multi[Multi.num_tumours > 1]
 #Multi = Multi[['Patient','Combined',"path"]].drop_duplicates()
 
-### PRINT OUTPUT DIRECTORY
-OUTDIR = config['outdir']
-print("***OUTPUT DIRECTORY: " + OUTDIR + "***")
+
 
 ###
 ###	REFERENCE FILES
@@ -556,16 +558,16 @@ rule mutect2_all_tumours:
 	input:
 		normal = OUTDIR +"/Recal/{patient}-N.recal.bam",
 		interval = "/scratch/n/nicholsa/zyfniu/igenomes_ref/interval-files-folder/{num}-scattered.interval_list"
-		tumor = get_bams_to_call
+		get_bams_to_call
 	#	recurrence = "{sample}R/Recal/{sample}R.recal.bam"
 	output:
-		vcf = temp(OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/unfiltered_{tumor}vs_{patient}-N.{num}.vcf")
-		stats = temp(OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/unfiltered_{tumor}vs_{patient}-N.{num}.vcf.stats"),
-		f12 = temp(OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/unfiltered_{tumor}vs_{patient}-N_f12.{num}.tar.gz"),
-		index =  temp(OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/unfiltered_{tumor}vs_{patient}-N.{num}.vcf.idx")
+		vcf = temp(OUTDIR + "/results/mutect2/all_{tumor}_vs_{patient}-N/unfiltered_{tumor}vs_{patient}-N.{num}.vcf")
+		stats = temp(OUTDIR + "/results/mutect2/all_{tumor}_vs_{patient}-N/unfiltered_{tumor}vs_{patient}-N.{num}.vcf.stats"),
+		f12 = temp(OUTDIR + "/results/mutect2/all_{tumor}_vs_{patient}-N/unfiltered_{tumor}vs_{patient}-N_f12.{num}.tar.gz"),
+		index =  temp(OUTDIR + "/results/mutect2/all_{tumor}_vs_{patient}-N/unfiltered_{tumor}vs_{patient}-N.{num}.vcf.idx")
 	threads: 2
 	group: "variantCalling"
-	script:
+	run:
 		command = "singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR} /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/gatk-4.1.8.img \
 		gatk --java-options \"-Xmx8g\" Mutect2 -R {REF_fasta} \
 		-normal {input.normal}  \
@@ -578,6 +580,132 @@ rule mutect2_all_tumours:
 			command = command + " -I " + i
 		shell(command)
 
+##SET NUMBERS FROM 0000 to 01999
+
+NUMBERS = [str(a)+str(b)+str(c)+str(d) for a in range(0,1) for b in range(0,2) for c in range(0,10) for d in range(0,10)]
+
+def concat_vcf_all_tumour(wildcards):
+	return expand(OUTDIR + "/results/mutect2/all_" + wildcards.tumor + "_vs_" + wildcards.patient + "-N" + "/unfiltered_" + wildcards.tumor + "_vs_" + wildcards.patient + "-N.{num}.vcf", num = NUMBERS)
+
+rule merge_mutect2_vcf_all_tumour:
+	input:
+		concat_vcf_all_tumour
+	output:
+		temp(OUTDIR + "/results/mutect2/all_{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N.vcf")
+	threads: 1
+	group: "variantCalling"
+	shell:
+		"""
+		singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR} /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/vcftools.img \
+		vcf-concat {input} > {output}
+		"""
+
+def concat_vcf_stats_all_tumour(wildcards):
+	return expand(OUTDIR + "/results/mutect2/all_" + wildcards.tumor + "_vs_" + wildcards.patient + "-N" + "/unfiltered_" + wildcards.tumor + "_vs_" + wildcards.patient + "-N.{num}.vcf.stats", num = NUMBERS)
+
+rule merge_stats_all_tumour:
+	input:
+		concat_vcf_stats_all_tumour
+	output:
+		temp(OUTDIR + "/results/mutect2/all_{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N_merged.stats")
+	threads: 2
+	group: "variantCalling"
+	run:
+		import os, glob
+		cmd = "singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR} /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/gatk-4.1.8.img gatk MergeMutectStats "
+		for input_file in input:
+			cmd = cmd + " --stats " + input_file
+		cmd = cmd + " -O {output}"
+		shell(cmd)
+
+def concat_vcf_f12_all_tumour(wildcards):
+	return expand(OUTDIR + "/results/mutect2/all_" + wildcards.tumor + "_vs_" + wildcards.patient + "-N" + "/unfiltered_" + wildcards.tumor + "_vs_" + wildcards.patient + "-N_f12.{num}.tar.gz", num = NUMBERS)
+
+rule gatk_LearnOrientationModel_all_tumour:
+	input:
+		concat_vcf_f12_all_tumour
+	output:
+		model = OUTDIR + "/results/mutect2/all_{tumor}_vs_{patient}-N/unfiltered_{tumor}_read_orientation_model.tar.gz"
+	group: "variantCalling"
+	threads: 2
+	run:
+		import os, glob
+		cmd = "singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR} /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/gatk-4.1.8.img gatk LearnReadOrientationModel "
+		for input_file in input:
+			cmd = cmd + " -I " + input_file
+		cmd = cmd + " -O {output}"
+		shell(cmd)
+
+
+rule index_unfiltered_vcf_all_tumour:
+	input:
+		vcf = OUTDIR + "/results/mutect2/all_{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N.vcf",
+	output:
+		vcf_tbi = OUTDIR + "/results/mutect2/all_{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N.vcf.idx"
+	threads: 2
+	group: "variantCalling"
+	shell:
+		"""
+		singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR} /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/gatk-4.1.8.img \
+		gatk --java-options "-Xmx8g" IndexFeatureFile \
+		-I {input.vcf} \
+		--output {output.vcf_tbi}
+		"""
+
+rule gatk_filterMutect_all_tumour:
+	input:
+		vcf_tbi = OUTDIR + "/results/mutect2/all_{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N.vcf.idx",
+		vcf = OUTDIR + "/results/mutect2/all_{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N.vcf",
+		model = OUTDIR + "/results/mutect2/all_{tumor}_vs_{patient}-N/unfiltered_{tumor}_read_orientation_model.tar.gz",
+		stats = OUTDIR + "/results/mutect2/all_{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N_merged.stats",
+		interval = "/scratch/n/nicholsa/zyfniu/igenomes_ref/interval-files-folder/{num}-scattered.interval_list"
+	output:
+		filter_vcf = temp(OUTDIR + "/results/mutect2/all_{tumor}_vs_{patient}-N/filtered_{tumor}_vs_{patient}-N.{num}.vcf"),
+		filter_vcf_index = temp(OUTDIR + "/results/mutect2/all_{tumor}_vs_{patient}-N/filtered_{tumor}_vs_{patient}-N.{num}.vcf.idx"),
+		filter_vcf_stats = temp(OUTDIR + "/results/mutect2/all_{tumor}_vs_{patient}-N/filtered_{tumor}_vs_{patient}-N.{num}.vcf.filteringStats.tsv")
+	threads: 2
+	group: "variantCalling"
+	shell:
+		"""
+		singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR} \
+			/gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/gatk-4.1.8.img \
+		gatk --java-options "-Xmx8g" FilterMutectCalls \
+		--ob-priors {input.model} \
+		-stats {input.stats} \
+		-R {REF_fasta} \
+		-V {input.vcf} \
+		-L {input.interval} \
+		--output {output.filter_vcf}
+		"""
+
+def concat_vcf_filtered_all_tumour(wildcards):
+	return	expand(OUTDIR + "/results/mutect2/all_" + wildcards.tumor + "_vs_" + wildcards.patient + "-N" + "/filtered_" + wildcards.tumor + "_vs_" + wildcards.patient + "-N.{num}.vcf", num = NUMBERS)
+
+rule merge_mutect2_vcf_filtered_all_tumour:
+	input:
+		concat_vcf_filtered_all_tumour
+	output:
+		temp(OUTDIR + "/results/mutect2/all_{tumor}_vs_{patient}-N/filtered_{tumor}_vs_{patient}-N.vcf")
+	threads: 2
+	group: "variantCalling"
+	shell:
+		"singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR} /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/vcftools.img vcf-concat {input} > {output}"
+
+
+rule index_filtered_vcf_all_tumour:
+	input:
+		vcf = OUTDIR + "/results/mutect2/all_{tumor}_vs_{patient}-N/filtered_{tumor}_vs_{patient}-N.vcf"
+	output:
+		vcf_tbi = OUTDIR + "/results/mutect2/all_{tumor}_vs_{patient}-N/filtered_{tumor}_vs_{patient}-N.vcf.idx"
+	threads: 2
+	group: "variantCalling"
+	shell:
+		"""
+		singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR} /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/gatk-4.1.8.img \
+		gatk --java-options "-Xmx8g" IndexFeatureFile \
+		-I {input.vcf} \
+		--output {output.vcf_tbi}
+		"""
 
 ####
 #### Manta

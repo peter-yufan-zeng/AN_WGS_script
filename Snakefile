@@ -716,7 +716,7 @@ rule annotate_mutect2_all_tumour:
 	group: "variantCalling"
 	shell:
 		"""
-		cd {OUTDIR}/results/mutect2/{wildcards.tumor}_vs_{wildcards.patient}-N
+		cd {OUTDIR}/results/mutect2/all_{wildcards.tumor}_vs_{wildcards.patient}-N
 		singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR} $SCRATCH/singularity_images/nfcore-sareksnpeff-2.6.GRCh38.img \
 		snpEff -Xmx8g \
 		GRCh38.86 \
@@ -982,40 +982,6 @@ rule ascat:
 		cd ../../../
 		mv {OUTDIR}/results/ASCAT/{wildcards.tumor}_vs_{wildcards.patient}-N/{wildcards.tumor}.cnvs.txt {output.results}
 		"""
-###
-### RUN MULTIQC
-###
-
-# def getFinishedMutect2(wildcards):
-# 		return expand("results/mutect2/{tumor}/{tumor}_vs_{patient}-N_snpEff.ann.vcf.gz",
-# 		tumor = INPUT[(INPUT.n_vs_t == 1)&(INPUT.Patient == wildcards.patient)].Sample.drop_duplicates(),
-# 		patient = INPUT[(INPUT.n_vs_t == 0)&(INPUT.Patient == wildcards.patient)].Patient.drop_duplicates())
-#
-# def getFinishedManta(wildcards):
-# 		return expand("results/Manta/{tumor}/Manta_snpeff_{tumor}_vs_{patient}-N.{structure}.ann.vcf.gz",
-# 		tumor = INPUT[(INPUT.n_vs_t == 1)&(INPUT.Patient == wildcards.patient)].Sample.drop_duplicates(),
-# 		patient = INPUT[(INPUT.n_vs_t == 0)&(INPUT.Patient == wildcards.patient)].Patient.drop_duplicates(),
-# 		structure = ["candidateSV","candidateSmallIndels","diploidSV","somaticSV"])
-#
-# def getFinishedASCAT(wildcards):
-# 		return expand("results/ASCAT/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N.tumor.cnvs.txt",
-# 		tumor = INPUT[(INPUT.n_vs_t == 1)&(INPUT.Patient == wildcards.patient)].Sample.drop_duplicates(),
-# 		patient = INPUT[(INPUT.n_vs_t == 0)&(INPUT.Patient == wildcards.patient)].Patient.drop_duplicates())
-
-# rule multiqc:
-# 	input:
-# 		getFinishedMutect2,
-# 		getFinishedManta,
-# 		getFinishedASCAT
-# 	output:
-# 		"reports/{patient}_multiqc.html"
-# 	group: "multiqc"
-# 	threads: 80
-# 	shell:
-# 		"""
-# 		singularity exec $SCRATCH/singularity_images/nfcore-sarek-2.6.img multiqc . -n {output} \
-# 		results/mutect2/{wildcards.patient}{OUTDIR}/resultsASCAT/*{wildcards.patient}* {OUTDIR}/results/Manta/{wildcards.patient}
-# 		"""
 
 ###
 ###	END

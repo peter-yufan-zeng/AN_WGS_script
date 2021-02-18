@@ -3,7 +3,7 @@ samTools:  singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/si
 bcfTools:  singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/singularity_images /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img bcftools
 
 ## path to scripts ##
-readCounterScript:  singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/ichorcna_pz.simg readCounter
+#readCounterScript:  singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/ichorcna_pz.simg readCounter
 ichorCNA_rscript:  /scratch/n/nicholsa/zyfniu/singularity_images/ichorCNA/scripts/runIchorCNA.R
 ichorCNA_libdir:  /scratch/n/nicholsa/zyfniu/singularity_images/ichorCNA/
 pyCountScript:  /scratch/n/nicholsa/zyfniu/AN_WGS/AN_WGS_script/TitanCNA/scripts/snakemake/code/countPysam.py

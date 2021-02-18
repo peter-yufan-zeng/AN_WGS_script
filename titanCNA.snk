@@ -5,7 +5,7 @@ import os
 OUTDIR = config['outdir']
 print("***OUTPUT DIRECTORY: " + OUTDIR + "***")
 ### Config file
-configfile: "/scratch/n/nicholsa/zyfniu/AN_WGS/AN_WGS_script/config/config.yaml"
+configfile: "/scratch/n/nicholsa/zyfniu/AN_WGS/AN_WGS_script/titanCNA_config.yaml"
 
 ###
 ### LOAD SAMPLES
@@ -39,8 +39,8 @@ rule all:
 		expand(OUTDIR + "/results/titan/hmm/titanCNA_ploidy{ploidy}/{tumor}_vs_{patient}-N_cluster{clustNum}.params.txt",patient = [x[:-2] for x in TUMOR],tumor = TUMOR,clustNum=CLUST[config["TitanCNA_maxNumClonalClusters"]], ploidy=PLOIDY[config["TitanCNA_maxPloidy"]]),
 		expand(OUTDIR + "/results/titan/hmm/titanCNA_ploidy{ploidy}/{tumor}_vs_{patient}-N_cluster{clustNum}.segs.txt",patient = [x[:-2] for x in TUMOR],tumor = TUMOR,clustNum=CLUST[config["TitanCNA_maxNumClonalClusters"]], ploidy=PLOIDY[config["TitanCNA_maxPloidy"]]),
 		expand(OUTDIR + "/results/titan/hmm/titanCNA_ploidy{ploidy}/{tumor}_vs_{patient}-N_cluster{clustNum}.seg",patient = [x[:-2] for x in TUMOR],tumor = TUMOR,clustNum=CLUST[config["TitanCNA_maxNumClonalClusters"]], ploidy=PLOIDY[config["TitanCNA_maxPloidy"]]),
-		expand(OUTDIR + "results/titan/hmm/{tumor}_vs_{patient}-N_optimalClusterSolution.txt",patient = [x[:-2] for x in TUMOR],tumor = TUMOR),
-		OUTDIR+ "/results/titan/hmm/optimalClusterSolution/"
+		expand(OUTDIR + "/results/titan/hmm/{tumor}_vs_{patient}-N_optimalClusterSolution.txt",patient = [x[:-2] for x in TUMOR],tumor = TUMOR),
+		expand(OUTDIR+ "/results/titan/hmm/optimalClusterSolution/{tumor}_vs_{patient}-N/",patient = [x[:-2] for x in TUMOR],tumor = TUMOR)
 
 
 rule filter_bam:
@@ -55,13 +55,11 @@ rule filter_bam:
 	shell:
 		"""
 		singularity exec -B \
-		$SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,\
-$SCRATCH/singularity_images/TitanCNA/scripts/snakemake/results \
+		$SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,{OUTDIR} \
  		/gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img samtools view \
 		-L /scratch/n/nicholsa/zyfniu/igenomes_ref/hg38.chrom.bed -@ {threads} -o {output} {input}
 		singularity exec -B \
-		$SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,\
-$SCRATCH/singularity_images/TitanCNA/scripts/snakemake/results \
+		$SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,{OUTDIR} \
  		/gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
 		samtools index {output}
 		"""
@@ -84,7 +82,11 @@ rule getHETsites:
 	log:
 		OUTDIR + "/logs/titan/hetPosns/{tumor}/{tumor}.chr{chr}.log"
 	shell:
-		"{params.samtoolsCmd} mpileup -uv -I -f {params.refFasta} -r {wildcards.chr} -l {params.snpDB} {input} | {params.bcftoolsCmd} call -v -c - | grep -e '0/1' -e '#' > {output} 2> {log}"
+		"singularity exec -B \
+		$SCRATCH/igenomes_ref,$SCRATCH/AN_WGS/AN_WGS_script,{OUTDIR} \
+ 		/gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
+		samtools mpileup -uv -I -f {params.refFasta} -r {wildcards.chr} \
+		-l {params.snpDB} {input} | {params.bcftoolsCmd} call -v -c - | grep -e '0/1' -e '#' > {output} 2> {log}"
 
 
 rule getAlleleCountsByChr:
@@ -105,7 +107,7 @@ rule getAlleleCountsByChr:
 	log:
 		OUTDIR + "/logs/titan/tumCounts/{tumor}/{tumor}.chr{chr}.log"
 	shell:
-		"singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images \
+		"singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS/AN_WGS_script,$SCRATCH/singularity_images,{OUTDIR} \
 		/gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img python \
 		{params.countScript} {wildcards.chr} {input.hetSites} {input.tumBam} {params.baseQ} \
 		{params.mapQ} {params.vcfQ} > {output} 2> {log}"
@@ -132,7 +134,6 @@ rule read_counter:
 	output:
 		OUTDIR + "/results/readDepth/{samples}.bin{binSize}.wig"
 	params:
-		readCounter=config["readCounterScript"],
 		binSize=config["binSize"],
 		qual="20",
 		chrs=config["chrs"]
@@ -142,7 +143,9 @@ rule read_counter:
 	log:
 		OUTDIR + "/logs/readDepth/{samples}.bin{binSize}.log"
 	shell:
-		"{params.readCounter} {input} -c {params.chrs} -w {params.binSize} -q {params.qual} > {output} 2> {log}"
+		"singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS/AN_WGS_script,$SCRATCH/singularity_images,{OUTDIR} \
+		/gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/ichorcna_pz.simg readCounter \
+		{input} -c {params.chrs} -w {params.binSize} -q {params.qual} > {output} 2> {log}"
 
 rule ichorCNA:
 	input:
@@ -184,9 +187,9 @@ rule ichorCNA:
 		mem=4
 	group:	"titan"
 	log:
-		OUTDIR + "/logs/ichorCNA/{tumor}.log"
+		OUTDIR + "/logs/ichorCNA/{tumor}_vs_{patient}-N.log"
 	shell:
-		"singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images \
+		"singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS/AN_WGS_script,$SCRATCH/singularity_images,{OUTDIR} \
 		/gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/ichorcna_pz.simg Rscript {params.rscript} \
 		--libdir {params.libdir} --id {params.id} --WIG {input.tum} --gcWig {params.gcwig} --mapWig {params.mapwig} --NORMWIG {input.norm} \
 		--ploidy \"{params.ploidy}\" --normal \"{params.normal}\" --maxCN {params.maxCN} --includeHOMD {params.includeHOMD} --genomeStyle {params.genomeStyle} \
@@ -229,9 +232,9 @@ rule runTitanCNA:
 	group:	"titan"
 	threads: 2
 	log:
-		OUTDIR + "/logs/titan/hmm/titanCNA_ploidy{ploidy}/run_titanCNA_{tumor}_cluster{clustNum}.log"
+		OUTDIR + "/logs/titan/hmm/titanCNA_ploidy{ploidy}/run_titanCNA_{tumor}_vs_{patient}-N_cluster{clustNum}.log"
 	shell:
-		"singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images \
+		"singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS/AN_WGS_script,$SCRATCH/singularity_images,{OUTDIR} \
 		/gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/ichorcna_pz.simg Rscript {params.titanRscript} \
 		--hetFile {input.alleleCounts} --cnFile {input.corrDepth} --outFile {output.titan} --outSeg {output.segTxt} \
 		--outParam {output.param} --outIGV {output.seg} --outPlotDir {params.outRoot} --libdir {params.libdir} --id {wildcards.tumor} \
@@ -242,15 +245,15 @@ rule runTitanCNA:
 
 rule combineTitanAndIchorCNA:
 	input:
-		titanSeg="results/titan/hmm/titanCNA_ploidy{ploidy}/{tumor}_vs_{patient}-N_cluster{clustNum}.segs.txt",
-		titanBin="results/titan/hmm/titanCNA_ploidy{ploidy}/{tumor}_vs_{patient}-N_cluster{clustNum}.titan.txt",
-		titanParam="results/titan/hmm/titanCNA_ploidy{ploidy}/{tumor}_vs_{patient}-N_cluster{clustNum}.params.txt",
-		ichorSeg="results/ichorCNA/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N.seg.txt",
-		ichorBin="results/ichorCNA/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N.cna.seg",
-		ichorParam="results/ichorCNA/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N.params.txt"
+		titanSeg=OUTDIR + "/results/titan/hmm/titanCNA_ploidy{ploidy}/{tumor}_vs_{patient}-N_cluster{clustNum}.segs.txt",
+		titanBin=OUTDIR + "/results/titan/hmm/titanCNA_ploidy{ploidy}/{tumor}_vs_{patient}-N_cluster{clustNum}.titan.txt",
+		titanParam=OUTDIR + "/results/titan/hmm/titanCNA_ploidy{ploidy}/{tumor}_vs_{patient}-N_cluster{clustNum}.params.txt",
+		ichorSeg=OUTDIR + "/results/ichorCNA/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N.seg.txt",
+		ichorBin=OUTDIR + "/results/ichorCNA/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N.cna.seg",
+		ichorParam=OUTDIR + "/results/ichorCNA/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N.params.txt"
 	output:
-		segFile="results/titan/hmm/titanCNA_ploidy{ploidy}/{tumor}_vs_{patient}-N_cluster{clustNum}.titan.ichor.seg.txt",
-		binFile="results/titan/hmm/titanCNA_ploidy{ploidy}/{tumor}_vs_{patient}-N_cluster{clustNum}.titan.ichor.cna.txt",
+		segFile=OUTDIR + "/results/titan/hmm/titanCNA_ploidy{ploidy}/{tumor}_vs_{patient}-N_cluster{clustNum}.titan.ichor.seg.txt",
+		binFile=OUTDIR + "/results/titan/hmm/titanCNA_ploidy{ploidy}/{tumor}_vs_{patient}-N_cluster{clustNum}.titan.ichor.cna.txt",
 	params:
 		combineScript=config["TitanCNA_combineTitanIchorCNA"],
 		libdir=config["TitanCNA_libdir"],
@@ -260,17 +263,17 @@ rule combineTitanAndIchorCNA:
 	group:	"titan"
 	threads: 2
 	log:
-		OUTDIR + "/logs/titan/hmm/titanCNA_ploidy{ploidy}/{tumor}_cluster{clustNum}.combineTitanIchorCNA.log"
+		OUTDIR + "/logs/titan/hmm/titanCNA_ploidy{ploidy}/{tumor}_vs_{patient}-N_cluster{clustNum}.combineTitanIchorCNA.log"
 	shell:
-		"singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images \
+		"singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS/AN_WGS_script,$SCRATCH/singularity_images,{OUTDIR} \
 		/gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/ichorcna_pz.simg Rscript {params.combineScript} --libdir {params.libdir} \
 		--titanSeg {input.titanSeg} --titanBin {input.titanBin} --titanParam {input.titanParam} --ichorSeg {input.ichorSeg} --ichorBin {input.ichorBin} \
 		--ichorParam {input.ichorParam} --mergeIchorHOMD {params.mergeIchorHOMD} --sex {params.sex} --outSegFile {output.segFile} --outBinFile {output.binFile} \
 		--centromere {params.centromere} > {log} 2> {log}"
 
 def get_solutions(wildcards):
-	samples = Multi[Multi.Patient == wildcards.patient].Sample
-	return expand(OUTDIR +"/results/titan/hmm/titanCNA_ploidy{ploidy}/{tumor}_vs_{patient}-N_cluster{clustNum}.titan.txt", tumor = samples, clustNum=CLUST[config["TitanCNA_maxNumClonalClusters"]],ploidy=PLOIDY[config["TitanCNA_maxPloidy"]])
+	samples = INPUT[INPUT.Patient == wildcards.patient].Sample
+	return expand(OUTDIR +"/results/titan/hmm/titanCNA_ploidy{ploidy}/{tumor}_vs_{patient}-N_cluster{clustNum}.titan.txt", tumor = wildcards.tumor, patient=wildcards.patient, clustNum=CLUST[config["TitanCNA_maxNumClonalClusters"]],ploidy=PLOIDY[config["TitanCNA_maxPloidy"]])
 
 rule selectSolution:
 	input:
@@ -278,7 +281,7 @@ rule selectSolution:
 		#ploidyDirs=expand("results/titan/hmm/titanCNA_ploidy{ploidy}/", ploidy=PLOIDY[config["TitanCNA_maxPloidy"]]),
 		#resultFiles=expand(OUTDIR + "/results/titan/hmm/titanCNA_ploidy{ploidy}/{tumor}_vs_{patient}-N_cluster{clustNum}.titan.txt", tumor=config["pairings"], clustNum=CLUST[config["TitanCNA_maxNumClonalClusters"]], ploidy=PLOIDY[config["TitanCNA_maxPloidy"]])
 	output:
-		OUTDIR + "results/titan/hmm/{tumor}_vs_{patient}-N_optimalClusterSolution.txt"
+		OUTDIR + "/results/titan/hmm/{tumor}_vs_{patient}-N_optimalClusterSolution.txt"
 	params:
 		solutionRscript=config["TitanCNA_selectSolutionRscript"],
 		threshold=config["TitanCNA_solutionThreshold"],
@@ -288,7 +291,7 @@ rule selectSolution:
 	group:	"titan"
 	threads: 2
 	log:
-		OUTDIR + "/logs/titan/selectSolution.log"
+		OUTDIR + "/logs/titan/selectSolution_{tumor}_vs_{patient}-N.log"
 	shell:
 		"""
 		ploidyRun2={params.ploidy2}
@@ -302,7 +305,7 @@ rule selectSolution:
 		else
 			ploidyRun4=NULL
 		fi
-		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images \
+		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS/AN_WGS_script,$SCRATCH/singularity_images,{OUTDIR} \
 		/gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/ichorcna_pz.simg Rscript {params.solutionRscript} \
 		--ploidyRun2 $ploidyRun2 --ploidyRun3 $ploidyRun3 --ploidyRun4 $ploidyRun4 --threshold {params.threshold} --outFile {output} > {log} 2> {log}
 		"""
@@ -311,10 +314,10 @@ rule copyOptSolution:
 	input:
 		OUTDIR + "/results/titan/hmm/{tumor}_vs_{patient}-N_optimalClusterSolution.txt"
 	output:
-		directory(OUTDIR + "/results/titan/hmm/optimalClusterSolution/")
+		directory(OUTDIR + "/results/titan/hmm/optimalClusterSolution/{tumor}_vs_{patient}-N/")
 	params:
 	log:
-		OUTDIR + "/logs/titan/hmm/optSolution/copyOptSolution.log"
+		OUTDIR + "/logs/titan/hmm/optSolution/copyOptSolution_{tumor}_vs_{patient}-N.log"
 	group:	"titan"
 	threads: 2
 	shell:

@@ -1,0 +1,69 @@
+Building DAG of jobs...
+Using shell: /bin/bash
+Provided cores: 80
+Rules claiming more threads will be scaled down.
+Job counts:
+	count	jobs
+	4	combineTitanAndIchorCNA
+	1	copyOptSolution
+	1	ichorCNA
+	4	runTitanCNA
+	1	selectSolution
+	11
+
+[Mon Feb 15 13:00:26 2021]
+rule ichorCNA:
+    input: results/readDepth/tumor_sample_1.bin10000.wig, results/readDepth/normal_sample_1.bin10000.wig
+    output: results/ichorCNA/tumor_sample_1/tumor_sample_1.correctedDepth.txt, results/ichorCNA/tumor_sample_1/tumor_sample_1.params.txt, results/ichorCNA/tumor_sample_1/tumor_sample_1.cna.seg, results/ichorCNA/tumor_sample_1/tumor_sample_1.seg.txt
+    log: logs/ichorCNA/tumor_sample_1.log
+    jobid: 4
+    wildcards: tumor=tumor_sample_1
+    resources: mem=4
+
+[Mon Feb 15 13:00:36 2021]
+Error in rule ichorCNA:
+    jobid: 4
+    output: results/ichorCNA/tumor_sample_1/tumor_sample_1.correctedDepth.txt, results/ichorCNA/tumor_sample_1/tumor_sample_1.params.txt, results/ichorCNA/tumor_sample_1/tumor_sample_1.cna.seg, results/ichorCNA/tumor_sample_1/tumor_sample_1.seg.txt
+    log: logs/ichorCNA/tumor_sample_1.log (check log file(s) for error message)
+    shell:
+        singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/ichorcna_pz.simg Rscript /scratch/n/nicholsa/zyfniu/singularity_images/ichorCNA/scripts/runIchorCNA.R --libdir /scratch/n/nicholsa/zyfniu/singularity_images/ichorCNA/ --id tumor_sample_1 --WIG results/readDepth/tumor_sample_1.bin10000.wig --gcWig /scratch/n/nicholsa/zyfniu/igenomes_ref/gc_hg38_10kb.wig --mapWig /scratch/n/nicholsa/zyfniu/igenomes_ref/map_hg38_10kb.wig --NORMWIG results/readDepth/normal_sample_1.bin10000.wig --ploidy "c(2,3)" --normal "c(0.5)" --maxCN 8 --includeHOMD False --genomeStyle UCSC --chrs "c(1:22, \"X\")" --estimateNormal True --estimatePloidy True --estimateScPrevalence True --scStates "c(1,3)" --centromere /scratch/n/nicholsa/zyfniu/igenomes_ref/GRCh38.GCA_000001405.2_centromere_acen.txt --exons.bed None --txnE 0.9999 --txnStrength 10000 --fracReadsInChrYForMale 0.001 --plotFileType png --plotYLim "c(-2,4)" --outDir results/ichorCNA/tumor_sample_1/ > logs/ichorCNA/tumor_sample_1.log 2> logs/ichorCNA/tumor_sample_1.log
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+
+scontrol show jobid 4851394
+JobId=4851394 JobName=snakejob.ichor.c73d9a21-a993-5e62-bfea-8f342637b021.sh
+   UserId=zyfniu(3093542) GroupId=nicholsa(6045858) MCS_label=N/A
+   Priority=1875871 Nice=0 Account=def-nicholsa QOS=normal
+   JobState=COMPLETING Reason=NonZeroExitCode Dependency=(null)
+   Requeue=0 Restarts=0 BatchFlag=1 Reboot=0 ExitCode=1:0
+   RunTime=00:00:14 TimeLimit=1-00:00:00 TimeMin=N/A
+   SubmitTime=2021-02-15T12:58:24 EligibleTime=2021-02-15T12:58:24
+   AccrueTime=2021-02-15T12:58:24
+   StartTime=2021-02-15T13:00:22 EndTime=2021-02-15T13:00:36 Deadline=N/A
+   SuspendTime=None SecsPreSuspend=0 LastSchedEval=2021-02-15T13:00:22
+   Partition=compute AllocNode:Sid=nia-login07:377903
+   ReqNodeList=(null) ExcNodeList=(null)
+   NodeList=nia0043
+   BatchHost=nia0043
+   NumNodes=1 NumCPUs=80 NumTasks=80 CPUs/Task=1 ReqB:S:C:T=0:0:*:*
+   TRES=cpu=80,mem=175G,node=1,billing=40
+   Socks/Node=* NtasksPerN:B:S:C=0:0:*:* CoreSpec=*
+   MinCPUsNode=1 MinMemoryNode=175G MinTmpDiskNode=0
+   Features=[skylake|cascade] DelayBoot=00:00:00
+   OverSubscribe=NO Contiguous=0 Licenses=(null) Network=(null)
+   Command=/gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake/.snakemake/tmp.85yxgy8t/snakejob.ichor.c73d9a21-a993-5e62-bfea-8f342637b021.sh
+   WorkDir=/gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake
+   StdErr=/gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake/logs/snakejob.ichor.c73d9a21-a993-5e62-bfea-8f342637b021.sh_4851394.log
+   StdIn=/dev/null
+   StdOut=/gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake/logs/snakejob.ichor.c73d9a21-a993-5e62-bfea-8f342637b021.sh_4851394.log
+   Power=
+   MailUser=zyfniu@scinet.local MailType=NONE
+
+sacct -j 4851394
+       JobID    JobName    Account    Elapsed  MaxVMSize     MaxRSS  SystemCPU    UserCPU ExitCode 
+------------ ---------- ---------- ---------- ---------- ---------- ---------- ---------- -------- 
+4851394      snakejob.+ def-nicho+   00:00:15                         00:00:00   00:00:00      0:0 
+4851394.bat+      batch def-nicho+   00:00:15                         00:00:00   00:00:00      0:0 
+4851394.ext+     extern def-nicho+   00:00:15                         00:00:00   00:00:00      0:0 

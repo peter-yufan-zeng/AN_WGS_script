@@ -1,0 +1,100 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 4
+Rules claiming more threads will be scaled down.
+Job counts:
+	count	jobs
+	1	all
+	1	catAlleleCountFiles
+	4	combineTitanAndIchorCNA
+	1	copyOptSolution
+	23	getAlleleCountsByChr
+	23	getHETsites
+	1	ichorCNA
+	2	read_counter
+	4	runTitanCNA
+	1	selectSolution
+	61
+
+[Wed Oct  7 17:59:56 2020]
+rule getHETsites:
+    input: /scratch/n/nicholsa/zyfniu/AN_WGS/20200908_HPV_HNSCC_WGS/Recal/HPV76-P.recal.bam
+    output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr5.vcf
+    log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr5.log
+    jobid: 42
+    wildcards: tumor=tumor_sample_1, chr=chr5
+
+
+[Wed Oct  7 17:59:56 2020]
+rule getHETsites:
+    input: /scratch/n/nicholsa/zyfniu/AN_WGS/20200908_HPV_HNSCC_WGS/Recal/HPV76-P.recal.bam
+    output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr12.vcf
+    log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr12.log
+    jobid: 49
+    wildcards: tumor=tumor_sample_1, chr=chr12
+
+
+[Wed Oct  7 17:59:56 2020]
+rule getHETsites:
+    input: /scratch/n/nicholsa/zyfniu/AN_WGS/20200908_HPV_HNSCC_WGS/Recal/HPV76-P.recal.bam
+    output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr20.vcf
+    log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr20.log
+    jobid: 57
+    wildcards: tumor=tumor_sample_1, chr=chr20
+
+
+[Wed Oct  7 17:59:56 2020]
+rule getHETsites:
+    input: /scratch/n/nicholsa/zyfniu/AN_WGS/20200908_HPV_HNSCC_WGS/Recal/HPV76-P.recal.bam
+    output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr6.vcf
+    log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr6.log
+    jobid: 43
+    wildcards: tumor=tumor_sample_1, chr=chr6
+
+[Wed Oct  7 17:59:56 2020]
+[Wed Oct  7 17:59:56 2020]
+[Wed Oct  7 17:59:56 2020]
+[Wed Oct  7 17:59:56 2020]
+Error in rule getHETsites:
+Error in rule getHETsites:
+Error in rule getHETsites:
+Error in rule getHETsites:
+    jobid: 43
+    jobid: 57
+    jobid: 49
+    jobid: 42
+    output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr6.vcf
+    output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr20.vcf
+    output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr12.vcf
+    output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr5.vcf
+    log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr6.log (check log file(s) for error message)
+    log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr20.log (check log file(s) for error message)
+    log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr12.log (check log file(s) for error message)
+    log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr5.log (check log file(s) for error message)
+    shell:
+        singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \ samtools mpileup -uv -I -f /path/to/Homo_sapiens_assembly19.fasta -r chr6 -l /path/to/hapmap_3.3.b37.vcf.gz /scratch/n/nicholsa/zyfniu/AN_WGS/20200908_HPV_HNSCC_WGS/Recal/HPV76-P.recal.bam | singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images \ /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img bcftools call -v -c - | grep -e '0/1' -e '#' > results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr6.vcf 2> logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr6.log
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+    shell:
+        singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \ samtools mpileup -uv -I -f /path/to/Homo_sapiens_assembly19.fasta -r chr20 -l /path/to/hapmap_3.3.b37.vcf.gz /scratch/n/nicholsa/zyfniu/AN_WGS/20200908_HPV_HNSCC_WGS/Recal/HPV76-P.recal.bam | singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images \ /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img bcftools call -v -c - | grep -e '0/1' -e '#' > results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr20.vcf 2> logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr20.log
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+    shell:
+        singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \ samtools mpileup -uv -I -f /path/to/Homo_sapiens_assembly19.fasta -r chr12 -l /path/to/hapmap_3.3.b37.vcf.gz /scratch/n/nicholsa/zyfniu/AN_WGS/20200908_HPV_HNSCC_WGS/Recal/HPV76-P.recal.bam | singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images \ /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img bcftools call -v -c - | grep -e '0/1' -e '#' > results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr12.vcf 2> logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr12.log
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+    shell:
+        singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \ samtools mpileup -uv -I -f /path/to/Homo_sapiens_assembly19.fasta -r chr5 -l /path/to/hapmap_3.3.b37.vcf.gz /scratch/n/nicholsa/zyfniu/AN_WGS/20200908_HPV_HNSCC_WGS/Recal/HPV76-P.recal.bam | singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images \ /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img bcftools call -v -c - | grep -e '0/1' -e '#' > results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr5.vcf 2> logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr5.log
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+
+
+
+Removing output files of failed job getHETsites since they might be corrupted:
+results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr6.vcf
+Removing output files of failed job getHETsites since they might be corrupted:
+results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr20.vcf
+Removing output files of failed job getHETsites since they might be corrupted:
+results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr12.vcf
+Removing output files of failed job getHETsites since they might be corrupted:
+results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr5.vcf
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake/.snakemake/log/2020-10-07T175955.328328.snakemake.log

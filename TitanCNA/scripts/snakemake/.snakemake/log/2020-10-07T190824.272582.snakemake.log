@@ -1,0 +1,77 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 4
+Rules claiming more threads will be scaled down.
+Job counts:
+	count	jobs
+	1	all
+	1	catAlleleCountFiles
+	4	combineTitanAndIchorCNA
+	1	copyOptSolution
+	23	getAlleleCountsByChr
+	14	getHETsites
+	1	ichorCNA
+	2	read_counter
+	4	runTitanCNA
+	1	selectSolution
+	52
+
+[Wed Oct  7 19:08:24 2020]
+rule read_counter:
+    input: /scratch/n/nicholsa/zyfniu/AN_WGS/20200908_HPV_HNSCC_WGS/Recal/HPV76-P.recal.bam
+    output: results/readDepth/normal_sample_1.bin10000.wig
+    log: logs/readDepth/normal_sample_1.bin10000.log
+    jobid: 37
+    wildcards: samples=normal_sample_1, binSize=10000
+    resources: mem=4
+
+
+[Wed Oct  7 19:08:24 2020]
+rule getHETsites:
+    input: /scratch/n/nicholsa/zyfniu/AN_WGS/20200908_HPV_HNSCC_WGS/Recal/HPV76-P.recal.bam
+    output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr2.vcf
+    log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr2.log
+    jobid: 39
+    wildcards: tumor=tumor_sample_1, chr=chr2
+
+
+[Wed Oct  7 19:08:24 2020]
+rule getHETsites:
+    input: /scratch/n/nicholsa/zyfniu/AN_WGS/20200908_HPV_HNSCC_WGS/Recal/HPV76-P.recal.bam
+    output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr10.vcf
+    log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr10.log
+    jobid: 47
+    wildcards: tumor=tumor_sample_1, chr=chr10
+
+
+[Wed Oct  7 19:08:24 2020]
+rule getHETsites:
+    input: /scratch/n/nicholsa/zyfniu/AN_WGS/20200908_HPV_HNSCC_WGS/Recal/HPV76-P.recal.bam
+    output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr17.vcf
+    log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr17.log
+    jobid: 54
+    wildcards: tumor=tumor_sample_1, chr=chr17
+
+[Wed Oct  7 19:08:24 2020]
+Error in rule read_counter:
+    jobid: 37
+    output: results/readDepth/normal_sample_1.bin10000.wig
+    log: logs/readDepth/normal_sample_1.bin10000.log (check log file(s) for error message)
+    shell:
+        singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/ichorcna_pz.simg readCounter /scratch/n/nicholsa/zyfniu/AN_WGS/20200908_HPV_HNSCC_WGS/Recal/HPV76-P.recal.bam -c chr1,chr2,chr3,chr4,chr5,chr6,chr7,chr8,chr9,chr10,chr11,chr12,chr13,chr14,chr15,chr16,chr17,chr18,chr19,chr20,chr21,chr22,chrX,chrY -w 10000 -q 20 > results/readDepth/normal_sample_1.bin10000.wig 2> logs/readDepth/normal_sample_1.bin10000.log
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+Removing output files of failed job read_counter since they might be corrupted:
+results/readDepth/normal_sample_1.bin10000.wig
+[Wed Oct  7 19:14:58 2020]
+Finished job 54.
+1 of 52 steps (2%) done
+[Wed Oct  7 19:22:07 2020]
+Finished job 47.
+2 of 52 steps (4%) done
+[Wed Oct  7 19:29:27 2020]
+Finished job 39.
+3 of 52 steps (6%) done
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake/.snakemake/log/2020-10-07T190824.272582.snakemake.log

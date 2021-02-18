@@ -1,0 +1,536 @@
+Building DAG of jobs...
+Using shell: /bin/bash
+Provided cores: 80
+Rules claiming more threads will be scaled down.
+Job counts:
+	count	jobs
+	1	catAlleleCountFiles
+	4	combineTitanAndIchorCNA
+	1	copyOptSolution
+	23	getAlleleCountsByChr
+	23	getHETsites
+	1	ichorCNA
+	2	read_counter
+	4	runTitanCNA
+	1	selectSolution
+	60
+
+[Wed Feb 10 10:05:18 2021]
+rule getHETsites:
+    input: /scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake/results/normal_sample_1.filtered.bam
+    output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr7.vcf
+    log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr7.log
+    jobid: 6
+    wildcards: tumor=tumor_sample_1, chr=chr7
+    threads: 2
+
+
+[Wed Feb 10 10:05:18 2021]
+rule getHETsites:
+    input: /scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake/results/normal_sample_1.filtered.bam
+    output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr15.vcf
+    log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr15.log
+    jobid: 0
+    wildcards: tumor=tumor_sample_1, chr=chr15
+    threads: 2
+
+
+[Wed Feb 10 10:05:18 2021]
+rule getHETsites:
+    input: /scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake/results/normal_sample_1.filtered.bam
+    output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr22.vcf
+    log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr22.log
+    jobid: 5
+    wildcards: tumor=tumor_sample_1, chr=chr22
+    threads: 2
+
+
+[Wed Feb 10 10:05:18 2021]
+rule getHETsites:
+    input: /scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake/results/normal_sample_1.filtered.bam
+    output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr16.vcf
+    log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr16.log
+    jobid: 10
+    wildcards: tumor=tumor_sample_1, chr=chr16
+    threads: 2
+
+
+[Wed Feb 10 10:05:18 2021]
+rule getHETsites:
+    input: /scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake/results/normal_sample_1.filtered.bam
+    output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr8.vcf
+    log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr8.log
+    jobid: 9
+    wildcards: tumor=tumor_sample_1, chr=chr8
+    threads: 2
+
+
+[Wed Feb 10 10:05:18 2021]
+rule getHETsites:
+    input: /scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake/results/normal_sample_1.filtered.bam
+    output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr1.vcf
+    log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr1.log
+    jobid: 13
+    wildcards: tumor=tumor_sample_1, chr=chr1
+    threads: 2
+
+
+[Wed Feb 10 10:05:18 2021]
+rule getHETsites:
+    input: /scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake/results/normal_sample_1.filtered.bam
+    output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchrX.vcf
+    log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchrX.log
+    jobid: 15
+    wildcards: tumor=tumor_sample_1, chr=chrX
+    threads: 2
+
+
+[Wed Feb 10 10:05:18 2021]
+rule getHETsites:
+    input: /scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake/results/normal_sample_1.filtered.bam
+    output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr9.vcf
+    log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr9.log
+    jobid: 16
+    wildcards: tumor=tumor_sample_1, chr=chr9
+    threads: 2
+
+
+[Wed Feb 10 10:05:18 2021]
+rule getHETsites:
+    input: /scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake/results/normal_sample_1.filtered.bam
+    output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr17.vcf
+    log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr17.log
+    jobid: 17
+    wildcards: tumor=tumor_sample_1, chr=chr17
+    threads: 2
+
+
+[Wed Feb 10 10:05:18 2021]
+rule read_counter:
+    input: /scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake/results/tumor_sample_1.filtered.bam
+    output: results/readDepth/tumor_sample_1.bin10000.wig
+    log: logs/readDepth/tumor_sample_1.bin10000.log
+    jobid: 22
+    wildcards: samples=tumor_sample_1, binSize=10000
+    resources: mem=4
+
+
+[Wed Feb 10 10:05:18 2021]
+rule getHETsites:
+    input: /scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake/results/normal_sample_1.filtered.bam
+    output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr2.vcf
+    log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr2.log
+    jobid: 23
+    wildcards: tumor=tumor_sample_1, chr=chr2
+    threads: 2
+
+
+[Wed Feb 10 10:05:18 2021]
+rule getHETsites:
+    input: /scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake/results/normal_sample_1.filtered.bam
+    output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr10.vcf
+    log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr10.log
+    jobid: 26
+    wildcards: tumor=tumor_sample_1, chr=chr10
+    threads: 2
+
+
+[Wed Feb 10 10:05:18 2021]
+rule read_counter:
+    input: /scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake/results/normal_sample_1.filtered.bam
+    output: results/readDepth/normal_sample_1.bin10000.wig
+    log: logs/readDepth/normal_sample_1.bin10000.log
+    jobid: 30
+    wildcards: samples=normal_sample_1, binSize=10000
+    resources: mem=4
+
+
+[Wed Feb 10 10:05:18 2021]
+rule getHETsites:
+    input: /scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake/results/normal_sample_1.filtered.bam
+    output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr3.vcf
+    log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr3.log
+    jobid: 31
+    wildcards: tumor=tumor_sample_1, chr=chr3
+    threads: 2
+
+
+[Wed Feb 10 10:05:18 2021]
+rule getHETsites:
+    input: /scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake/results/normal_sample_1.filtered.bam
+    output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr18.vcf
+    log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr18.log
+    jobid: 32
+    wildcards: tumor=tumor_sample_1, chr=chr18
+    threads: 2
+
+
+[Wed Feb 10 10:05:18 2021]
+rule getHETsites:
+    input: /scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake/results/normal_sample_1.filtered.bam
+    output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr19.vcf
+    log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr19.log
+    jobid: 34
+    wildcards: tumor=tumor_sample_1, chr=chr19
+    threads: 2
+
+
+[Wed Feb 10 10:05:18 2021]
+rule getHETsites:
+    input: /scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake/results/normal_sample_1.filtered.bam
+    output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr4.vcf
+    log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr4.log
+    jobid: 36
+    wildcards: tumor=tumor_sample_1, chr=chr4
+    threads: 2
+
+
+[Wed Feb 10 10:05:18 2021]
+rule getHETsites:
+    input: /scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake/results/normal_sample_1.filtered.bam
+    output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr11.vcf
+    log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr11.log
+    jobid: 39
+    wildcards: tumor=tumor_sample_1, chr=chr11
+    threads: 2
+
+
+[Wed Feb 10 10:05:18 2021]
+rule getHETsites:
+    input: /scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake/results/normal_sample_1.filtered.bam
+    output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr12.vcf
+    log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr12.log
+    jobid: 40
+    wildcards: tumor=tumor_sample_1, chr=chr12
+    threads: 2
+
+
+[Wed Feb 10 10:05:18 2021]
+rule getHETsites:
+    input: /scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake/results/normal_sample_1.filtered.bam
+    output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr20.vcf
+    log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr20.log
+    jobid: 41
+    wildcards: tumor=tumor_sample_1, chr=chr20
+    threads: 2
+
+
+[Wed Feb 10 10:05:18 2021]
+rule getHETsites:
+    input: /scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake/results/normal_sample_1.filtered.bam
+    output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr5.vcf
+    log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr5.log
+    jobid: 42
+    wildcards: tumor=tumor_sample_1, chr=chr5
+    threads: 2
+
+
+[Wed Feb 10 10:05:18 2021]
+rule getHETsites:
+    input: /scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake/results/normal_sample_1.filtered.bam
+    output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr21.vcf
+    log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr21.log
+    jobid: 53
+    wildcards: tumor=tumor_sample_1, chr=chr21
+    threads: 2
+
+
+[Wed Feb 10 10:05:18 2021]
+rule getHETsites:
+    input: /scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake/results/normal_sample_1.filtered.bam
+    output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr6.vcf
+    log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr6.log
+    jobid: 54
+    wildcards: tumor=tumor_sample_1, chr=chr6
+    threads: 2
+
+
+[Wed Feb 10 10:05:18 2021]
+rule getHETsites:
+    input: /scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake/results/normal_sample_1.filtered.bam
+    output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr13.vcf
+    log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr13.log
+    jobid: 55
+    wildcards: tumor=tumor_sample_1, chr=chr13
+    threads: 2
+
+
+[Wed Feb 10 10:05:18 2021]
+rule getHETsites:
+    input: /scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake/results/normal_sample_1.filtered.bam
+    output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr14.vcf
+    log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr14.log
+    jobid: 58
+    wildcards: tumor=tumor_sample_1, chr=chr14
+    threads: 2
+
+[warning] samtools mpileup option `u` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `v` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `I` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `u` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `v` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `u` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `I` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `v` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `I` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `u` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `v` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `I` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `u` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `u` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `v` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `v` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `I` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `I` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `u` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `v` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `I` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `u` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `v` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `I` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `u` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `v` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `I` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `u` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `u` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `v` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `u` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `v` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `I` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `v` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `I` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `I` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `u` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `v` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `I` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `u` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `v` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `I` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `u` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `v` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `I` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `u` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `u` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `u` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `v` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `v` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `v` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `I` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `I` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `I` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `u` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `v` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `I` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `u` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `v` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `I` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `u` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `v` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `I` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `u` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `v` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `I` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `u` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `v` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `I` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+Note: none of --samples-file, --ploidy or --ploidy-file given, assuming all sites are diploid
+Note: none of --samples-file, --ploidy or --ploidy-file given, assuming all sites are diploid
+Note: none of --samples-file, --ploidy or --ploidy-file given, assuming all sites are diploid
+Note: none of --samples-file, --ploidy or --ploidy-file given, assuming all sites are diploid
+Note: none of --samples-file, --ploidy or --ploidy-file given, assuming all sites are diploid
+Note: none of --samples-file, --ploidy or --ploidy-file given, assuming all sites are diploid
+Note: none of --samples-file, --ploidy or --ploidy-file given, assuming all sites are diploid
+Note: none of --samples-file, --ploidy or --ploidy-file given, assuming all sites are diploid
+Note: none of --samples-file, --ploidy or --ploidy-file given, assuming all sites are diploid
+Note: none of --samples-file, --ploidy or --ploidy-file given, assuming all sites are diploid
+Note: none of --samples-file, --ploidy or --ploidy-file given, assuming all sites are diploid
+Note: none of --samples-file, --ploidy or --ploidy-file given, assuming all sites are diploid
+Note: none of --samples-file, --ploidy or --ploidy-file given, assuming all sites are diploid
+Note: none of --samples-file, --ploidy or --ploidy-file given, assuming all sites are diploid
+Note: none of --samples-file, --ploidy or --ploidy-file given, assuming all sites are diploid
+Note: none of --samples-file, --ploidy or --ploidy-file given, assuming all sites are diploid
+Note: none of --samples-file, --ploidy or --ploidy-file given, assuming all sites are diploid
+Note: none of --samples-file, --ploidy or --ploidy-file given, assuming all sites are diploid
+Note: none of --samples-file, --ploidy or --ploidy-file given, assuming all sites are diploid
+Note: none of --samples-file, --ploidy or --ploidy-file given, assuming all sites are diploid
+Note: none of --samples-file, --ploidy or --ploidy-file given, assuming all sites are diploid
+Note: none of --samples-file, --ploidy or --ploidy-file given, assuming all sites are diploid
+Note: none of --samples-file, --ploidy or --ploidy-file given, assuming all sites are diploid
+[mpileup] 1 samples in 1 input files
+[mpileup] 1 samples in 1 input files
+[mpileup] 1 samples in 1 input files
+[mpileup] 1 samples in 1 input files
+[mpileup] 1 samples in 1 input files
+[mpileup] 1 samples in 1 input files
+[mpileup] 1 samples in 1 input files
+[mpileup] 1 samples in 1 input files
+[mpileup] 1 samples in 1 input files
+[mpileup] 1 samples in 1 input files
+[mpileup] 1 samples in 1 input files
+[mpileup] 1 samples in 1 input files
+[mpileup] 1 samples in 1 input files
+[mpileup] 1 samples in 1 input files
+[mpileup] 1 samples in 1 input files
+[mpileup] 1 samples in 1 input files
+[mpileup] 1 samples in 1 input files
+[mpileup] 1 samples in 1 input files
+[mpileup] 1 samples in 1 input files
+[mpileup] 1 samples in 1 input files
+[mpileup] 1 samples in 1 input files
+[mpileup] 1 samples in 1 input files
+[mpileup] 1 samples in 1 input files
+[Wed Feb 10 10:06:40 2021]
+Finished job 5.
+1 of 60 steps (2%) done
+
+[Wed Feb 10 10:06:40 2021]
+rule getAlleleCountsByChr:
+    input: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr22.vcf, /scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake/results/tumor_sample_1.filtered.bam
+    output: results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr22.txt
+    log: logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chrchr22.log
+    jobid: 57
+    wildcards: tumor=tumor_sample_1, chr=chr22
+    threads: 2
+
+[Wed Feb 10 10:06:41 2021]
+Finished job 53.
+2 of 60 steps (3%) done
+
+[Wed Feb 10 10:06:41 2021]
+rule getAlleleCountsByChr:
+    input: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr21.vcf, /scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake/results/tumor_sample_1.filtered.bam
+    output: results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr21.txt
+    log: logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chrchr21.log
+    jobid: 48
+    wildcards: tumor=tumor_sample_1, chr=chr21
+    threads: 2
+
+[Wed Feb 10 10:06:41 2021]
+Error in rule getAlleleCountsByChr:
+    jobid: 57
+    output: results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr22.txt
+    log: logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chrchr22.log (check log file(s) for error message)
+    shell:
+        singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img python /scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake/code/countPysam.py chr22 results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr22.vcf /scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake/results/tumor_sample_1.filtered.bam 10 10 100 > results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr22.txt 2> logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chrchr22.log
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+Removing output files of failed job getAlleleCountsByChr since they might be corrupted:
+results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr22.txt
+[Wed Feb 10 10:06:41 2021]
+Error in rule getAlleleCountsByChr:
+    jobid: 48
+    output: results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr21.txt
+    log: logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chrchr21.log (check log file(s) for error message)
+    shell:
+        singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img python /scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake/code/countPysam.py chr21 results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr21.vcf /scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake/results/tumor_sample_1.filtered.bam 10 10 100 > results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr21.txt 2> logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chrchr21.log
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+Removing output files of failed job getAlleleCountsByChr since they might be corrupted:
+results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr21.txt
+[Wed Feb 10 10:06:57 2021]
+Finished job 34.
+3 of 60 steps (5%) done
+[Wed Feb 10 10:07:04 2021]
+Finished job 15.
+4 of 60 steps (7%) done
+[Wed Feb 10 10:07:45 2021]
+Finished job 17.
+5 of 60 steps (8%) done
+[Wed Feb 10 10:07:49 2021]
+Finished job 41.
+6 of 60 steps (10%) done
+[Wed Feb 10 10:07:50 2021]
+Finished job 10.
+7 of 60 steps (12%) done
+[Wed Feb 10 10:07:56 2021]
+Finished job 32.
+8 of 60 steps (13%) done
+[Wed Feb 10 10:07:59 2021]
+Finished job 0.
+9 of 60 steps (15%) done
+[Wed Feb 10 10:08:13 2021]
+Finished job 58.
+10 of 60 steps (17%) done
+[Wed Feb 10 10:08:56 2021]
+Finished job 55.
+11 of 60 steps (18%) done
+[Wed Feb 10 10:09:26 2021]
+Finished job 16.
+12 of 60 steps (20%) done
+[Wed Feb 10 10:09:57 2021]
+Finished job 39.
+13 of 60 steps (22%) done
+[Wed Feb 10 10:10:02 2021]
+Finished job 9.
+14 of 60 steps (23%) done
+[Wed Feb 10 10:10:03 2021]
+Finished job 26.
+15 of 60 steps (25%) done
+[Wed Feb 10 10:10:07 2021]
+Finished job 40.
+16 of 60 steps (27%) done
+[Wed Feb 10 10:10:19 2021]
+Finished job 6.
+17 of 60 steps (28%) done
+[Wed Feb 10 10:11:03 2021]
+Finished job 42.
+18 of 60 steps (30%) done
+[Wed Feb 10 10:11:09 2021]
+Finished job 36.
+19 of 60 steps (32%) done
+[Wed Feb 10 10:11:29 2021]
+Finished job 31.
+20 of 60 steps (33%) done
+[Wed Feb 10 10:11:41 2021]
+Finished job 54.
+21 of 60 steps (35%) done
+[Wed Feb 10 10:12:53 2021]
+Finished job 13.
+22 of 60 steps (37%) done
+[Wed Feb 10 10:12:58 2021]
+Finished job 23.
+23 of 60 steps (38%) done
+[Wed Feb 10 10:30:56 2021]
+Finished job 30.
+24 of 60 steps (40%) done
+[Wed Feb 10 10:34:53 2021]
+Finished job 22.
+25 of 60 steps (42%) done
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+
+scontrol show jobid 4826616
+JobId=4826616 JobName=snakejob.ichor.fe4f6cca-f3ba-5e56-bef6-4a47cdecb930.sh
+   UserId=zyfniu(3093542) GroupId=nicholsa(6045858) MCS_label=N/A
+   Priority=1722190 Nice=0 Account=def-nicholsa QOS=normal
+   JobState=COMPLETING Reason=NonZeroExitCode Dependency=(null)
+   Requeue=0 Restarts=0 BatchFlag=1 Reboot=0 ExitCode=1:0
+   RunTime=00:29:43 TimeLimit=10:00:00 TimeMin=N/A
+   SubmitTime=2021-02-10T10:05:09 EligibleTime=2021-02-10T10:05:09
+   AccrueTime=2021-02-10T10:05:09
+   StartTime=2021-02-10T10:05:10 EndTime=2021-02-10T10:34:53 Deadline=N/A
+   SuspendTime=None SecsPreSuspend=0 LastSchedEval=2021-02-10T10:05:10
+   Partition=compute AllocNode:Sid=nia-login03:270957
+   ReqNodeList=(null) ExcNodeList=(null)
+   NodeList=nia1313
+   BatchHost=nia1313
+   NumNodes=1 NumCPUs=80 NumTasks=80 CPUs/Task=1 ReqB:S:C:T=0:0:*:*
+   TRES=cpu=80,mem=175G,node=1,billing=40
+   Socks/Node=* NtasksPerN:B:S:C=0:0:*:* CoreSpec=*
+   MinCPUsNode=1 MinMemoryNode=175G MinTmpDiskNode=0
+   Features=[skylake|cascade] DelayBoot=00:00:00
+   OverSubscribe=NO Contiguous=0 Licenses=(null) Network=(null)
+   Command=/gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake/.snakemake/tmp.z24trsuh/snakejob.ichor.fe4f6cca-f3ba-5e56-bef6-4a47cdecb930.sh
+   WorkDir=/gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake
+   StdErr=/gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake/logs/snakejob.ichor.fe4f6cca-f3ba-5e56-bef6-4a47cdecb930.sh_4826616.log
+   StdIn=/dev/null
+   StdOut=/gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake/logs/snakejob.ichor.fe4f6cca-f3ba-5e56-bef6-4a47cdecb930.sh_4826616.log
+   Power=
+   MailUser=zyfniu@scinet.local MailType=NONE
+
+sacct -j 4826616
+       JobID    JobName    Account    Elapsed  MaxVMSize     MaxRSS  SystemCPU    UserCPU ExitCode 
+------------ ---------- ---------- ---------- ---------- ---------- ---------- ---------- -------- 
+4826616      snakejob.+ def-nicho+   00:29:43                        02:37.562   02:25:14      1:0 
+4826616.bat+      batch def-nicho+   00:29:43  63822720K   6125560K  02:37.562   02:25:14      1:0 
+4826616.ext+     extern def-nicho+   00:29:43    138352K       876K   00:00:00   00:00:00      0:0 

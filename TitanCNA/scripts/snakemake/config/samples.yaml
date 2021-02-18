@@ -1,0 +1,6 @@
+samples:
+  tumor_sample_1:  /scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake/results/tumor_sample_1.filtered.bam
+  normal_sample_1:  /scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake/results/normal_sample_1.filtered.bam
+
+pairings:
+  tumor_sample_1:  normal_sample_1

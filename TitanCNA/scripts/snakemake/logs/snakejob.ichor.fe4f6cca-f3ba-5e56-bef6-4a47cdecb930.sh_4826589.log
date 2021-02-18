@@ -1,0 +1,740 @@
+Building DAG of jobs...
+Using shell: /bin/bash
+Provided cores: 80
+Rules claiming more threads will be scaled down.
+Job counts:
+	count	jobs
+	1	catAlleleCountFiles
+	4	combineTitanAndIchorCNA
+	1	copyOptSolution
+	23	getAlleleCountsByChr
+	23	getHETsites
+	1	ichorCNA
+	2	read_counter
+	4	runTitanCNA
+	1	selectSolution
+	60
+
+[Wed Feb 10 09:49:13 2021]
+rule getHETsites:
+    input: results/normal_sample_1.filtered.bam
+    output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchrX.vcf
+    log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchrX.log
+    jobid: 7
+    wildcards: tumor=tumor_sample_1, chr=chrX
+    threads: 2
+
+
+[Wed Feb 10 09:49:13 2021]
+rule getHETsites:
+    input: results/normal_sample_1.filtered.bam
+    output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr15.vcf
+    log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr15.log
+    jobid: 1
+    wildcards: tumor=tumor_sample_1, chr=chr15
+    threads: 2
+
+
+[Wed Feb 10 09:49:13 2021]
+rule getHETsites:
+    input: results/normal_sample_1.filtered.bam
+    output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr7.vcf
+    log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr7.log
+    jobid: 4
+    wildcards: tumor=tumor_sample_1, chr=chr7
+    threads: 2
+
+
+[Wed Feb 10 09:49:13 2021]
+rule read_counter:
+    input: results/tumor_sample_1.filtered.bam
+    output: results/readDepth/tumor_sample_1.bin10000.wig
+    log: logs/readDepth/tumor_sample_1.bin10000.log
+    jobid: 12
+    wildcards: samples=tumor_sample_1, binSize=10000
+    resources: mem=4
+
+
+[Wed Feb 10 09:49:13 2021]
+rule getHETsites:
+    input: results/normal_sample_1.filtered.bam
+    output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr21.vcf
+    log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr21.log
+    jobid: 10
+    wildcards: tumor=tumor_sample_1, chr=chr21
+    threads: 2
+
+
+[Wed Feb 10 09:49:13 2021]
+rule getHETsites:
+    input: results/normal_sample_1.filtered.bam
+    output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr16.vcf
+    log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr16.log
+    jobid: 13
+    wildcards: tumor=tumor_sample_1, chr=chr16
+    threads: 2
+
+
+[Wed Feb 10 09:49:13 2021]
+rule getHETsites:
+    input: results/normal_sample_1.filtered.bam
+    output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr8.vcf
+    log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr8.log
+    jobid: 14
+    wildcards: tumor=tumor_sample_1, chr=chr8
+    threads: 2
+
+
+[Wed Feb 10 09:49:13 2021]
+rule getHETsites:
+    input: results/normal_sample_1.filtered.bam
+    output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr17.vcf
+    log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr17.log
+    jobid: 17
+    wildcards: tumor=tumor_sample_1, chr=chr17
+    threads: 2
+
+
+[Wed Feb 10 09:49:13 2021]
+rule getHETsites:
+    input: results/normal_sample_1.filtered.bam
+    output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr9.vcf
+    log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr9.log
+    jobid: 18
+    wildcards: tumor=tumor_sample_1, chr=chr9
+    threads: 2
+
+
+[Wed Feb 10 09:49:13 2021]
+rule read_counter:
+    input: results/normal_sample_1.filtered.bam
+    output: results/readDepth/normal_sample_1.bin10000.wig
+    log: logs/readDepth/normal_sample_1.bin10000.log
+    jobid: 21
+    wildcards: samples=normal_sample_1, binSize=10000
+    resources: mem=4
+
+
+[Wed Feb 10 09:49:13 2021]
+rule getHETsites:
+    input: results/normal_sample_1.filtered.bam
+    output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr18.vcf
+    log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr18.log
+    jobid: 27
+    wildcards: tumor=tumor_sample_1, chr=chr18
+    threads: 2
+
+
+[Wed Feb 10 09:49:13 2021]
+rule getHETsites:
+    input: results/normal_sample_1.filtered.bam
+    output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr3.vcf
+    log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr3.log
+    jobid: 28
+    wildcards: tumor=tumor_sample_1, chr=chr3
+    threads: 2
+
+
+[Wed Feb 10 09:49:13 2021]
+rule getHETsites:
+    input: results/normal_sample_1.filtered.bam
+    output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr10.vcf
+    log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr10.log
+    jobid: 30
+    wildcards: tumor=tumor_sample_1, chr=chr10
+    threads: 2
+
+
+[Wed Feb 10 09:49:13 2021]
+rule getHETsites:
+    input: results/normal_sample_1.filtered.bam
+    output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr19.vcf
+    log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr19.log
+    jobid: 32
+    wildcards: tumor=tumor_sample_1, chr=chr19
+    threads: 2
+
+
+[Wed Feb 10 09:49:13 2021]
+rule getHETsites:
+    input: results/normal_sample_1.filtered.bam
+    output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr2.vcf
+    log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr2.log
+    jobid: 33
+    wildcards: tumor=tumor_sample_1, chr=chr2
+    threads: 2
+
+
+[Wed Feb 10 09:49:13 2021]
+rule getHETsites:
+    input: results/normal_sample_1.filtered.bam
+    output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr4.vcf
+    log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr4.log
+    jobid: 35
+    wildcards: tumor=tumor_sample_1, chr=chr4
+    threads: 2
+
+
+[Wed Feb 10 09:49:13 2021]
+rule getHETsites:
+    input: results/normal_sample_1.filtered.bam
+    output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr11.vcf
+    log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr11.log
+    jobid: 39
+    wildcards: tumor=tumor_sample_1, chr=chr11
+    threads: 2
+
+
+[Wed Feb 10 09:49:13 2021]
+rule getHETsites:
+    input: results/normal_sample_1.filtered.bam
+    output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr20.vcf
+    log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr20.log
+    jobid: 43
+    wildcards: tumor=tumor_sample_1, chr=chr20
+    threads: 2
+
+
+[Wed Feb 10 09:49:13 2021]
+rule getHETsites:
+    input: results/normal_sample_1.filtered.bam
+    output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr5.vcf
+    log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr5.log
+    jobid: 44
+    wildcards: tumor=tumor_sample_1, chr=chr5
+    threads: 2
+
+
+[Wed Feb 10 09:49:13 2021]
+rule getHETsites:
+    input: results/normal_sample_1.filtered.bam
+    output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr12.vcf
+    log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr12.log
+    jobid: 46
+    wildcards: tumor=tumor_sample_1, chr=chr12
+    threads: 2
+
+
+[Wed Feb 10 09:49:13 2021]
+rule getHETsites:
+    input: results/normal_sample_1.filtered.bam
+    output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr22.vcf
+    log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr22.log
+    jobid: 48
+    wildcards: tumor=tumor_sample_1, chr=chr22
+    threads: 2
+
+
+[Wed Feb 10 09:49:13 2021]
+rule getHETsites:
+    input: results/normal_sample_1.filtered.bam
+    output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr13.vcf
+    log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr13.log
+    jobid: 49
+    wildcards: tumor=tumor_sample_1, chr=chr13
+    threads: 2
+
+
+[Wed Feb 10 09:49:13 2021]
+rule getHETsites:
+    input: results/normal_sample_1.filtered.bam
+    output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr1.vcf
+    log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr1.log
+    jobid: 53
+    wildcards: tumor=tumor_sample_1, chr=chr1
+    threads: 2
+
+
+[Wed Feb 10 09:49:13 2021]
+rule getHETsites:
+    input: results/normal_sample_1.filtered.bam
+    output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr6.vcf
+    log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr6.log
+    jobid: 54
+    wildcards: tumor=tumor_sample_1, chr=chr6
+    threads: 2
+
+
+[Wed Feb 10 09:49:13 2021]
+rule getHETsites:
+    input: results/normal_sample_1.filtered.bam
+    output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr14.vcf
+    log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr14.log
+    jobid: 59
+    wildcards: tumor=tumor_sample_1, chr=chr14
+    threads: 2
+
+[warning] samtools mpileup option `u` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `v` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `I` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `u` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `v` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `I` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `u` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `v` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `I` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `u` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `v` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `I` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `u` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `v` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `I` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `u` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `v` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `I` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `u` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `v` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `I` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+Note: none of --samples-file, --ploidy or --ploidy-file given, assuming all sites are diploid
+[warning] samtools mpileup option `u` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `v` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `I` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `u` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `v` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `I` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `u` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `v` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `I` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+Note: none of --samples-file, --ploidy or --ploidy-file given, assuming all sites are diploid
+Note: none of --samples-file, --ploidy or --ploidy-file given, assuming all sites are diploid
+Note: none of --samples-file, --ploidy or --ploidy-file given, assuming all sites are diploid
+Note: none of --samples-file, --ploidy or --ploidy-file given, assuming all sites are diploid
+Note: none of --samples-file, --ploidy or --ploidy-file given, assuming all sites are diploid
+Note: none of --samples-file, --ploidy or --ploidy-file given, assuming all sites are diploid
+Note: none of --samples-file, --ploidy or --ploidy-file given, assuming all sites are diploid
+[warning] samtools mpileup option `u` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `v` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `I` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `u` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `v` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `I` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `u` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `v` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `I` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+Note: none of --samples-file, --ploidy or --ploidy-file given, assuming all sites are diploid
+Note: none of --samples-file, --ploidy or --ploidy-file given, assuming all sites are diploid
+[warning] samtools mpileup option `u` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `v` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `I` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `u` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `v` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `I` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `u` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `v` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `I` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+Note: none of --samples-file, --ploidy or --ploidy-file given, assuming all sites are diploid
+Note: none of --samples-file, --ploidy or --ploidy-file given, assuming all sites are diploid
+Note: none of --samples-file, --ploidy or --ploidy-file given, assuming all sites are diploid
+Note: none of --samples-file, --ploidy or --ploidy-file given, assuming all sites are diploid
+[warning] samtools mpileup option `u` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `v` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `I` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+Note: none of --samples-file, --ploidy or --ploidy-file given, assuming all sites are diploid
+Note: none of --samples-file, --ploidy or --ploidy-file given, assuming all sites are diploid
+Note: none of --samples-file, --ploidy or --ploidy-file given, assuming all sites are diploid
+[warning] samtools mpileup option `u` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `v` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `I` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `u` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `v` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `I` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `u` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `v` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `I` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `u` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `v` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `I` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+Note: none of --samples-file, --ploidy or --ploidy-file given, assuming all sites are diploid
+Note: none of --samples-file, --ploidy or --ploidy-file given, assuming all sites are diploid
+Note: none of --samples-file, --ploidy or --ploidy-file given, assuming all sites are diploid
+[warning] samtools mpileup option `u` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `v` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `I` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+Note: none of --samples-file, --ploidy or --ploidy-file given, assuming all sites are diploid
+[warning] samtools mpileup option `u` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `v` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+[warning] samtools mpileup option `I` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+Note: none of --samples-file, --ploidy or --ploidy-file given, assuming all sites are diploid
+Note: none of --samples-file, --ploidy or --ploidy-file given, assuming all sites are diploid
+[Wed Feb 10 09:49:14 2021]
+[Wed Feb 10 09:49:14 2021]
+Error in rule read_counter:
+Error in rule read_counter:
+    jobid: 12
+    jobid: 21
+    output: results/readDepth/tumor_sample_1.bin10000.wig
+    output: results/readDepth/normal_sample_1.bin10000.wig
+    log: logs/readDepth/tumor_sample_1.bin10000.log (check log file(s) for error message)
+    log: logs/readDepth/normal_sample_1.bin10000.log (check log file(s) for error message)
+    shell:
+        singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images,/scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/ichorcna_pz.simg readCounter results/tumor_sample_1.filtered.bam -c chr1,chr2,chr3,chr4,chr5,chr6,chr7,chr8,chr9,chr10,chr11,chr12,chr13,chr14,chr15,chr16,chr17,chr18,chr19,chr20,chr21,chr22,chrX,chrY -w 10000 -q 20 > results/readDepth/tumor_sample_1.bin10000.wig 2> logs/readDepth/tumor_sample_1.bin10000.log
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+    shell:
+        singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images,/scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/ichorcna_pz.simg readCounter results/normal_sample_1.filtered.bam -c chr1,chr2,chr3,chr4,chr5,chr6,chr7,chr8,chr9,chr10,chr11,chr12,chr13,chr14,chr15,chr16,chr17,chr18,chr19,chr20,chr21,chr22,chrX,chrY -w 10000 -q 20 > results/readDepth/normal_sample_1.bin10000.wig 2> logs/readDepth/normal_sample_1.bin10000.log
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+
+Removing output files of failed job read_counter since they might be corrupted:
+results/readDepth/tumor_sample_1.bin10000.wig
+Removing output files of failed job read_counter since they might be corrupted:
+results/readDepth/normal_sample_1.bin10000.wig
+[E::hts_open_format] Failed to open file results/normal_sample_1.filtered.bam
+[mpileup] failed to open results/normal_sample_1.filtered.bam: No such file or directory
+[E::hts_open_format] Failed to open file results/normal_sample_1.filtered.bam
+[mpileup] failed to open results/normal_sample_1.filtered.bam: No such file or directory
+[E::hts_open_format] Failed to open file results/normal_sample_1.filtered.bam
+[mpileup] failed to open results/normal_sample_1.filtered.bam: No such file or directory
+[E::hts_open_format] Failed to open file results/normal_sample_1.filtered.bam
+[mpileup] failed to open results/normal_sample_1.filtered.bam: No such file or directory
+[E::hts_open_format] Failed to open file results/normal_sample_1.filtered.bam
+[mpileup] failed to open results/normal_sample_1.filtered.bam: No such file or directory
+[E::hts_open_format] Failed to open file results/normal_sample_1.filtered.bam[E::hts_open_format] 
+Failed to open file results/normal_sample_1.filtered.bam
+[mpileup] failed to open results/normal_sample_1.filtered.bam: No such file or directory
+[mpileup] failed to open results/normal_sample_1.filtered.bam: No such file or directory
+[E::hts_open_format] Failed to open file results/normal_sample_1.filtered.bam
+[mpileup] failed to open results/normal_sample_1.filtered.bam: No such file or directory
+[E::hts_open_format] Failed to open file results/normal_sample_1.filtered.bam
+[mpileup] failed to open results/normal_sample_1.filtered.bam: No such file or directory
+[E::hts_open_format] Failed to open file results/normal_sample_1.filtered.bam
+[mpileup] failed to open results/normal_sample_1.filtered.bam: No such file or directory
+[E::hts_open_format] Failed to open file results/normal_sample_1.filtered.bam
+[mpileup] failed to open results/normal_sample_1.filtered.bam: No such file or directory
+[E::hts_open_format] Failed to open file results/normal_sample_1.filtered.bam
+[mpileup] failed to open results/normal_sample_1.filtered.bam: No such file or directory
+[E::hts_open_format] Failed to open file results/normal_sample_1.filtered.bam
+[mpileup] failed to open results/normal_sample_1.filtered.bam: No such file or directory
+[E::hts_open_format] Failed to open file results/normal_sample_1.filtered.bam
+[mpileup] failed to open results/normal_sample_1.filtered.bam: No such file or directory
+[E::hts_open_format] Failed to open file results/normal_sample_1.filtered.bam
+[mpileup] failed to open results/normal_sample_1.filtered.bam: No such file or directory
+Failed to open -: unknown file type
+Failed to open -: unknown file type
+Failed to open -: unknown file type
+[E::hts_open_format] Failed to open file results/normal_sample_1.filtered.bam
+[mpileup] failed to open results/normal_sample_1.filtered.bam: No such file or directory
+[E::hts_open_format] Failed to open file results/normal_sample_1.filtered.bam
+[mpileup] failed to open results/normal_sample_1.filtered.bam: No such file or directory
+Failed to open -: unknown file type
+[E::hts_open_format] Failed to open file results/normal_sample_1.filtered.bam
+[mpileup] failed to open results/normal_sample_1.filtered.bam: No such file or directory
+[E::hts_open_format] Failed to open file results/normal_sample_1.filtered.bam
+[mpileup] failed to open results/normal_sample_1.filtered.bam: No such file or directory
+Failed to open -: unknown file type
+[E::hts_open_format] Failed to open file results/normal_sample_1.filtered.bam
+[mpileup] failed to open results/normal_sample_1.filtered.bam: No such file or directory
+[E::hts_open_format] Failed to open file results/normal_sample_1.filtered.bam
+[mpileup] failed to open results/normal_sample_1.filtered.bam: No such file or directory
+[E::hts_open_format] Failed to open file results/normal_sample_1.filtered.bam
+[mpileup] failed to open results/normal_sample_1.filtered.bam: No such file or directory
+Failed to open -: unknown file type
+Failed to open -: unknown file type
+Failed to open -: unknown file type
+Failed to open -: unknown file type
+Failed to open -: unknown file type
+Failed to open -: unknown file type
+Failed to open -: unknown file type
+[E::hts_open_format] Failed to open file results/normal_sample_1.filtered.bam
+[mpileup] failed to open results/normal_sample_1.filtered.bam: No such file or directory
+Failed to open -: unknown file type
+Failed to open -: unknown file type
+Failed to open -: unknown file type
+[Wed Feb 10 09:49:16 2021]
+Error in rule getHETsites:
+    jobid: 7
+    output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchrX.vcf
+    log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchrX.log (check log file(s) for error message)
+    shell:
+        singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images,/scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img samtools mpileup -uv -I -f /scratch/n/nicholsa/zyfniu/igenomes_ref/Homo_sapiens_assembly38.fasta -r chrX -l /scratch/n/nicholsa/zyfniu/igenomes_ref/hapmap_3.3.hg38.vcf.gz results/normal_sample_1.filtered.bam | singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images,/scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img bcftools call -v -c - | grep -e '0/1' -e '#' > results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchrX.vcf 2> logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchrX.log
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+Removing output files of failed job getHETsites since they might be corrupted:
+results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchrX.vcf
+Failed to open -: unknown file type
+Failed to open -: unknown file type
+[Wed Feb 10 09:49:16 2021]
+Error in rule getHETsites:
+    jobid: 10
+    output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr21.vcf
+    log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr21.log (check log file(s) for error message)
+    shell:
+        singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images,/scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img samtools mpileup -uv -I -f /scratch/n/nicholsa/zyfniu/igenomes_ref/Homo_sapiens_assembly38.fasta -r chr21 -l /scratch/n/nicholsa/zyfniu/igenomes_ref/hapmap_3.3.hg38.vcf.gz results/normal_sample_1.filtered.bam | singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images,/scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img bcftools call -v -c - | grep -e '0/1' -e '#' > results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr21.vcf 2> logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr21.log
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+Removing output files of failed job getHETsites since they might be corrupted:
+results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr21.vcf
+[Wed Feb 10 09:49:16 2021]
+Error in rule getHETsites:
+    jobid: 32
+    output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr19.vcf
+    log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr19.log (check log file(s) for error message)
+    shell:
+        singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images,/scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img samtools mpileup -uv -I -f /scratch/n/nicholsa/zyfniu/igenomes_ref/Homo_sapiens_assembly38.fasta -r chr19 -l /scratch/n/nicholsa/zyfniu/igenomes_ref/hapmap_3.3.hg38.vcf.gz results/normal_sample_1.filtered.bam | singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images,/scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img bcftools call -v -c - | grep -e '0/1' -e '#' > results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr19.vcf 2> logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr19.log
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+Removing output files of failed job getHETsites since they might be corrupted:
+results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr19.vcf
+Failed to open -: unknown file type
+Failed to open -: unknown file type
+Failed to open -: unknown file type
+Failed to open -: unknown file type
+Failed to open -: unknown file type
+[Wed Feb 10 09:49:16 2021]
+Error in rule getHETsites:
+    jobid: 14
+    output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr8.vcf
+    log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr8.log (check log file(s) for error message)
+    shell:
+        singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images,/scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img samtools mpileup -uv -I -f /scratch/n/nicholsa/zyfniu/igenomes_ref/Homo_sapiens_assembly38.fasta -r chr8 -l /scratch/n/nicholsa/zyfniu/igenomes_ref/hapmap_3.3.hg38.vcf.gz results/normal_sample_1.filtered.bam | singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images,/scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img bcftools call -v -c - | grep -e '0/1' -e '#' > results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr8.vcf 2> logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr8.log
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+Removing output files of failed job getHETsites since they might be corrupted:
+results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr8.vcf
+[Wed Feb 10 09:49:16 2021]
+Error in rule getHETsites:
+    jobid: 30
+    output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr10.vcf
+    log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr10.log (check log file(s) for error message)
+    shell:
+        singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images,/scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img samtools mpileup -uv -I -f /scratch/n/nicholsa/zyfniu/igenomes_ref/Homo_sapiens_assembly38.fasta -r chr10 -l /scratch/n/nicholsa/zyfniu/igenomes_ref/hapmap_3.3.hg38.vcf.gz results/normal_sample_1.filtered.bam | singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images,/scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img bcftools call -v -c - | grep -e '0/1' -e '#' > results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr10.vcf 2> logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr10.log
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+Removing output files of failed job getHETsites since they might be corrupted:
+results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr10.vcf
+Failed to open -: unknown file type
+[Wed Feb 10 09:49:16 2021]
+Error in rule getHETsites:
+[Wed Feb 10 09:49:16 2021]
+    jobid: 1
+[Wed Feb 10 09:49:16 2021]
+Error in rule getHETsites:
+    output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr15.vcf
+Error in rule getHETsites:
+    jobid: 39
+    log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr15.log (check log file(s) for error message)
+    jobid: 17
+    output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr11.vcf
+[Wed Feb 10 09:49:16 2021]
+    shell:
+        singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images,/scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img samtools mpileup -uv -I -f /scratch/n/nicholsa/zyfniu/igenomes_ref/Homo_sapiens_assembly38.fasta -r chr15 -l /scratch/n/nicholsa/zyfniu/igenomes_ref/hapmap_3.3.hg38.vcf.gz results/normal_sample_1.filtered.bam | singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images,/scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img bcftools call -v -c - | grep -e '0/1' -e '#' > results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr15.vcf 2> logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr15.log
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+    output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr17.vcf
+    log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr11.log (check log file(s) for error message)
+Error in rule getHETsites:
+
+    log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr17.log (check log file(s) for error message)
+    shell:
+        singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images,/scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img samtools mpileup -uv -I -f /scratch/n/nicholsa/zyfniu/igenomes_ref/Homo_sapiens_assembly38.fasta -r chr11 -l /scratch/n/nicholsa/zyfniu/igenomes_ref/hapmap_3.3.hg38.vcf.gz results/normal_sample_1.filtered.bam | singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images,/scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img bcftools call -v -c - | grep -e '0/1' -e '#' > results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr11.vcf 2> logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr11.log
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+    jobid: 27
+    shell:
+        singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images,/scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img samtools mpileup -uv -I -f /scratch/n/nicholsa/zyfniu/igenomes_ref/Homo_sapiens_assembly38.fasta -r chr17 -l /scratch/n/nicholsa/zyfniu/igenomes_ref/hapmap_3.3.hg38.vcf.gz results/normal_sample_1.filtered.bam | singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images,/scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img bcftools call -v -c - | grep -e '0/1' -e '#' > results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr17.vcf 2> logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr17.log
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+Removing output files of failed job getHETsites since they might be corrupted:
+results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr15.vcf
+
+    output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr18.vcf
+
+    log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr18.log (check log file(s) for error message)
+    shell:
+        singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images,/scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img samtools mpileup -uv -I -f /scratch/n/nicholsa/zyfniu/igenomes_ref/Homo_sapiens_assembly38.fasta -r chr18 -l /scratch/n/nicholsa/zyfniu/igenomes_ref/hapmap_3.3.hg38.vcf.gz results/normal_sample_1.filtered.bam | singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images,/scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img bcftools call -v -c - | grep -e '0/1' -e '#' > results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr18.vcf 2> logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr18.log
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+Removing output files of failed job getHETsites since they might be corrupted:
+results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr11.vcf
+
+Removing output files of failed job getHETsites since they might be corrupted:
+results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr17.vcf
+[Wed Feb 10 09:49:16 2021]
+Error in rule getHETsites:
+[Wed Feb 10 09:49:16 2021]
+    jobid: 35
+Error in rule getHETsites:
+Removing output files of failed job getHETsites since they might be corrupted:
+results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr18.vcf
+    output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr4.vcf
+[Wed Feb 10 09:49:16 2021]
+    jobid: 4
+    log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr4.log (check log file(s) for error message)
+Error in rule getHETsites:
+    output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr7.vcf
+    shell:
+        singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images,/scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img samtools mpileup -uv -I -f /scratch/n/nicholsa/zyfniu/igenomes_ref/Homo_sapiens_assembly38.fasta -r chr4 -l /scratch/n/nicholsa/zyfniu/igenomes_ref/hapmap_3.3.hg38.vcf.gz results/normal_sample_1.filtered.bam | singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images,/scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img bcftools call -v -c - | grep -e '0/1' -e '#' > results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr4.vcf 2> logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr4.log
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+    jobid: 53
+    log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr7.log (check log file(s) for error message)
+
+    output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr1.vcf
+    shell:
+        singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images,/scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img samtools mpileup -uv -I -f /scratch/n/nicholsa/zyfniu/igenomes_ref/Homo_sapiens_assembly38.fasta -r chr7 -l /scratch/n/nicholsa/zyfniu/igenomes_ref/hapmap_3.3.hg38.vcf.gz results/normal_sample_1.filtered.bam | singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images,/scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img bcftools call -v -c - | grep -e '0/1' -e '#' > results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr7.vcf 2> logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr7.log
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+    log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr1.log (check log file(s) for error message)
+Removing output files of failed job getHETsites since they might be corrupted:
+results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr4.vcf
+
+    shell:
+        singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images,/scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img samtools mpileup -uv -I -f /scratch/n/nicholsa/zyfniu/igenomes_ref/Homo_sapiens_assembly38.fasta -r chr1 -l /scratch/n/nicholsa/zyfniu/igenomes_ref/hapmap_3.3.hg38.vcf.gz results/normal_sample_1.filtered.bam | singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images,/scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img bcftools call -v -c - | grep -e '0/1' -e '#' > results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr1.vcf 2> logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr1.log
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+Removing output files of failed job getHETsites since they might be corrupted:
+results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr7.vcf
+Removing output files of failed job getHETsites since they might be corrupted:
+results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr1.vcf
+[Wed Feb 10 09:49:16 2021]
+Error in rule getHETsites:
+    jobid: 44
+    output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr5.vcf
+    log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr5.log (check log file(s) for error message)
+    shell:
+        singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images,/scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img samtools mpileup -uv -I -f /scratch/n/nicholsa/zyfniu/igenomes_ref/Homo_sapiens_assembly38.fasta -r chr5 -l /scratch/n/nicholsa/zyfniu/igenomes_ref/hapmap_3.3.hg38.vcf.gz results/normal_sample_1.filtered.bam | singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images,/scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img bcftools call -v -c - | grep -e '0/1' -e '#' > results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr5.vcf 2> logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr5.log
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+Removing output files of failed job getHETsites since they might be corrupted:
+results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr5.vcf
+[Wed Feb 10 09:49:16 2021]
+Error in rule getHETsites:
+    jobid: 33
+    output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr2.vcf
+    log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr2.log (check log file(s) for error message)
+    shell:
+        singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images,/scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img samtools mpileup -uv -I -f /scratch/n/nicholsa/zyfniu/igenomes_ref/Homo_sapiens_assembly38.fasta -r chr2 -l /scratch/n/nicholsa/zyfniu/igenomes_ref/hapmap_3.3.hg38.vcf.gz results/normal_sample_1.filtered.bam | singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images,/scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img bcftools call -v -c - | grep -e '0/1' -e '#' > results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr2.vcf 2> logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr2.log
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+Removing output files of failed job getHETsites since they might be corrupted:
+results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr2.vcf
+[Wed Feb 10 09:49:16 2021]
+Error in rule getHETsites:
+    jobid: 49
+    output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr13.vcf
+    log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr13.log (check log file(s) for error message)
+    shell:
+        singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images,/scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img samtools mpileup -uv -I -f /scratch/n/nicholsa/zyfniu/igenomes_ref/Homo_sapiens_assembly38.fasta -r chr13 -l /scratch/n/nicholsa/zyfniu/igenomes_ref/hapmap_3.3.hg38.vcf.gz results/normal_sample_1.filtered.bam | singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images,/scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img bcftools call -v -c - | grep -e '0/1' -e '#' > results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr13.vcf 2> logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr13.log
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+Removing output files of failed job getHETsites since they might be corrupted:
+results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr13.vcf
+[Wed Feb 10 09:49:16 2021]
+Error in rule getHETsites:
+    jobid: 54
+    output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr6.vcf
+[Wed Feb 10 09:49:16 2021]
+    log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr6.log (check log file(s) for error message)
+Error in rule getHETsites:
+    shell:
+        singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images,/scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img samtools mpileup -uv -I -f /scratch/n/nicholsa/zyfniu/igenomes_ref/Homo_sapiens_assembly38.fasta -r chr6 -l /scratch/n/nicholsa/zyfniu/igenomes_ref/hapmap_3.3.hg38.vcf.gz results/normal_sample_1.filtered.bam | singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images,/scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img bcftools call -v -c - | grep -e '0/1' -e '#' > results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr6.vcf 2> logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr6.log
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+    jobid: 28
+
+    output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr3.vcf
+[Wed Feb 10 09:49:16 2021]
+    log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr3.log (check log file(s) for error message)
+Removing output files of failed job getHETsites since they might be corrupted:
+results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr6.vcf
+Error in rule getHETsites:
+    shell:
+        singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images,/scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img samtools mpileup -uv -I -f /scratch/n/nicholsa/zyfniu/igenomes_ref/Homo_sapiens_assembly38.fasta -r chr3 -l /scratch/n/nicholsa/zyfniu/igenomes_ref/hapmap_3.3.hg38.vcf.gz results/normal_sample_1.filtered.bam | singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images,/scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img bcftools call -v -c - | grep -e '0/1' -e '#' > results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr3.vcf 2> logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr3.log
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+    jobid: 43
+
+    output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr20.vcf
+    log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr20.log (check log file(s) for error message)
+Removing output files of failed job getHETsites since they might be corrupted:
+results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr3.vcf
+    shell:
+        singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images,/scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img samtools mpileup -uv -I -f /scratch/n/nicholsa/zyfniu/igenomes_ref/Homo_sapiens_assembly38.fasta -r chr20 -l /scratch/n/nicholsa/zyfniu/igenomes_ref/hapmap_3.3.hg38.vcf.gz results/normal_sample_1.filtered.bam | singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images,/scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img bcftools call -v -c - | grep -e '0/1' -e '#' > results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr20.vcf 2> logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr20.log
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+Removing output files of failed job getHETsites since they might be corrupted:
+results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr20.vcf
+[Wed Feb 10 09:49:16 2021]
+Error in rule getHETsites:
+    jobid: 59
+    output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr14.vcf
+    log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr14.log (check log file(s) for error message)
+    shell:
+        singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images,/scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img samtools mpileup -uv -I -f /scratch/n/nicholsa/zyfniu/igenomes_ref/Homo_sapiens_assembly38.fasta -r chr14 -l /scratch/n/nicholsa/zyfniu/igenomes_ref/hapmap_3.3.hg38.vcf.gz results/normal_sample_1.filtered.bam | singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images,/scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img bcftools call -v -c - | grep -e '0/1' -e '#' > results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr14.vcf 2> logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr14.log
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+Removing output files of failed job getHETsites since they might be corrupted:
+results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr14.vcf
+[Wed Feb 10 09:49:16 2021]
+Error in rule getHETsites:
+    jobid: 13
+    output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr16.vcf
+    log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr16.log (check log file(s) for error message)
+[Wed Feb 10 09:49:16 2021]
+    shell:
+        singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images,/scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img samtools mpileup -uv -I -f /scratch/n/nicholsa/zyfniu/igenomes_ref/Homo_sapiens_assembly38.fasta -r chr16 -l /scratch/n/nicholsa/zyfniu/igenomes_ref/hapmap_3.3.hg38.vcf.gz results/normal_sample_1.filtered.bam | singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images,/scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img bcftools call -v -c - | grep -e '0/1' -e '#' > results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr16.vcf 2> logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr16.log
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+[Wed Feb 10 09:49:16 2021]
+Error in rule getHETsites:
+
+Error in rule getHETsites:
+    jobid: 18
+    jobid: 48
+Removing output files of failed job getHETsites since they might be corrupted:
+results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr16.vcf
+    output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr9.vcf
+    output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr22.vcf
+    log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr9.log (check log file(s) for error message)
+    log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr22.log (check log file(s) for error message)
+    shell:
+        singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images,/scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img samtools mpileup -uv -I -f /scratch/n/nicholsa/zyfniu/igenomes_ref/Homo_sapiens_assembly38.fasta -r chr9 -l /scratch/n/nicholsa/zyfniu/igenomes_ref/hapmap_3.3.hg38.vcf.gz results/normal_sample_1.filtered.bam | singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images,/scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img bcftools call -v -c - | grep -e '0/1' -e '#' > results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr9.vcf 2> logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr9.log
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+    shell:
+        singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images,/scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img samtools mpileup -uv -I -f /scratch/n/nicholsa/zyfniu/igenomes_ref/Homo_sapiens_assembly38.fasta -r chr22 -l /scratch/n/nicholsa/zyfniu/igenomes_ref/hapmap_3.3.hg38.vcf.gz results/normal_sample_1.filtered.bam | singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images,/scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img bcftools call -v -c - | grep -e '0/1' -e '#' > results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr22.vcf 2> logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr22.log
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+
+Removing output files of failed job getHETsites since they might be corrupted:
+results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr9.vcf
+Removing output files of failed job getHETsites since they might be corrupted:
+results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr22.vcf
+[Wed Feb 10 09:49:16 2021]
+Error in rule getHETsites:
+    jobid: 46
+    output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr12.vcf
+    log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr12.log (check log file(s) for error message)
+    shell:
+        singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images,/scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img samtools mpileup -uv -I -f /scratch/n/nicholsa/zyfniu/igenomes_ref/Homo_sapiens_assembly38.fasta -r chr12 -l /scratch/n/nicholsa/zyfniu/igenomes_ref/hapmap_3.3.hg38.vcf.gz results/normal_sample_1.filtered.bam | singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images,/scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img bcftools call -v -c - | grep -e '0/1' -e '#' > results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr12.vcf 2> logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr12.log
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+Removing output files of failed job getHETsites since they might be corrupted:
+results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr12.vcf
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+
+scontrol show jobid 4826589
+JobId=4826589 JobName=snakejob.ichor.fe4f6cca-f3ba-5e56-bef6-4a47cdecb930.sh
+   UserId=zyfniu(3093542) GroupId=nicholsa(6045858) MCS_label=N/A
+   Priority=1735688 Nice=0 Account=def-nicholsa QOS=normal
+   JobState=COMPLETING Reason=NonZeroExitCode Dependency=(null)
+   Requeue=0 Restarts=0 BatchFlag=1 Reboot=0 ExitCode=1:0
+   RunTime=00:00:06 TimeLimit=10:00:00 TimeMin=N/A
+   SubmitTime=2021-02-10T09:49:07 EligibleTime=2021-02-10T09:49:07
+   AccrueTime=2021-02-10T09:49:07
+   StartTime=2021-02-10T09:49:10 EndTime=2021-02-10T09:49:16 Deadline=N/A
+   SuspendTime=None SecsPreSuspend=0 LastSchedEval=2021-02-10T09:49:10
+   Partition=compute AllocNode:Sid=nia-login03:270957
+   ReqNodeList=(null) ExcNodeList=(null)
+   NodeList=nia1862
+   BatchHost=nia1862
+   NumNodes=1 NumCPUs=80 NumTasks=80 CPUs/Task=1 ReqB:S:C:T=0:0:*:*
+   TRES=cpu=80,mem=175G,node=1,billing=40
+   Socks/Node=* NtasksPerN:B:S:C=0:0:*:* CoreSpec=*
+   MinCPUsNode=1 MinMemoryNode=175G MinTmpDiskNode=0
+   Features=[skylake|cascade] DelayBoot=00:00:00
+   OverSubscribe=NO Contiguous=0 Licenses=(null) Network=(null)
+   Command=/gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake/.snakemake/tmp.yyt6u2nu/snakejob.ichor.fe4f6cca-f3ba-5e56-bef6-4a47cdecb930.sh
+   WorkDir=/gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake
+   StdErr=/gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake/logs/snakejob.ichor.fe4f6cca-f3ba-5e56-bef6-4a47cdecb930.sh_4826589.log
+   StdIn=/dev/null
+   StdOut=/gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake/logs/snakejob.ichor.fe4f6cca-f3ba-5e56-bef6-4a47cdecb930.sh_4826589.log
+   Power=
+   MailUser=zyfniu@scinet.local MailType=NONE
+
+sacct -j 4826589
+       JobID    JobName    Account    Elapsed  MaxVMSize     MaxRSS  SystemCPU    UserCPU ExitCode 
+------------ ---------- ---------- ---------- ---------- ---------- ---------- ---------- -------- 
+4826589      snakejob.+ def-nicho+   00:00:07                         00:00:00   00:00:00      0:0 
+4826589.bat+      batch def-nicho+   00:00:07                         00:00:00   00:00:00      0:0 
+4826589.ext+     extern def-nicho+   00:00:07                         00:00:00   00:00:00      0:0 

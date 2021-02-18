@@ -1,0 +1,1244 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cluster nodes: 40
+Job counts:
+	count	jobs
+	1	all
+	1	catAlleleCountFiles
+	4	combineTitanAndIchorCNA
+	1	copyOptSolution
+	23	getAlleleCountsByChr
+	23	getHETsites
+	1	ichorCNA
+	2	read_counter
+	4	runTitanCNA
+	1	selectSolution
+	61
+[Wed Feb 10 09:56:46 2021]
+
+group job ichor (jobs in lexicogr. order):
+
+    [Wed Feb 10 09:56:46 2021]
+    rule catAlleleCountFiles:
+        input: results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr1.txt, results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr2.txt, results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr3.txt, results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr4.txt, results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr5.txt, results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr6.txt, results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr7.txt, results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr8.txt, results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr9.txt, results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr10.txt, results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr11.txt, results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr12.txt, results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr13.txt, results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr14.txt, results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr15.txt, results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr16.txt, results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr17.txt, results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr18.txt, results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr19.txt, results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr20.txt, results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr21.txt, results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr22.txt, results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchrX.txt
+        output: results/titan/tumCounts/tumor_sample_1.tumCounts.txt
+        log: logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.cat.log
+        jobid: 11
+        wildcards: tumor=tumor_sample_1
+        threads: 2
+
+
+    [Wed Feb 10 09:56:46 2021]
+    rule combineTitanAndIchorCNA:
+        input: results/titan/hmm/titanCNA_ploidy2/tumor_sample_1_cluster1.segs.txt, results/titan/hmm/titanCNA_ploidy2/tumor_sample_1_cluster1.titan.txt, results/titan/hmm/titanCNA_ploidy2/tumor_sample_1_cluster1.params.txt, results/ichorCNA/tumor_sample_1/tumor_sample_1.seg.txt, results/ichorCNA/tumor_sample_1/tumor_sample_1.cna.seg, results/ichorCNA/tumor_sample_1/tumor_sample_1.params.txt
+        output: results/titan/hmm/titanCNA_ploidy2/tumor_sample_1_cluster1.titan.ichor.seg.txt, results/titan/hmm/titanCNA_ploidy2/tumor_sample_1_cluster1.titan.ichor.cna.txt
+        log: logs/titan/hmm/titanCNA_ploidy2/tumor_sample_1_cluster1.combineTitanIchorCNA.log
+        jobid: 5
+        wildcards: ploidy=2, tumor=tumor_sample_1, clustNum=1
+        threads: 2
+
+
+    [Wed Feb 10 09:56:46 2021]
+    rule combineTitanAndIchorCNA:
+        input: results/titan/hmm/titanCNA_ploidy3/tumor_sample_1_cluster1.segs.txt, results/titan/hmm/titanCNA_ploidy3/tumor_sample_1_cluster1.titan.txt, results/titan/hmm/titanCNA_ploidy3/tumor_sample_1_cluster1.params.txt, results/ichorCNA/tumor_sample_1/tumor_sample_1.seg.txt, results/ichorCNA/tumor_sample_1/tumor_sample_1.cna.seg, results/ichorCNA/tumor_sample_1/tumor_sample_1.params.txt
+        output: results/titan/hmm/titanCNA_ploidy3/tumor_sample_1_cluster1.titan.ichor.seg.txt, results/titan/hmm/titanCNA_ploidy3/tumor_sample_1_cluster1.titan.ichor.cna.txt
+        log: logs/titan/hmm/titanCNA_ploidy3/tumor_sample_1_cluster1.combineTitanIchorCNA.log
+        jobid: 6
+        wildcards: ploidy=3, tumor=tumor_sample_1, clustNum=1
+        threads: 2
+
+
+    [Wed Feb 10 09:56:46 2021]
+    rule combineTitanAndIchorCNA:
+        input: results/titan/hmm/titanCNA_ploidy2/tumor_sample_1_cluster2.segs.txt, results/titan/hmm/titanCNA_ploidy2/tumor_sample_1_cluster2.titan.txt, results/titan/hmm/titanCNA_ploidy2/tumor_sample_1_cluster2.params.txt, results/ichorCNA/tumor_sample_1/tumor_sample_1.seg.txt, results/ichorCNA/tumor_sample_1/tumor_sample_1.cna.seg, results/ichorCNA/tumor_sample_1/tumor_sample_1.params.txt
+        output: results/titan/hmm/titanCNA_ploidy2/tumor_sample_1_cluster2.titan.ichor.seg.txt, results/titan/hmm/titanCNA_ploidy2/tumor_sample_1_cluster2.titan.ichor.cna.txt
+        log: logs/titan/hmm/titanCNA_ploidy2/tumor_sample_1_cluster2.combineTitanIchorCNA.log
+        jobid: 7
+        wildcards: ploidy=2, tumor=tumor_sample_1, clustNum=2
+        threads: 2
+
+
+    [Wed Feb 10 09:56:46 2021]
+    rule combineTitanAndIchorCNA:
+        input: results/titan/hmm/titanCNA_ploidy3/tumor_sample_1_cluster2.segs.txt, results/titan/hmm/titanCNA_ploidy3/tumor_sample_1_cluster2.titan.txt, results/titan/hmm/titanCNA_ploidy3/tumor_sample_1_cluster2.params.txt, results/ichorCNA/tumor_sample_1/tumor_sample_1.seg.txt, results/ichorCNA/tumor_sample_1/tumor_sample_1.cna.seg, results/ichorCNA/tumor_sample_1/tumor_sample_1.params.txt
+        output: results/titan/hmm/titanCNA_ploidy3/tumor_sample_1_cluster2.titan.ichor.seg.txt, results/titan/hmm/titanCNA_ploidy3/tumor_sample_1_cluster2.titan.ichor.cna.txt
+        log: logs/titan/hmm/titanCNA_ploidy3/tumor_sample_1_cluster2.combineTitanIchorCNA.log
+        jobid: 8
+        wildcards: ploidy=3, tumor=tumor_sample_1, clustNum=2
+        threads: 2
+
+
+    [Wed Feb 10 09:56:46 2021]
+    rule copyOptSolution:
+        input: results/titan/hmm/optimalClusterSolution.txt
+        output: results/titan/hmm/optimalClusterSolution/
+        log: logs/titan/hmm/optSolution/copyOptSolution.log
+        jobid: 10
+        threads: 2
+
+
+    [Wed Feb 10 09:56:46 2021]
+    rule getAlleleCountsByChr:
+        input: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr7.vcf, results/tumor_sample_1.filtered.bam
+        output: results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr7.txt
+        log: logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chrchr7.log
+        jobid: 19
+        wildcards: tumor=tumor_sample_1, chr=chr7
+        threads: 2
+
+
+    [Wed Feb 10 09:56:46 2021]
+    rule getAlleleCountsByChr:
+        input: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr22.vcf, results/tumor_sample_1.filtered.bam
+        output: results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr22.txt
+        log: logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chrchr22.log
+        jobid: 34
+        wildcards: tumor=tumor_sample_1, chr=chr22
+        threads: 2
+
+
+    [Wed Feb 10 09:56:46 2021]
+    rule getAlleleCountsByChr:
+        input: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr15.vcf, results/tumor_sample_1.filtered.bam
+        output: results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr15.txt
+        log: logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chrchr15.log
+        jobid: 27
+        wildcards: tumor=tumor_sample_1, chr=chr15
+        threads: 2
+
+
+    [Wed Feb 10 09:56:46 2021]
+    rule getAlleleCountsByChr:
+        input: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr8.vcf, results/tumor_sample_1.filtered.bam
+        output: results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr8.txt
+        log: logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chrchr8.log
+        jobid: 20
+        wildcards: tumor=tumor_sample_1, chr=chr8
+        threads: 2
+
+
+    [Wed Feb 10 09:56:46 2021]
+    rule getAlleleCountsByChr:
+        input: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchrX.vcf, results/tumor_sample_1.filtered.bam
+        output: results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchrX.txt
+        log: logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chrchrX.log
+        jobid: 35
+        wildcards: tumor=tumor_sample_1, chr=chrX
+        threads: 2
+
+
+    [Wed Feb 10 09:56:46 2021]
+    rule getAlleleCountsByChr:
+        input: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr1.vcf, results/tumor_sample_1.filtered.bam
+        output: results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr1.txt
+        log: logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chrchr1.log
+        jobid: 13
+        wildcards: tumor=tumor_sample_1, chr=chr1
+        threads: 2
+
+
+    [Wed Feb 10 09:56:46 2021]
+    rule getAlleleCountsByChr:
+        input: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr16.vcf, results/tumor_sample_1.filtered.bam
+        output: results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr16.txt
+        log: logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chrchr16.log
+        jobid: 28
+        wildcards: tumor=tumor_sample_1, chr=chr16
+        threads: 2
+
+
+    [Wed Feb 10 09:56:46 2021]
+    rule getAlleleCountsByChr:
+        input: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr9.vcf, results/tumor_sample_1.filtered.bam
+        output: results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr9.txt
+        log: logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chrchr9.log
+        jobid: 21
+        wildcards: tumor=tumor_sample_1, chr=chr9
+        threads: 2
+
+
+    [Wed Feb 10 09:56:46 2021]
+    rule getAlleleCountsByChr:
+        input: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr2.vcf, results/tumor_sample_1.filtered.bam
+        output: results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr2.txt
+        log: logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chrchr2.log
+        jobid: 14
+        wildcards: tumor=tumor_sample_1, chr=chr2
+        threads: 2
+
+
+    [Wed Feb 10 09:56:46 2021]
+    rule getAlleleCountsByChr:
+        input: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr17.vcf, results/tumor_sample_1.filtered.bam
+        output: results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr17.txt
+        log: logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chrchr17.log
+        jobid: 29
+        wildcards: tumor=tumor_sample_1, chr=chr17
+        threads: 2
+
+
+    [Wed Feb 10 09:56:46 2021]
+    rule getAlleleCountsByChr:
+        input: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr10.vcf, results/tumor_sample_1.filtered.bam
+        output: results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr10.txt
+        log: logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chrchr10.log
+        jobid: 22
+        wildcards: tumor=tumor_sample_1, chr=chr10
+        threads: 2
+
+
+    [Wed Feb 10 09:56:46 2021]
+    rule getAlleleCountsByChr:
+        input: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr3.vcf, results/tumor_sample_1.filtered.bam
+        output: results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr3.txt
+        log: logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chrchr3.log
+        jobid: 15
+        wildcards: tumor=tumor_sample_1, chr=chr3
+        threads: 2
+
+
+    [Wed Feb 10 09:56:46 2021]
+    rule getAlleleCountsByChr:
+        input: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr18.vcf, results/tumor_sample_1.filtered.bam
+        output: results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr18.txt
+        log: logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chrchr18.log
+        jobid: 30
+        wildcards: tumor=tumor_sample_1, chr=chr18
+        threads: 2
+
+
+    [Wed Feb 10 09:56:46 2021]
+    rule getAlleleCountsByChr:
+        input: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr11.vcf, results/tumor_sample_1.filtered.bam
+        output: results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr11.txt
+        log: logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chrchr11.log
+        jobid: 23
+        wildcards: tumor=tumor_sample_1, chr=chr11
+        threads: 2
+
+
+    [Wed Feb 10 09:56:46 2021]
+    rule getAlleleCountsByChr:
+        input: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr4.vcf, results/tumor_sample_1.filtered.bam
+        output: results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr4.txt
+        log: logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chrchr4.log
+        jobid: 16
+        wildcards: tumor=tumor_sample_1, chr=chr4
+        threads: 2
+
+
+    [Wed Feb 10 09:56:46 2021]
+    rule getAlleleCountsByChr:
+        input: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr19.vcf, results/tumor_sample_1.filtered.bam
+        output: results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr19.txt
+        log: logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chrchr19.log
+        jobid: 31
+        wildcards: tumor=tumor_sample_1, chr=chr19
+        threads: 2
+
+
+    [Wed Feb 10 09:56:46 2021]
+    rule getAlleleCountsByChr:
+        input: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr12.vcf, results/tumor_sample_1.filtered.bam
+        output: results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr12.txt
+        log: logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chrchr12.log
+        jobid: 24
+        wildcards: tumor=tumor_sample_1, chr=chr12
+        threads: 2
+
+
+    [Wed Feb 10 09:56:46 2021]
+    rule getAlleleCountsByChr:
+        input: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr5.vcf, results/tumor_sample_1.filtered.bam
+        output: results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr5.txt
+        log: logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chrchr5.log
+        jobid: 17
+        wildcards: tumor=tumor_sample_1, chr=chr5
+        threads: 2
+
+
+    [Wed Feb 10 09:56:46 2021]
+    rule getAlleleCountsByChr:
+        input: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr20.vcf, results/tumor_sample_1.filtered.bam
+        output: results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr20.txt
+        log: logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chrchr20.log
+        jobid: 32
+        wildcards: tumor=tumor_sample_1, chr=chr20
+        threads: 2
+
+
+    [Wed Feb 10 09:56:46 2021]
+    rule getAlleleCountsByChr:
+        input: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr13.vcf, results/tumor_sample_1.filtered.bam
+        output: results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr13.txt
+        log: logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chrchr13.log
+        jobid: 25
+        wildcards: tumor=tumor_sample_1, chr=chr13
+        threads: 2
+
+
+    [Wed Feb 10 09:56:46 2021]
+    rule getAlleleCountsByChr:
+        input: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr6.vcf, results/tumor_sample_1.filtered.bam
+        output: results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr6.txt
+        log: logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chrchr6.log
+        jobid: 18
+        wildcards: tumor=tumor_sample_1, chr=chr6
+        threads: 2
+
+
+    [Wed Feb 10 09:56:46 2021]
+    rule getAlleleCountsByChr:
+        input: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr21.vcf, results/tumor_sample_1.filtered.bam
+        output: results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr21.txt
+        log: logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chrchr21.log
+        jobid: 33
+        wildcards: tumor=tumor_sample_1, chr=chr21
+        threads: 2
+
+
+    [Wed Feb 10 09:56:46 2021]
+    rule getAlleleCountsByChr:
+        input: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr14.vcf, results/tumor_sample_1.filtered.bam
+        output: results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr14.txt
+        log: logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chrchr14.log
+        jobid: 26
+        wildcards: tumor=tumor_sample_1, chr=chr14
+        threads: 2
+
+
+    [Wed Feb 10 09:56:46 2021]
+    rule getHETsites:
+        input: results/normal_sample_1.filtered.bam
+        output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr14.vcf
+        log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr14.log
+        jobid: 51
+        wildcards: tumor=tumor_sample_1, chr=chr14
+        threads: 2
+
+
+    [Wed Feb 10 09:56:46 2021]
+    rule getHETsites:
+        input: results/normal_sample_1.filtered.bam
+        output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr7.vcf
+        log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr7.log
+        jobid: 44
+        wildcards: tumor=tumor_sample_1, chr=chr7
+        threads: 2
+
+
+    [Wed Feb 10 09:56:46 2021]
+    rule getHETsites:
+        input: results/normal_sample_1.filtered.bam
+        output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr22.vcf
+        log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr22.log
+        jobid: 59
+        wildcards: tumor=tumor_sample_1, chr=chr22
+        threads: 2
+
+
+    [Wed Feb 10 09:56:46 2021]
+    rule getHETsites:
+        input: results/normal_sample_1.filtered.bam
+        output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr15.vcf
+        log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr15.log
+        jobid: 52
+        wildcards: tumor=tumor_sample_1, chr=chr15
+        threads: 2
+
+
+    [Wed Feb 10 09:56:46 2021]
+    rule getHETsites:
+        input: results/normal_sample_1.filtered.bam
+        output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr8.vcf
+        log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr8.log
+        jobid: 45
+        wildcards: tumor=tumor_sample_1, chr=chr8
+        threads: 2
+
+
+    [Wed Feb 10 09:56:46 2021]
+    rule getHETsites:
+        input: results/normal_sample_1.filtered.bam
+        output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchrX.vcf
+        log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchrX.log
+        jobid: 60
+        wildcards: tumor=tumor_sample_1, chr=chrX
+        threads: 2
+
+
+    [Wed Feb 10 09:56:46 2021]
+    rule getHETsites:
+        input: results/normal_sample_1.filtered.bam
+        output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr1.vcf
+        log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr1.log
+        jobid: 38
+        wildcards: tumor=tumor_sample_1, chr=chr1
+        threads: 2
+
+
+    [Wed Feb 10 09:56:46 2021]
+    rule getHETsites:
+        input: results/normal_sample_1.filtered.bam
+        output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr16.vcf
+        log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr16.log
+        jobid: 53
+        wildcards: tumor=tumor_sample_1, chr=chr16
+        threads: 2
+
+
+    [Wed Feb 10 09:56:46 2021]
+    rule getHETsites:
+        input: results/normal_sample_1.filtered.bam
+        output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr9.vcf
+        log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr9.log
+        jobid: 46
+        wildcards: tumor=tumor_sample_1, chr=chr9
+        threads: 2
+
+
+    [Wed Feb 10 09:56:46 2021]
+    rule getHETsites:
+        input: results/normal_sample_1.filtered.bam
+        output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr2.vcf
+        log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr2.log
+        jobid: 39
+        wildcards: tumor=tumor_sample_1, chr=chr2
+        threads: 2
+
+
+    [Wed Feb 10 09:56:46 2021]
+    rule getHETsites:
+        input: results/normal_sample_1.filtered.bam
+        output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr17.vcf
+        log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr17.log
+        jobid: 54
+        wildcards: tumor=tumor_sample_1, chr=chr17
+        threads: 2
+
+
+    [Wed Feb 10 09:56:46 2021]
+    rule getHETsites:
+        input: results/normal_sample_1.filtered.bam
+        output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr10.vcf
+        log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr10.log
+        jobid: 47
+        wildcards: tumor=tumor_sample_1, chr=chr10
+        threads: 2
+
+
+    [Wed Feb 10 09:56:46 2021]
+    rule getHETsites:
+        input: results/normal_sample_1.filtered.bam
+        output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr3.vcf
+        log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr3.log
+        jobid: 40
+        wildcards: tumor=tumor_sample_1, chr=chr3
+        threads: 2
+
+
+    [Wed Feb 10 09:56:46 2021]
+    rule getHETsites:
+        input: results/normal_sample_1.filtered.bam
+        output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr18.vcf
+        log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr18.log
+        jobid: 55
+        wildcards: tumor=tumor_sample_1, chr=chr18
+        threads: 2
+
+
+    [Wed Feb 10 09:56:46 2021]
+    rule getHETsites:
+        input: results/normal_sample_1.filtered.bam
+        output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr11.vcf
+        log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr11.log
+        jobid: 48
+        wildcards: tumor=tumor_sample_1, chr=chr11
+        threads: 2
+
+
+    [Wed Feb 10 09:56:46 2021]
+    rule getHETsites:
+        input: results/normal_sample_1.filtered.bam
+        output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr4.vcf
+        log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr4.log
+        jobid: 41
+        wildcards: tumor=tumor_sample_1, chr=chr4
+        threads: 2
+
+
+    [Wed Feb 10 09:56:46 2021]
+    rule getHETsites:
+        input: results/normal_sample_1.filtered.bam
+        output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr19.vcf
+        log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr19.log
+        jobid: 56
+        wildcards: tumor=tumor_sample_1, chr=chr19
+        threads: 2
+
+
+    [Wed Feb 10 09:56:46 2021]
+    rule getHETsites:
+        input: results/normal_sample_1.filtered.bam
+        output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr12.vcf
+        log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr12.log
+        jobid: 49
+        wildcards: tumor=tumor_sample_1, chr=chr12
+        threads: 2
+
+
+    [Wed Feb 10 09:56:46 2021]
+    rule getHETsites:
+        input: results/normal_sample_1.filtered.bam
+        output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr5.vcf
+        log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr5.log
+        jobid: 42
+        wildcards: tumor=tumor_sample_1, chr=chr5
+        threads: 2
+
+
+    [Wed Feb 10 09:56:46 2021]
+    rule getHETsites:
+        input: results/normal_sample_1.filtered.bam
+        output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr20.vcf
+        log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr20.log
+        jobid: 57
+        wildcards: tumor=tumor_sample_1, chr=chr20
+        threads: 2
+
+
+    [Wed Feb 10 09:56:46 2021]
+    rule getHETsites:
+        input: results/normal_sample_1.filtered.bam
+        output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr13.vcf
+        log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr13.log
+        jobid: 50
+        wildcards: tumor=tumor_sample_1, chr=chr13
+        threads: 2
+
+
+    [Wed Feb 10 09:56:46 2021]
+    rule getHETsites:
+        input: results/normal_sample_1.filtered.bam
+        output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr6.vcf
+        log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr6.log
+        jobid: 43
+        wildcards: tumor=tumor_sample_1, chr=chr6
+        threads: 2
+
+
+    [Wed Feb 10 09:56:46 2021]
+    rule getHETsites:
+        input: results/normal_sample_1.filtered.bam
+        output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr21.vcf
+        log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr21.log
+        jobid: 58
+        wildcards: tumor=tumor_sample_1, chr=chr21
+        threads: 2
+
+
+    [Wed Feb 10 09:56:46 2021]
+    rule ichorCNA:
+        input: results/readDepth/tumor_sample_1.bin10000.wig, results/readDepth/normal_sample_1.bin10000.wig
+        output: results/ichorCNA/tumor_sample_1/tumor_sample_1.correctedDepth.txt, results/ichorCNA/tumor_sample_1/tumor_sample_1.params.txt, results/ichorCNA/tumor_sample_1/tumor_sample_1.cna.seg, results/ichorCNA/tumor_sample_1/tumor_sample_1.seg.txt
+        log: logs/ichorCNA/tumor_sample_1.log
+        jobid: 12
+        wildcards: tumor=tumor_sample_1
+        resources: mem=4
+
+
+    [Wed Feb 10 09:56:46 2021]
+    rule read_counter:
+        input: results/tumor_sample_1.filtered.bam
+        output: results/readDepth/tumor_sample_1.bin10000.wig
+        log: logs/readDepth/tumor_sample_1.bin10000.log
+        jobid: 36
+        wildcards: samples=tumor_sample_1, binSize=10000
+        resources: mem=4
+
+
+    [Wed Feb 10 09:56:46 2021]
+    rule read_counter:
+        input: results/normal_sample_1.filtered.bam
+        output: results/readDepth/normal_sample_1.bin10000.wig
+        log: logs/readDepth/normal_sample_1.bin10000.log
+        jobid: 37
+        wildcards: samples=normal_sample_1, binSize=10000
+        resources: mem=4
+
+
+    [Wed Feb 10 09:56:46 2021]
+    rule runTitanCNA:
+        input: results/titan/tumCounts/tumor_sample_1.tumCounts.txt, results/ichorCNA/tumor_sample_1/tumor_sample_1.correctedDepth.txt
+        output: results/titan/hmm/titanCNA_ploidy3/tumor_sample_1_cluster2.titan.txt, results/titan/hmm/titanCNA_ploidy3/tumor_sample_1_cluster2.params.txt, results/titan/hmm/titanCNA_ploidy3/tumor_sample_1_cluster2.segs.txt, results/titan/hmm/titanCNA_ploidy3/tumor_sample_1_cluster2.seg
+        log: logs/titan/hmm/titanCNA_ploidy3/run_titanCNA_tumor_sample_1_cluster2.log
+        jobid: 4
+        wildcards: ploidy=3, tumor=tumor_sample_1, clustNum=2
+        threads: 2
+
+
+    [Wed Feb 10 09:56:46 2021]
+    rule runTitanCNA:
+        input: results/titan/tumCounts/tumor_sample_1.tumCounts.txt, results/ichorCNA/tumor_sample_1/tumor_sample_1.correctedDepth.txt
+        output: results/titan/hmm/titanCNA_ploidy2/tumor_sample_1_cluster1.titan.txt, results/titan/hmm/titanCNA_ploidy2/tumor_sample_1_cluster1.params.txt, results/titan/hmm/titanCNA_ploidy2/tumor_sample_1_cluster1.segs.txt, results/titan/hmm/titanCNA_ploidy2/tumor_sample_1_cluster1.seg
+        log: logs/titan/hmm/titanCNA_ploidy2/run_titanCNA_tumor_sample_1_cluster1.log
+        jobid: 1
+        wildcards: ploidy=2, tumor=tumor_sample_1, clustNum=1
+        threads: 2
+
+
+    [Wed Feb 10 09:56:46 2021]
+    rule runTitanCNA:
+        input: results/titan/tumCounts/tumor_sample_1.tumCounts.txt, results/ichorCNA/tumor_sample_1/tumor_sample_1.correctedDepth.txt
+        output: results/titan/hmm/titanCNA_ploidy3/tumor_sample_1_cluster1.titan.txt, results/titan/hmm/titanCNA_ploidy3/tumor_sample_1_cluster1.params.txt, results/titan/hmm/titanCNA_ploidy3/tumor_sample_1_cluster1.segs.txt, results/titan/hmm/titanCNA_ploidy3/tumor_sample_1_cluster1.seg
+        log: logs/titan/hmm/titanCNA_ploidy3/run_titanCNA_tumor_sample_1_cluster1.log
+        jobid: 2
+        wildcards: ploidy=3, tumor=tumor_sample_1, clustNum=1
+        threads: 2
+
+
+    [Wed Feb 10 09:56:46 2021]
+    rule runTitanCNA:
+        input: results/titan/tumCounts/tumor_sample_1.tumCounts.txt, results/ichorCNA/tumor_sample_1/tumor_sample_1.correctedDepth.txt
+        output: results/titan/hmm/titanCNA_ploidy2/tumor_sample_1_cluster2.titan.txt, results/titan/hmm/titanCNA_ploidy2/tumor_sample_1_cluster2.params.txt, results/titan/hmm/titanCNA_ploidy2/tumor_sample_1_cluster2.segs.txt, results/titan/hmm/titanCNA_ploidy2/tumor_sample_1_cluster2.seg
+        log: logs/titan/hmm/titanCNA_ploidy2/run_titanCNA_tumor_sample_1_cluster2.log
+        jobid: 3
+        wildcards: ploidy=2, tumor=tumor_sample_1, clustNum=2
+        threads: 2
+
+
+    [Wed Feb 10 09:56:46 2021]
+    rule selectSolution:
+        input: results/titan/hmm/titanCNA_ploidy2/tumor_sample_1_cluster1.titan.txt, results/titan/hmm/titanCNA_ploidy3/tumor_sample_1_cluster1.titan.txt, results/titan/hmm/titanCNA_ploidy2/tumor_sample_1_cluster2.titan.txt, results/titan/hmm/titanCNA_ploidy3/tumor_sample_1_cluster2.titan.txt
+        output: results/titan/hmm/optimalClusterSolution.txt
+        log: logs/titan/selectSolution.log
+        jobid: 9
+        threads: 2
+
+Submitted group job fe4f6cca-f3ba-5e56-bef6-4a47cdecb930 with external jobid 'Submitted batch job 4826603'.
+[Wed Feb 10 09:58:55 2021]
+Error in group job ichor:
+    [Wed Feb 10 09:58:55 2021]
+    Error in rule getAlleleCountsByChr:
+        jobid: 19
+        output: results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr7.txt
+        log: logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chrchr7.log (check log file(s) for error message)
+        shell:
+        singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img python /scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake/code/countPysam.py chr7 results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr7.vcf results/tumor_sample_1.filtered.bam 10 10 100 > results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr7.txt 2> logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chrchr7.log
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+        cluster_jobid: Submitted batch job 4826603
+
+    [Wed Feb 10 09:58:55 2021]
+    Error in rule getAlleleCountsByChr:
+        jobid: 34
+        output: results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr22.txt
+        log: logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chrchr22.log (check log file(s) for error message)
+        shell:
+        singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img python /scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake/code/countPysam.py chr22 results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr22.vcf results/tumor_sample_1.filtered.bam 10 10 100 > results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr22.txt 2> logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chrchr22.log
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+        cluster_jobid: Submitted batch job 4826603
+
+    [Wed Feb 10 09:58:55 2021]
+    Error in rule getHETsites:
+        jobid: 51
+        output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr14.vcf
+        log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr14.log (check log file(s) for error message)
+        shell:
+        singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/singularity_images,$SCRATCH/singularity_images/TitanCNA/scripts/snakemake/results /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img samtools mpileup -uv -I -f /scratch/n/nicholsa/zyfniu/igenomes_ref/Homo_sapiens_assembly38.fasta -r chr14 -l /scratch/n/nicholsa/zyfniu/igenomes_ref/hapmap_3.3.hg38.vcf.gz results/normal_sample_1.filtered.bam | singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/singularity_images,$SCRATCH/singularity_images/TitanCNA/scripts/snakemake/results /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img bcftools call -v -c - | grep -e '0/1' -e '#' > results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr14.vcf 2> logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr14.log
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+        cluster_jobid: Submitted batch job 4826603
+
+    [Wed Feb 10 09:58:55 2021]
+    Error in rule runTitanCNA:
+        jobid: 4
+        output: results/titan/hmm/titanCNA_ploidy3/tumor_sample_1_cluster2.titan.txt, results/titan/hmm/titanCNA_ploidy3/tumor_sample_1_cluster2.params.txt, results/titan/hmm/titanCNA_ploidy3/tumor_sample_1_cluster2.segs.txt, results/titan/hmm/titanCNA_ploidy3/tumor_sample_1_cluster2.seg
+        log: logs/titan/hmm/titanCNA_ploidy3/run_titanCNA_tumor_sample_1_cluster2.log (check log file(s) for error message)
+        shell:
+        singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/ichorcna_pz.simg Rscript /scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/R_scripts/titanCNA.R --hetFile results/titan/tumCounts/tumor_sample_1.tumCounts.txt --cnFile results/ichorCNA/tumor_sample_1/tumor_sample_1.correctedDepth.txt --outFile results/titan/hmm/titanCNA_ploidy3/tumor_sample_1_cluster2.titan.txt --outSeg results/titan/hmm/titanCNA_ploidy3/tumor_sample_1_cluster2.segs.txt --outParam results/titan/hmm/titanCNA_ploidy3/tumor_sample_1_cluster2.params.txt --outIGV results/titan/hmm/titanCNA_ploidy3/tumor_sample_1_cluster2.seg --outPlotDir results/titan/hmm/titanCNA_ploidy3/tumor_sample_1_cluster2/ --libdir /scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/R/ --id tumor_sample_1 --numClusters 2 --numCores 80 --normal_0 0.5 --ploidy_0 3 --genomeStyle UCSC --genomeBuild hg38 --cytobandFile /scratch/n/nicholsa/zyfniu/igenomes_ref/cytoBand_hg38.txt --chrs "c(1:22, \"X\")" --gender male --estimateNormal map --estimatePloidy True --estimateClonality True  --centromere /scratch/n/nicholsa/zyfniu/igenomes_ref/GRCh38.GCA_000001405.2_centromere_acen.txt --alphaK 10000 --txnExpLen 1e15 --plotYlim "c(-2,4)" > logs/titan/hmm/titanCNA_ploidy3/run_titanCNA_tumor_sample_1_cluster2.log 2> logs/titan/hmm/titanCNA_ploidy3/run_titanCNA_tumor_sample_1_cluster2.log
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+        cluster_jobid: Submitted batch job 4826603
+
+    [Wed Feb 10 09:58:55 2021]
+    Error in rule ichorCNA:
+        jobid: 12
+        output: results/ichorCNA/tumor_sample_1/tumor_sample_1.correctedDepth.txt, results/ichorCNA/tumor_sample_1/tumor_sample_1.params.txt, results/ichorCNA/tumor_sample_1/tumor_sample_1.cna.seg, results/ichorCNA/tumor_sample_1/tumor_sample_1.seg.txt
+        log: logs/ichorCNA/tumor_sample_1.log (check log file(s) for error message)
+        shell:
+        singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/ichorcna_pz.simg Rscript /scratch/n/nicholsa/zyfniu/singularity_images/ichorCNA/scripts/runIchorCNA.R --libdir /scratch/n/nicholsa/zyfniu/singularity_images/ichorCNA/ --id tumor_sample_1 --WIG results/readDepth/tumor_sample_1.bin10000.wig --gcWig /scratch/n/nicholsa/zyfniu/igenomes_ref/gc_hg38_10kb.wig --mapWig /scratch/n/nicholsa/zyfniu/igenomes_ref/map_hg38_10kb.wig --NORMWIG results/readDepth/normal_sample_1.bin10000.wig --ploidy "c(2,3)" --normal "c(0.5)" --maxCN 8 --includeHOMD False --genomeStyle UCSC --chrs "c(1:22, \"X\")" --estimateNormal True --estimatePloidy True --estimateScPrevalence True --scStates "c(1,3)" --centromere /scratch/n/nicholsa/zyfniu/igenomes_ref/GRCh38.GCA_000001405.2_centromere_acen.txt --exons.bed None --txnE 0.9999 --txnStrength 10000 --fracReadsInChrYForMale 0.001 --plotFileType png --plotYLim "c(-2,4)" --outDir results/ichorCNA/tumor_sample_1/ > logs/ichorCNA/tumor_sample_1.log 2> logs/ichorCNA/tumor_sample_1.log
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+        cluster_jobid: Submitted batch job 4826603
+
+    [Wed Feb 10 09:58:55 2021]
+    Error in rule getAlleleCountsByChr:
+        jobid: 27
+        output: results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr15.txt
+        log: logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chrchr15.log (check log file(s) for error message)
+        shell:
+        singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img python /scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake/code/countPysam.py chr15 results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr15.vcf results/tumor_sample_1.filtered.bam 10 10 100 > results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr15.txt 2> logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chrchr15.log
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+        cluster_jobid: Submitted batch job 4826603
+
+    [Wed Feb 10 09:58:55 2021]
+    Error in rule getHETsites:
+        jobid: 44
+        output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr7.vcf
+        log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr7.log (check log file(s) for error message)
+        shell:
+        singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/singularity_images,$SCRATCH/singularity_images/TitanCNA/scripts/snakemake/results /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img samtools mpileup -uv -I -f /scratch/n/nicholsa/zyfniu/igenomes_ref/Homo_sapiens_assembly38.fasta -r chr7 -l /scratch/n/nicholsa/zyfniu/igenomes_ref/hapmap_3.3.hg38.vcf.gz results/normal_sample_1.filtered.bam | singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/singularity_images,$SCRATCH/singularity_images/TitanCNA/scripts/snakemake/results /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img bcftools call -v -c - | grep -e '0/1' -e '#' > results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr7.vcf 2> logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr7.log
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+        cluster_jobid: Submitted batch job 4826603
+
+    [Wed Feb 10 09:58:55 2021]
+    Error in rule getHETsites:
+        jobid: 59
+        output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr22.vcf
+        log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr22.log (check log file(s) for error message)
+        shell:
+        singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/singularity_images,$SCRATCH/singularity_images/TitanCNA/scripts/snakemake/results /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img samtools mpileup -uv -I -f /scratch/n/nicholsa/zyfniu/igenomes_ref/Homo_sapiens_assembly38.fasta -r chr22 -l /scratch/n/nicholsa/zyfniu/igenomes_ref/hapmap_3.3.hg38.vcf.gz results/normal_sample_1.filtered.bam | singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/singularity_images,$SCRATCH/singularity_images/TitanCNA/scripts/snakemake/results /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img bcftools call -v -c - | grep -e '0/1' -e '#' > results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr22.vcf 2> logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr22.log
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+        cluster_jobid: Submitted batch job 4826603
+
+    [Wed Feb 10 09:58:55 2021]
+    Error in rule getAlleleCountsByChr:
+        jobid: 20
+        output: results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr8.txt
+        log: logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chrchr8.log (check log file(s) for error message)
+        shell:
+        singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img python /scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake/code/countPysam.py chr8 results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr8.vcf results/tumor_sample_1.filtered.bam 10 10 100 > results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr8.txt 2> logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chrchr8.log
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+        cluster_jobid: Submitted batch job 4826603
+
+    [Wed Feb 10 09:58:55 2021]
+    Error in rule getAlleleCountsByChr:
+        jobid: 35
+        output: results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchrX.txt
+        log: logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chrchrX.log (check log file(s) for error message)
+        shell:
+        singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img python /scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake/code/countPysam.py chrX results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchrX.vcf results/tumor_sample_1.filtered.bam 10 10 100 > results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchrX.txt 2> logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chrchrX.log
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+        cluster_jobid: Submitted batch job 4826603
+
+    [Wed Feb 10 09:58:55 2021]
+    Error in rule getHETsites:
+        jobid: 52
+        output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr15.vcf
+        log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr15.log (check log file(s) for error message)
+        shell:
+        singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/singularity_images,$SCRATCH/singularity_images/TitanCNA/scripts/snakemake/results /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img samtools mpileup -uv -I -f /scratch/n/nicholsa/zyfniu/igenomes_ref/Homo_sapiens_assembly38.fasta -r chr15 -l /scratch/n/nicholsa/zyfniu/igenomes_ref/hapmap_3.3.hg38.vcf.gz results/normal_sample_1.filtered.bam | singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/singularity_images,$SCRATCH/singularity_images/TitanCNA/scripts/snakemake/results /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img bcftools call -v -c - | grep -e '0/1' -e '#' > results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr15.vcf 2> logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr15.log
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+        cluster_jobid: Submitted batch job 4826603
+
+    [Wed Feb 10 09:58:55 2021]
+    Error in rule combineTitanAndIchorCNA:
+        jobid: 5
+        output: results/titan/hmm/titanCNA_ploidy2/tumor_sample_1_cluster1.titan.ichor.seg.txt, results/titan/hmm/titanCNA_ploidy2/tumor_sample_1_cluster1.titan.ichor.cna.txt
+        log: logs/titan/hmm/titanCNA_ploidy2/tumor_sample_1_cluster1.combineTitanIchorCNA.log (check log file(s) for error message)
+        shell:
+        singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/ichorcna_pz.simg Rscript /scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake/code/combineTITAN-ichor.R --libdir /scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/R/ --titanSeg results/titan/hmm/titanCNA_ploidy2/tumor_sample_1_cluster1.segs.txt --titanBin results/titan/hmm/titanCNA_ploidy2/tumor_sample_1_cluster1.titan.txt --titanParam results/titan/hmm/titanCNA_ploidy2/tumor_sample_1_cluster1.params.txt --ichorSeg results/ichorCNA/tumor_sample_1/tumor_sample_1.seg.txt --ichorBin results/ichorCNA/tumor_sample_1/tumor_sample_1.cna.seg --ichorParam results/ichorCNA/tumor_sample_1/tumor_sample_1.params.txt --mergeIchorHOMD False --sex male --outSegFile results/titan/hmm/titanCNA_ploidy2/tumor_sample_1_cluster1.titan.ichor.seg.txt --outBinFile results/titan/hmm/titanCNA_ploidy2/tumor_sample_1_cluster1.titan.ichor.cna.txt --centromere /scratch/n/nicholsa/zyfniu/igenomes_ref/GRCh38.GCA_000001405.2_centromere_acen.txt > logs/titan/hmm/titanCNA_ploidy2/tumor_sample_1_cluster1.combineTitanIchorCNA.log 2> logs/titan/hmm/titanCNA_ploidy2/tumor_sample_1_cluster1.combineTitanIchorCNA.log
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+        cluster_jobid: Submitted batch job 4826603
+
+    [Wed Feb 10 09:58:55 2021]
+    Error in rule getAlleleCountsByChr:
+        jobid: 13
+        output: results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr1.txt
+        log: logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chrchr1.log (check log file(s) for error message)
+        shell:
+        singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img python /scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake/code/countPysam.py chr1 results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr1.vcf results/tumor_sample_1.filtered.bam 10 10 100 > results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr1.txt 2> logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chrchr1.log
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+        cluster_jobid: Submitted batch job 4826603
+
+    [Wed Feb 10 09:58:55 2021]
+    Error in rule getAlleleCountsByChr:
+        jobid: 28
+        output: results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr16.txt
+        log: logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chrchr16.log (check log file(s) for error message)
+        shell:
+        singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img python /scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake/code/countPysam.py chr16 results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr16.vcf results/tumor_sample_1.filtered.bam 10 10 100 > results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr16.txt 2> logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chrchr16.log
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+        cluster_jobid: Submitted batch job 4826603
+
+    [Wed Feb 10 09:58:55 2021]
+    Error in rule getHETsites:
+        jobid: 45
+        output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr8.vcf
+        log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr8.log (check log file(s) for error message)
+        shell:
+        singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/singularity_images,$SCRATCH/singularity_images/TitanCNA/scripts/snakemake/results /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img samtools mpileup -uv -I -f /scratch/n/nicholsa/zyfniu/igenomes_ref/Homo_sapiens_assembly38.fasta -r chr8 -l /scratch/n/nicholsa/zyfniu/igenomes_ref/hapmap_3.3.hg38.vcf.gz results/normal_sample_1.filtered.bam | singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/singularity_images,$SCRATCH/singularity_images/TitanCNA/scripts/snakemake/results /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img bcftools call -v -c - | grep -e '0/1' -e '#' > results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr8.vcf 2> logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr8.log
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+        cluster_jobid: Submitted batch job 4826603
+
+    [Wed Feb 10 09:58:55 2021]
+    Error in rule getHETsites:
+        jobid: 60
+        output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchrX.vcf
+        log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchrX.log (check log file(s) for error message)
+        shell:
+        singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/singularity_images,$SCRATCH/singularity_images/TitanCNA/scripts/snakemake/results /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img samtools mpileup -uv -I -f /scratch/n/nicholsa/zyfniu/igenomes_ref/Homo_sapiens_assembly38.fasta -r chrX -l /scratch/n/nicholsa/zyfniu/igenomes_ref/hapmap_3.3.hg38.vcf.gz results/normal_sample_1.filtered.bam | singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/singularity_images,$SCRATCH/singularity_images/TitanCNA/scripts/snakemake/results /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img bcftools call -v -c - | grep -e '0/1' -e '#' > results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchrX.vcf 2> logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchrX.log
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+        cluster_jobid: Submitted batch job 4826603
+
+    [Wed Feb 10 09:58:55 2021]
+    Error in rule getAlleleCountsByChr:
+        jobid: 21
+        output: results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr9.txt
+        log: logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chrchr9.log (check log file(s) for error message)
+        shell:
+        singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img python /scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake/code/countPysam.py chr9 results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr9.vcf results/tumor_sample_1.filtered.bam 10 10 100 > results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr9.txt 2> logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chrchr9.log
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+        cluster_jobid: Submitted batch job 4826603
+
+    [Wed Feb 10 09:58:55 2021]
+    Error in rule getHETsites:
+        jobid: 38
+        output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr1.vcf
+        log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr1.log (check log file(s) for error message)
+        shell:
+        singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/singularity_images,$SCRATCH/singularity_images/TitanCNA/scripts/snakemake/results /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img samtools mpileup -uv -I -f /scratch/n/nicholsa/zyfniu/igenomes_ref/Homo_sapiens_assembly38.fasta -r chr1 -l /scratch/n/nicholsa/zyfniu/igenomes_ref/hapmap_3.3.hg38.vcf.gz results/normal_sample_1.filtered.bam | singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/singularity_images,$SCRATCH/singularity_images/TitanCNA/scripts/snakemake/results /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img bcftools call -v -c - | grep -e '0/1' -e '#' > results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr1.vcf 2> logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr1.log
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+        cluster_jobid: Submitted batch job 4826603
+
+    [Wed Feb 10 09:58:55 2021]
+    Error in rule getHETsites:
+        jobid: 53
+        output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr16.vcf
+        log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr16.log (check log file(s) for error message)
+        shell:
+        singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/singularity_images,$SCRATCH/singularity_images/TitanCNA/scripts/snakemake/results /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img samtools mpileup -uv -I -f /scratch/n/nicholsa/zyfniu/igenomes_ref/Homo_sapiens_assembly38.fasta -r chr16 -l /scratch/n/nicholsa/zyfniu/igenomes_ref/hapmap_3.3.hg38.vcf.gz results/normal_sample_1.filtered.bam | singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/singularity_images,$SCRATCH/singularity_images/TitanCNA/scripts/snakemake/results /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img bcftools call -v -c - | grep -e '0/1' -e '#' > results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr16.vcf 2> logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr16.log
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+        cluster_jobid: Submitted batch job 4826603
+
+    [Wed Feb 10 09:58:55 2021]
+    Error in rule combineTitanAndIchorCNA:
+        jobid: 6
+        output: results/titan/hmm/titanCNA_ploidy3/tumor_sample_1_cluster1.titan.ichor.seg.txt, results/titan/hmm/titanCNA_ploidy3/tumor_sample_1_cluster1.titan.ichor.cna.txt
+        log: logs/titan/hmm/titanCNA_ploidy3/tumor_sample_1_cluster1.combineTitanIchorCNA.log (check log file(s) for error message)
+        shell:
+        singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/ichorcna_pz.simg Rscript /scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake/code/combineTITAN-ichor.R --libdir /scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/R/ --titanSeg results/titan/hmm/titanCNA_ploidy3/tumor_sample_1_cluster1.segs.txt --titanBin results/titan/hmm/titanCNA_ploidy3/tumor_sample_1_cluster1.titan.txt --titanParam results/titan/hmm/titanCNA_ploidy3/tumor_sample_1_cluster1.params.txt --ichorSeg results/ichorCNA/tumor_sample_1/tumor_sample_1.seg.txt --ichorBin results/ichorCNA/tumor_sample_1/tumor_sample_1.cna.seg --ichorParam results/ichorCNA/tumor_sample_1/tumor_sample_1.params.txt --mergeIchorHOMD False --sex male --outSegFile results/titan/hmm/titanCNA_ploidy3/tumor_sample_1_cluster1.titan.ichor.seg.txt --outBinFile results/titan/hmm/titanCNA_ploidy3/tumor_sample_1_cluster1.titan.ichor.cna.txt --centromere /scratch/n/nicholsa/zyfniu/igenomes_ref/GRCh38.GCA_000001405.2_centromere_acen.txt > logs/titan/hmm/titanCNA_ploidy3/tumor_sample_1_cluster1.combineTitanIchorCNA.log 2> logs/titan/hmm/titanCNA_ploidy3/tumor_sample_1_cluster1.combineTitanIchorCNA.log
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+        cluster_jobid: Submitted batch job 4826603
+
+    [Wed Feb 10 09:58:55 2021]
+    Error in rule getAlleleCountsByChr:
+        jobid: 14
+        output: results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr2.txt
+        log: logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chrchr2.log (check log file(s) for error message)
+        shell:
+        singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img python /scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake/code/countPysam.py chr2 results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr2.vcf results/tumor_sample_1.filtered.bam 10 10 100 > results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr2.txt 2> logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chrchr2.log
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+        cluster_jobid: Submitted batch job 4826603
+
+    [Wed Feb 10 09:58:55 2021]
+    Error in rule getAlleleCountsByChr:
+        jobid: 29
+        output: results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr17.txt
+        log: logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chrchr17.log (check log file(s) for error message)
+        shell:
+        singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img python /scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake/code/countPysam.py chr17 results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr17.vcf results/tumor_sample_1.filtered.bam 10 10 100 > results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr17.txt 2> logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chrchr17.log
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+        cluster_jobid: Submitted batch job 4826603
+
+    [Wed Feb 10 09:58:55 2021]
+    Error in rule read_counter:
+        jobid: 36
+        output: results/readDepth/tumor_sample_1.bin10000.wig
+        log: logs/readDepth/tumor_sample_1.bin10000.log (check log file(s) for error message)
+        shell:
+        singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images,/scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/ichorcna_pz.simg readCounter results/tumor_sample_1.filtered.bam -c chr1,chr2,chr3,chr4,chr5,chr6,chr7,chr8,chr9,chr10,chr11,chr12,chr13,chr14,chr15,chr16,chr17,chr18,chr19,chr20,chr21,chr22,chrX,chrY -w 10000 -q 20 > results/readDepth/tumor_sample_1.bin10000.wig 2> logs/readDepth/tumor_sample_1.bin10000.log
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+        cluster_jobid: Submitted batch job 4826603
+
+    [Wed Feb 10 09:58:55 2021]
+    Error in rule getHETsites:
+        jobid: 46
+        output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr9.vcf
+        log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr9.log (check log file(s) for error message)
+        shell:
+        singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/singularity_images,$SCRATCH/singularity_images/TitanCNA/scripts/snakemake/results /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img samtools mpileup -uv -I -f /scratch/n/nicholsa/zyfniu/igenomes_ref/Homo_sapiens_assembly38.fasta -r chr9 -l /scratch/n/nicholsa/zyfniu/igenomes_ref/hapmap_3.3.hg38.vcf.gz results/normal_sample_1.filtered.bam | singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/singularity_images,$SCRATCH/singularity_images/TitanCNA/scripts/snakemake/results /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img bcftools call -v -c - | grep -e '0/1' -e '#' > results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr9.vcf 2> logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr9.log
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+        cluster_jobid: Submitted batch job 4826603
+
+    [Wed Feb 10 09:58:55 2021]
+    Error in rule getAlleleCountsByChr:
+        jobid: 22
+        output: results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr10.txt
+        log: logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chrchr10.log (check log file(s) for error message)
+        shell:
+        singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img python /scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake/code/countPysam.py chr10 results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr10.vcf results/tumor_sample_1.filtered.bam 10 10 100 > results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr10.txt 2> logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chrchr10.log
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+        cluster_jobid: Submitted batch job 4826603
+
+    [Wed Feb 10 09:58:55 2021]
+    Error in rule getHETsites:
+        jobid: 39
+        output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr2.vcf
+        log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr2.log (check log file(s) for error message)
+        shell:
+        singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/singularity_images,$SCRATCH/singularity_images/TitanCNA/scripts/snakemake/results /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img samtools mpileup -uv -I -f /scratch/n/nicholsa/zyfniu/igenomes_ref/Homo_sapiens_assembly38.fasta -r chr2 -l /scratch/n/nicholsa/zyfniu/igenomes_ref/hapmap_3.3.hg38.vcf.gz results/normal_sample_1.filtered.bam | singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/singularity_images,$SCRATCH/singularity_images/TitanCNA/scripts/snakemake/results /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img bcftools call -v -c - | grep -e '0/1' -e '#' > results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr2.vcf 2> logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr2.log
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+        cluster_jobid: Submitted batch job 4826603
+
+    [Wed Feb 10 09:58:55 2021]
+    Error in rule getHETsites:
+        jobid: 54
+        output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr17.vcf
+        log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr17.log (check log file(s) for error message)
+        shell:
+        singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/singularity_images,$SCRATCH/singularity_images/TitanCNA/scripts/snakemake/results /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img samtools mpileup -uv -I -f /scratch/n/nicholsa/zyfniu/igenomes_ref/Homo_sapiens_assembly38.fasta -r chr17 -l /scratch/n/nicholsa/zyfniu/igenomes_ref/hapmap_3.3.hg38.vcf.gz results/normal_sample_1.filtered.bam | singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/singularity_images,$SCRATCH/singularity_images/TitanCNA/scripts/snakemake/results /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img bcftools call -v -c - | grep -e '0/1' -e '#' > results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr17.vcf 2> logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr17.log
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+        cluster_jobid: Submitted batch job 4826603
+
+    [Wed Feb 10 09:58:55 2021]
+    Error in rule combineTitanAndIchorCNA:
+        jobid: 7
+        output: results/titan/hmm/titanCNA_ploidy2/tumor_sample_1_cluster2.titan.ichor.seg.txt, results/titan/hmm/titanCNA_ploidy2/tumor_sample_1_cluster2.titan.ichor.cna.txt
+        log: logs/titan/hmm/titanCNA_ploidy2/tumor_sample_1_cluster2.combineTitanIchorCNA.log (check log file(s) for error message)
+        shell:
+        singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/ichorcna_pz.simg Rscript /scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake/code/combineTITAN-ichor.R --libdir /scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/R/ --titanSeg results/titan/hmm/titanCNA_ploidy2/tumor_sample_1_cluster2.segs.txt --titanBin results/titan/hmm/titanCNA_ploidy2/tumor_sample_1_cluster2.titan.txt --titanParam results/titan/hmm/titanCNA_ploidy2/tumor_sample_1_cluster2.params.txt --ichorSeg results/ichorCNA/tumor_sample_1/tumor_sample_1.seg.txt --ichorBin results/ichorCNA/tumor_sample_1/tumor_sample_1.cna.seg --ichorParam results/ichorCNA/tumor_sample_1/tumor_sample_1.params.txt --mergeIchorHOMD False --sex male --outSegFile results/titan/hmm/titanCNA_ploidy2/tumor_sample_1_cluster2.titan.ichor.seg.txt --outBinFile results/titan/hmm/titanCNA_ploidy2/tumor_sample_1_cluster2.titan.ichor.cna.txt --centromere /scratch/n/nicholsa/zyfniu/igenomes_ref/GRCh38.GCA_000001405.2_centromere_acen.txt > logs/titan/hmm/titanCNA_ploidy2/tumor_sample_1_cluster2.combineTitanIchorCNA.log 2> logs/titan/hmm/titanCNA_ploidy2/tumor_sample_1_cluster2.combineTitanIchorCNA.log
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+        cluster_jobid: Submitted batch job 4826603
+
+    [Wed Feb 10 09:58:55 2021]
+    Error in rule getAlleleCountsByChr:
+        jobid: 15
+        output: results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr3.txt
+        log: logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chrchr3.log (check log file(s) for error message)
+        shell:
+        singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img python /scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake/code/countPysam.py chr3 results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr3.vcf results/tumor_sample_1.filtered.bam 10 10 100 > results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr3.txt 2> logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chrchr3.log
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+        cluster_jobid: Submitted batch job 4826603
+
+    [Wed Feb 10 09:58:55 2021]
+    Error in rule getAlleleCountsByChr:
+        jobid: 30
+        output: results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr18.txt
+        log: logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chrchr18.log (check log file(s) for error message)
+        shell:
+        singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img python /scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake/code/countPysam.py chr18 results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr18.vcf results/tumor_sample_1.filtered.bam 10 10 100 > results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr18.txt 2> logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chrchr18.log
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+        cluster_jobid: Submitted batch job 4826603
+
+    [Wed Feb 10 09:58:55 2021]
+    Error in rule read_counter:
+        jobid: 37
+        output: results/readDepth/normal_sample_1.bin10000.wig
+        log: logs/readDepth/normal_sample_1.bin10000.log (check log file(s) for error message)
+        shell:
+        singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images,/scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/ichorcna_pz.simg readCounter results/normal_sample_1.filtered.bam -c chr1,chr2,chr3,chr4,chr5,chr6,chr7,chr8,chr9,chr10,chr11,chr12,chr13,chr14,chr15,chr16,chr17,chr18,chr19,chr20,chr21,chr22,chrX,chrY -w 10000 -q 20 > results/readDepth/normal_sample_1.bin10000.wig 2> logs/readDepth/normal_sample_1.bin10000.log
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+        cluster_jobid: Submitted batch job 4826603
+
+    [Wed Feb 10 09:58:55 2021]
+    Error in rule getHETsites:
+        jobid: 47
+        output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr10.vcf
+        log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr10.log (check log file(s) for error message)
+        shell:
+        singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/singularity_images,$SCRATCH/singularity_images/TitanCNA/scripts/snakemake/results /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img samtools mpileup -uv -I -f /scratch/n/nicholsa/zyfniu/igenomes_ref/Homo_sapiens_assembly38.fasta -r chr10 -l /scratch/n/nicholsa/zyfniu/igenomes_ref/hapmap_3.3.hg38.vcf.gz results/normal_sample_1.filtered.bam | singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/singularity_images,$SCRATCH/singularity_images/TitanCNA/scripts/snakemake/results /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img bcftools call -v -c - | grep -e '0/1' -e '#' > results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr10.vcf 2> logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr10.log
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+        cluster_jobid: Submitted batch job 4826603
+
+    [Wed Feb 10 09:58:55 2021]
+    Error in rule getAlleleCountsByChr:
+        jobid: 23
+        output: results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr11.txt
+        log: logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chrchr11.log (check log file(s) for error message)
+        shell:
+        singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img python /scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake/code/countPysam.py chr11 results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr11.vcf results/tumor_sample_1.filtered.bam 10 10 100 > results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr11.txt 2> logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chrchr11.log
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+        cluster_jobid: Submitted batch job 4826603
+
+    [Wed Feb 10 09:58:55 2021]
+    Error in rule getHETsites:
+        jobid: 40
+        output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr3.vcf
+        log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr3.log (check log file(s) for error message)
+        shell:
+        singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/singularity_images,$SCRATCH/singularity_images/TitanCNA/scripts/snakemake/results /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img samtools mpileup -uv -I -f /scratch/n/nicholsa/zyfniu/igenomes_ref/Homo_sapiens_assembly38.fasta -r chr3 -l /scratch/n/nicholsa/zyfniu/igenomes_ref/hapmap_3.3.hg38.vcf.gz results/normal_sample_1.filtered.bam | singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/singularity_images,$SCRATCH/singularity_images/TitanCNA/scripts/snakemake/results /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img bcftools call -v -c - | grep -e '0/1' -e '#' > results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr3.vcf 2> logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr3.log
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+        cluster_jobid: Submitted batch job 4826603
+
+    [Wed Feb 10 09:58:55 2021]
+    Error in rule getHETsites:
+        jobid: 55
+        output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr18.vcf
+        log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr18.log (check log file(s) for error message)
+        shell:
+        singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/singularity_images,$SCRATCH/singularity_images/TitanCNA/scripts/snakemake/results /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img samtools mpileup -uv -I -f /scratch/n/nicholsa/zyfniu/igenomes_ref/Homo_sapiens_assembly38.fasta -r chr18 -l /scratch/n/nicholsa/zyfniu/igenomes_ref/hapmap_3.3.hg38.vcf.gz results/normal_sample_1.filtered.bam | singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/singularity_images,$SCRATCH/singularity_images/TitanCNA/scripts/snakemake/results /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img bcftools call -v -c - | grep -e '0/1' -e '#' > results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr18.vcf 2> logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr18.log
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+        cluster_jobid: Submitted batch job 4826603
+
+    [Wed Feb 10 09:58:55 2021]
+    Error in rule combineTitanAndIchorCNA:
+        jobid: 8
+        output: results/titan/hmm/titanCNA_ploidy3/tumor_sample_1_cluster2.titan.ichor.seg.txt, results/titan/hmm/titanCNA_ploidy3/tumor_sample_1_cluster2.titan.ichor.cna.txt
+        log: logs/titan/hmm/titanCNA_ploidy3/tumor_sample_1_cluster2.combineTitanIchorCNA.log (check log file(s) for error message)
+        shell:
+        singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/ichorcna_pz.simg Rscript /scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake/code/combineTITAN-ichor.R --libdir /scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/R/ --titanSeg results/titan/hmm/titanCNA_ploidy3/tumor_sample_1_cluster2.segs.txt --titanBin results/titan/hmm/titanCNA_ploidy3/tumor_sample_1_cluster2.titan.txt --titanParam results/titan/hmm/titanCNA_ploidy3/tumor_sample_1_cluster2.params.txt --ichorSeg results/ichorCNA/tumor_sample_1/tumor_sample_1.seg.txt --ichorBin results/ichorCNA/tumor_sample_1/tumor_sample_1.cna.seg --ichorParam results/ichorCNA/tumor_sample_1/tumor_sample_1.params.txt --mergeIchorHOMD False --sex male --outSegFile results/titan/hmm/titanCNA_ploidy3/tumor_sample_1_cluster2.titan.ichor.seg.txt --outBinFile results/titan/hmm/titanCNA_ploidy3/tumor_sample_1_cluster2.titan.ichor.cna.txt --centromere /scratch/n/nicholsa/zyfniu/igenomes_ref/GRCh38.GCA_000001405.2_centromere_acen.txt > logs/titan/hmm/titanCNA_ploidy3/tumor_sample_1_cluster2.combineTitanIchorCNA.log 2> logs/titan/hmm/titanCNA_ploidy3/tumor_sample_1_cluster2.combineTitanIchorCNA.log
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+        cluster_jobid: Submitted batch job 4826603
+
+    [Wed Feb 10 09:58:55 2021]
+    Error in rule runTitanCNA:
+        jobid: 1
+        output: results/titan/hmm/titanCNA_ploidy2/tumor_sample_1_cluster1.titan.txt, results/titan/hmm/titanCNA_ploidy2/tumor_sample_1_cluster1.params.txt, results/titan/hmm/titanCNA_ploidy2/tumor_sample_1_cluster1.segs.txt, results/titan/hmm/titanCNA_ploidy2/tumor_sample_1_cluster1.seg
+        log: logs/titan/hmm/titanCNA_ploidy2/run_titanCNA_tumor_sample_1_cluster1.log (check log file(s) for error message)
+        shell:
+        singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/ichorcna_pz.simg Rscript /scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/R_scripts/titanCNA.R --hetFile results/titan/tumCounts/tumor_sample_1.tumCounts.txt --cnFile results/ichorCNA/tumor_sample_1/tumor_sample_1.correctedDepth.txt --outFile results/titan/hmm/titanCNA_ploidy2/tumor_sample_1_cluster1.titan.txt --outSeg results/titan/hmm/titanCNA_ploidy2/tumor_sample_1_cluster1.segs.txt --outParam results/titan/hmm/titanCNA_ploidy2/tumor_sample_1_cluster1.params.txt --outIGV results/titan/hmm/titanCNA_ploidy2/tumor_sample_1_cluster1.seg --outPlotDir results/titan/hmm/titanCNA_ploidy2/tumor_sample_1_cluster1/ --libdir /scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/R/ --id tumor_sample_1 --numClusters 1 --numCores 80 --normal_0 0.5 --ploidy_0 2 --genomeStyle UCSC --genomeBuild hg38 --cytobandFile /scratch/n/nicholsa/zyfniu/igenomes_ref/cytoBand_hg38.txt --chrs "c(1:22, \"X\")" --gender male --estimateNormal map --estimatePloidy True --estimateClonality True  --centromere /scratch/n/nicholsa/zyfniu/igenomes_ref/GRCh38.GCA_000001405.2_centromere_acen.txt --alphaK 10000 --txnExpLen 1e15 --plotYlim "c(-2,4)" > logs/titan/hmm/titanCNA_ploidy2/run_titanCNA_tumor_sample_1_cluster1.log 2> logs/titan/hmm/titanCNA_ploidy2/run_titanCNA_tumor_sample_1_cluster1.log
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+        cluster_jobid: Submitted batch job 4826603
+
+    [Wed Feb 10 09:58:55 2021]
+    Error in rule getAlleleCountsByChr:
+        jobid: 16
+        output: results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr4.txt
+        log: logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chrchr4.log (check log file(s) for error message)
+        shell:
+        singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img python /scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake/code/countPysam.py chr4 results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr4.vcf results/tumor_sample_1.filtered.bam 10 10 100 > results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr4.txt 2> logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chrchr4.log
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+        cluster_jobid: Submitted batch job 4826603
+
+    [Wed Feb 10 09:58:55 2021]
+    Error in rule getAlleleCountsByChr:
+        jobid: 31
+        output: results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr19.txt
+        log: logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chrchr19.log (check log file(s) for error message)
+        shell:
+        singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img python /scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake/code/countPysam.py chr19 results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr19.vcf results/tumor_sample_1.filtered.bam 10 10 100 > results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr19.txt 2> logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chrchr19.log
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+        cluster_jobid: Submitted batch job 4826603
+
+    [Wed Feb 10 09:58:55 2021]
+    Error in rule getHETsites:
+        jobid: 48
+        output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr11.vcf
+        log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr11.log (check log file(s) for error message)
+        shell:
+        singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/singularity_images,$SCRATCH/singularity_images/TitanCNA/scripts/snakemake/results /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img samtools mpileup -uv -I -f /scratch/n/nicholsa/zyfniu/igenomes_ref/Homo_sapiens_assembly38.fasta -r chr11 -l /scratch/n/nicholsa/zyfniu/igenomes_ref/hapmap_3.3.hg38.vcf.gz results/normal_sample_1.filtered.bam | singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/singularity_images,$SCRATCH/singularity_images/TitanCNA/scripts/snakemake/results /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img bcftools call -v -c - | grep -e '0/1' -e '#' > results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr11.vcf 2> logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr11.log
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+        cluster_jobid: Submitted batch job 4826603
+
+    [Wed Feb 10 09:58:55 2021]
+    Error in rule getAlleleCountsByChr:
+        jobid: 24
+        output: results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr12.txt
+        log: logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chrchr12.log (check log file(s) for error message)
+        shell:
+        singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img python /scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake/code/countPysam.py chr12 results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr12.vcf results/tumor_sample_1.filtered.bam 10 10 100 > results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr12.txt 2> logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chrchr12.log
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+        cluster_jobid: Submitted batch job 4826603
+
+    [Wed Feb 10 09:58:55 2021]
+    Error in rule getHETsites:
+        jobid: 41
+        output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr4.vcf
+        log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr4.log (check log file(s) for error message)
+        shell:
+        singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/singularity_images,$SCRATCH/singularity_images/TitanCNA/scripts/snakemake/results /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img samtools mpileup -uv -I -f /scratch/n/nicholsa/zyfniu/igenomes_ref/Homo_sapiens_assembly38.fasta -r chr4 -l /scratch/n/nicholsa/zyfniu/igenomes_ref/hapmap_3.3.hg38.vcf.gz results/normal_sample_1.filtered.bam | singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/singularity_images,$SCRATCH/singularity_images/TitanCNA/scripts/snakemake/results /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img bcftools call -v -c - | grep -e '0/1' -e '#' > results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr4.vcf 2> logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr4.log
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+        cluster_jobid: Submitted batch job 4826603
+
+    [Wed Feb 10 09:58:55 2021]
+    Error in rule getHETsites:
+        jobid: 56
+        output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr19.vcf
+        log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr19.log (check log file(s) for error message)
+        shell:
+        singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/singularity_images,$SCRATCH/singularity_images/TitanCNA/scripts/snakemake/results /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img samtools mpileup -uv -I -f /scratch/n/nicholsa/zyfniu/igenomes_ref/Homo_sapiens_assembly38.fasta -r chr19 -l /scratch/n/nicholsa/zyfniu/igenomes_ref/hapmap_3.3.hg38.vcf.gz results/normal_sample_1.filtered.bam | singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/singularity_images,$SCRATCH/singularity_images/TitanCNA/scripts/snakemake/results /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img bcftools call -v -c - | grep -e '0/1' -e '#' > results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr19.vcf 2> logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr19.log
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+        cluster_jobid: Submitted batch job 4826603
+
+    [Wed Feb 10 09:58:55 2021]
+    Error in rule selectSolution:
+        jobid: 9
+        output: results/titan/hmm/optimalClusterSolution.txt
+        log: logs/titan/selectSolution.log (check log file(s) for error message)
+        shell:
+        
+		ploidyRun2=results/titan/hmm/titanCNA_ploidy2/
+		if [ -d results/titan/hmm/titanCNA_ploidy3/ ]; then
+			ploidyRun3=results/titan/hmm/titanCNA_ploidy3/
+		else
+			ploidyRun3=NULL
+		fi
+		if [ -d results/titan/hmm/titanCNA_ploidy4/ ]; then
+			ploidyRun4=results/titan/hmm/titanCNA_ploidy4/
+		else
+			ploidyRun4=NULL
+		fi
+		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/ichorcna_pz.simg Rscript /scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/R_scripts/selectSolution.R --ploidyRun2 $ploidyRun2 --ploidyRun3 $ploidyRun3 --ploidyRun4 $ploidyRun4 --threshold 0.05 --outFile results/titan/hmm/optimalClusterSolution.txt > logs/titan/selectSolution.log 2> logs/titan/selectSolution.log
+		
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+        cluster_jobid: Submitted batch job 4826603
+
+    [Wed Feb 10 09:58:55 2021]
+    Error in rule getAlleleCountsByChr:
+        jobid: 17
+        output: results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr5.txt
+        log: logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chrchr5.log (check log file(s) for error message)
+        shell:
+        singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img python /scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake/code/countPysam.py chr5 results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr5.vcf results/tumor_sample_1.filtered.bam 10 10 100 > results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr5.txt 2> logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chrchr5.log
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+        cluster_jobid: Submitted batch job 4826603
+
+    [Wed Feb 10 09:58:55 2021]
+    Error in rule getAlleleCountsByChr:
+        jobid: 32
+        output: results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr20.txt
+        log: logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chrchr20.log (check log file(s) for error message)
+        shell:
+        singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img python /scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake/code/countPysam.py chr20 results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr20.vcf results/tumor_sample_1.filtered.bam 10 10 100 > results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr20.txt 2> logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chrchr20.log
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+        cluster_jobid: Submitted batch job 4826603
+
+    [Wed Feb 10 09:58:55 2021]
+    Error in rule getHETsites:
+        jobid: 49
+        output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr12.vcf
+        log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr12.log (check log file(s) for error message)
+        shell:
+        singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/singularity_images,$SCRATCH/singularity_images/TitanCNA/scripts/snakemake/results /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img samtools mpileup -uv -I -f /scratch/n/nicholsa/zyfniu/igenomes_ref/Homo_sapiens_assembly38.fasta -r chr12 -l /scratch/n/nicholsa/zyfniu/igenomes_ref/hapmap_3.3.hg38.vcf.gz results/normal_sample_1.filtered.bam | singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/singularity_images,$SCRATCH/singularity_images/TitanCNA/scripts/snakemake/results /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img bcftools call -v -c - | grep -e '0/1' -e '#' > results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr12.vcf 2> logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr12.log
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+        cluster_jobid: Submitted batch job 4826603
+
+    [Wed Feb 10 09:58:55 2021]
+    Error in rule runTitanCNA:
+        jobid: 2
+        output: results/titan/hmm/titanCNA_ploidy3/tumor_sample_1_cluster1.titan.txt, results/titan/hmm/titanCNA_ploidy3/tumor_sample_1_cluster1.params.txt, results/titan/hmm/titanCNA_ploidy3/tumor_sample_1_cluster1.segs.txt, results/titan/hmm/titanCNA_ploidy3/tumor_sample_1_cluster1.seg
+        log: logs/titan/hmm/titanCNA_ploidy3/run_titanCNA_tumor_sample_1_cluster1.log (check log file(s) for error message)
+        shell:
+        singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/ichorcna_pz.simg Rscript /scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/R_scripts/titanCNA.R --hetFile results/titan/tumCounts/tumor_sample_1.tumCounts.txt --cnFile results/ichorCNA/tumor_sample_1/tumor_sample_1.correctedDepth.txt --outFile results/titan/hmm/titanCNA_ploidy3/tumor_sample_1_cluster1.titan.txt --outSeg results/titan/hmm/titanCNA_ploidy3/tumor_sample_1_cluster1.segs.txt --outParam results/titan/hmm/titanCNA_ploidy3/tumor_sample_1_cluster1.params.txt --outIGV results/titan/hmm/titanCNA_ploidy3/tumor_sample_1_cluster1.seg --outPlotDir results/titan/hmm/titanCNA_ploidy3/tumor_sample_1_cluster1/ --libdir /scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/R/ --id tumor_sample_1 --numClusters 1 --numCores 80 --normal_0 0.5 --ploidy_0 3 --genomeStyle UCSC --genomeBuild hg38 --cytobandFile /scratch/n/nicholsa/zyfniu/igenomes_ref/cytoBand_hg38.txt --chrs "c(1:22, \"X\")" --gender male --estimateNormal map --estimatePloidy True --estimateClonality True  --centromere /scratch/n/nicholsa/zyfniu/igenomes_ref/GRCh38.GCA_000001405.2_centromere_acen.txt --alphaK 10000 --txnExpLen 1e15 --plotYlim "c(-2,4)" > logs/titan/hmm/titanCNA_ploidy3/run_titanCNA_tumor_sample_1_cluster1.log 2> logs/titan/hmm/titanCNA_ploidy3/run_titanCNA_tumor_sample_1_cluster1.log
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+        cluster_jobid: Submitted batch job 4826603
+
+    [Wed Feb 10 09:58:55 2021]
+    Error in rule getAlleleCountsByChr:
+        jobid: 25
+        output: results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr13.txt
+        log: logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chrchr13.log (check log file(s) for error message)
+        shell:
+        singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img python /scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake/code/countPysam.py chr13 results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr13.vcf results/tumor_sample_1.filtered.bam 10 10 100 > results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr13.txt 2> logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chrchr13.log
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+        cluster_jobid: Submitted batch job 4826603
+
+    [Wed Feb 10 09:58:55 2021]
+    Error in rule getHETsites:
+        jobid: 42
+        output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr5.vcf
+        log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr5.log (check log file(s) for error message)
+        shell:
+        singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/singularity_images,$SCRATCH/singularity_images/TitanCNA/scripts/snakemake/results /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img samtools mpileup -uv -I -f /scratch/n/nicholsa/zyfniu/igenomes_ref/Homo_sapiens_assembly38.fasta -r chr5 -l /scratch/n/nicholsa/zyfniu/igenomes_ref/hapmap_3.3.hg38.vcf.gz results/normal_sample_1.filtered.bam | singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/singularity_images,$SCRATCH/singularity_images/TitanCNA/scripts/snakemake/results /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img bcftools call -v -c - | grep -e '0/1' -e '#' > results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr5.vcf 2> logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr5.log
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+        cluster_jobid: Submitted batch job 4826603
+
+    [Wed Feb 10 09:58:55 2021]
+    Error in rule getHETsites:
+        jobid: 57
+        output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr20.vcf
+        log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr20.log (check log file(s) for error message)
+        shell:
+        singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/singularity_images,$SCRATCH/singularity_images/TitanCNA/scripts/snakemake/results /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img samtools mpileup -uv -I -f /scratch/n/nicholsa/zyfniu/igenomes_ref/Homo_sapiens_assembly38.fasta -r chr20 -l /scratch/n/nicholsa/zyfniu/igenomes_ref/hapmap_3.3.hg38.vcf.gz results/normal_sample_1.filtered.bam | singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/singularity_images,$SCRATCH/singularity_images/TitanCNA/scripts/snakemake/results /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img bcftools call -v -c - | grep -e '0/1' -e '#' > results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr20.vcf 2> logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr20.log
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+        cluster_jobid: Submitted batch job 4826603
+
+    [Wed Feb 10 09:58:55 2021]
+    Error in rule copyOptSolution:
+        jobid: 10
+        output: results/titan/hmm/optimalClusterSolution/
+        log: logs/titan/hmm/optSolution/copyOptSolution.log (check log file(s) for error message)
+        shell:
+        
+		curDir=`pwd`
+		for i in `cut -f11 results/titan/hmm/optimalClusterSolution.txt | grep -v "path"`;
+		do
+			echo -e "Copying $curDir/${i} to results/titan/hmm/optimalClusterSolution/"
+			cp -r ${curDir}/${i}* results/titan/hmm/optimalClusterSolution/
+		done		
+		
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+        cluster_jobid: Submitted batch job 4826603
+
+    [Wed Feb 10 09:58:55 2021]
+    Error in rule getAlleleCountsByChr:
+        jobid: 18
+        output: results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr6.txt
+        log: logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chrchr6.log (check log file(s) for error message)
+        shell:
+        singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img python /scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake/code/countPysam.py chr6 results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr6.vcf results/tumor_sample_1.filtered.bam 10 10 100 > results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr6.txt 2> logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chrchr6.log
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+        cluster_jobid: Submitted batch job 4826603
+
+    [Wed Feb 10 09:58:55 2021]
+    Error in rule getAlleleCountsByChr:
+        jobid: 33
+        output: results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr21.txt
+        log: logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chrchr21.log (check log file(s) for error message)
+        shell:
+        singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img python /scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake/code/countPysam.py chr21 results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr21.vcf results/tumor_sample_1.filtered.bam 10 10 100 > results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr21.txt 2> logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chrchr21.log
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+        cluster_jobid: Submitted batch job 4826603
+
+    [Wed Feb 10 09:58:55 2021]
+    Error in rule getHETsites:
+        jobid: 50
+        output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr13.vcf
+        log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr13.log (check log file(s) for error message)
+        shell:
+        singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/singularity_images,$SCRATCH/singularity_images/TitanCNA/scripts/snakemake/results /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img samtools mpileup -uv -I -f /scratch/n/nicholsa/zyfniu/igenomes_ref/Homo_sapiens_assembly38.fasta -r chr13 -l /scratch/n/nicholsa/zyfniu/igenomes_ref/hapmap_3.3.hg38.vcf.gz results/normal_sample_1.filtered.bam | singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/singularity_images,$SCRATCH/singularity_images/TitanCNA/scripts/snakemake/results /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img bcftools call -v -c - | grep -e '0/1' -e '#' > results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr13.vcf 2> logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr13.log
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+        cluster_jobid: Submitted batch job 4826603
+
+    [Wed Feb 10 09:58:55 2021]
+    Error in rule runTitanCNA:
+        jobid: 3
+        output: results/titan/hmm/titanCNA_ploidy2/tumor_sample_1_cluster2.titan.txt, results/titan/hmm/titanCNA_ploidy2/tumor_sample_1_cluster2.params.txt, results/titan/hmm/titanCNA_ploidy2/tumor_sample_1_cluster2.segs.txt, results/titan/hmm/titanCNA_ploidy2/tumor_sample_1_cluster2.seg
+        log: logs/titan/hmm/titanCNA_ploidy2/run_titanCNA_tumor_sample_1_cluster2.log (check log file(s) for error message)
+        shell:
+        singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/ichorcna_pz.simg Rscript /scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/R_scripts/titanCNA.R --hetFile results/titan/tumCounts/tumor_sample_1.tumCounts.txt --cnFile results/ichorCNA/tumor_sample_1/tumor_sample_1.correctedDepth.txt --outFile results/titan/hmm/titanCNA_ploidy2/tumor_sample_1_cluster2.titan.txt --outSeg results/titan/hmm/titanCNA_ploidy2/tumor_sample_1_cluster2.segs.txt --outParam results/titan/hmm/titanCNA_ploidy2/tumor_sample_1_cluster2.params.txt --outIGV results/titan/hmm/titanCNA_ploidy2/tumor_sample_1_cluster2.seg --outPlotDir results/titan/hmm/titanCNA_ploidy2/tumor_sample_1_cluster2/ --libdir /scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/R/ --id tumor_sample_1 --numClusters 2 --numCores 80 --normal_0 0.5 --ploidy_0 2 --genomeStyle UCSC --genomeBuild hg38 --cytobandFile /scratch/n/nicholsa/zyfniu/igenomes_ref/cytoBand_hg38.txt --chrs "c(1:22, \"X\")" --gender male --estimateNormal map --estimatePloidy True --estimateClonality True  --centromere /scratch/n/nicholsa/zyfniu/igenomes_ref/GRCh38.GCA_000001405.2_centromere_acen.txt --alphaK 10000 --txnExpLen 1e15 --plotYlim "c(-2,4)" > logs/titan/hmm/titanCNA_ploidy2/run_titanCNA_tumor_sample_1_cluster2.log 2> logs/titan/hmm/titanCNA_ploidy2/run_titanCNA_tumor_sample_1_cluster2.log
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+        cluster_jobid: Submitted batch job 4826603
+
+    [Wed Feb 10 09:58:55 2021]
+    Error in rule catAlleleCountFiles:
+        jobid: 11
+        output: results/titan/tumCounts/tumor_sample_1.tumCounts.txt
+        log: logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.cat.log (check log file(s) for error message)
+        shell:
+        cat results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr1.txt results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr2.txt results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr3.txt results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr4.txt results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr5.txt results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr6.txt results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr7.txt results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr8.txt results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr9.txt results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr10.txt results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr11.txt results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr12.txt results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr13.txt results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr14.txt results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr15.txt results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr16.txt results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr17.txt results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr18.txt results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr19.txt results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr20.txt results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr21.txt results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr22.txt results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchrX.txt | grep -v Chr > results/titan/tumCounts/tumor_sample_1.tumCounts.txt 2> logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.cat.log
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+        cluster_jobid: Submitted batch job 4826603
+
+    [Wed Feb 10 09:58:55 2021]
+    Error in rule getAlleleCountsByChr:
+        jobid: 26
+        output: results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr14.txt
+        log: logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chrchr14.log (check log file(s) for error message)
+        shell:
+        singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img python /scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake/code/countPysam.py chr14 results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr14.vcf results/tumor_sample_1.filtered.bam 10 10 100 > results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr14.txt 2> logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chrchr14.log
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+        cluster_jobid: Submitted batch job 4826603
+
+    [Wed Feb 10 09:58:55 2021]
+    Error in rule getHETsites:
+        jobid: 43
+        output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr6.vcf
+        log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr6.log (check log file(s) for error message)
+        shell:
+        singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/singularity_images,$SCRATCH/singularity_images/TitanCNA/scripts/snakemake/results /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img samtools mpileup -uv -I -f /scratch/n/nicholsa/zyfniu/igenomes_ref/Homo_sapiens_assembly38.fasta -r chr6 -l /scratch/n/nicholsa/zyfniu/igenomes_ref/hapmap_3.3.hg38.vcf.gz results/normal_sample_1.filtered.bam | singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/singularity_images,$SCRATCH/singularity_images/TitanCNA/scripts/snakemake/results /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img bcftools call -v -c - | grep -e '0/1' -e '#' > results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr6.vcf 2> logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr6.log
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+        cluster_jobid: Submitted batch job 4826603
+
+    [Wed Feb 10 09:58:55 2021]
+    Error in rule getHETsites:
+        jobid: 58
+        output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr21.vcf
+        log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr21.log (check log file(s) for error message)
+        shell:
+        singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/singularity_images,$SCRATCH/singularity_images/TitanCNA/scripts/snakemake/results /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img samtools mpileup -uv -I -f /scratch/n/nicholsa/zyfniu/igenomes_ref/Homo_sapiens_assembly38.fasta -r chr21 -l /scratch/n/nicholsa/zyfniu/igenomes_ref/hapmap_3.3.hg38.vcf.gz results/normal_sample_1.filtered.bam | singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/singularity_images,$SCRATCH/singularity_images/TitanCNA/scripts/snakemake/results /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img bcftools call -v -c - | grep -e '0/1' -e '#' > results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr21.vcf 2> logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr21.log
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+        cluster_jobid: Submitted batch job 4826603
+
+Error executing group job ichor on cluster (jobid: fe4f6cca-f3ba-5e56-bef6-4a47cdecb930, external: Submitted batch job 4826603, jobscript: /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake/.snakemake/tmp.dcloka95/snakejob.ichor.fe4f6cca-f3ba-5e56-bef6-4a47cdecb930.sh). For error details see the cluster log and the log files of the involved rule(s).
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake/.snakemake/log/2021-02-10T095645.635783.snakemake.log

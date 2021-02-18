@@ -1,0 +1,198 @@
+Loading required package: data.table
+Loading required package: stats4
+Loading required package: BiocGenerics
+Loading required package: parallel
+
+Attaching package: ‘BiocGenerics’
+
+The following objects are masked from ‘package:parallel’:
+
+    clusterApply, clusterApplyLB, clusterCall, clusterEvalQ,
+    clusterExport, clusterMap, parApply, parCapply, parLapply,
+    parLapplyLB, parRapply, parSapply, parSapplyLB
+
+The following objects are masked from ‘package:stats’:
+
+    IQR, mad, sd, var, xtabs
+
+The following objects are masked from ‘package:base’:
+
+    anyDuplicated, append, as.data.frame, basename, cbind, colnames,
+    dirname, do.call, duplicated, eval, evalq, Filter, Find, get, grep,
+    grepl, intersect, is.unsorted, lapply, Map, mapply, match, mget,
+    order, paste, pmax, pmax.int, pmin, pmin.int, Position, rank,
+    rbind, Reduce, rownames, sapply, setdiff, sort, table, tapply,
+    union, unique, unsplit, which, which.max, which.min
+
+Loading required package: S4Vectors
+
+Attaching package: ‘S4Vectors’
+
+The following objects are masked from ‘package:data.table’:
+
+    first, second
+
+The following object is masked from ‘package:base’:
+
+    expand.grid
+
+Loading required package: IRanges
+
+Attaching package: ‘IRanges’
+
+The following object is masked from ‘package:data.table’:
+
+    shift
+
+Loading required package: GenomeInfoDb
+
+Attaching package: ‘Biostrings’
+
+The following object is masked from ‘package:base’:
+
+    strsplit
+
+Loading tumour file:tumor_sample_1
+Slurping: results/readDepth/tumor_sample_1.bin10000.wig
+Parsing: fixedStep chrom=chr1 start=1 step=10000 span=10000
+Parsing: fixedStep chrom=chr2 start=1 step=10000 span=10000
+Parsing: fixedStep chrom=chr3 start=1 step=10000 span=10000
+Parsing: fixedStep chrom=chr4 start=1 step=10000 span=10000
+Parsing: fixedStep chrom=chr5 start=1 step=10000 span=10000
+Parsing: fixedStep chrom=chr6 start=1 step=10000 span=10000
+Parsing: fixedStep chrom=chr7 start=1 step=10000 span=10000
+Parsing: fixedStep chrom=chr8 start=1 step=10000 span=10000
+Parsing: fixedStep chrom=chr9 start=1 step=10000 span=10000
+Parsing: fixedStep chrom=chr10 start=1 step=10000 span=10000
+Parsing: fixedStep chrom=chr11 start=1 step=10000 span=10000
+Parsing: fixedStep chrom=chr12 start=1 step=10000 span=10000
+Parsing: fixedStep chrom=chr13 start=1 step=10000 span=10000
+Parsing: fixedStep chrom=chr14 start=1 step=10000 span=10000
+Parsing: fixedStep chrom=chr15 start=1 step=10000 span=10000
+Parsing: fixedStep chrom=chr16 start=1 step=10000 span=10000
+Parsing: fixedStep chrom=chr17 start=1 step=10000 span=10000
+Parsing: fixedStep chrom=chr18 start=1 step=10000 span=10000
+Parsing: fixedStep chrom=chr19 start=1 step=10000 span=10000
+Parsing: fixedStep chrom=chr20 start=1 step=10000 span=10000
+Parsing: fixedStep chrom=chr21 start=1 step=10000 span=10000
+Parsing: fixedStep chrom=chr22 start=1 step=10000 span=10000
+Parsing: fixedStep chrom=chrX start=1 step=10000 span=10000
+Parsing: fixedStep chrom=chrY start=1 step=10000 span=10000
+Sorting by decreasing chromosome size
+Reading GC and mappability files
+Slurping: /scratch/n/nicholsa/zyfniu/igenomes_ref/gc_hg38_10kb.wig
+Parsing: fixedStep chrom=chr1 start=1 step=10000 span=10000
+Parsing: fixedStep chrom=chr2 start=1 step=10000 span=10000
+Parsing: fixedStep chrom=chr3 start=1 step=10000 span=10000
+Parsing: fixedStep chrom=chr4 start=1 step=10000 span=10000
+Parsing: fixedStep chrom=chr5 start=1 step=10000 span=10000
+Parsing: fixedStep chrom=chr6 start=1 step=10000 span=10000
+Parsing: fixedStep chrom=chr7 start=1 step=10000 span=10000
+Parsing: fixedStep chrom=chr8 start=1 step=10000 span=10000
+Parsing: fixedStep chrom=chr9 start=1 step=10000 span=10000
+Parsing: fixedStep chrom=chr10 start=1 step=10000 span=10000
+Parsing: fixedStep chrom=chr11 start=1 step=10000 span=10000
+Parsing: fixedStep chrom=chr12 start=1 step=10000 span=10000
+Parsing: fixedStep chrom=chr13 start=1 step=10000 span=10000
+Parsing: fixedStep chrom=chr14 start=1 step=10000 span=10000
+Parsing: fixedStep chrom=chr15 start=1 step=10000 span=10000
+Parsing: fixedStep chrom=chr16 start=1 step=10000 span=10000
+Parsing: fixedStep chrom=chr17 start=1 step=10000 span=10000
+Parsing: fixedStep chrom=chr18 start=1 step=10000 span=10000
+Parsing: fixedStep chrom=chr19 start=1 step=10000 span=10000
+Parsing: fixedStep chrom=chr20 start=1 step=10000 span=10000
+Parsing: fixedStep chrom=chr21 start=1 step=10000 span=10000
+Parsing: fixedStep chrom=chr22 start=1 step=10000 span=10000
+Parsing: fixedStep chrom=chrX start=1 step=10000 span=10000
+Parsing: fixedStep chrom=chrY start=1 step=10000 span=10000
+Sorting by decreasing chromosome size
+Slurping: /scratch/n/nicholsa/zyfniu/igenomes_ref/map_hg38_10kb.wig
+Parsing: fixedStep chrom=chr1 start=1 step=10000 span=10000
+Parsing: fixedStep chrom=chr2 start=1 step=10000 span=10000
+Parsing: fixedStep chrom=chr3 start=1 step=10000 span=10000
+Parsing: fixedStep chrom=chr4 start=1 step=10000 span=10000
+Parsing: fixedStep chrom=chr5 start=1 step=10000 span=10000
+Parsing: fixedStep chrom=chr6 start=1 step=10000 span=10000
+Parsing: fixedStep chrom=chr7 start=1 step=10000 span=10000
+Parsing: fixedStep chrom=chr8 start=1 step=10000 span=10000
+Parsing: fixedStep chrom=chr9 start=1 step=10000 span=10000
+Parsing: fixedStep chrom=chr10 start=1 step=10000 span=10000
+Parsing: fixedStep chrom=chr11 start=1 step=10000 span=10000
+Parsing: fixedStep chrom=chr12 start=1 step=10000 span=10000
+Parsing: fixedStep chrom=chr13 start=1 step=10000 span=10000
+Parsing: fixedStep chrom=chr14 start=1 step=10000 span=10000
+Parsing: fixedStep chrom=chr15 start=1 step=10000 span=10000
+Parsing: fixedStep chrom=chr16 start=1 step=10000 span=10000
+Parsing: fixedStep chrom=chr17 start=1 step=10000 span=10000
+Parsing: fixedStep chrom=chr18 start=1 step=10000 span=10000
+Parsing: fixedStep chrom=chr19 start=1 step=10000 span=10000
+Parsing: fixedStep chrom=chr20 start=1 step=10000 span=10000
+Parsing: fixedStep chrom=chr21 start=1 step=10000 span=10000
+Parsing: fixedStep chrom=chr22 start=1 step=10000 span=10000
+Parsing: fixedStep chrom=chrX start=1 step=10000 span=10000
+Parsing: fixedStep chrom=chrY start=1 step=10000 span=10000
+Sorting by decreasing chromosome size
+Correcting Tumour
+Removed 9743 bins near centromeres.
+Applying filter on data...
+Correcting for GC bias...
+Correcting for mappability bias...
+Filtering low uniqueness regions with mappability score < 0.9
+Removed 51 bins near centromeres.
+Loading normal file:results/readDepth/normal_sample_1.bin10000.wig
+Slurping: results/readDepth/normal_sample_1.bin10000.wig
+Parsing: fixedStep chrom=chr1 start=1 step=10000 span=10000
+Parsing: fixedStep chrom=chr2 start=1 step=10000 span=10000
+Parsing: fixedStep chrom=chr3 start=1 step=10000 span=10000
+Parsing: fixedStep chrom=chr4 start=1 step=10000 span=10000
+Parsing: fixedStep chrom=chr5 start=1 step=10000 span=10000
+Parsing: fixedStep chrom=chr6 start=1 step=10000 span=10000
+Parsing: fixedStep chrom=chr7 start=1 step=10000 span=10000
+Parsing: fixedStep chrom=chr8 start=1 step=10000 span=10000
+Parsing: fixedStep chrom=chr9 start=1 step=10000 span=10000
+Parsing: fixedStep chrom=chr10 start=1 step=10000 span=10000
+Parsing: fixedStep chrom=chr11 start=1 step=10000 span=10000
+Parsing: fixedStep chrom=chr12 start=1 step=10000 span=10000
+Parsing: fixedStep chrom=chr13 start=1 step=10000 span=10000
+Parsing: fixedStep chrom=chr14 start=1 step=10000 span=10000
+Parsing: fixedStep chrom=chr15 start=1 step=10000 span=10000
+Parsing: fixedStep chrom=chr16 start=1 step=10000 span=10000
+Parsing: fixedStep chrom=chr17 start=1 step=10000 span=10000
+Parsing: fixedStep chrom=chr18 start=1 step=10000 span=10000
+Parsing: fixedStep chrom=chr19 start=1 step=10000 span=10000
+Parsing: fixedStep chrom=chr20 start=1 step=10000 span=10000
+Parsing: fixedStep chrom=chr21 start=1 step=10000 span=10000
+Parsing: fixedStep chrom=chr22 start=1 step=10000 span=10000
+Parsing: fixedStep chrom=chrX start=1 step=10000 span=10000
+Parsing: fixedStep chrom=chrY start=1 step=10000 span=10000
+Sorting by decreasing chromosome size
+Correcting Normal
+Removed 9743 bins near centromeres.
+Applying filter on data...
+Correcting for GC bias...
+Correcting for mappability bias...
+Filtering low uniqueness regions with mappability score < 0.9
+Removed 51 bins near centromeres.
+Determining gender...Gender male
+Normalizing Tumour by Normal
+Outputting to: results/ichorCNA/tumor_sample_1//tumor_sample_1.correctedDepth.txt
+Warning messages:
+1: In dir.create(paste0(outDir, "/", id, "/"), recursive = TRUE) :
+  'results/ichorCNA/tumor_sample_1//tumor_sample_1' already exists
+2: In regularize.values(x, y, ties, missing(ties)) :
+  collapsing to unique 'x' values
+3: In regularize.values(x, y, ties, missing(ties)) :
+  collapsing to unique 'x' values
+runEM: Initialization
+runEM iter1: Expectation
+runEM iter1: Maximization
+Sample1 n=0.383, sp=0.001234, phi=2.107, lambda=80.232,92.347,121.04,140.8,142.22,69.667,82.772,1.7628,8.7052,37.198, F=100900
+runEM iter 1  Log likelihood: 59262.1012925807
+runEM iter1 Time: 7.3 min.
+runEM iter2: Expectation
+runEM iter2: Maximization
+Sample1 n=0.3934, sp=0.0005442, phi=2.153, lambda=106.17,107.08,168.92,160.68,202.34,176.26,109.82,2.3895,12.441,44.363, F=118200
+runEM iter 2  Log likelihood: 118764.902720435
+runEM iter2 Time: 7.1 min.
+runEM iter3: Expectation
+runEM iter3: Maximization

@@ -1,0 +1,29 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 4
+Rules claiming more threads will be scaled down.
+Job counts:
+	count	jobs
+	1	all
+	2	filter_bam
+	3
+
+[Tue Feb  9 21:16:23 2021]
+rule filter_bam:
+    input: /scratch/n/nicholsa/zyfniu/AN_WGS/20210118_HPV_WGS/Recal/HPV33-R.recal.bam
+    output: $SCRATCH/singularity_images/TitanCNA/scripts/snakemake/results/bam/tumor_sample_1.filtered.bam
+    jobid: 1
+    wildcards: samples=tumor_sample_1
+    threads: 4
+
+[Tue Feb  9 21:16:23 2021]
+Error in rule filter_bam:
+    jobid: 1
+    output: $SCRATCH/singularity_images/TitanCNA/scripts/snakemake/results/bam/tumor_sample_1.filtered.bam
+    shell:
+        singularity exec -B 		$SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/singularity_images/TitanCNA/scripts/snakemake/, 		/gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img samtools view 		-L /scratch/n/nicholsa/zyfniu/igenomes_ref/hg38.chrom.bed -@ 4 -o $SCRATCH/singularity_images/TitanCNA/scripts/snakemake/results/bam/tumor_sample_1.filtered.bam /scratch/n/nicholsa/zyfniu/AN_WGS/20210118_HPV_WGS/Recal/HPV33-R.recal.bam
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake/.snakemake/log/2021-02-09T211623.129053.snakemake.log

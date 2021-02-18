@@ -1,0 +1,48 @@
+Building DAG of jobs...
+AmbiguousRuleException:
+Rules runTitanCNA and combineTitanAndIchorCNA are ambiguous for the file logs/titan/hmm/titanCNA_ploidy3/tumor_sample_1_cluster2.combineTitanIchorCNA.log.
+Consider starting rule output with a unique prefix, constrain your wildcards, or use the ruleorder directive.
+Wildcards:
+	runTitanCNA: clustNum=2.combineTitanIchorCNA,ploidy=3,tumor=tumor_sample_1
+	combineTitanAndIchorCNA: clustNum=2,ploidy=3,tumor=tumor_sample_1
+Expected input files:
+	runTitanCNA: results/titan/tumCounts/tumor_sample_1.tumCounts.txt results/ichorCNA/tumor_sample_1/tumor_sample_1.correctedDepth.txt
+	combineTitanAndIchorCNA: results/titan/hmm/titanCNA_ploidy3/tumor_sample_1_cluster2.segs.txt results/titan/hmm/titanCNA_ploidy3/tumor_sample_1_cluster2.titan.txt results/titan/hmm/titanCNA_ploidy3/tumor_sample_1_cluster2.params.txt results/ichorCNA/tumor_sample_1/tumor_sample_1.seg.txt results/ichorCNA/tumor_sample_1/tumor_sample_1.cna.seg results/ichorCNA/tumor_sample_1/tumor_sample_1.params.txtExpected output files:
+	runTitanCNA: results/titan/hmm/titanCNA_ploidy3/tumor_sample_1_cluster2.combineTitanIchorCNA.titan.txt results/titan/hmm/titanCNA_ploidy3/tumor_sample_1_cluster2.combineTitanIchorCNA.params.txt results/titan/hmm/titanCNA_ploidy3/tumor_sample_1_cluster2.combineTitanIchorCNA.segs.txt results/titan/hmm/titanCNA_ploidy3/tumor_sample_1_cluster2.combineTitanIchorCNA.seg
+	combineTitanAndIchorCNA: results/titan/hmm/titanCNA_ploidy3/tumor_sample_1_cluster2.titan.ichor.seg.txt results/titan/hmm/titanCNA_ploidy3/tumor_sample_1_cluster2.titan.ichor.cna.txt
+
+scontrol show jobid 4826553
+JobId=4826553 JobName=snakejob.ichor.fe4f6cca-f3ba-5e56-bef6-4a47cdecb930.sh
+   UserId=zyfniu(3093542) GroupId=nicholsa(6045858) MCS_label=N/A
+   Priority=1735688 Nice=0 Account=def-nicholsa QOS=normal
+   JobState=COMPLETING Reason=NonZeroExitCode Dependency=(null)
+   Requeue=0 Restarts=0 BatchFlag=1 Reboot=0 ExitCode=1:0
+   RunTime=00:00:06 TimeLimit=10:00:00 TimeMin=N/A
+   SubmitTime=2021-02-10T09:45:46 EligibleTime=2021-02-10T09:45:46
+   AccrueTime=2021-02-10T09:45:46
+   StartTime=2021-02-10T09:46:28 EndTime=2021-02-10T09:46:34 Deadline=N/A
+   SuspendTime=None SecsPreSuspend=0 LastSchedEval=2021-02-10T09:46:28
+   Partition=compute AllocNode:Sid=nia-login03:270957
+   ReqNodeList=(null) ExcNodeList=(null)
+   NodeList=nia1556
+   BatchHost=nia1556
+   NumNodes=1 NumCPUs=80 NumTasks=80 CPUs/Task=1 ReqB:S:C:T=0:0:*:*
+   TRES=cpu=80,mem=175G,node=1,billing=40
+   Socks/Node=* NtasksPerN:B:S:C=0:0:*:* CoreSpec=*
+   MinCPUsNode=1 MinMemoryNode=175G MinTmpDiskNode=0
+   Features=[skylake|cascade] DelayBoot=00:00:00
+   OverSubscribe=NO Contiguous=0 Licenses=(null) Network=(null)
+   Command=/gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake/.snakemake/tmp.nl27c470/snakejob.ichor.fe4f6cca-f3ba-5e56-bef6-4a47cdecb930.sh
+   WorkDir=/gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake
+   StdErr=/gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake/logs/snakejob.ichor.fe4f6cca-f3ba-5e56-bef6-4a47cdecb930.sh_4826553.log
+   StdIn=/dev/null
+   StdOut=/gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake/logs/snakejob.ichor.fe4f6cca-f3ba-5e56-bef6-4a47cdecb930.sh_4826553.log
+   Power=
+   MailUser=zyfniu@scinet.local MailType=NONE
+
+sacct -j 4826553
+       JobID    JobName    Account    Elapsed  MaxVMSize     MaxRSS  SystemCPU    UserCPU ExitCode 
+------------ ---------- ---------- ---------- ---------- ---------- ---------- ---------- -------- 
+4826553      snakejob.+ def-nicho+   00:00:06                        00:00.105  00:00.204      1:0 
+4826553.bat+      batch def-nicho+   00:00:06    138780K      1260K  00:00.105  00:00.204      1:0 
+4826553.ext+     extern def-nicho+   00:00:06    138352K       876K   00:00:00   00:00:00      0:0 

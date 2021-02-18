@@ -1,0 +1,36 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cluster nodes: 1
+Job counts:
+	count	jobs
+	1	all
+	2	filter_bam
+	3
+[Tue Feb  9 20:18:33 2021]
+
+group job ichor (jobs in lexicogr. order):
+
+    [Tue Feb  9 20:18:33 2021]
+    rule filter_bam:
+        input: /scratch/n/nicholsa/zyfniu/AN_WGS/20210118_HPV_WGS/Recal/HPV33-R.recal.bam
+        output: results/bam/tumor_sample_1.filtered.bam
+        jobid: 1
+        wildcards: samples=tumor_sample_1
+        threads: 80
+
+Submitted group job 6b93ecae-4b3c-55f2-a82c-a3924fc24d96 with external jobid 'Submitted batch job 4824765'.
+[Tue Feb  9 20:18:53 2021]
+Error in group job ichor:
+    [Tue Feb  9 20:18:53 2021]
+    Error in rule filter_bam:
+        jobid: 1
+        output: results/bam/tumor_sample_1.filtered.bam
+        shell:
+        singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img samtools view -L /scratch/n/nicholsa/zyfniu/igenomes_ref/hg38.chrom.bed -@ 80 -o results/bam/tumor_sample_1.filtered.bam /scratch/n/nicholsa/zyfniu/AN_WGS/20210118_HPV_WGS/Recal/HPV33-R.recal.bam
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+        cluster_jobid: Submitted batch job 4824765
+
+Error executing group job ichor on cluster (jobid: 6b93ecae-4b3c-55f2-a82c-a3924fc24d96, external: Submitted batch job 4824765, jobscript: /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake/.snakemake/tmp.isox69z1/snakejob.ichor.6b93ecae-4b3c-55f2-a82c-a3924fc24d96.sh). For error details see the cluster log and the log files of the involved rule(s).
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake/.snakemake/log/2021-02-09T201833.847053.snakemake.log

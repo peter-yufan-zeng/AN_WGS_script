@@ -1,0 +1,6 @@
+samples:
+  tumor_sample_1:  /scratch/n/nicholsa/zyfniu/AN_WGS/20210118_HPV_WGS/Recal/HPV33-R.recal.bam
+  normal_sample_1:  /scratch/n/nicholsa/zyfniu/AN_WGS/20210118_HPV_WGS/Recal/HPV33-N.recal.bam
+
+pairings:
+  tumor_sample_1:  normal_sample_1

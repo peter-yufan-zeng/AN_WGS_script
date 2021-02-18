@@ -1,0 +1,4 @@
+NameError in line 26 of /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake/ichorCNA.snakefile:
+name 'results' is not defined
+  File "/gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake/TitanCNA.snakefile", line 4, in <module>
+  File "/gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake/ichorCNA.snakefile", line 26, in <module>

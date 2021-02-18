@@ -1,0 +1,14 @@
+There were 12 warnings (use warnings() to see them)
+Warning message:
+In library(package, lib.loc = lib.loc, character.only = TRUE, logical.return = TRUE,  :
+  there is no package called ‘doMC’
+Warning message:
+In library(package, lib.loc = lib.loc, character.only = TRUE, logical.return = TRUE,  :
+  there is no package called ‘SNPchip’
+Error in file(filename, "r", encoding = encoding) : 
+  cannot open the connection
+Calls: source -> file
+In addition: Warning message:
+In file(filename, "r", encoding = encoding) :
+  cannot open file '/scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/R//R/plotting.R': No such file or directory
+Execution halted

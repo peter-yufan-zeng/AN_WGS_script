@@ -1,0 +1,327 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 4
+Rules claiming more threads will be scaled down.
+Job counts:
+	count	jobs
+	1	all
+	1	catAlleleCountFiles
+	4	combineTitanAndIchorCNA
+	1	copyOptSolution
+	23	getAlleleCountsByChr
+	1	ichorCNA
+	1	read_counter
+	4	runTitanCNA
+	1	selectSolution
+	37
+
+[Tue Nov  3 10:39:20 2020]
+rule getAlleleCountsByChr:
+    input: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr15.vcf, /scratch/n/nicholsa/zyfniu/AN_WGS/20200908_HPV_HNSCC_WGS/Recal/HPV76-N.recal.chr1.bam
+    output: results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr15.txt
+    log: logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chrchr15.log
+    jobid: 27
+    wildcards: tumor=tumor_sample_1, chr=chr15
+
+
+[Tue Nov  3 10:39:20 2020]
+rule getAlleleCountsByChr:
+    input: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr22.vcf, /scratch/n/nicholsa/zyfniu/AN_WGS/20200908_HPV_HNSCC_WGS/Recal/HPV76-N.recal.chr1.bam
+    output: results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr22.txt
+    log: logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chrchr22.log
+    jobid: 34
+    wildcards: tumor=tumor_sample_1, chr=chr22
+
+
+[Tue Nov  3 10:39:20 2020]
+rule getAlleleCountsByChr:
+    input: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr1.vcf, /scratch/n/nicholsa/zyfniu/AN_WGS/20200908_HPV_HNSCC_WGS/Recal/HPV76-N.recal.chr1.bam
+    output: results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr1.txt
+    log: logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chrchr1.log
+    jobid: 13
+    wildcards: tumor=tumor_sample_1, chr=chr1
+
+
+[Tue Nov  3 10:39:20 2020]
+rule getAlleleCountsByChr:
+    input: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr16.vcf, /scratch/n/nicholsa/zyfniu/AN_WGS/20200908_HPV_HNSCC_WGS/Recal/HPV76-N.recal.chr1.bam
+    output: results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr16.txt
+    log: logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chrchr16.log
+    jobid: 28
+    wildcards: tumor=tumor_sample_1, chr=chr16
+
+[Tue Nov  3 10:39:22 2020]
+Finished job 27.
+1 of 37 steps (3%) done
+[Tue Nov  3 10:39:22 2020]
+Finished job 34.
+2 of 37 steps (5%) done
+[Tue Nov  3 10:39:22 2020]
+Finished job 28.
+3 of 37 steps (8%) done
+
+[Tue Nov  3 10:39:22 2020]
+rule getAlleleCountsByChr:
+    input: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr17.vcf, /scratch/n/nicholsa/zyfniu/AN_WGS/20200908_HPV_HNSCC_WGS/Recal/HPV76-N.recal.chr1.bam
+    output: results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr17.txt
+    log: logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chrchr17.log
+    jobid: 29
+    wildcards: tumor=tumor_sample_1, chr=chr17
+
+
+[Tue Nov  3 10:39:22 2020]
+rule getAlleleCountsByChr:
+    input: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr10.vcf, /scratch/n/nicholsa/zyfniu/AN_WGS/20200908_HPV_HNSCC_WGS/Recal/HPV76-N.recal.chr1.bam
+    output: results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr10.txt
+    log: logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chrchr10.log
+    jobid: 22
+    wildcards: tumor=tumor_sample_1, chr=chr10
+
+
+[Tue Nov  3 10:39:22 2020]
+rule getAlleleCountsByChr:
+    input: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr18.vcf, /scratch/n/nicholsa/zyfniu/AN_WGS/20200908_HPV_HNSCC_WGS/Recal/HPV76-N.recal.chr1.bam
+    output: results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr18.txt
+    log: logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chrchr18.log
+    jobid: 30
+    wildcards: tumor=tumor_sample_1, chr=chr18
+
+[Tue Nov  3 10:39:22 2020]
+Finished job 29.
+4 of 37 steps (11%) done
+
+[Tue Nov  3 10:39:22 2020]
+rule getAlleleCountsByChr:
+    input: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr11.vcf, /scratch/n/nicholsa/zyfniu/AN_WGS/20200908_HPV_HNSCC_WGS/Recal/HPV76-N.recal.chr1.bam
+    output: results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr11.txt
+    log: logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chrchr11.log
+    jobid: 23
+    wildcards: tumor=tumor_sample_1, chr=chr11
+
+[Tue Nov  3 10:39:22 2020]
+Finished job 22.
+5 of 37 steps (14%) done
+
+[Tue Nov  3 10:39:22 2020]
+rule getAlleleCountsByChr:
+    input: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr19.vcf, /scratch/n/nicholsa/zyfniu/AN_WGS/20200908_HPV_HNSCC_WGS/Recal/HPV76-N.recal.chr1.bam
+    output: results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr19.txt
+    log: logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chrchr19.log
+    jobid: 31
+    wildcards: tumor=tumor_sample_1, chr=chr19
+
+[Tue Nov  3 10:39:23 2020]
+Finished job 30.
+6 of 37 steps (16%) done
+
+[Tue Nov  3 10:39:23 2020]
+rule getAlleleCountsByChr:
+    input: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr12.vcf, /scratch/n/nicholsa/zyfniu/AN_WGS/20200908_HPV_HNSCC_WGS/Recal/HPV76-N.recal.chr1.bam
+    output: results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr12.txt
+    log: logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chrchr12.log
+    jobid: 24
+    wildcards: tumor=tumor_sample_1, chr=chr12
+
+[Tue Nov  3 10:39:23 2020]
+Finished job 23.
+7 of 37 steps (19%) done
+
+[Tue Nov  3 10:39:23 2020]
+rule getAlleleCountsByChr:
+    input: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr20.vcf, /scratch/n/nicholsa/zyfniu/AN_WGS/20200908_HPV_HNSCC_WGS/Recal/HPV76-N.recal.chr1.bam
+    output: results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr20.txt
+    log: logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chrchr20.log
+    jobid: 32
+    wildcards: tumor=tumor_sample_1, chr=chr20
+
+[Tue Nov  3 10:39:23 2020]
+Finished job 31.
+8 of 37 steps (22%) done
+
+[Tue Nov  3 10:39:23 2020]
+rule getAlleleCountsByChr:
+    input: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr13.vcf, /scratch/n/nicholsa/zyfniu/AN_WGS/20200908_HPV_HNSCC_WGS/Recal/HPV76-N.recal.chr1.bam
+    output: results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr13.txt
+    log: logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chrchr13.log
+    jobid: 25
+    wildcards: tumor=tumor_sample_1, chr=chr13
+
+[Tue Nov  3 10:39:23 2020]
+Finished job 24.
+9 of 37 steps (24%) done
+
+[Tue Nov  3 10:39:23 2020]
+rule getAlleleCountsByChr:
+    input: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr21.vcf, /scratch/n/nicholsa/zyfniu/AN_WGS/20200908_HPV_HNSCC_WGS/Recal/HPV76-N.recal.chr1.bam
+    output: results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr21.txt
+    log: logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chrchr21.log
+    jobid: 33
+    wildcards: tumor=tumor_sample_1, chr=chr21
+
+[Tue Nov  3 10:39:24 2020]
+Finished job 25.
+10 of 37 steps (27%) done
+
+[Tue Nov  3 10:39:24 2020]
+rule getAlleleCountsByChr:
+    input: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr14.vcf, /scratch/n/nicholsa/zyfniu/AN_WGS/20200908_HPV_HNSCC_WGS/Recal/HPV76-N.recal.chr1.bam
+    output: results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr14.txt
+    log: logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chrchr14.log
+    jobid: 26
+    wildcards: tumor=tumor_sample_1, chr=chr14
+
+[Tue Nov  3 10:39:24 2020]
+Finished job 32.
+11 of 37 steps (30%) done
+
+[Tue Nov  3 10:39:24 2020]
+rule getAlleleCountsByChr:
+    input: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr7.vcf, /scratch/n/nicholsa/zyfniu/AN_WGS/20200908_HPV_HNSCC_WGS/Recal/HPV76-N.recal.chr1.bam
+    output: results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr7.txt
+    log: logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chrchr7.log
+    jobid: 19
+    wildcards: tumor=tumor_sample_1, chr=chr7
+
+[Tue Nov  3 10:39:24 2020]
+Finished job 33.
+12 of 37 steps (32%) done
+
+[Tue Nov  3 10:39:24 2020]
+rule getAlleleCountsByChr:
+    input: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr8.vcf, /scratch/n/nicholsa/zyfniu/AN_WGS/20200908_HPV_HNSCC_WGS/Recal/HPV76-N.recal.chr1.bam
+    output: results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr8.txt
+    log: logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chrchr8.log
+    jobid: 20
+    wildcards: tumor=tumor_sample_1, chr=chr8
+
+[Tue Nov  3 10:39:24 2020]
+Finished job 26.
+13 of 37 steps (35%) done
+[Tue Nov  3 10:39:24 2020]
+Finished job 19.
+14 of 37 steps (38%) done
+
+[Tue Nov  3 10:39:24 2020]
+rule getAlleleCountsByChr:
+    input: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchrX.vcf, /scratch/n/nicholsa/zyfniu/AN_WGS/20200908_HPV_HNSCC_WGS/Recal/HPV76-N.recal.chr1.bam
+    output: results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchrX.txt
+    log: logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chrchrX.log
+    jobid: 35
+    wildcards: tumor=tumor_sample_1, chr=chrX
+
+
+[Tue Nov  3 10:39:24 2020]
+rule getAlleleCountsByChr:
+    input: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr2.vcf, /scratch/n/nicholsa/zyfniu/AN_WGS/20200908_HPV_HNSCC_WGS/Recal/HPV76-N.recal.chr1.bam
+    output: results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr2.txt
+    log: logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chrchr2.log
+    jobid: 14
+    wildcards: tumor=tumor_sample_1, chr=chr2
+
+[Tue Nov  3 10:39:24 2020]
+Finished job 20.
+15 of 37 steps (41%) done
+
+[Tue Nov  3 10:39:24 2020]
+rule getAlleleCountsByChr:
+    input: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr9.vcf, /scratch/n/nicholsa/zyfniu/AN_WGS/20200908_HPV_HNSCC_WGS/Recal/HPV76-N.recal.chr1.bam
+    output: results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr9.txt
+    log: logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chrchr9.log
+    jobid: 21
+    wildcards: tumor=tumor_sample_1, chr=chr9
+
+[Tue Nov  3 10:39:25 2020]
+Finished job 14.
+16 of 37 steps (43%) done
+
+[Tue Nov  3 10:39:25 2020]
+rule getAlleleCountsByChr:
+    input: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr3.vcf, /scratch/n/nicholsa/zyfniu/AN_WGS/20200908_HPV_HNSCC_WGS/Recal/HPV76-N.recal.chr1.bam
+    output: results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr3.txt
+    log: logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chrchr3.log
+    jobid: 15
+    wildcards: tumor=tumor_sample_1, chr=chr3
+
+[Tue Nov  3 10:39:25 2020]
+Finished job 35.
+17 of 37 steps (46%) done
+
+[Tue Nov  3 10:39:25 2020]
+rule getAlleleCountsByChr:
+    input: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr4.vcf, /scratch/n/nicholsa/zyfniu/AN_WGS/20200908_HPV_HNSCC_WGS/Recal/HPV76-N.recal.chr1.bam
+    output: results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr4.txt
+    log: logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chrchr4.log
+    jobid: 16
+    wildcards: tumor=tumor_sample_1, chr=chr4
+
+[Tue Nov  3 10:39:25 2020]
+Finished job 21.
+18 of 37 steps (49%) done
+
+[Tue Nov  3 10:39:25 2020]
+rule getAlleleCountsByChr:
+    input: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr5.vcf, /scratch/n/nicholsa/zyfniu/AN_WGS/20200908_HPV_HNSCC_WGS/Recal/HPV76-N.recal.chr1.bam
+    output: results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr5.txt
+    log: logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chrchr5.log
+    jobid: 17
+    wildcards: tumor=tumor_sample_1, chr=chr5
+
+[Tue Nov  3 10:39:25 2020]
+Finished job 16.
+19 of 37 steps (51%) done
+
+[Tue Nov  3 10:39:25 2020]
+rule getAlleleCountsByChr:
+    input: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr6.vcf, /scratch/n/nicholsa/zyfniu/AN_WGS/20200908_HPV_HNSCC_WGS/Recal/HPV76-N.recal.chr1.bam
+    output: results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr6.txt
+    log: logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chrchr6.log
+    jobid: 18
+    wildcards: tumor=tumor_sample_1, chr=chr6
+
+[Tue Nov  3 10:39:25 2020]
+Finished job 15.
+20 of 37 steps (54%) done
+
+[Tue Nov  3 10:39:25 2020]
+rule read_counter:
+    input: /scratch/n/nicholsa/zyfniu/AN_WGS/20200908_HPV_HNSCC_WGS/Recal/HPV76-N.recal.chr1.bam
+    output: results/readDepth/tumor_sample_1.bin10000.wig
+    log: logs/readDepth/tumor_sample_1.bin10000.log
+    jobid: 36
+    wildcards: samples=tumor_sample_1, binSize=10000
+    resources: mem=4
+
+[Tue Nov  3 10:39:25 2020]
+Finished job 17.
+21 of 37 steps (57%) done
+[Tue Nov  3 10:39:26 2020]
+Finished job 18.
+22 of 37 steps (59%) done
+[Tue Nov  3 10:41:41 2020]
+Finished job 36.
+23 of 37 steps (62%) done
+
+[Tue Nov  3 10:41:41 2020]
+rule ichorCNA:
+    input: results/readDepth/tumor_sample_1.bin10000.wig, results/readDepth/normal_sample_1.bin10000.wig
+    output: results/ichorCNA/tumor_sample_1/tumor_sample_1.correctedDepth.txt, results/ichorCNA/tumor_sample_1/tumor_sample_1.params.txt, results/ichorCNA/tumor_sample_1/tumor_sample_1.cna.seg, results/ichorCNA/tumor_sample_1/tumor_sample_1.seg.txt
+    log: logs/ichorCNA/tumor_sample_1.log
+    jobid: 12
+    wildcards: tumor=tumor_sample_1
+    resources: mem=4
+
+[Tue Nov  3 10:41:44 2020]
+Error in rule ichorCNA:
+    jobid: 12
+    output: results/ichorCNA/tumor_sample_1/tumor_sample_1.correctedDepth.txt, results/ichorCNA/tumor_sample_1/tumor_sample_1.params.txt, results/ichorCNA/tumor_sample_1/tumor_sample_1.cna.seg, results/ichorCNA/tumor_sample_1/tumor_sample_1.seg.txt
+    log: logs/ichorCNA/tumor_sample_1.log (check log file(s) for error message)
+    shell:
+        Rscript /scratch/n/nicholsa/zyfniu/singularity_images/ichorCNA/scripts/runIchorCNA.R --libdir /scratch/n/nicholsa/zyfniu/singularity_images/ichorCNA/R --id tumor_sample_1 --WIG results/readDepth/tumor_sample_1.bin10000.wig --gcWig /scratch/n/nicholsa/zyfniu/igenomes_ref/gc_hg19_10kb.wig --mapWig /scratch/n/nicholsa/zyfniu/igenomes_ref/map_hg19_10kb.wig --NORMWIG results/readDepth/normal_sample_1.bin10000.wig --ploidy "c(2,3)" --normal "c(0.5)" --maxCN 8 --includeHOMD False --genomeStyle UCSC --chrs "c(1:22, \"X\")" --estimateNormal True --estimatePloidy True --estimateScPrevalence True --scStates "c(1,3)" --centromere /scratch/n/nicholsa/zyfniu/igenomes_ref/GRCh38.GCA_000001405.2_centromere_acen.txt --exons.bed None --txnE 0.9999 --txnStrength 10000 --fracReadsInChrYForMale 0.001 --plotFileType png --plotYLim "c(-2,4)" --outDir results/ichorCNA/tumor_sample_1/ > logs/ichorCNA/tumor_sample_1.log 2> logs/ichorCNA/tumor_sample_1.log
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+[Tue Nov  3 10:45:42 2020]
+Finished job 13.
+24 of 37 steps (65%) done
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake/.snakemake/log/2020-11-03T103920.412190.snakemake.log

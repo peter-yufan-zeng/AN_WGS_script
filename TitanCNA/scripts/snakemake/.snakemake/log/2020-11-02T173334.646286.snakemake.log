@@ -1,0 +1,329 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 4
+Rules claiming more threads will be scaled down.
+Job counts:
+	count	jobs
+	1	all
+	1	catAlleleCountFiles
+	4	combineTitanAndIchorCNA
+	1	copyOptSolution
+	23	getAlleleCountsByChr
+	23	getHETsites
+	1	ichorCNA
+	2	read_counter
+	4	runTitanCNA
+	1	selectSolution
+	61
+
+[Mon Nov  2 17:33:34 2020]
+rule getHETsites:
+    input: /scratch/n/nicholsa/zyfniu/AN_WGS/20200908_HPV_HNSCC_WGS/Recal/HPV76-P.recal.chr1.bam
+    output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr7.vcf
+    log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr7.log
+    jobid: 44
+    wildcards: tumor=tumor_sample_1, chr=chr7
+
+
+[Mon Nov  2 17:33:34 2020]
+rule getHETsites:
+    input: /scratch/n/nicholsa/zyfniu/AN_WGS/20200908_HPV_HNSCC_WGS/Recal/HPV76-P.recal.chr1.bam
+    output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr14.vcf
+    log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr14.log
+    jobid: 51
+    wildcards: tumor=tumor_sample_1, chr=chr14
+
+
+[Mon Nov  2 17:33:34 2020]
+rule getHETsites:
+    input: /scratch/n/nicholsa/zyfniu/AN_WGS/20200908_HPV_HNSCC_WGS/Recal/HPV76-P.recal.chr1.bam
+    output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr22.vcf
+    log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr22.log
+    jobid: 59
+    wildcards: tumor=tumor_sample_1, chr=chr22
+
+
+[Mon Nov  2 17:33:34 2020]
+rule getHETsites:
+    input: /scratch/n/nicholsa/zyfniu/AN_WGS/20200908_HPV_HNSCC_WGS/Recal/HPV76-P.recal.chr1.bam
+    output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr8.vcf
+    log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr8.log
+    jobid: 45
+    wildcards: tumor=tumor_sample_1, chr=chr8
+
+[Mon Nov  2 17:33:37 2020]
+Finished job 45.
+1 of 61 steps (2%) done
+
+[Mon Nov  2 17:33:37 2020]
+rule getHETsites:
+    input: /scratch/n/nicholsa/zyfniu/AN_WGS/20200908_HPV_HNSCC_WGS/Recal/HPV76-P.recal.chr1.bam
+    output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr15.vcf
+    log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr15.log
+    jobid: 52
+    wildcards: tumor=tumor_sample_1, chr=chr15
+
+[Mon Nov  2 17:33:37 2020]
+Finished job 44.
+2 of 61 steps (3%) done
+
+[Mon Nov  2 17:33:37 2020]
+rule getHETsites:
+    input: /scratch/n/nicholsa/zyfniu/AN_WGS/20200908_HPV_HNSCC_WGS/Recal/HPV76-P.recal.chr1.bam
+    output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchrX.vcf
+    log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchrX.log
+    jobid: 60
+    wildcards: tumor=tumor_sample_1, chr=chrX
+
+[Mon Nov  2 17:33:38 2020]
+Finished job 59.
+3 of 61 steps (5%) done
+
+[Mon Nov  2 17:33:38 2020]
+rule getHETsites:
+    input: /scratch/n/nicholsa/zyfniu/AN_WGS/20200908_HPV_HNSCC_WGS/Recal/HPV76-P.recal.chr1.bam
+    output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr1.vcf
+    log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr1.log
+    jobid: 38
+    wildcards: tumor=tumor_sample_1, chr=chr1
+
+[Mon Nov  2 17:33:38 2020]
+Finished job 51.
+4 of 61 steps (7%) done
+
+[Mon Nov  2 17:33:38 2020]
+rule getHETsites:
+    input: /scratch/n/nicholsa/zyfniu/AN_WGS/20200908_HPV_HNSCC_WGS/Recal/HPV76-P.recal.chr1.bam
+    output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr9.vcf
+    log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr9.log
+    jobid: 46
+    wildcards: tumor=tumor_sample_1, chr=chr9
+
+[Mon Nov  2 17:33:41 2020]
+Finished job 52.
+5 of 61 steps (8%) done
+
+[Mon Nov  2 17:33:41 2020]
+rule getHETsites:
+    input: /scratch/n/nicholsa/zyfniu/AN_WGS/20200908_HPV_HNSCC_WGS/Recal/HPV76-P.recal.chr1.bam
+    output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr16.vcf
+    log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr16.log
+    jobid: 53
+    wildcards: tumor=tumor_sample_1, chr=chr16
+
+[Mon Nov  2 17:33:41 2020]
+Finished job 60.
+6 of 61 steps (10%) done
+
+[Mon Nov  2 17:33:41 2020]
+rule getHETsites:
+    input: /scratch/n/nicholsa/zyfniu/AN_WGS/20200908_HPV_HNSCC_WGS/Recal/HPV76-P.recal.chr1.bam
+    output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr2.vcf
+    log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr2.log
+    jobid: 39
+    wildcards: tumor=tumor_sample_1, chr=chr2
+
+[Mon Nov  2 17:33:41 2020]
+Finished job 46.
+7 of 61 steps (11%) done
+
+[Mon Nov  2 17:33:41 2020]
+rule read_counter:
+    input: /scratch/n/nicholsa/zyfniu/AN_WGS/20200908_HPV_HNSCC_WGS/Recal/HPV76-P.recal.chr1.bam
+    output: results/readDepth/normal_sample_1.bin10000.wig
+    log: logs/readDepth/normal_sample_1.bin10000.log
+    jobid: 37
+    wildcards: samples=normal_sample_1, binSize=10000
+    resources: mem=4
+
+[Mon Nov  2 17:33:44 2020]
+Finished job 53.
+8 of 61 steps (13%) done
+
+[Mon Nov  2 17:33:44 2020]
+rule getHETsites:
+    input: /scratch/n/nicholsa/zyfniu/AN_WGS/20200908_HPV_HNSCC_WGS/Recal/HPV76-P.recal.chr1.bam
+    output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr10.vcf
+    log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr10.log
+    jobid: 47
+    wildcards: tumor=tumor_sample_1, chr=chr10
+
+[Mon Nov  2 17:33:44 2020]
+Finished job 39.
+9 of 61 steps (15%) done
+
+[Mon Nov  2 17:33:44 2020]
+rule getHETsites:
+    input: /scratch/n/nicholsa/zyfniu/AN_WGS/20200908_HPV_HNSCC_WGS/Recal/HPV76-P.recal.chr1.bam
+    output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr17.vcf
+    log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr17.log
+    jobid: 54
+    wildcards: tumor=tumor_sample_1, chr=chr17
+
+[Mon Nov  2 17:33:47 2020]
+Finished job 47.
+10 of 61 steps (16%) done
+
+[Mon Nov  2 17:33:47 2020]
+rule getHETsites:
+    input: /scratch/n/nicholsa/zyfniu/AN_WGS/20200908_HPV_HNSCC_WGS/Recal/HPV76-P.recal.chr1.bam
+    output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr3.vcf
+    log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr3.log
+    jobid: 40
+    wildcards: tumor=tumor_sample_1, chr=chr3
+
+[Mon Nov  2 17:33:47 2020]
+Finished job 54.
+11 of 61 steps (18%) done
+
+[Mon Nov  2 17:33:47 2020]
+rule getHETsites:
+    input: /scratch/n/nicholsa/zyfniu/AN_WGS/20200908_HPV_HNSCC_WGS/Recal/HPV76-P.recal.chr1.bam
+    output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr11.vcf
+    log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr11.log
+    jobid: 48
+    wildcards: tumor=tumor_sample_1, chr=chr11
+
+[Mon Nov  2 17:33:50 2020]
+Finished job 48.
+12 of 61 steps (20%) done
+
+[Mon Nov  2 17:33:50 2020]
+rule getHETsites:
+    input: /scratch/n/nicholsa/zyfniu/AN_WGS/20200908_HPV_HNSCC_WGS/Recal/HPV76-P.recal.chr1.bam
+    output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr18.vcf
+    log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr18.log
+    jobid: 55
+    wildcards: tumor=tumor_sample_1, chr=chr18
+
+[Mon Nov  2 17:33:50 2020]
+Finished job 40.
+13 of 61 steps (21%) done
+
+[Mon Nov  2 17:33:50 2020]
+rule getHETsites:
+    input: /scratch/n/nicholsa/zyfniu/AN_WGS/20200908_HPV_HNSCC_WGS/Recal/HPV76-P.recal.chr1.bam
+    output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr4.vcf
+    log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr4.log
+    jobid: 41
+    wildcards: tumor=tumor_sample_1, chr=chr4
+
+[Mon Nov  2 17:33:53 2020]
+Finished job 55.
+14 of 61 steps (23%) done
+
+[Mon Nov  2 17:33:53 2020]
+rule getHETsites:
+    input: /scratch/n/nicholsa/zyfniu/AN_WGS/20200908_HPV_HNSCC_WGS/Recal/HPV76-P.recal.chr1.bam
+    output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr12.vcf
+    log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr12.log
+    jobid: 49
+    wildcards: tumor=tumor_sample_1, chr=chr12
+
+[Mon Nov  2 17:33:53 2020]
+Finished job 41.
+15 of 61 steps (25%) done
+
+[Mon Nov  2 17:33:53 2020]
+rule getHETsites:
+    input: /scratch/n/nicholsa/zyfniu/AN_WGS/20200908_HPV_HNSCC_WGS/Recal/HPV76-P.recal.chr1.bam
+    output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr19.vcf
+    log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr19.log
+    jobid: 56
+    wildcards: tumor=tumor_sample_1, chr=chr19
+
+[Mon Nov  2 17:33:56 2020]
+Finished job 56.
+16 of 61 steps (26%) done
+
+[Mon Nov  2 17:33:56 2020]
+rule getHETsites:
+    input: /scratch/n/nicholsa/zyfniu/AN_WGS/20200908_HPV_HNSCC_WGS/Recal/HPV76-P.recal.chr1.bam
+    output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr5.vcf
+    log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr5.log
+    jobid: 42
+    wildcards: tumor=tumor_sample_1, chr=chr5
+
+[Mon Nov  2 17:33:56 2020]
+Finished job 49.
+17 of 61 steps (28%) done
+
+[Mon Nov  2 17:33:56 2020]
+rule getHETsites:
+    input: /scratch/n/nicholsa/zyfniu/AN_WGS/20200908_HPV_HNSCC_WGS/Recal/HPV76-P.recal.chr1.bam
+    output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr13.vcf
+    log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr13.log
+    jobid: 50
+    wildcards: tumor=tumor_sample_1, chr=chr13
+
+[Mon Nov  2 17:33:59 2020]
+Finished job 42.
+18 of 61 steps (30%) done
+
+[Mon Nov  2 17:33:59 2020]
+rule getHETsites:
+    input: /scratch/n/nicholsa/zyfniu/AN_WGS/20200908_HPV_HNSCC_WGS/Recal/HPV76-P.recal.chr1.bam
+    output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr20.vcf
+    log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr20.log
+    jobid: 57
+    wildcards: tumor=tumor_sample_1, chr=chr20
+
+[Mon Nov  2 17:33:59 2020]
+Finished job 50.
+19 of 61 steps (31%) done
+
+[Mon Nov  2 17:33:59 2020]
+rule getHETsites:
+    input: /scratch/n/nicholsa/zyfniu/AN_WGS/20200908_HPV_HNSCC_WGS/Recal/HPV76-P.recal.chr1.bam
+    output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr6.vcf
+    log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr6.log
+    jobid: 43
+    wildcards: tumor=tumor_sample_1, chr=chr6
+
+[Mon Nov  2 17:34:02 2020]
+Finished job 43.
+20 of 61 steps (33%) done
+
+[Mon Nov  2 17:34:02 2020]
+rule getHETsites:
+    input: /scratch/n/nicholsa/zyfniu/AN_WGS/20200908_HPV_HNSCC_WGS/Recal/HPV76-P.recal.chr1.bam
+    output: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr21.vcf
+    log: logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr21.log
+    jobid: 58
+    wildcards: tumor=tumor_sample_1, chr=chr21
+
+[Mon Nov  2 17:34:02 2020]
+Finished job 57.
+21 of 61 steps (34%) done
+
+[Mon Nov  2 17:34:02 2020]
+rule getAlleleCountsByChr:
+    input: results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr15.vcf, /scratch/n/nicholsa/zyfniu/AN_WGS/20200908_HPV_HNSCC_WGS/Recal/HPV76-N.recal.chr1.bam
+    output: results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr15.txt
+    log: logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chrchr15.log
+    jobid: 27
+    wildcards: tumor=tumor_sample_1, chr=chr15
+
+[Mon Nov  2 17:34:02 2020]
+Error in rule getAlleleCountsByChr:
+    jobid: 27
+    output: results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr15.txt
+    log: logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chrchr15.log (check log file(s) for error message)
+    shell:
+        python /scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake/code/countPysam.py chr15 results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrchr15.vcf /scratch/n/nicholsa/zyfniu/AN_WGS/20200908_HPV_HNSCC_WGS/Recal/HPV76-N.recal.chr1.bam 10 10 100 > results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr15.txt 2> logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chrchr15.log
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+Removing output files of failed job getAlleleCountsByChr since they might be corrupted:
+results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrchr15.txt
+[Mon Nov  2 17:34:05 2020]
+Finished job 58.
+22 of 61 steps (36%) done
+[Mon Nov  2 17:37:55 2020]
+Finished job 37.
+23 of 61 steps (38%) done
+[Mon Nov  2 17:53:24 2020]
+Finished job 38.
+24 of 61 steps (39%) done
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/TitanCNA/scripts/snakemake/.snakemake/log/2020-11-02T173334.646286.snakemake.log

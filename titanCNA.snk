@@ -74,9 +74,9 @@ rule getHETsites:
 		OUTDIR + "/results/titan/hetPosns/{tumor}/{tumor}.{chr}.vcf"
 	params:
 		refFasta=config["refFasta"],
-		snpDB=config["snpVCF"],
-		samtoolsCmd=config["samTools"],
-		bcftoolsCmd=config["bcfTools"]
+		snpDB=config["snpVCF"]
+	#	samtoolsCmd=config["samTools"],
+	#	bcftoolsCmd=config["bcfTools"]
 	group:	"titan"
 	threads: 2
 	log:
@@ -86,7 +86,10 @@ rule getHETsites:
 		$SCRATCH/igenomes_ref,$SCRATCH/AN_WGS/AN_WGS_script,{OUTDIR} \
  		/gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
 		samtools mpileup -uv -I -f {params.refFasta} -r {wildcards.chr} \
-		-l {params.snpDB} {input} | {params.bcftoolsCmd} call -v -c - | grep -e '0/1' -e '#' > {output} 2> {log}"
+		-l {params.snpDB} {input} | singularity exec -B \
+		$SCRATCH/igenomes_ref,$SCRATCH/AN_WGS/AN_WGS_script,{OUTDIR} \
+		 /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
+		 bcftools call -v -c - | grep -e '0/1' -e '#' > {output} 2> {log}"
 
 
 rule getAlleleCountsByChr:
@@ -139,7 +142,7 @@ rule read_counter:
 		chrs=config["chrs"]
 	resources:
 		mem=4
-	group:"ichor"
+	group:"titan"
 	log:
 		OUTDIR + "/logs/readDepth/{samples}.bin{binSize}.log"
 	shell:

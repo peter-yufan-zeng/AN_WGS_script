@@ -753,7 +753,11 @@ rule filter_mutect2_passOnly_all_tumour:
 	shell:
 		"""
 		singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR} \
-			/gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img bcftools view -f "PASS" {input} | bgzip > {output}
+			/gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img bcftools view -f "PASS" {input} |\
+		singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR} \
+		/gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img bgzip > {output}
+		singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR} \
+		/gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img tabix -p vcf {output}
 		"""
 
 ####
@@ -863,7 +867,11 @@ rule filter_mutect2_passOnly:
 	shell:
 		"""
 		singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR} \
-			/gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img bcftools view -f "PASS" {input} | bgzip > {output}
+			/gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img bcftools view -f "PASS" {input} |\
+		singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR} \
+		/gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img bgzip > {output}
+		singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR} \
+		/gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img tabix -p vcf {output}
 		"""
 
 rule annotate_manta:

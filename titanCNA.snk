@@ -77,7 +77,7 @@ rule getHETsites:
 		snpDB=config["snpVCF"]
 	#	samtoolsCmd=config["samTools"],
 	#	bcftoolsCmd=config["bcfTools"]
-	group:	"titan"
+	group: "titan"
 	threads: 2
 	log:
 		OUTDIR + "/logs/titan/hetPosns/{tumor}/{tumor}.chr{chr}.log"
@@ -105,7 +105,7 @@ rule getAlleleCountsByChr:
 		mapQ=config["map_quality"],
 		baseQ=config["base_quality"],
 		vcfQ=config["vcf_quality"]
-	group:	"titan"
+	group: "titan"
 	threads: 2
 	log:
 		OUTDIR + "/logs/titan/tumCounts/{tumor}/{tumor}.chr{chr}.log"

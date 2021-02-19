@@ -10,7 +10,7 @@ pyCountScript:  /scratch/n/nicholsa/zyfniu/AN_WGS/AN_WGS_script/TitanCNA/scripts
 TitanCNA_rscript: /scratch/n/nicholsa/zyfniu/AN_WGS/AN_WGS_script/TitanCNA/scripts/R_scripts/titanCNA.R
 TitanCNA_combineTitanIchorCNA:  /scratch/n/nicholsa/zyfniu/AN_WGS/AN_WGS_script/TitanCNA/scripts/snakemake/code/combineTITAN-ichor.R
 TitanCNA_selectSolutionRscript: /scratch/n/nicholsa/zyfniu/AN_WGS/AN_WGS_script/TitanCNA/scripts/R_scripts/selectSolution.R
-TitanCNA_libdir:  /scratch/n/nicholsa/zyfniu/AN_WGS/AN_WGS_script/TitanCNA/R/
+TitanCNA_libdir:  /scratch/n/nicholsa/zyfniu/AN_WGS/AN_WGS_script/TitanCNA
 
 ## reference settings and paths to reference files ##
 genomeBuild: hg38

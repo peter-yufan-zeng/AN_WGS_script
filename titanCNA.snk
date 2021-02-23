@@ -50,7 +50,7 @@ for x in Multi['Patient'].drop_duplicates():
 
 Multi['path'] = OUTDIR + "/results/mutect2/all_"  + Multi.Combined + "_vs_" + Multi.Patient + "-N/" \
 + Multi.Combined + "_vs_" + Multi.Patient + "-N_snpEff.ann.vcf.gz"
-Multi['phylowgs_path'] = OUTDIR + "/results/phyloWGS/" + Multi.Combined + "_vs_" + Multi.Patient + "-N/trees.zip" \
+Multi['phylowgs_path'] = OUTDIR + "/results/phyloWGS/" + Multi.Combined + "_vs_" + Multi.Patient + "-N/trees.zip"
 Multi = Multi[Multi.num_tumours > 1]
 ###
 
@@ -331,7 +331,7 @@ rule selectSolution:
 		ploidy2 = OUTDIR + "/results/titan/hmm/titanCNA_ploidy2",
 		ploidy3 = OUTDIR + "/results/titan/hmm/titanCNA_ploidy3",
 		ploidy4 = OUTDIR + "/results/titan/hmm/titanCNA_ploidy4"
-#	group:	"titan"
+	group:	"phylowgs"
 	threads: 2
 	log:
 		OUTDIR + "/logs/titan/selectSolution_{tumor}_vs_{patient}-N.log"
@@ -362,7 +362,7 @@ rule copyOptSolution:
 	params:
 	log:
 		OUTDIR + "/logs/titan/hmm/optSolution/copyOptSolution_{tumor}_vs_{patient}-N.log"
-#	group:	"titan"
+	group:	"phylowgs"
 	threads: 2
 	shell:
 		"""
@@ -371,6 +371,7 @@ rule copyOptSolution:
 		do
 			echo -e "Copying ${{i}} to {output.dir}"
 			cp -r ${{i}}* {output.dir}
+			cp -r ${{i}}.segs.txt {output.segs}
 		done
 		"""
 
@@ -383,73 +384,95 @@ rule parseCNV:
 		segs = OUTDIR + "/results/titan/hmm/optimalClusterSolution/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N.segs.txt",
 		ploidy = OUTDIR + "/results/ASCAT/{tumor}_vs_{patient}-N/{tumor}.purityploidy.txt"
 	output:
-		{OUTDIR} + "/results/phyloWGS/input/{tumor}_vs_{patient}-N_cnvs.txt"
+		OUTDIR + "/results/phyloWGS/input/{tumor}_vs_{patient}-N_cnvs.txt"
 	params:
-		awk_command = "awk 'FNR == 2{{print $1}}' {input.ploidy}"
+		awk_command = "awk 'FNR == 2{{print $1}}' " + OUTDIR + "/results/ASCAT/{tumor}_vs_{patient}-N/{tumor}.purityploidy.txt"
 	threads: 1
+	group: "phylowgs"
 	run:
 		import subprocess
-        import os.path
+        	import os.path
 		ploidy = (subprocess.check_output({params.awk_command}, shell = True)).rstrip().decode()
-		command = "singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR},$SCRATCH/singularity_images /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/phylowgs.simg python2.7 /scratch/n/nicholsa/zyfniu/singularity_images/phylowgs/parser/parse_cnvs.py -f titan -c " + ploidy + " --cnv-output {output} {input.segs}"
+		command = "singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR},$SCRATCH/AN_WGS/AN_WGS_script /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/phylowgs.simg python2.7 $SCRATCH/AN_WGS/AN_WGS_script/phylowgs_parser/parse_cnvs.py -f titan -c " + ploidy + " --cnv-output {output} {input.segs}"
 		shell(command)
 
+### replace chr1...23 with 1...23 before using phylowgs parser
+rule fixParsedCNV
+	input:
+		OUTDIR + "/results/phyloWGS/input/{tumor}_vs_{patient}-N_cnvs.txt"
+	output:
+		OUTDIR + "/results/phyloWGS/input/{tumor}_vs_{patient}-N_cnvs.fixed.txt"
+	threads: 1
+	group: "phylowgs"
+	shell:
+		"""
+		sed -e 's/chr//g' {input} > {output}
+		sed -i -e 's/omosome/chromosome/g' {output}
+		"""
 
 def get_vcfs_for_phylowgs_files(wildcards):
 	samples = Multi[Multi.Patient == wildcards.patient].Sample
-	return expand(OUTDIR +"/results/mutect2/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N_snpEff.ann.passOnly.vcf.gz", tumor = samples, tumor = wildcards.patient)
+	return expand(OUTDIR +"/results/mutect2/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N_snpEff.ann.passOnly.vcf.gz", tumor = samples, patient = wildcards.patient)
 
 def get_parsedCNVs_for_phylowgs_files(wildcards):
 	samples = Multi[Multi.Patient == wildcards.patient].Sample
-	return expand(OUTDIR +"/results/phyloWGS/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N_cnvs.txt", tumor = samples, tumor = wildcards.patient)
+	return expand(OUTDIR +"/results/phyloWGS/input/{tumor}_vs_{patient}-N_cnvs.txt", tumor = samples, patient = wildcards.patient)
 
 def cnvs_param(wildcards):
 	multi = Multi[Multi.Patient == wildcards.patient]
 	cnv_param = ""
 	for y in multi.Sample.drop_duplicates():
-		cnv_param = y + "=" + OUTDIR + "/results/phyloWGS/input/"+ y + "_vs_" + wildcards.patient + "-N_cnvs.txt" + " "
+		cnv_param = cnv_param + "--cnvs " + y + "=" + OUTDIR + "/results/phyloWGS/input/"+ y + "_vs_" + wildcards.patient + "-N_cnvs.txt "
+	print(cnv_param)
 	return cnv_param
 
 def vcf_files(wildcards):
 	multi = Multi[Multi.Patient == wildcards.patient]
-	vcf_param = ""
+	vcf_files = ""
 	for y in multi.Sample.drop_duplicates():
-		vcf_param = y + "=" + OUTDIR + "/results/mutect2/" + y + "_vs_" + wildcards.patient + "-N/" + y + "_vs_" + wildcards.patient + "_snpEff.ann.passOnly.vcf.gz" + " "
-	return vcf_param
+		vcf_files = vcf_files + y + "=" + OUTDIR + "/results/mutect2/" + y + "_vs_" + wildcards.patient + "-N/" + y + "_vs_" + wildcards.patient + "-N_snpEff.ann.passOnly.vcf.gz" + " "
+	print(vcf_files)
+	return vcf_files
 
 def vcf_format(wildcards):
 	multi = Multi[Multi.Patient == wildcards.patient]
 	vcf_format = ""
 	for y in multi.Sample.drop_duplicates():
-		vcf_format = y + "=mutect_smchet "
+		vcf_format = vcf_format + "--vcf-type " + y + "=mutect_smchet "
+	print(vcf_format)
 	return vcf_format
+
+
+
+
 
 rule parseSNVfromMutect:
 	input:
-		cnvs = get_parsedCNVs_for_phylowgs,
-		passOnlyvcf =  get_vcfs_for_phylowgs
+		cnvs = get_parsedCNVs_for_phylowgs_files,
+		passOnlyvcf =  get_vcfs_for_phylowgs_files
 	output:
 		ssm = OUTDIR + "/results/phyloWGS/parsedSNV_CNV/{tumour}_vs_{patient}-N_ssm_data.txt",
 		cnv = OUTDIR + "/results/phyloWGS/parsedSNV_CNV/{tumour}_vs_{patient}-N_cnv_data.txt",
 		params = OUTDIR + "/results/phyloWGS/parsedSNV_CNV/{tumour}_vs_{patient}-N_params.json"
 	params:
 		cnv_files = cnvs_param,
-		vcf_files = vcf_profile,
+		vcf_files = vcf_files,
 		vcf_format = vcf_format
 	threads: 1
-	run:
+	group: "phylowgs"
+	shell:
 		"""
-		singularity exec -B $SCRATCH/igenomes_ref,/scratch/n/nicholsa/zyfniu/AN_WGS/20210118_HPV_WGS,$SCRATCH/singularity_images \
+		singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR},$SCRATCH/AN_WGS/AN_WGS_script \
 		/gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/phylowgs.simg python2.7 \
-		/scratch/n/nicholsa/zyfniu/singularity_images/phylowgs/parser/create_phylowgs_inputs.py \
-		--vcf-type {params.vcf_format} \
-		--regions all \
-		--cnvs {param.cnv_files} \
+		$SCRATCH/AN_WGS/AN_WGS_script/phylowgs_parser/create_phylowgs_inputs.py \
+		{params.vcf_format} --regions all \
+		{params.cnv_files} \
 		--output-cnvs {output.cnv} \
 		--output-variants {output.ssm} \
 		--output-params {output.params} \
 		{params.vcf_files}
 		"""
+
 	##	--tumor-sample HPV54-R
 rule phyloWGS:
 	input:
@@ -458,15 +481,16 @@ rule phyloWGS:
 		params = OUTDIR + "/results/phyloWGS/parsedSNV_CNV/{tumour}_vs_{patient}-N_params.json"
 	output:
 		OUTDIR + "/results/phyloWGS/{tumour}_vs_{patient}-N/trees.zip"
-	threads: 4
+	threads: 80
+	group: "phylowgs"
 	params:
-		output_dir = OUTDIR + "/results/phyloWGS/{tumour}_vs_{patient}-N/"
+		output_dir = OUTDIR + "/results/phyloWGS/{tumour}_vs_{patient}-N/",
 		temp_dir = OUTDIR + "/results/phyloWGS/{tumour}_vs_{patient}-N/chains"
 	shell:
 		"""
 		mkdir -p {params.temp_dir}
-		singularity exec -B $SCRATCH/igenomes_ref,/scratch/n/nicholsa/zyfniu/AN_WGS/20210118_HPV_WGS,$SCRATCH/singularity_images \
+		singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR},$SCRATCH/singularity_images \
 		/gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/phylowgs.simg python2.7 /opt/phylowgs/multievolve.py \
 		--num-chains {threads} --ssms {input.ssm} --cnvs {input.cnv} --params {input.params} \
-		-O {params.output_dir} -t {params.temp_dir}
+		-O {params.output_dir} -t {params.temp_dir}/
 		"""

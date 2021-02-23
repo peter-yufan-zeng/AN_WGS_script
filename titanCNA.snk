@@ -416,13 +416,13 @@ def get_vcfs_for_phylowgs_files(wildcards):
 
 def get_parsedCNVs_for_phylowgs_files(wildcards):
 	samples = Multi[Multi.Patient == wildcards.patient].Sample
-	return expand(OUTDIR +"/results/phyloWGS/input/{tumor}_vs_{patient}-N_cnvs.txt", tumor = samples, patient = wildcards.patient)
+	return expand(OUTDIR +"/results/phyloWGS/input/{tumor}_vs_{patient}-N_cnvs.fixed.txt", tumor = samples, patient = wildcards.patient)
 
 def cnvs_param(wildcards):
 	multi = Multi[Multi.Patient == wildcards.patient]
 	cnv_param = ""
 	for y in multi.Sample.drop_duplicates():
-		cnv_param = cnv_param + "--cnvs " + y + "=" + OUTDIR + "/results/phyloWGS/input/"+ y + "_vs_" + wildcards.patient + "-N_cnvs.txt "
+		cnv_param = cnv_param + "--cnvs " + y + "=" + OUTDIR + "/results/phyloWGS/input/"+ y + "_vs_" + wildcards.patient + "-N_cnvs.fixed.txt "
 	print(cnv_param)
 	return cnv_param
 

@@ -51,6 +51,8 @@ for x in Multi['Patient'].drop_duplicates():
 Multi['path'] = OUTDIR + "/results/mutect2/all_"  + Multi.Combined + "_vs_" + Multi.Patient + "-N/" \
 + Multi.Combined + "_vs_" + Multi.Patient + "-N_snpEff.ann.vcf.gz"
 Multi['phylowgs_path'] = OUTDIR + "/results/phyloWGS/" + Multi.Combined + "_vs_" + Multi.Patient + "-N/trees.zip"
+Multi['phylowgs_tree_json_path'] = OUTDIR + "/results/phyloWGS/" + Multi.Combined + "_vs_" + Multi.Patient + "-N/" \
++ Multi.Combined + "_vs_" + Multi.Patient + "-N.summ.json.gz"
 Multi = Multi[Multi.num_tumours > 1]
 ###
 
@@ -72,7 +74,8 @@ rule all:
 		expand(OUTDIR + "/results/titan/hmm/titanCNA_ploidy{ploidy}/{tumor}_vs_{patient}-N_cluster{clustNum}.seg",patient = [x[:-2] for x in TUMOR],tumor = TUMOR,clustNum=CLUST[config["TitanCNA_maxNumClonalClusters"]], ploidy=PLOIDY[config["TitanCNA_maxPloidy"]]),
 		expand(OUTDIR + "/results/titan/hmm/{tumor}_vs_{patient}-N_optimalClusterSolution.txt",patient = [x[:-2] for x in TUMOR],tumor = TUMOR),
 		expand(OUTDIR+ "/results/titan/hmm/optimalClusterSolution/{tumor}_vs_{patient}-N/",patient = [x[:-2] for x in TUMOR],tumor = TUMOR),
-		Multi.phylowgs_path.drop_duplicates().tolist()
+		Multi.phylowgs_path.drop_duplicates().tolist(),
+		Multi.phylowgs_tree_json_path.drop_duplicates().tolist()
 
 ###
 ###
@@ -99,10 +102,10 @@ rule filter_bam:
 		samtools index {output}
 		"""
 
-rule filter_mutect2_passOnly_all_tumour:
+rule filter_mutect2_passOnly:
 	input:
-		annotatedvcf = OUTDIR + "/results/mutect2/all_{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N_snpEff.ann.vcf.gz"
-	output: annotatedvcf = OUTDIR + "/results/mutect2/all_{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N_snpEff.ann.passOnly.vcf.gz"
+		annotatedvcf = OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N_snpEff.ann.vcf.gz"
+	output: annotatedvcf = OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N_snpEff.ann.passOnly.vcf.gz"
 	threads: 1
 	group: "filter"
 	shell:
@@ -117,8 +120,8 @@ rule filter_mutect2_passOnly_all_tumour:
 
 rule filter_mutect2_to_variants_of_interest:
 	input:
-		annotatedvcf = OUTDIR + "/results/mutect2/all_{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N_snpEff.ann.passOnly.vcf.gz"
-	output: annotatedvcf = OUTDIR + "/results/mutect2/all_{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N_snpEff.ann.passOnly.inGenes.vcf.gz"
+		annotatedvcf = OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N_snpEff.ann.passOnly.vcf.gz"
+	output: annotatedvcf = OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N_snpEff.ann.passOnly.inGenes.vcf.gz"
 	threads: 1
 	group: "filter"
 	shell:
@@ -431,7 +434,7 @@ rule parseCNV:
 		shell(command)
 
 ### replace chr1...23 with 1...23 before using phylowgs parser
-rule fixParsedCNV
+rule fixParsedCNV:
 	input:
 		OUTDIR + "/results/phyloWGS/input/{tumor}_vs_{patient}-N_cnvs.txt"
 	output:
@@ -527,4 +530,20 @@ rule phyloWGS:
 		/gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/phylowgs.simg python2.7 /opt/phylowgs/multievolve.py \
 		--num-chains {threads} --ssms {input.ssm} --cnvs {input.cnv} --params {input.params} \
 		-O {params.output_dir} -t {params.temp_dir}/
+		"""
+
+rule output_phyloWGS_results
+	input:
+		OUTDIR + "/results/phyloWGS/{tumour}_vs_{patient}-N/trees.zip"
+	output:
+		tree_summary_output = OUTDIR + "/results/phyloWGS/{tumour}_vs_{patient}-N/{tumour}_vs_{patient}-N.summ.json.gz",
+        mutlist_output = OUTDIR + "/results/phyloWGS/{tumour}_vs_{patient}-N/{tumour}_vs_{patient}-N.muts.json.gz",
+		mutass_output = OUTDIR + "/results/phyloWGS/{tumour}_vs_{patient}-N/{tumour}_vs_{patient}-N.mutass.zip"
+	group: "phylowgs"
+	threads: 2
+	shell:
+		"""
+		singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR},$SCRATCH/singularity_images \
+		/gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/phylowgs.simg python2.7 /opt/phylowgs/write_results.py \
+		{wildcards.tumour}_vs_{wildcards.patient}-N {input} {output.tree_summary_output} {output.mutlist_output} {output.mutass_output}
 		"""

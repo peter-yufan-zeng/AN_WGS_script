@@ -760,6 +760,7 @@ rule filter_mutect2_passOnly_all_tumour:
 		/gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img tabix -p vcf {output}
 		"""
 
+
 ####
 #### Manta
 ####

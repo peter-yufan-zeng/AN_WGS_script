@@ -74,7 +74,9 @@ rule all:
 		expand(OUTDIR+ "/results/titan/hmm/optimalClusterSolution/{tumor}_vs_{patient}-N/",patient = [x[:-2] for x in TUMOR],tumor = TUMOR),
 		Multi.phylowgs_path.drop_duplicates().tolist()
 
-
+###
+###
+###
 
 rule filter_bam:
 	input:
@@ -84,7 +86,7 @@ rule filter_bam:
 	params:
 		chrs=config["chrs"]
 	group:	"titan"
-	threads: 80
+	threads: 79
 	shell:
 		"""
 		singularity exec -B \
@@ -96,6 +98,38 @@ rule filter_bam:
  		/gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
 		samtools index {output}
 		"""
+
+rule filter_mutect2_passOnly_all_tumour:
+	input:
+		annotatedvcf = OUTDIR + "/results/mutect2/all_{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N_snpEff.ann.vcf.gz"
+	output: annotatedvcf = OUTDIR + "/results/mutect2/all_{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N_snpEff.ann.passOnly.vcf.gz"
+	threads: 1
+	group: "filter"
+	shell:
+		"""
+		singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR} \
+			/gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img bcftools view -f "PASS" {input} |\
+		singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR} \
+		/gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img bgzip > {output}
+		singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR} \
+		/gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img tabix -p vcf {output}
+		"""
+
+rule filter_mutect2_to_variants_of_interest:
+	input:
+		annotatedvcf = OUTDIR + "/results/mutect2/all_{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N_snpEff.ann.passOnly.vcf.gz"
+	output: annotatedvcf = OUTDIR + "/results/mutect2/all_{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N_snpEff.ann.passOnly.inGenes.vcf.gz"
+	threads: 1
+	group: "filter"
+	shell:
+		"""
+		singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR} \
+			/gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img bcftools filter \
+			{input} --exclude \'INFO/ANN ~ \"intron\" | INFO/ANN ~ \"intergenic_region\" | INFO/ANN ~ \"intragenic_variant\"\' -O z> {output}
+		singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR} \
+		/gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img tabix -p vcf {output}
+		"""
+
 ####
 #### GET AlleleCounts
 ####
@@ -412,7 +446,7 @@ rule fixParsedCNV
 
 def get_vcfs_for_phylowgs_files(wildcards):
 	samples = Multi[Multi.Patient == wildcards.patient].Sample
-	return expand(OUTDIR +"/results/mutect2/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N_snpEff.ann.passOnly.vcf.gz", tumor = samples, patient = wildcards.patient)
+	return expand(OUTDIR +"/results/mutect2/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N_snpEff.ann.passOnly.inGenes.vcf.gz", tumor = samples, patient = wildcards.patient)
 
 def get_parsedCNVs_for_phylowgs_files(wildcards):
 	samples = Multi[Multi.Patient == wildcards.patient].Sample
@@ -430,7 +464,7 @@ def vcf_files(wildcards):
 	multi = Multi[Multi.Patient == wildcards.patient]
 	vcf_files = ""
 	for y in multi.Sample.drop_duplicates():
-		vcf_files = vcf_files + y + "=" + OUTDIR + "/results/mutect2/" + y + "_vs_" + wildcards.patient + "-N/" + y + "_vs_" + wildcards.patient + "-N_snpEff.ann.passOnly.vcf.gz" + " "
+		vcf_files = vcf_files + y + "=" + OUTDIR + "/results/mutect2/" + y + "_vs_" + wildcards.patient + "-N/" + y + "_vs_" + wildcards.patient + "-N_snpEff.ann.passOnly.inGenes.vcf.gz" + " "
 	print(vcf_files)
 	return vcf_files
 
@@ -465,7 +499,7 @@ rule parseSNVfromMutect:
 		singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR},$SCRATCH/AN_WGS/AN_WGS_script \
 		/gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/phylowgs.simg python2.7 \
 		$SCRATCH/AN_WGS/AN_WGS_script/phylowgs_parser/create_phylowgs_inputs.py \
-		{params.vcf_format} --regions all \
+		{params.vcf_format} --regions normal_and_abnormal_cn \
 		{params.cnv_files} \
 		--output-cnvs {output.cnv} \
 		--output-variants {output.ssm} \

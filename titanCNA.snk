@@ -547,7 +547,7 @@ rule output_phyloWGS_results:
 		{wildcards.tumour}_vs_{wildcards.patient}-N {input} {output.tree_summary_output} {output.mutlist_output} {output.mutass_output}
 		"""
 ### script from https://raw.githubusercontent.com/aleighbrown/pwgs_snakemake/master/parse_pwgs_output.py
-rule parse_phyloWGS_summary_into_csv:
+rule parse_phyloWGS_top_trees_into_csv:
 	input:
 		tree_summary_output = OUTDIR + "/results/phyloWGS/{tumour}_vs_{patient}-N/{tumour}_vs_{patient}-N.summ.json.gz",
 		mutass_output = OUTDIR + "/results/phyloWGS/{tumour}_vs_{patient}-N/{tumour}_vs_{patient}-N.mutass.zip",

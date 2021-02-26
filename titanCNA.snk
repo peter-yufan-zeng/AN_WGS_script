@@ -7,7 +7,7 @@ import pandas as pd
 import os
 
 ### runTitanCNA must be ran on the log in node bc it requires internet access to download files
-localrules: runTitanCNA,selectSolution,copyOptSolution
+#localrules: runTitanCNA,selectSolution,copyOptSolution
 
 ### PRINT OUTPUT DIRECTORY
 OUTDIR = config['outdir']
@@ -195,10 +195,8 @@ rule catAlleleCountFiles:
 		OUTDIR + "/results/titan/tumCounts/{tumor}.tumCounts.txt"
 	group:	"titan"
 	threads: 2
-	log:
-		OUTDIR + "/logs/titan/tumCounts/{tumor}/{tumor}.cat.log"
 	shell:
-		"cat {input} | grep -v Chr > {output} 2> {log}"
+		"cat {input} | grep -v Chr > {output}"
 
 ###
 ###	ICHOR
@@ -432,19 +430,22 @@ rule parseCNV:
 		command = "singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR},$SCRATCH/AN_WGS/AN_WGS_script /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/phylowgs.simg python2.7 $SCRATCH/AN_WGS/AN_WGS_script/phylowgs_parser/parse_cnvs.py -f titan -c " + ploidy + " --cnv-output {output} {input.segs}"
 		shell(command)
 
-### replace chr1...23 with 1...23 before using phylowgs parser
+### replace chr1...23 with 1...23 before using phylowgs parser and then remove duplicate rows
 rule fixParsedCNV:
 	input:
 		OUTDIR + "/results/phyloWGS/input/{tumor}_vs_{patient}-N_cnvs.txt"
 	output:
-		OUTDIR + "/results/phyloWGS/input/{tumor}_vs_{patient}-N_cnvs.fixed.txt"
-	threads: 1
-	group: "phylowgs"
-	shell:
-		"""
-		sed -e 's/chr//g' {input} > {output}
-		sed -i -e 's/omosome/chromosome/g' {output}
-		"""
+		remove_chr = OUTDIR + "/results/phyloWGS/input/{tumor}_vs_{patient}-N_cnvs.fixed_chr.txt",
+        remove_dup = OUTDIR + "/results/phyloWGS/input/{tumor}_vs_{patient}-N_cnvs.fixed_chr_dup.txt"
+    threads: 1
+    group: "phylowgs"
+    shell:
+        """
+    	sed -e 's/chr//g' {input} > {output.remove_chr}
+        sed -i -e 's/omosome/chromosome/g' {output.remove_chr}
+        awk '$2!=$3' {output.remove_chr} > {output.remove_dup}
+        """
+
 
 def get_vcfs_for_phylowgs_files(wildcards):
 	samples = Multi[Multi.Patient == wildcards.patient].Sample
@@ -452,13 +453,13 @@ def get_vcfs_for_phylowgs_files(wildcards):
 
 def get_parsedCNVs_for_phylowgs_files(wildcards):
 	samples = Multi[Multi.Patient == wildcards.patient].Sample
-	return expand(OUTDIR +"/results/phyloWGS/input/{tumor}_vs_{patient}-N_cnvs.fixed.txt", tumor = samples, patient = wildcards.patient)
+	return expand(OUTDIR +"/results/phyloWGS/input/{tumor}_vs_{patient}-N_cnvs.fixed_chr_dup.txt", tumor = samples, patient = wildcards.patient)
 
 def cnvs_param(wildcards):
 	multi = Multi[Multi.Patient == wildcards.patient]
 	cnv_param = ""
 	for y in multi.Sample.drop_duplicates():
-		cnv_param = cnv_param + "--cnvs " + y + "=" + OUTDIR + "/results/phyloWGS/input/"+ y + "_vs_" + wildcards.patient + "-N_cnvs.fixed.txt "
+		cnv_param = cnv_param + "--cnvs " + y + "=" + OUTDIR + "/results/phyloWGS/input/"+ y + "_vs_" + wildcards.patient + "-N_cnvs.fixed_chr_dup.txt "
 	print(cnv_param)
 	return cnv_param
 

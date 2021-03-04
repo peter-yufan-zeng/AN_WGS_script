@@ -1,0 +1,158 @@
+#### USAGE
+#### 1) First load snakemake
+#### module load NiaEnv/2018a
+#### module load python/3.6.4-anaconda5.1.0
+#### source activate snakemake
+#### snakemake -s AN_WGS_script/Snakefile  --cores 1 -j 40 --cluster "sbatch -N 1 -t 20:00:00 --ntasks 80 --output=logs/%x_%j.log" --ri \
+#### --config input=AN_WGS_script/Sample/20200907.tsv.txt outdir=$SCRATCH/AN_WGS_script/20200908_HPV_HNSCC_WGS
+
+import pandas as pd
+import os
+
+#localrules: all
+
+###
+### LOAD SAMPLES
+###
+SCRATCH = "/gpfs/fs0/scratch/n/nicholsa/zyfniu"
+print("\n***INPUT FILE: " + config['input'] + "***\n")
+INPUT = pd.read_table(config['input'],names = ['Sample','Fastq1','Fastq2'])
+SAMPLE =  INPUT['Sample'].unique()
+PAT = INPUT.Patient.drop_duplicates()
+TUMOR = INPUT[(INPUT.n_vs_t == 1)].Sample.drop_duplicates()
+print(INPUT)
+
+
+### PRINT OUTPUT DIRECTORY
+OUTDIR = config['outdir']
+print("***OUTPUT DIRECTORY: " + OUTDIR + "***")
+
+
+###
+###	REFERENCE FILES
+###
+REF_fasta = "$SCRATCH/igenomes_ref/Homo_sapiens_assembly38.fasta"
+REF_dbsnp = "$SCRATCH/igenomes_ref/dbsnp_146.hg38.vcf.gz"
+REF_known_indels = "$SCRATCH/igenomes_ref/Mills_and_1000G_gold_standard.indels.hg38.vcf.gz"
+REF_gnomAD = "$SCRATCH/igenomes_ref/gnomAD.r2.1.1.GRCh38.PASS.AC.AF.only.vcf.gz"
+REF_pon = "$SCRATCH/igenomes_ref/1000g_pon.hg38.vcf.gz"
+REF_exac_common = "/gpfs/fs0/scratch/n/nicholsa/zyfniu/igenomes_ref/somatic-hg38_small_exac_common_3.hg38.vcf.gz"
+CHROMOSOMES = ['chr1', 'chr2', 'chr3', 'chr4', 'chr5', 'chr6', 'chr7', 'chr8', 'chr9', 'chr10',
+			   'chr11', 'chr12', 'chr13', 'chr14', 'chr15', 'chr16', 'chr17', 'chr18', 'chr19',
+			   'chr20', 'chr21', 'chr22', 'chrX', 'chrY']
+
+### PATH TO singularity imgaes
+SGL_STAR_RSEM_CMD = "singularity exec -B $SCRATCH /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/rsem.img"
+SGL_NFCORE_CMD = "singularity exec -B $SCRATCH /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-rnaseq-1.4.2.img"
+
+###
+### Final Results
+###
+rule all:
+	input:
+		###FASTQC + BWA Alignment
+		expand(OUTDIR + "/QC/{sample}/{sample}_R1_fastqc.html", sample = SAMPLE),
+		expand(OUTDIR + "/align/{sample}_Aligned.out.sam", sample = SAMPLE),
+		expand(OUTDIR + "/rsem/{sample}.genes.results", sample = SAMPLE)
+
+
+
+###
+###	Quality Control AND align using STAR
+###
+def star_fastq1(wildcards):
+	return expand(INPUT[INPUT.Sample == wildcards.sample].Fastq1)
+
+def star_fastq2(wildcards):
+	return expand(INPUT[INPUT.Sampl == wildcards.sample].Fastq2)
+
+rule fastqc:
+	input:
+		fastq1 = star_fastq1,
+		fastq2 = star_fastq2
+	output:
+		o1 = OUTDIR + "/QC/{sample}/{sample}_R1_fastqc.html",
+		o2 = OUTDIR + "/QC/{sample}/{sample}_R2_fastqc.html",
+		o3 = OUTDIR + "/QC/{sample}/{sample}_R1_fastqc.zip",
+		o4 = OUTDIR + "/QC/{sample}/{sample}_R2_fastqc.zip"
+	threads: 40
+	group: "align"
+	shell:
+		"""
+		{SGL_NFCORE_CMD} fastqc -t {threads} {input} --outdir={OUTDIR}/QC/{wildcards.sample_lane}/
+		mv {OUTDIR}/QC/{wildcards.sample}/*R1*fastqc.html {OUTDIR}/QC/{wildcards.sample}/{wildcards.sample}_R1_fastqc.html
+		mv {OUTDIR}/QC/{wildcards.sample}/*R2*fastqc.html {OUTDIR}/QC/{wildcards.sample}/{wildcards.sample}_R2_fastqc.html
+		mv {OUTDIR}/QC/{wildcards.sample}/*R1*fastqc.zip {OUTDIR}/QC/{wildcards.sample}/{wildcards.sample}_R1_fastqc.zip
+		mv {OUTDIR}/QC/{wildcards.sample}/*R2*fastqc.zip {OUTDIR}/QC/{wildcards.sample}/{wildcards.sample}_R2_fastqc.zip
+		"""
+
+rule trim_galore:
+    input:
+        r1 = star_fastq1,
+        r2 = star_fastq2
+    output:
+        o1 = OUTDIR + "/trimmed/{sample}_R1_val_1.fq.gz",
+        o2 = OUTDIR + "/trimmed/{sample}_R2_val_2.fq.gz"
+    threads: 20
+	group: "align"
+    shell:
+        "{SGL_NFCORE_CMD} trim_galore --paired {input.r1} {input.r2} -o {OUTDIR}/trimmed -j {threads}"
+
+rule star:
+    input:
+		r1 = OUTDIR + "/trimmed/{sample}_R1_val_1.fq.gz",
+		r2 = OUTDIR + "/trimmed/{sample}_R2_val_2.fq.gz"
+    output:
+        o1 = OUTDIR + "/align/{sample}_Aligned.out.sam",
+        o2 = OUTDIR + "/align/{sample}_Chimeric.out.junction"
+    threads: 80
+	params:
+		star_path = "$SCRATCH/igenomes_ref/GRCh38_star/GRCh38"
+	group: "align"
+    shell:
+        "STAR --genomeDir {params.star_path} \
+		--readFilesIn {input.r1} {input.r2} \
+		--outFileNamePrefix {OUTDIR}/align/{wildcards.sample}_ \
+		--runThreadN {threads} \
+		--outReadsUnmapped None \
+		--twopassMode Basic \
+		--readFilesCommand \"gunzip -c\" \
+		--outSAMstrandField intronMotif \
+		--outSAMunmapped Within \
+		--chimSegmentMin 12 \
+		--chimJunctionOverhangMin 12 \
+		--chimOutJunctionFormat 1 \
+		--alignSJDBoverhangMin 10 \
+		--alignMatesGapMax 100000 \
+		--alignIntronMax 100000 \
+		--alignSJstitchMismatchNmax 5 -1 5 5 \
+		--outSAMattrRGline ID:GRPundef \
+		--chimMultimapScoreRange 3 \
+		--chimScoreJunctionNonGTAG -4 \
+		--chimMultimapNmax 20 \
+		--chimNonchimScoreDropMin 10 \
+		--peOverlapNbasesMin 12 \
+		--peOverlapMMp 0.1"
+
+rule rsem:
+	input:
+        sam = OUTDIR + "/align/{sample}_Aligned.out.sam",
+	output:
+		rsem_results = OUTDIR + "/rsem/{sample}.genes.results"
+	params:
+		rsem_path = "$SCRATCH/igenomes_ref/GRCh38_star/GRCh38"
+	threads: 80
+	group: "align"
+	shell:
+		"""
+		cd {OUTDIR}/rsem/
+		{SGL_STAR_RSEM_CMD} rsem-calculate-expression --star --star-gzipped-read-file --time \
+		--output-genome-bam -p {threads} \
+		--alignments \
+		--paired-end {input.sam} \
+         {params.rsem_path} {wildcards.sample}
+		"""
+
+###
+### RNA-seq QC
+###

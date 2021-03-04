@@ -545,7 +545,7 @@ rule output_phyloWGS_results:
 		"""
 		singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR},$SCRATCH/singularity_images \
 		/gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/phylowgs.simg python2.7 /opt/phylowgs/write_results.py \
-		{wildcards.tumour}_vs_{wildcards.patient}-N {input} {output.tree_summary_output} {output.mutlist_output} {output.mutass_output}
+		--max-multiprimary 0.99 {wildcards.tumour}_vs_{wildcards.patient}-N {input} {output.tree_summary_output} {output.mutlist_output} {output.mutass_output}
 		"""
 ### script from https://raw.githubusercontent.com/aleighbrown/pwgs_snakemake/master/parse_pwgs_output.py
 rule parse_phyloWGS_top_trees_into_csv:

@@ -1,0 +1,2 @@
+ATCWGS_43	XY	0	ATCWGS_43-N	1	$SCRATCH/AN_WGS/raw/bam/ATCWGS-43N_realigned_recalibrated_merged.bam_reheadered.bam
+ATCWGS_43	XY	1	ATCWGS_43-A	1	$SCRATCH/AN_WGS/raw/bam/ATCWGS-43A_realigned_recalibrated_merged.bam_reheadered.bam

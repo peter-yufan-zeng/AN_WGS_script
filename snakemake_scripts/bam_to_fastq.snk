@@ -28,12 +28,24 @@ rule all:
 def get_bam(wildcards):
 	return expand(INPUT[INPUT.Sample == wildcards.sample].bam)
 
-rule fastq_to_bam:
+rule sort_bam:
     input:
         get_bam
+	output:
+		temp(SCRATCH + "/AN_WGS/raw/{sample}.sorted.bam")
+	threads: 80
+	shell:
+		"""
+        {SGL_SAREK_CMD} samtools sort -n \
+            -o {output} -@ {threads} {input}
+		"""
+
+rule fastq_to_bam:
+	input:
+		SCRATCH + "/AN_WGS/raw/{sample}.sorted.bam"
     output:
-        r1 = SCRATCH + "/AN_WGS/raw/{samples}_R1.fastq.gz",
-        r2 = SCRATCH + "/AN_WGS/raw/{samples}_R2.fastq.gz"
+        r1 = SCRATCH + "/AN_WGS/raw/{sample}_R1.fastq.gz",
+        r2 = SCRATCH + "/AN_WGS/raw/{sample}_R2.fastq.gz"
     threads: 80
     shell:
         """

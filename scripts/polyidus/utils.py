@@ -726,10 +726,12 @@ class polyidusEngine:
         self.hostbam_sorted = os.path.join(
             self.outdir_host, "hostAligned_sorted.bam")
         self.command_lists = []
-        self.sarek_sing = "singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS/raw," + self.outdir +
-        " /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img"
-        self.bowtie2_sing = "singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS/raw," + self.outdir +
-        " /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/bowtie2.simg"
+        self.sarek_sing = ""
+        #"singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS/raw," + self.outdir +
+        #" /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img"
+        self.bowtie2_sing = ""
+        #"singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS/raw," + self.outdir +
+        #" /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/bowtie2.simg"
 
 
     def update_log(self):

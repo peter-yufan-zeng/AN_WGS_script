@@ -1,0 +1,12 @@
+##sequence-region HPV68REF.1 1 7822																		
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=338322																		
+gi|71726685|lcl|HPV68REF.1|	Genbank	region	1	7822	.	+	.	ID=DQ080079.1:1..7822;Dbxref=taxon:338322;Is_circular=true;acronym=HPV68a;country=France;gbkey=Src;genome=genomic;isolate=Plasmid 952;isolation-source=biopsy of low-grade CIN;mol_type=genomic DNA;type=68a										
+gi|71726685|lcl|HPV68REF.1|	Genbank	gene	1	477	.	+	0	ID=cds-AAZ39491.1;Dbxref=NCBI_GP:AAZ39491.1;Name=E6;gbkey=CDS;gene=E6;protein_id=AAZ39491.1										
+gi|71726685|lcl|HPV68REF.1|	Genbank	gene	484	816	.	+	0	ID=cds-AAZ39492.1;Dbxref=NCBI_GP:AAZ39492.1;Name=E7;gbkey=CDS;gene=E7;protein_id=AAZ39492.1										
+gi|71726685|lcl|HPV68REF.1|	Genbank	gene	823	2745	.	+	0	ID=cds-AAZ39493.1;Dbxref=NCBI_GP:AAZ39493.1;Name=E1;gbkey=CDS;gene=E1;protein_id=AAZ39493.1										
+gi|71726685|lcl|HPV68REF.1|	Genbank	gene	2672	3784	.	+	0	ID=cds-AAZ39494.1;Dbxref=NCBI_GP:AAZ39494.1;Name=E2;gbkey=CDS;gene=E2;protein_id=AAZ39494.1										
+gi|71726685|lcl|HPV68REF.1|	Genbank	gene	3267	3551	.	+	0	ID=cds-AAZ39495.1;Dbxref=NCBI_GP:AAZ39495.1;Name=E4;Note=lacks traditional start codon;gbkey=CDS;partial=true;gene=E4;protein_id=AAZ39495.1;start_range=.	3267									
+gi|71726685|lcl|HPV68REF.1|	Genbank	gene	3830	4051	.	+	0	ID=cds-AAZ39496.1;Dbxref=NCBI_GP:AAZ39496.1;Name=E5;gbkey=CDS;gene=E5;protein_id=AAZ39496.1										
+gi|71726685|lcl|HPV68REF.1|	Genbank	gene	4098	5507	.	+	0	ID=cds-AAZ39497.1;Dbxref=NCBI_GP:AAZ39497.1;Name=L2;gbkey=CDS;gene=L2;protein_id=AAZ39497.1										
+gi|71726685|lcl|HPV68REF.1|	Genbank	gene	5488	7005	.	+	0	ID=cds-AAZ39498.1;Dbxref=NCBI_GP:AAZ39498.1;Name=L1;gbkey=CDS;gene=L1;protein_id=AAZ39498.1										
+##sequence-region HPV69REF.1 1 7700																		

@@ -1,0 +1,10 @@
+##sequence-region HPV118REF.1 1 7597																		
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=927771																		
+gi|256807731|lcl|HPV118REF.1|	Genbank	region	1	7597	.	+	.	ID=GQ246951.1:1..7597;Dbxref=taxon:927771;Is_circular=true;clone=K2;gbkey=Src;genome=genomic;isolate=HPV_b_wart3;isolation-source=cutaneous warts of immunosuppressed organtransplanted patient;mol_type=genomic DNA;nat-host=Homo sapiens										
+gi|256807731|lcl|HPV118REF.1|	Genbank	gene	166	576	.	+	0	ID=cds-ACV30148.1;Dbxref=NCBI_GP:ACV30148.1;Name=E6;gbkey=CDS;gene=E6;protein_id=ACV30148.1										
+gi|256807731|lcl|HPV118REF.1|	Genbank	gene	577	876	.	+	0	ID=cds-ACV30149.1;Dbxref=NCBI_GP:ACV30149.1;Name=E7;gbkey=CDS;gene=E7;protein_id=ACV30149.1										
+gi|256807731|lcl|HPV118REF.1|	Genbank	gene	863	2683	.	+	0	ID=cds-ACV30150.1;Dbxref=NCBI_GP:ACV30150.1;Name=E1;gbkey=CDS;gene=E1;protein_id=ACV30150.1										
+gi|256807731|lcl|HPV118REF.1|	Genbank	gene	2625	4145	.	+	0	ID=cds-ACV30151.1;Dbxref=NCBI_GP:ACV30151.1;Name=E2;gbkey=CDS;gene=E2;protein_id=ACV30151.1										
+gi|256807731|lcl|HPV118REF.1|	Genbank	gene	4237	5790	.	+	0	ID=cds-ACV30152.1;Dbxref=NCBI_GP:ACV30152.1;Name=L2;gbkey=CDS;gene=L2;protein_id=ACV30152.1										
+gi|256807731|lcl|HPV118REF.1|	Genbank	gene	5803	7338	.	+	0	ID=cds-ACV30153.1;Dbxref=NCBI_GP:ACV30153.1;Name=L1;gbkey=CDS;gene=L1;protein_id=ACV30153.1										
+##sequence-region HPV119REF.1 1 7251																		

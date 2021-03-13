@@ -1,0 +1,19 @@
+##sequence-region HPV74REF.1 1 7887																		
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=44028																		
+gi|27462483|lcl|HPV74REF.1|	Genbank	region	1	7887	.	+	.	ID=AF436130.1:1..7887;Dbxref=taxon:44028;gbkey=Src;mol_type=genomic DNA;subtype=AE10;type=74										
+gi|27462483|lcl|HPV74REF.1|	Genbank	CDS	1	453	.	+	0	ID=cds-AAO15455.1;Dbxref=NCBI_GP:AAO15455.1;Name=AAO15455.1;gbkey=CDS;gene=putative transforming protein E6;protein_id=AAO15455.1										
+gi|27462483|lcl|HPV74REF.1|	Genbank	gene	429	716	.	+	.	ID=gene-E7;Name=E7;gbkey=Gene;gene=E7;gene_biotype=protein_coding										
+gi|27462483|lcl|HPV74REF.1|	Genbank	CDS	429	716	.	+	0	ID=cds-AAO15456.1;Parent=gene-E7;Dbxref=NCBI_GP:AAO15456.1;Name=AAO15456.1;gbkey=CDS;gene=E7;gene=putative transforming protein E7;protein_id=AAO15456.1										
+gi|27462483|lcl|HPV74REF.1|	Genbank	gene	721	2643	.	+	.	ID=gene-E1;Name=E1;gbkey=Gene;gene=E1;gene_biotype=protein_coding										
+gi|27462483|lcl|HPV74REF.1|	Genbank	CDS	721	2643	.	+	0	ID=cds-AAO15457.1;Parent=gene-E1;Dbxref=NCBI_GP:AAO15457.1;Name=AAO15457.1;gbkey=CDS;gene=E1;gene=putative replication protein E1;protein_id=AAO15457.1										
+gi|27462483|lcl|HPV74REF.1|	Genbank	gene	2585	3730	.	+	.	ID=gene-E2;Name=E2;gbkey=Gene;gene=E2;gene_biotype=protein_coding										
+gi|27462483|lcl|HPV74REF.1|	Genbank	CDS	2585	3730	.	+	0	ID=cds-AAO15458.1;Parent=gene-E2;Dbxref=NCBI_GP:AAO15458.1;Name=AAO15458.1;gbkey=CDS;gene=E2;gene=putative regulatory protein E2;protein_id=AAO15458.1										
+gi|27462483|lcl|HPV74REF.1|	Genbank	gene	3060	3485	.	+	.	ID=gene-E4;Name=E4;gbkey=Gene;gene=E4;gene_biotype=protein_coding										
+gi|27462483|lcl|HPV74REF.1|	Genbank	CDS	3060	3485	.	+	0	ID=cds-AAO15459.1;Parent=gene-E4;Dbxref=NCBI_GP:AAO15459.1;Name=AAO15459.1;gbkey=CDS;gene=E4;gene=putative protein E4;protein_id=AAO15459.1										
+gi|27462483|lcl|HPV74REF.1|	Genbank	gene	3762	4037	.	+	.	ID=gene-E5;Name=E5;gbkey=Gene;gene=E5;gene_biotype=protein_coding										
+gi|27462483|lcl|HPV74REF.1|	Genbank	CDS	3762	4037	.	+	0	ID=cds-AAO15460.1;Parent=gene-E5;Dbxref=NCBI_GP:AAO15460.1;Name=AAO15460.1;gbkey=CDS;gene=E5;gene=putative protein E5;protein_id=AAO15460.1										
+gi|27462483|lcl|HPV74REF.1|	Genbank	gene	4210	5604	.	+	.	ID=gene-L2;Name=L2;gbkey=Gene;gene=L2;gene_biotype=protein_coding										
+gi|27462483|lcl|HPV74REF.1|	Genbank	CDS	4210	5604	.	+	0	ID=cds-AAO15461.1;Parent=gene-L2;Dbxref=NCBI_GP:AAO15461.1;Name=AAO15461.1;gbkey=CDS;gene=L2;gene=putative minor capsid protein L2;protein_id=AAO15461.1										
+gi|27462483|lcl|HPV74REF.1|	Genbank	gene	5513	7099	.	+	.	ID=gene-L1;Name=L1;gbkey=Gene;gene=L1;gene_biotype=protein_coding										
+gi|27462483|lcl|HPV74REF.1|	Genbank	CDS	5513	7099	.	+	0	ID=cds-AAO15462.1;Parent=gene-L1;Dbxref=NCBI_GP:AAO15462.1;Name=AAO15462.1;gbkey=CDS;gene=L1;gene=putative major capsid protein L1;protein_id=AAO15462.1										
+##sequence-region HPV75REF.1 1 7537																		

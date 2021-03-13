@@ -1,0 +1,18 @@
+##sequence-region HPV107REF.1 1 7562																		
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=427343																		
+gi|126131393|lcl|HPV107REF.1|	Genbank	region	1	7562	.	+	.	ID=EF422221.1:1..7562;Dbxref=taxon:427343;Is_circular=true;country=Sweden;gbkey=Src;genome=genomic;isolate=FA85;isolation-source=actinic keratosis from immunocompetent 76 year old male;mol_type=genomic DNA										
+gi|126131393|lcl|HPV107REF.1|	Genbank	gene	289	711	.	+	.	ID=gene-E6;Name=E6;gbkey=Gene;gene=E6;gene_biotype=protein_coding										
+gi|126131393|lcl|HPV107REF.1|	Genbank	CDS	289	711	.	+	0	ID=cds-ABN79867.1;Parent=gene-E6;Dbxref=NCBI_GP:ABN79867.1;Name=E6;Note=translation initiates at the second ATG in the ORF;gbkey=CDS;gene=E6;gene=E6 protein;protein_id=ABN79867.1										
+gi|126131393|lcl|HPV107REF.1|	Genbank	gene	708	1016	.	+	.	ID=gene-E7;Name=E7;gbkey=Gene;gene=E7;gene_biotype=protein_coding										
+gi|126131393|lcl|HPV107REF.1|	Genbank	CDS	708	1016	.	+	0	ID=cds-ABN79868.1;Parent=gene-E7;Dbxref=NCBI_GP:ABN79868.1;Name=E7;gbkey=CDS;gene=E7;gene=E7 protein;protein_id=ABN79868.1										
+gi|126131393|lcl|HPV107REF.1|	Genbank	gene	1003	2826	.	+	.	ID=gene-E1;Name=E1;gbkey=Gene;gene=E1;gene_biotype=protein_coding										
+gi|126131393|lcl|HPV107REF.1|	Genbank	CDS	1003	2826	.	+	0	ID=cds-ABN79869.1;Parent=gene-E1;Dbxref=NCBI_GP:ABN79869.1;Name=E1;gbkey=CDS;gene=E1;gene=E1 protein;protein_id=ABN79869.1										
+gi|126131393|lcl|HPV107REF.1|	Genbank	gene	2768	4165	.	+	.	ID=gene-E2;Name=E2;gbkey=Gene;gene=E2;gene_biotype=protein_coding										
+gi|126131393|lcl|HPV107REF.1|	Genbank	CDS	2768	4165	.	+	0	ID=cds-ABN79870.1;Parent=gene-E2;Dbxref=NCBI_GP:ABN79870.1;Name=E2;gbkey=CDS;gene=E2;gene=E2 protein;protein_id=ABN79870.1										
+gi|126131393|lcl|HPV107REF.1|	Genbank	gene	3288	3920	.	+	.	ID=gene-E4;Name=E4;gbkey=Gene;gene=E4;gene_biotype=protein_coding										
+gi|126131393|lcl|HPV107REF.1|	Genbank	CDS	3288	3920	.	+	0	ID=cds-ABN79871.1;Parent=gene-E4;Dbxref=NCBI_GP:ABN79871.1;Name=E4;Note=translation initiates at the first ATG in the ORF;gbkey=CDS;gene=E4;gene=E4 protein;protein_id=ABN79871.1										
+gi|126131393|lcl|HPV107REF.1|	Genbank	gene	4217	5776	.	+	.	ID=gene-L2;Name=L2;gbkey=Gene;gene=L2;gene_biotype=protein_coding										
+gi|126131393|lcl|HPV107REF.1|	Genbank	CDS	4217	5776	.	+	0	ID=cds-ABN79872.1;Parent=gene-L2;Dbxref=NCBI_GP:ABN79872.1;Name=L2;gbkey=CDS;gene=L2;gene=L2 protein;protein_id=ABN79872.1										
+gi|126131393|lcl|HPV107REF.1|	Genbank	gene	5788	7311	.	+	.	ID=gene-L1;Name=L1;gbkey=Gene;gene=L1;gene_biotype=protein_coding										
+gi|126131393|lcl|HPV107REF.1|	Genbank	CDS	5788	7311	.	+	0	ID=cds-ABN79873.1;Parent=gene-L1;Dbxref=NCBI_GP:ABN79873.1;Name=L1;gbkey=CDS;gene=L1;gene=L1 protein;protein_id=ABN79873.1										
+##sequence-region HPV108REF.1 1 7149																		

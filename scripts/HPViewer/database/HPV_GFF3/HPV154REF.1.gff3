@@ -1,0 +1,18 @@
+##sequence-region HPV154REF.1 1 7286																		
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=1195796																		
+gi|512721866|lcl|HPV154REF.1|	RefSeq	region	1	7286	.	+	.	ID=NC_021483.1:1..7286;Dbxref=taxon:1195796;Is_circular=true;acronym=HPV154;collection-date=2009;country=Sweden;gbkey=Src;genome=genomic;isolate=PV77;mol_type=genomic DNA;nat-host=Homo sapiens										
+gi|512721866|lcl|HPV154REF.1|	RefSeq	gene	1	435	.	+	.	ID=gene-M523_gp1;Dbxref=GeneID:16187760;Name=E6;gbkey=Gene;gene_biotype=protein_coding;locus_tag=M523_gp1										
+gi|512721866|lcl|HPV154REF.1|	RefSeq	CDS	1	435	.	+	0	ID=cds-YP_008083731.1;Parent=gene-M523_gp1;Dbxref=Genbank:YP_008083731.1	GeneID:16187760;Name=YP_008083731.1;gbkey=CDS;locus_tag=M523_gp1;gene=E6;protein_id=YP_008083731.1									
+gi|512721866|lcl|HPV154REF.1|	RefSeq	gene	437	739	.	+	.	ID=gene-M523_gp2;Dbxref=GeneID:16187756;Name=E7;gbkey=Gene;gene_biotype=protein_coding;locus_tag=M523_gp2										
+gi|512721866|lcl|HPV154REF.1|	RefSeq	CDS	437	739	.	+	0	ID=cds-YP_008083732.1;Parent=gene-M523_gp2;Dbxref=Genbank:YP_008083732.1	GeneID:16187756;Name=YP_008083732.1;gbkey=CDS;locus_tag=M523_gp2;gene=E7;protein_id=YP_008083732.1									
+gi|512721866|lcl|HPV154REF.1|	RefSeq	gene	723	2543	.	+	.	ID=gene-M523_gp3;Dbxref=GeneID:16187755;Name=E1;gbkey=Gene;gene_biotype=protein_coding;locus_tag=M523_gp3										
+gi|512721866|lcl|HPV154REF.1|	RefSeq	CDS	723	2543	.	+	0	ID=cds-YP_008083733.1;Parent=gene-M523_gp3;Dbxref=Genbank:YP_008083733.1	GeneID:16187755;Name=YP_008083733.1;gbkey=CDS;locus_tag=M523_gp3;gene=E1;protein_id=YP_008083733.1									
+gi|512721866|lcl|HPV154REF.1|	RefSeq	gene	2479	3657	.	+	.	ID=gene-M523_gp4;Dbxref=GeneID:16187758;Name=E2;gbkey=Gene;gene_biotype=protein_coding;locus_tag=M523_gp4										
+gi|512721866|lcl|HPV154REF.1|	RefSeq	CDS	2479	3657	.	+	0	ID=cds-YP_008083734.1;Parent=gene-M523_gp4;Dbxref=Genbank:YP_008083734.1	GeneID:16187758;Name=YP_008083734.1;gbkey=CDS;locus_tag=M523_gp4;gene=E2;protein_id=YP_008083734.1									
+gi|512721866|lcl|HPV154REF.1|	RefSeq	gene	2972	3418	.	+	.	ID=gene-M523_gp5;Dbxref=GeneID:16187759;Name=E4;gbkey=Gene;gene_biotype=protein_coding;locus_tag=M523_gp5										
+gi|512721866|lcl|HPV154REF.1|	RefSeq	CDS	2972	3418	.	+	0	ID=cds-YP_008083735.1;Parent=gene-M523_gp5;Dbxref=Genbank:YP_008083735.1	GeneID:16187759;Name=YP_008083735.1;gbkey=CDS;locus_tag=M523_gp5;gene=E4;protein_id=YP_008083735.1									
+gi|512721866|lcl|HPV154REF.1|	RefSeq	gene	3660	5180	.	+	.	ID=gene-M523_gp6;Dbxref=GeneID:16187761;Name=L2;gbkey=Gene;gene_biotype=protein_coding;locus_tag=M523_gp6										
+gi|512721866|lcl|HPV154REF.1|	RefSeq	CDS	3660	5180	.	+	0	ID=cds-YP_008083736.1;Parent=gene-M523_gp6;Dbxref=Genbank:YP_008083736.1	GeneID:16187761;Name=YP_008083736.1;gbkey=CDS;locus_tag=M523_gp6;gene=L2;protein_id=YP_008083736.1									
+gi|512721866|lcl|HPV154REF.1|	RefSeq	gene	5189	6769	.	+	.	ID=gene-M523_gp7;Dbxref=GeneID:16187757;Name=L1;gbkey=Gene;gene_biotype=protein_coding;locus_tag=M523_gp7										
+gi|512721866|lcl|HPV154REF.1|	RefSeq	CDS	5189	6769	.	+	0	ID=cds-YP_008083737.1;Parent=gene-M523_gp7;Dbxref=Genbank:YP_008083737.1	GeneID:16187757;Name=YP_008083737.1;gbkey=CDS;locus_tag=M523_gp7;gene=L1;protein_id=YP_008083737.1									
+##sequence-region HPV155REF.1 1 7352																		

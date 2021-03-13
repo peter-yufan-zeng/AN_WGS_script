@@ -1,0 +1,18 @@
+##sequence-region HPV115REF.1 1 7476																		
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=696746																		
+gi|270358560|lcl|HPV115REF.1|	RefSeq	region	1	7476	.	+	.	ID=NC_013591.1:1..7476;Dbxref=taxon:696746;Is_circular=true;collection-date=2008;country=Argentina;gbkey=Src;genome=genomic;isolate=GC02;isolation-source=healthy skin from a sun-exposed area of an immunocompetent individual;mol_type=genomic DNA;nat-host=Homo sapiens;type=115										
+gi|270358560|lcl|HPV115REF.1|	RefSeq	gene	214	630	.	+	.	ID=gene-HpV115gp1;Dbxref=GeneID:8658788;Name=E6;gbkey=Gene;gene=E6;gene_biotype=protein_coding;locus_tag=HpV115gp1										
+gi|270358560|lcl|HPV115REF.1|	RefSeq	CDS	214	630	.	+	0	ID=cds-YP_003331597.1;Parent=gene-HpV115gp1;Dbxref=Genbank:YP_003331597.1	GeneID:8658788;Name=YP_003331597.1;gbkey=CDS;gene=E6;locus_tag=HpV115gp1;gene=early protein E6;protein_id=YP_003331597.1									
+gi|270358560|lcl|HPV115REF.1|	RefSeq	gene	627	929	.	+	.	ID=gene-HpV115gp2;Dbxref=GeneID:8658782;Name=E7;gbkey=Gene;gene=E7;gene_biotype=protein_coding;locus_tag=HpV115gp2										
+gi|270358560|lcl|HPV115REF.1|	RefSeq	CDS	627	929	.	+	0	ID=cds-YP_003331598.1;Parent=gene-HpV115gp2;Dbxref=Genbank:YP_003331598.1	GeneID:8658782;Name=YP_003331598.1;gbkey=CDS;gene=E7;locus_tag=HpV115gp2;gene=early protein E7;protein_id=YP_003331598.1									
+gi|270358560|lcl|HPV115REF.1|	RefSeq	gene	916	2760	.	+	.	ID=gene-HpV115gp3;Dbxref=GeneID:8658783;Name=E1;gbkey=Gene;gene=E1;gene_biotype=protein_coding;locus_tag=HpV115gp3										
+gi|270358560|lcl|HPV115REF.1|	RefSeq	CDS	916	2760	.	+	0	ID=cds-YP_003331599.1;Parent=gene-HpV115gp3;Dbxref=Genbank:YP_003331599.1	GeneID:8658783;Name=YP_003331599.1;gbkey=CDS;gene=E1;locus_tag=HpV115gp3;gene=early protein E1;protein_id=YP_003331599.1									
+gi|270358560|lcl|HPV115REF.1|	RefSeq	gene	2702	4147	.	+	.	ID=gene-HpV115gp4;Dbxref=GeneID:8658784;Name=E2;gbkey=Gene;gene=E2;gene_biotype=protein_coding;locus_tag=HpV115gp4										
+gi|270358560|lcl|HPV115REF.1|	RefSeq	CDS	2702	4147	.	+	0	ID=cds-YP_003331600.1;Parent=gene-HpV115gp4;Dbxref=Genbank:YP_003331600.1	GeneID:8658784;Name=YP_003331600.1;gbkey=CDS;gene=E2;locus_tag=HpV115gp4;gene=early protein E2;protein_id=YP_003331600.1									
+gi|270358560|lcl|HPV115REF.1|	RefSeq	gene	3270	3902	.	+	.	ID=gene-HpV115gp5;Dbxref=GeneID:8658785;Name=E4;gbkey=Gene;gene=E4;gene_biotype=protein_coding;locus_tag=HpV115gp5										
+gi|270358560|lcl|HPV115REF.1|	RefSeq	CDS	3270	3902	.	+	0	ID=cds-YP_003331601.1;Parent=gene-HpV115gp5;Dbxref=Genbank:YP_003331601.1	GeneID:8658785;Name=YP_003331601.1;gbkey=CDS;gene=E4;locus_tag=HpV115gp5;gene=early protein E4;protein_id=YP_003331601.1									
+gi|270358560|lcl|HPV115REF.1|	RefSeq	gene	4185	5741	.	+	.	ID=gene-HpV115gp6;Dbxref=GeneID:8658786;Name=L2;gbkey=Gene;gene=L2;gene_biotype=protein_coding;locus_tag=HpV115gp6										
+gi|270358560|lcl|HPV115REF.1|	RefSeq	CDS	4185	5741	.	+	0	ID=cds-YP_003331602.1;Parent=gene-HpV115gp6;Dbxref=Genbank:YP_003331602.1	GeneID:8658786;Name=YP_003331602.1;gbkey=CDS;gene=L2;locus_tag=HpV115gp6;gene=late protein L2;protein_id=YP_003331602.1									
+gi|270358560|lcl|HPV115REF.1|	RefSeq	gene	5755	7293	.	+	.	ID=gene-HpV115gp7;Dbxref=GeneID:8658787;Name=L1;gbkey=Gene;gene=L1;gene_biotype=protein_coding;locus_tag=HpV115gp7										
+gi|270358560|lcl|HPV115REF.1|	RefSeq	CDS	5755	7293	.	+	0	ID=cds-YP_003331603.1;Parent=gene-HpV115gp7;Dbxref=Genbank:YP_003331603.1	GeneID:8658787;Name=YP_003331603.1;gbkey=CDS;gene=L1;locus_tag=HpV115gp7;gene=major capsid protein L1;protein_id=YP_003331603.1									
+##sequence-region HPV116REF.1 1 7184																		

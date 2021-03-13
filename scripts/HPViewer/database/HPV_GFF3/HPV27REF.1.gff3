@@ -1,0 +1,17 @@
+##sequence-region HPV27REF.1 1 7823																		
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=333752																		
+gi|396964|lcl|HPV27REF.1|	EMBL	region	1	7823	.	+	.	ID=X74473.1:1..7823;Dbxref=taxon:333752;clone=insert in BamHI site of pUC8;gbkey=Src;mol_type=genomic DNA										
+gi|396964|lcl|HPV27REF.1|	EMBL	gene	99	575	.	+	.	ID=gene-E6;Name=E6;end_range=575	.;gbkey=Gene;gene=E6;gene_biotype=protein_coding;partial=true									
+gi|396964|lcl|HPV27REF.1|	EMBL	CDS	99	575	.	+	0	ID=cds-CAA52536.1;Parent=gene-E6;Dbxref=GOA:P36808	InterPro:IPR001334	UniProtKB/Swiss-Prot:P36808	NCBI_GP:CAA52536.1;Name=CAA52536.1;end_range=575	.;gbkey=CDS;gene=E6;partial=true;gene=early protein;protein_id=CAA52536.1						
+gi|396964|lcl|HPV27REF.1|	EMBL	gene	539	814	.	+	.	ID=gene-E7;Name=E7;end_range=814	.;gbkey=Gene;gene=E7;gene_biotype=protein_coding;partial=true									
+gi|396964|lcl|HPV27REF.1|	EMBL	CDS	539	814	.	+	0	ID=cds-CAA52537.1;Parent=gene-E7;Dbxref=GOA:P36825	InterPro:IPR000148	UniProtKB/Swiss-Prot:P36825	NCBI_GP:CAA52537.1;Name=CAA52537.1;end_range=814	.;gbkey=CDS;gene=E7;partial=true;gene=early protein;protein_id=CAA52537.1						
+gi|396964|lcl|HPV27REF.1|	EMBL	gene	822	2753	.	+	.	ID=gene-E1;Name=E1;gbkey=Gene;gene=E1;gene_biotype=protein_coding										
+gi|396964|lcl|HPV27REF.1|	EMBL	CDS	822	2753	.	+	0	ID=cds-CAA52538.1;Parent=gene-E1;Dbxref=GOA:P36723	InterPro:IPR001177	InterPro:IPR014000	InterPro:IPR014015	InterPro:IPR016393	UniProtKB/Swiss-Prot:P36723	NCBI_GP:CAA52538.1;Name=CAA52538.1;gbkey=CDS;gene=E1;gene=early protein;protein_id=CAA52538.1				
+gi|396964|lcl|HPV27REF.1|	EMBL	gene	2695	3861	.	+	.	ID=gene-E2;Name=E2;gbkey=Gene;gene=E2;gene_biotype=protein_coding										
+gi|396964|lcl|HPV27REF.1|	EMBL	CDS	2695	3861	.	+	0	ID=cds-CAA52539.1;Parent=gene-E2;Dbxref=GOA:P36789	InterPro:IPR000427	InterPro:IPR001866	InterPro:IPR009021	InterPro:IPR012677	UniProtKB/Swiss-Prot:P36789	NCBI_GP:CAA52539.1;Name=CAA52539.1;gbkey=CDS;gene=E2;gene=early protein;protein_id=CAA52539.1				
+gi|396964|lcl|HPV27REF.1|	EMBL	gene	4389	5783	.	+	.	ID=gene-L2;Name=L2;gbkey=Gene;gene=L2;gene_biotype=protein_coding										
+gi|396964|lcl|HPV27REF.1|	EMBL	CDS	4389	5783	.	+	0	ID=cds-CAA52540.1;Parent=gene-L2;Dbxref=GOA:P36755	InterPro:IPR000784	UniProtKB/Swiss-Prot:P36755	NCBI_GP:CAA52540.1;Name=CAA52540.1;gbkey=CDS;gene=L2;gene=late protein;protein_id=CAA52540.1							
+gi|396964|lcl|HPV27REF.1|	EMBL	gene	5437	7221	.	+	.	ID=gene-L1;Name=L1;gbkey=Gene;gene=L1;gene_biotype=protein_coding										
+gi|396964|lcl|HPV27REF.1|	EMBL	CDS	5437	7221	.	+	0	ID=cds-CAA52541.1;Parent=gene-L1;Dbxref=GOA:P36736	InterPro:IPR002210	InterPro:IPR011222	UniProtKB/Swiss-Prot:P36736	NCBI_GP:CAA52541.1;Name=CAA52541.1;Note=alternative;gbkey=CDS;gene=L1;gene=late protein;protein_id=CAA52541.1						
+gi|396964|lcl|HPV27REF.1|	EMBL	CDS	5764	7221	.	+	0	ID=cds-CAA52542.1;Parent=gene-L1;Dbxref=GOA:P36736	InterPro:IPR002210	InterPro:IPR011222	UniProtKB/Swiss-Prot:P36736	NCBI_GP:CAA52542.1;Name=CAA52542.1;gbkey=CDS;gene=L1;gene=late protein;protein_id=CAA52542.1						
+##sequence-region HPV28REF.1 1 7959																		

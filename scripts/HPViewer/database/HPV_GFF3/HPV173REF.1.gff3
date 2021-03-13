@@ -1,0 +1,10 @@
+##sequence-region HPV173REF.1 1 7297																		
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=1434988																		
+gi|564732532|lcl|HPV173REF.1|	Genbank	region	1	7297	.	+	.	ID=KF006400.1:1..7297;Dbxref=taxon:1434988;Is_circular=true;collection-date=2009;country=USA;gb-acronym=HPV 173;gbkey=Src;isolation-source=oral lavage;mol_type=genomic DNA;nat-host=Homo sapiens										
+gi|564732532|lcl|HPV173REF.1|	Genbank	gene	31	453	.	+	0	ID=cds-AHC00351.1;Dbxref=NCBI_GP:AHC00351.1;Name=E6;gbkey=CDS;gene=E6;protein_id=AHC00351.1										
+gi|564732532|lcl|HPV173REF.1|	Genbank	gene	450	743	.	+	0	ID=cds-AHC00352.1;Dbxref=NCBI_GP:AHC00352.1;Name=E7;gbkey=CDS;gene=E7;protein_id=AHC00352.1										
+gi|564732532|lcl|HPV173REF.1|	Genbank	gene	730	2541	.	+	0	ID=cds-AHC00353.1;Dbxref=NCBI_GP:AHC00353.1;Name=E1;gbkey=CDS;gene=E1;protein_id=AHC00353.1										
+gi|564732532|lcl|HPV173REF.1|	Genbank	gene	2483	3658	.	+	0	ID=cds-AHC00354.1;Dbxref=NCBI_GP:AHC00354.1;Name=E2;gbkey=CDS;gene=E2;protein_id=AHC00354.1										
+gi|564732532|lcl|HPV173REF.1|	Genbank	gene	3689	5272	.	+	0	ID=cds-AHC00355.1;Dbxref=NCBI_GP:AHC00355.1;Name=L2;gbkey=CDS;gene=L2;protein_id=AHC00355.1										
+gi|564732532|lcl|HPV173REF.1|	Genbank	gene	5287	6828	.	+	0	ID=cds-AHC00356.1;Dbxref=NCBI_GP:AHC00356.1;Name=L1;gbkey=CDS;gene=L1;protein_id=AHC00356.1										
+##sequence-region HPV174REF.1 1 7359																		

@@ -1,0 +1,18 @@
+##sequence-region HPV178REF.1 1 7314																		
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=1478160																		
+gi|607064610|lcl|HPV178REF.1|	RefSeq	region	1	7314	.	+	.	ID=NC_023891.1:1..7314;Dbxref=taxon:1478160;country=Sweden;gbkey=Src;genome=genomic;isolation-source=swab sample of normal human skin next to cutaneous squamous cell carcinoma;mol_type=genomic DNA;nat-host=Homo sapiens;old-name=Human papillomavirus type 178										
+gi|607064610|lcl|HPV178REF.1|	RefSeq	gene	1	417	.	+	.	ID=gene-DK21_gp1;Dbxref=GeneID:18983183;Name=E6;gbkey=Gene;gene=E6;gene_biotype=protein_coding;locus_tag=DK21_gp1										
+gi|607064610|lcl|HPV178REF.1|	RefSeq	CDS	1	417	.	+	0	ID=cds-YP_009022057.1;Parent=gene-DK21_gp1;Dbxref=Genbank:YP_009022057.1	GeneID:18983183;Name=YP_009022057.1;gbkey=CDS;gene=E6;locus_tag=DK21_gp1;gene=E6 protein;protein_id=YP_009022057.1									
+gi|607064610|lcl|HPV178REF.1|	RefSeq	gene	419	706	.	+	.	ID=gene-DK21_gp2;Dbxref=GeneID:18983179;Name=E7;gbkey=Gene;gene=E7;gene_biotype=protein_coding;locus_tag=DK21_gp2										
+gi|607064610|lcl|HPV178REF.1|	RefSeq	CDS	419	706	.	+	0	ID=cds-YP_009022058.1;Parent=gene-DK21_gp2;Dbxref=Genbank:YP_009022058.1	GeneID:18983179;Name=YP_009022058.1;gbkey=CDS;gene=E7;locus_tag=DK21_gp2;gene=E7 protein;protein_id=YP_009022058.1									
+gi|607064610|lcl|HPV178REF.1|	RefSeq	gene	690	2516	.	+	.	ID=gene-DK21_gp3;Dbxref=GeneID:18983180;Name=E1;gbkey=Gene;gene=E1;gene_biotype=protein_coding;locus_tag=DK21_gp3										
+gi|607064610|lcl|HPV178REF.1|	RefSeq	CDS	690	2516	.	+	0	ID=cds-YP_009022059.1;Parent=gene-DK21_gp3;Dbxref=Genbank:YP_009022059.1	GeneID:18983180;Name=YP_009022059.1;gbkey=CDS;gene=E1;locus_tag=DK21_gp3;gene=E1 protein;protein_id=YP_009022059.1									
+gi|607064610|lcl|HPV178REF.1|	RefSeq	gene	2458	3663	.	+	.	ID=gene-DK21_gp4;Dbxref=GeneID:18983182;Name=E2;gbkey=Gene;gene=E2;gene_biotype=protein_coding;locus_tag=DK21_gp4										
+gi|607064610|lcl|HPV178REF.1|	RefSeq	CDS	2458	3663	.	+	0	ID=cds-YP_009022060.1;Parent=gene-DK21_gp4;Dbxref=Genbank:YP_009022060.1	GeneID:18983182;Name=YP_009022060.1;gbkey=CDS;gene=E2;locus_tag=DK21_gp4;gene=E2 protein;protein_id=YP_009022060.1									
+gi|607064610|lcl|HPV178REF.1|	RefSeq	gene	2924	3424	.	+	.	ID=gene-DK21_gp5;Dbxref=GeneID:18983177;Name=E4;gbkey=Gene;gene=E4;gene_biotype=protein_coding;locus_tag=DK21_gp5										
+gi|607064610|lcl|HPV178REF.1|	RefSeq	CDS	2924	3424	.	+	0	ID=cds-YP_009022061.1;Parent=gene-DK21_gp5;Dbxref=Genbank:YP_009022061.1	GeneID:18983177;Name=YP_009022061.1;gbkey=CDS;gene=E4;locus_tag=DK21_gp5;gene=E4 protein;protein_id=YP_009022061.1									
+gi|607064610|lcl|HPV178REF.1|	RefSeq	gene	3666	5261	.	+	.	ID=gene-DK21_gp6;Dbxref=GeneID:18983178;Name=L2;gbkey=Gene;gene=L2;gene_biotype=protein_coding;locus_tag=DK21_gp6										
+gi|607064610|lcl|HPV178REF.1|	RefSeq	CDS	3666	5261	.	+	0	ID=cds-YP_009022062.1;Parent=gene-DK21_gp6;Dbxref=Genbank:YP_009022062.1	GeneID:18983178;Name=YP_009022062.1;gbkey=CDS;gene=L2;locus_tag=DK21_gp6;gene=L2 protein;protein_id=YP_009022062.1									
+gi|607064610|lcl|HPV178REF.1|	RefSeq	gene	5233	6768	.	+	.	ID=gene-DK21_gp7;Dbxref=GeneID:18983181;Name=L1;gbkey=Gene;gene=L1;gene_biotype=protein_coding;locus_tag=DK21_gp7										
+gi|607064610|lcl|HPV178REF.1|	RefSeq	CDS	5233	6768	.	+	0	ID=cds-YP_009022063.2;Parent=gene-DK21_gp7;Dbxref=Genbank:YP_009022063.2	GeneID:18983181;Name=YP_009022063.2;gbkey=CDS;gene=L1;locus_tag=DK21_gp7;gene=L1 protein;protein_id=YP_009022063.2									
+##sequence-region HPV179REF.1 1 7228																		

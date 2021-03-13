@@ -1,0 +1,16 @@
+##sequence-region HPV199REF.1 1 7184																		
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=1545700																		
+gi|674781099|lcl|HPV199REF.1|	Genbank	region	1	7184	.	+	.	ID=KJ913662.1:1..7184;Dbxref=taxon:1545700;collection-date=19-May-2014;country=Slovenia;gbkey=Src;genome=genomic;isolate=KC82-SLO;isolation-source=nasopharynx swab;mol_type=genomic DNA;nat-host=Homo sapiens										
+gi|674781099|lcl|HPV199REF.1|	Genbank	gene	1	420	.	+	.	ID=gene-E6;Name=E6;gbkey=Gene;gene=E6;gene_biotype=protein_coding										
+gi|674781099|lcl|HPV199REF.1|	Genbank	CDS	1	420	.	+	0	ID=cds-AIL29222.1;Parent=gene-E6;Dbxref=NCBI_GP:AIL29222.1;Name=AIL29222.1;gbkey=CDS;gene=E6;gene=E6 protein;protein_id=AIL29222.1										
+gi|674781099|lcl|HPV199REF.1|	Genbank	gene	417	710	.	+	.	ID=gene-E7;Name=E7;gbkey=Gene;gene=E7;gene_biotype=protein_coding										
+gi|674781099|lcl|HPV199REF.1|	Genbank	CDS	417	710	.	+	0	ID=cds-AIL29223.1;Parent=gene-E7;Dbxref=NCBI_GP:AIL29223.1;Name=AIL29223.1;gbkey=CDS;gene=E7;gene=E7 protein;protein_id=AIL29223.1										
+gi|674781099|lcl|HPV199REF.1|	Genbank	gene	694	2490	.	+	.	ID=gene-E1;Name=E1;gbkey=Gene;gene=E1;gene_biotype=protein_coding										
+gi|674781099|lcl|HPV199REF.1|	Genbank	CDS	694	2490	.	+	0	ID=cds-AIL29224.1;Parent=gene-E1;Dbxref=NCBI_GP:AIL29224.1;Name=AIL29224.1;gbkey=CDS;gene=E1;gene=E1 protein;protein_id=AIL29224.1										
+gi|674781099|lcl|HPV199REF.1|	Genbank	gene	2423	3619	.	+	.	ID=gene-E2;Name=E2;gbkey=Gene;gene=E2;gene_biotype=protein_coding										
+gi|674781099|lcl|HPV199REF.1|	Genbank	CDS	2423	3619	.	+	0	ID=cds-AIL29225.1;Parent=gene-E2;Dbxref=NCBI_GP:AIL29225.1;Name=AIL29225.1;gbkey=CDS;gene=E2;gene=E2 protein;protein_id=AIL29225.1										
+gi|674781099|lcl|HPV199REF.1|	Genbank	gene	3619	5148	.	+	.	ID=gene-L2;Name=L2;gbkey=Gene;gene=L2;gene_biotype=protein_coding										
+gi|674781099|lcl|HPV199REF.1|	Genbank	CDS	3619	5148	.	+	0	ID=cds-AIL29221.1;Parent=gene-L2;Dbxref=NCBI_GP:AIL29221.1;Name=AIL29221.1;gbkey=CDS;gene=L2;gene=L2 protein;protein_id=AIL29221.1										
+gi|674781099|lcl|HPV199REF.1|	Genbank	gene	5148	6671	.	+	.	ID=gene-L1;Name=L1;gbkey=Gene;gene=L1;gene_biotype=protein_coding										
+gi|674781099|lcl|HPV199REF.1|	Genbank	CDS	5148	6671	.	+	0	ID=cds-AIL29226.1;Parent=gene-L1;Dbxref=NCBI_GP:AIL29226.1;Name=AIL29226.1;gbkey=CDS;gene=L1;gene=L1 protein;protein_id=AIL29226.1										
+##sequence-region HPV200REF.1 1 7137																		

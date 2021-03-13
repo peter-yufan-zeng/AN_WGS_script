@@ -1,0 +1,22 @@
+##sequence-region HPV42REF.1 1 7917																		
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=10590																		
+gi|333211|lcl|HPV42REF.1|	Genbank	region	1	7917	.	+	.	ID=M73236.1:1..7917;Dbxref=taxon:10590;gbkey=Src;mol_type=genomic DNA										
+gi|333211|lcl|HPV42REF.1|	Genbank	region	74	81	.	+	.	ID=id-M73236.1:74..81;gbkey=TATA_signal										
+gi|333211|lcl|HPV42REF.1|	Genbank	gene	108	566	.	+	0	ID=cds-AAA47041.1;Dbxref=NCBI_GP:AAA47041.1;Name=E6;gbkey=CDS;partial=true;gene=AAA47041.1;protein_id=AAA47041.1;start_range=.	108									
+gi|333211|lcl|HPV42REF.1|	Genbank	gene	476	823	.	+	0	ID=cds-AAA47042.1;Dbxref=NCBI_GP:AAA47042.1;Name=E7;gbkey=CDS;partial=true;gene=AAA47042.1;protein_id=AAA47042.1;start_range=.	476									
+gi|333211|lcl|HPV42REF.1|	Genbank	region	497	500	.	+	.	ID=id-M73236.1:497..500;gbkey=TATA_signal										
+gi|333211|lcl|HPV42REF.1|	Genbank	gene	724	2760	.	+	0	ID=cds-AAA47043.1;Dbxref=NCBI_GP:AAA47043.1;Name=E1;gbkey=CDS;partial=true;gene=AAA47043.1;protein_id=AAA47043.1;start_range=.	724									
+gi|333211|lcl|HPV42REF.1|	Genbank	region	1029	1035	.	+	.	ID=id-M73236.1:1029..1035;gbkey=polyA_signal										
+gi|333211|lcl|HPV42REF.1|	Genbank	region	2280	2285	.	+	.	ID=id-M73236.1:2280..2285;gbkey=polyA_signal										
+gi|333211|lcl|HPV42REF.1|	Genbank	gene	2672	3898	.	+	0	ID=cds-AAA47044.1;Dbxref=NCBI_GP:AAA47044.1;Name=E2;gbkey=CDS;partial=true;gene=AAA47044.1;protein_id=AAA47044.1;start_range=.	2672									
+gi|333211|lcl|HPV42REF.1|	Genbank	gene	3282	3644	.	+	0	ID=cds-AAA47045.1;Dbxref=NCBI_GP:AAA47045.1;Name=E4;gbkey=CDS;partial=true;gene=AAA47045.1;protein_id=AAA47045.1;start_range=.	3282									
+gi|333211|lcl|HPV42REF.1|	Genbank	region	3892	3895	.	+	.	ID=id-M73236.1:3892..3895;gbkey=TATA_signal										
+gi|333211|lcl|HPV42REF.1|	Genbank	gene	3919	4206	.	+	0	ID=cds-AAA47046.1;Dbxref=NCBI_GP:AAA47046.1;Name=E5;gbkey=CDS;partial=true;gene=AAA47046.1;protein_id=AAA47046.1;start_range=.	3919									
+gi|333211|lcl|HPV42REF.1|	Genbank	gene	4348	5856	.	+	0	ID=cds-AAA47047.1;Dbxref=NCBI_GP:AAA47047.1;Name=L2;gbkey=CDS;partial=true;gene=AAA47047.1;protein_id=AAA47047.1;start_range=.	4348									
+gi|333211|lcl|HPV42REF.1|	Genbank	region	4377	4382	.	+	.	ID=id-M73236.1:4377..4382;gbkey=polyA_signal										
+gi|333211|lcl|HPV42REF.1|	Genbank	region	4391	4394	.	+	.	ID=id-M73236.1:4391..4394;gbkey=TATA_signal										
+gi|333211|lcl|HPV42REF.1|	Genbank	gene	5756	7345	.	+	0	ID=cds-AAA47048.1;Dbxref=NCBI_GP:AAA47048.1;Name=L1;gbkey=CDS;partial=true;gene=AAA47048.1;protein_id=AAA47048.1;start_range=.	5756									
+gi|333211|lcl|HPV42REF.1|	Genbank	region	6758	6763	.	+	.	ID=id-M73236.1:6758..6763;gbkey=polyA_signal										
+gi|333211|lcl|HPV42REF.1|	Genbank	region	7401	7406	.	+	.	ID=id-M73236.1:7401..7406;gbkey=polyA_signal										
+gi|333211|lcl|HPV42REF.1|	Genbank	region	7745	7753	.	+	.	ID=id-M73236.1:7745..7753;gbkey=polyA_signal										
+##sequence-region HPV43REF.1 1 7975																		

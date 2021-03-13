@@ -1,0 +1,23 @@
+##sequence-region HPV43REF.1 1 7975																		
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=10591																		
+gi|40804474|lcl|HPV43REF.1|	EMBL	region	1	7975	.	+	.	ID=AJ620205.1:1..7975;Dbxref=taxon:10591;Is_circular=true;gbkey=Src;mol_type=genomic DNA;nat-host=Homo sapiens										
+gi|40804474|lcl|HPV43REF.1|	EMBL	gene	102	569	.	+	.	ID=gene-E6;Name=E6;gbkey=Gene;gene=E6;gene_biotype=protein_coding										
+gi|40804474|lcl|HPV43REF.1|	EMBL	CDS	102	569	.	+	0	ID=cds-CAF05783.1;Parent=gene-E6;Dbxref=GOA:Q705I0	InterPro:IPR001334	UniProtKB/TrEMBL:Q705I0	NCBI_GP:CAF05783.1;Name=CAF05783.1;gbkey=CDS;gene=E6;gene=E6 protein;protein_id=CAF05783.1							
+gi|40804474|lcl|HPV43REF.1|	EMBL	gene	530	829	.	+	.	ID=gene-E7;Name=E7;gbkey=Gene;gene=E7;gene_biotype=protein_coding										
+gi|40804474|lcl|HPV43REF.1|	EMBL	CDS	530	829	.	+	0	ID=cds-CAF05784.1;Parent=gene-E7;Dbxref=GOA:Q705H9	InterPro:IPR000148	UniProtKB/TrEMBL:Q705H9	NCBI_GP:CAF05784.1;Name=CAF05784.1;gbkey=CDS;gene=E7;gene=E7 protein;protein_id=CAF05784.1							
+gi|40804474|lcl|HPV43REF.1|	EMBL	gene	835	2802	.	+	.	ID=gene-E1;Name=E1;gbkey=Gene;gene=E1;gene_biotype=protein_coding										
+gi|40804474|lcl|HPV43REF.1|	EMBL	CDS	835	2802	.	+	0	ID=cds-CAF05785.1;Parent=gene-E1;Dbxref=GOA:Q705H8	InterPro:IPR001177	InterPro:IPR014000	InterPro:IPR014015	InterPro:IPR016393	UniProtKB/TrEMBL:Q705H8	NCBI_GP:CAF05785.1;Name=CAF05785.1;gbkey=CDS;gene=E1;gene=E1 protein;protein_id=CAF05785.1				
+gi|40804474|lcl|HPV43REF.1|	EMBL	gene	2744	3859	.	+	.	ID=gene-E2;Name=E2;gbkey=Gene;gene=E2;gene_biotype=protein_coding										
+gi|40804474|lcl|HPV43REF.1|	EMBL	CDS	2744	3859	.	+	0	ID=cds-CAF05786.1;Parent=gene-E2;Dbxref=GOA:Q705H7	HSSP:1A7G	InterPro:IPR000427	InterPro:IPR001866	InterPro:IPR009021	InterPro:IPR012677	UniProtKB/TrEMBL:Q705H7	NCBI_GP:CAF05786.1;Name=CAF05786.1;gbkey=CDS;gene=E2;gene=E2 protein;protein_id=CAF05786.1			
+gi|40804474|lcl|HPV43REF.1|	EMBL	gene	3276	3620	.	+	.	ID=gene-E4;Name=E4;gbkey=Gene;gene=E4;gene_biotype=protein_coding										
+gi|40804474|lcl|HPV43REF.1|	EMBL	CDS	3276	3620	.	+	0	ID=cds-CAF05787.1;Parent=gene-E4;Dbxref=InterPro:IPR003861	UniProtKB/TrEMBL:Q705H6	NCBI_GP:CAF05787.1;Name=CAF05787.1;gbkey=CDS;gene=E4;gene=E4 protein;protein_id=CAF05787.1								
+gi|40804474|lcl|HPV43REF.1|	EMBL	gene	4379	5770	.	+	.	ID=gene-L2;Name=L2;gbkey=Gene;gene=L2;gene_biotype=protein_coding										
+gi|40804474|lcl|HPV43REF.1|	EMBL	CDS	4379	5770	.	+	0	ID=cds-CAF05788.1;Parent=gene-L2;Dbxref=GOA:Q705H5	InterPro:IPR000784	UniProtKB/Swiss-Prot:Q705H5	NCBI_GP:CAF05788.1;Name=CAF05788.1;gbkey=CDS;gene=L2;gene=L2 protein;protein_id=CAF05788.1							
+gi|40804474|lcl|HPV43REF.1|	EMBL	gene	5673	7268	.	+	.	ID=gene-L1;Name=L1;gbkey=Gene;gene=L1;gene_biotype=protein_coding										
+gi|40804474|lcl|HPV43REF.1|	EMBL	CDS	5673	7268	.	+	0	ID=cds-CAF05789.1;Parent=gene-L1;Dbxref=GOA:P50815	InterPro:IPR002210	InterPro:IPR011222	UniProtKB/Swiss-Prot:P50815	NCBI_GP:CAF05789.1;Name=CAF05789.1;gbkey=CDS;gene=L1;gene=L1 protein;protein_id=CAF05789.1						
+gi|40804474|lcl|HPV43REF.1|	EMBL	CDS	5757	7268	.	+	0	ID=cds-CAF05790.1;Parent=gene-L1;Dbxref=GOA:Q705H3	InterPro:IPR002210	InterPro:IPR011222	UniProtKB/TrEMBL:Q705H3	NCBI_GP:CAF05790.1;Name=CAF05790.1;Note=alternative;gbkey=CDS;gene=L1;gene=protein L1a;protein_id=CAF05790.1						
+gi|40804474|lcl|HPV43REF.1|	EMBL	gene	6475	6753	.	+	.	ID=gene-X;Name=X;gbkey=Gene;gene=X;gene_biotype=protein_coding										
+gi|40804474|lcl|HPV43REF.1|	EMBL	CDS	6475	6753	.	+	0	ID=cds-CAF05791.1;Parent=gene-X;Dbxref=UniProtKB/TrEMBL:Q705H2	NCBI_GP:CAF05791.1;Name=CAF05791.1;gbkey=CDS;gene=X;gene=putative X protein;protein_id=CAF05791.1									
+gi|40804474|lcl|HPV43REF.1|	EMBL	gene	7486	7854	.	+	.	ID=gene-Y;Name=Y;gbkey=Gene;gene=Y;gene_biotype=protein_coding										
+gi|40804474|lcl|HPV43REF.1|	EMBL	CDS	7486	7854	.	+	0	ID=cds-CAF05792.1;Parent=gene-Y;Dbxref=UniProtKB/TrEMBL:Q705H1	NCBI_GP:CAF05792.1;Name=CAF05792.1;gbkey=CDS;gene=Y;gene=putative Y protein;protein_id=CAF05792.1									
+##sequence-region HPV44REF.1 1 7833																		

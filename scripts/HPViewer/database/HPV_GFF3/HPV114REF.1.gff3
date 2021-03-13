@@ -1,0 +1,18 @@
+##sequence-region HPV114REF.1 1 8069																		
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=735496																		
+gi|294187589|lcl|HPV114REF.1|	RefSeq	region	1	8069	.	+	.	ID=NC_013931.1:1..8069;Dbxref=taxon:735496;Is_circular=true;collection-date=2006;country=Sweden;gbkey=Src;genome=genomic;mol_type=genomic DNA;nat-host=Homo sapiens										
+gi|294187589|lcl|HPV114REF.1|	RefSeq	gene	213	659	.	+	.	ID=gene-HpV114_gp1;Dbxref=GeneID:8829622;Name=E6;gbkey=Gene;gene=E6;gene_biotype=protein_coding;locus_tag=HpV114_gp1										
+gi|294187589|lcl|HPV114REF.1|	RefSeq	CDS	213	659	.	+	0	ID=cds-YP_003495071.1;Parent=gene-HpV114_gp1;Dbxref=Genbank:YP_003495071.1	GeneID:8829622;Name=YP_003495071.1;gbkey=CDS;gene=E6;locus_tag=HpV114_gp1;gene=E6 protein;protein_id=YP_003495071.1									
+gi|294187589|lcl|HPV114REF.1|	RefSeq	gene	635	919	.	+	.	ID=gene-HpV114_gp2;Dbxref=GeneID:8829616;Name=E7;gbkey=Gene;gene=E7;gene_biotype=protein_coding;locus_tag=HpV114_gp2										
+gi|294187589|lcl|HPV114REF.1|	RefSeq	CDS	635	919	.	+	0	ID=cds-YP_003495072.1;Parent=gene-HpV114_gp2;Dbxref=Genbank:YP_003495072.1	GeneID:8829616;Name=YP_003495072.1;gbkey=CDS;gene=E7;locus_tag=HpV114_gp2;gene=E7 protein;protein_id=YP_003495072.1									
+gi|294187589|lcl|HPV114REF.1|	RefSeq	gene	998	2875	.	+	.	ID=gene-HpV114_gp3;Dbxref=GeneID:8829617;Name=E1;gbkey=Gene;gene=E1;gene_biotype=protein_coding;locus_tag=HpV114_gp3										
+gi|294187589|lcl|HPV114REF.1|	RefSeq	CDS	998	2875	.	+	0	ID=cds-YP_003495073.1;Parent=gene-HpV114_gp3;Dbxref=Genbank:YP_003495073.1	GeneID:8829617;Name=YP_003495073.1;gbkey=CDS;gene=E1;locus_tag=HpV114_gp3;gene=E1 protein;protein_id=YP_003495073.1									
+gi|294187589|lcl|HPV114REF.1|	RefSeq	gene	2817	3962	.	+	.	ID=gene-HpV114_gp4;Dbxref=GeneID:8829618;Name=E2;gbkey=Gene;gene=E2;gene_biotype=protein_coding;locus_tag=HpV114_gp4										
+gi|294187589|lcl|HPV114REF.1|	RefSeq	CDS	2817	3962	.	+	0	ID=cds-YP_003495074.1;Parent=gene-HpV114_gp4;Dbxref=Genbank:YP_003495074.1	GeneID:8829618;Name=YP_003495074.1;gbkey=CDS;gene=E2;locus_tag=HpV114_gp4;gene=E2 protein;protein_id=YP_003495074.1									
+gi|294187589|lcl|HPV114REF.1|	RefSeq	gene	3403	3729	.	+	.	ID=gene-HpV114_gp5;Dbxref=GeneID:8829619;Name=E4;gbkey=Gene;gene=E4;gene_biotype=protein_coding;locus_tag=HpV114_gp5										
+gi|294187589|lcl|HPV114REF.1|	RefSeq	CDS	3403	3729	.	+	0	ID=cds-YP_003495075.1;Parent=gene-HpV114_gp5;Dbxref=Genbank:YP_003495075.1	GeneID:8829619;Name=YP_003495075.1;gbkey=CDS;gene=E4;locus_tag=HpV114_gp5;gene=E4 protein;protein_id=YP_003495075.1									
+gi|294187589|lcl|HPV114REF.1|	RefSeq	gene	4499	5926	.	+	.	ID=gene-HpV114_gp6;Dbxref=GeneID:8829620;Name=L2;gbkey=Gene;gene=L2;gene_biotype=protein_coding;locus_tag=HpV114_gp6										
+gi|294187589|lcl|HPV114REF.1|	RefSeq	CDS	4499	5926	.	+	0	ID=cds-YP_003495076.1;Parent=gene-HpV114_gp6;Dbxref=Genbank:YP_003495076.1	GeneID:8829620;Name=YP_003495076.1;gbkey=CDS;gene=L2;locus_tag=HpV114_gp6;gene=L2 protein;protein_id=YP_003495076.1									
+gi|294187589|lcl|HPV114REF.1|	RefSeq	gene	5904	7427	.	+	.	ID=gene-HpV114_gp7;Dbxref=GeneID:8829621;Name=L1;gbkey=Gene;gene=L1;gene_biotype=protein_coding;locus_tag=HpV114_gp7										
+gi|294187589|lcl|HPV114REF.1|	RefSeq	CDS	5904	7427	.	+	0	ID=cds-YP_003495077.1;Parent=gene-HpV114_gp7;Dbxref=Genbank:YP_003495077.1	GeneID:8829621;Name=YP_003495077.1;gbkey=CDS;gene=L1;locus_tag=HpV114_gp7;gene=L1 protein;protein_id=YP_003495077.1									
+##sequence-region HPV115REF.1 1 7476																		

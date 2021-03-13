@@ -1,0 +1,18 @@
+##sequence-region HPV163REF.1 1 7233																		
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=1315262																		
+gi|409183121|lcl|HPV163REF.1|	Genbank	region	1	7233	.	+	.	ID=JX413107.1:1..7233;Dbxref=taxon:1315262;Is_circular=true;collection-date=26-Oct-2008;country=China;gbkey=Src;genome=genomic;isolate=KC3;mol_type=genomic DNA;nat-host=Homo sapiens										
+gi|409183121|lcl|HPV163REF.1|	Genbank	gene	177	605	.	+	.	ID=gene-E6;Name=E6;gbkey=Gene;gene=E6;gene_biotype=protein_coding										
+gi|409183121|lcl|HPV163REF.1|	Genbank	CDS	177	605	.	+	0	ID=cds-AFV27110.1;Parent=gene-E6;Dbxref=NCBI_GP:AFV27110.1;Name=AFV27110.1;gbkey=CDS;gene=E6;gene=E6;protein_id=AFV27110.1										
+gi|409183121|lcl|HPV163REF.1|	Genbank	gene	602	901	.	+	.	ID=gene-E7;Name=E7;gbkey=Gene;gene=E7;gene_biotype=protein_coding										
+gi|409183121|lcl|HPV163REF.1|	Genbank	CDS	602	901	.	+	0	ID=cds-AFV27111.1;Parent=gene-E7;Dbxref=NCBI_GP:AFV27111.1;Name=AFV27111.1;gbkey=CDS;gene=E7;gene=E7;protein_id=AFV27111.1										
+gi|409183121|lcl|HPV163REF.1|	Genbank	gene	888	3628	.	+	.	ID=gene-E1^E4;Name=E1^E4;gbkey=Gene;gene=E1^E4;gene_biotype=other										
+gi|409183121|lcl|HPV163REF.1|	Genbank	sequence_feature	888	3628	.	+	.	ID=id-E1^E4;Note=similar to E1^E4%3B putative E4 protein;gbkey=misc_feature;gene=E1^E4										
+gi|409183121|lcl|HPV163REF.1|	Genbank	gene	888	2711	.	+	.	ID=gene-E1;Name=E1;gbkey=Gene;gene=E1;gene_biotype=protein_coding										
+gi|409183121|lcl|HPV163REF.1|	Genbank	CDS	888	2711	.	+	0	ID=cds-AFV27112.1;Parent=gene-E1;Dbxref=NCBI_GP:AFV27112.1;Name=AFV27112.1;gbkey=CDS;gene=E1;gene=E1;protein_id=AFV27112.1										
+gi|409183121|lcl|HPV163REF.1|	Genbank	gene	2647	3867	.	+	.	ID=gene-E2;Name=E2;gbkey=Gene;gene=E2;gene_biotype=protein_coding										
+gi|409183121|lcl|HPV163REF.1|	Genbank	CDS	2647	3867	.	+	0	ID=cds-AFV27113.1;Parent=gene-E2;Dbxref=NCBI_GP:AFV27113.1;Name=AFV27113.1;gbkey=CDS;gene=E2;gene=E2;protein_id=AFV27113.1										
+gi|409183121|lcl|HPV163REF.1|	Genbank	gene	3870	5420	.	+	.	ID=gene-L2;Name=L2;gbkey=Gene;gene=L2;gene_biotype=protein_coding										
+gi|409183121|lcl|HPV163REF.1|	Genbank	CDS	3870	5420	.	+	0	ID=cds-AFV27114.1;Parent=gene-L2;Dbxref=NCBI_GP:AFV27114.1;Name=AFV27114.1;gbkey=CDS;gene=L2;gene=L2;protein_id=AFV27114.1										
+gi|409183121|lcl|HPV163REF.1|	Genbank	gene	5435	6958	.	+	.	ID=gene-L1;Name=L1;gbkey=Gene;gene=L1;gene_biotype=protein_coding										
+gi|409183121|lcl|HPV163REF.1|	Genbank	CDS	5435	6958	.	+	0	ID=cds-AFV27115.1;Parent=gene-L1;Dbxref=NCBI_GP:AFV27115.1;Name=AFV27115.1;gbkey=CDS;gene=L1;gene=L1;protein_id=AFV27115.1										
+##sequence-region HPV164REF.1 1 7233																		

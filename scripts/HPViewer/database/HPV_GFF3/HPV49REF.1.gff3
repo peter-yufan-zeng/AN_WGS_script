@@ -1,0 +1,16 @@
+##sequence-region HPV49REF.1 1 7560																		
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=10616																		
+gi|9627363|lcl|HPV49REF.1|	RefSeq	region	1	7560	.	+	.	ID=NC_001591.1:1..7560;Dbxref=taxon:10616;Is_circular=true;clone=insert in EcoRI site of pGEM-4;gbkey=Src;genome=genomic;mol_type=genomic DNA										
+gi|9627363|lcl|HPV49REF.1|	RefSeq	gene	200	616	.	+	.	ID=gene-HpV49gp1;Dbxref=GeneID:1489444;Name=E6;gbkey=Gene;gene=E6;gene_biotype=protein_coding;locus_tag=HpV49gp1										
+gi|9627363|lcl|HPV49REF.1|	RefSeq	CDS	200	616	.	+	0	ID=cds-NP_041832.1;Parent=gene-HpV49gp1;Dbxref=GOA:P36813	InterPro:IPR001334	UniProtKB/Swiss-Prot:P36813	Genbank:NP_041832.1	GeneID:1489444;Name=NP_041832.1;gbkey=CDS;gene=E6;locus_tag=HpV49gp1;gene=E6 protein;protein_id=NP_041832.1						
+gi|9627363|lcl|HPV49REF.1|	RefSeq	gene	613	924	.	+	.	ID=gene-HpV49gp2;Dbxref=GeneID:1489445;Name=E7;gbkey=Gene;gene=E7;gene_biotype=protein_coding;locus_tag=HpV49gp2										
+gi|9627363|lcl|HPV49REF.1|	RefSeq	CDS	613	924	.	+	0	ID=cds-NP_041833.1;Parent=gene-HpV49gp2;Dbxref=GOA:P36830	InterPro:IPR000148	UniProtKB/Swiss-Prot:P36830	Genbank:NP_041833.1	GeneID:1489445;Name=NP_041833.1;gbkey=CDS;gene=E7;locus_tag=HpV49gp2;gene=E7 protein;protein_id=NP_041833.1						
+gi|9627363|lcl|HPV49REF.1|	RefSeq	gene	911	2740	.	+	.	ID=gene-HpV49gp3;Dbxref=GeneID:1489442;Name=E1;gbkey=Gene;gene=E1;gene_biotype=protein_coding;locus_tag=HpV49gp3										
+gi|9627363|lcl|HPV49REF.1|	RefSeq	CDS	911	2740	.	+	0	ID=cds-NP_041834.1;Parent=gene-HpV49gp3;Dbxref=GOA:P36729	InterPro:IPR001177	InterPro:IPR010989	UniProtKB/Swiss-Prot:P36729	Genbank:NP_041834.1	GeneID:1489442;Name=NP_041834.1;gbkey=CDS;gene=E1;locus_tag=HpV49gp3;gene=E1 protein;protein_id=NP_041834.1					
+gi|9627363|lcl|HPV49REF.1|	RefSeq	gene	2682	4148	.	+	.	ID=gene-HpV49gp4;Dbxref=GeneID:1489443;Name=E2;gbkey=Gene;gene=E2;gene_biotype=protein_coding;locus_tag=HpV49gp4										
+gi|9627363|lcl|HPV49REF.1|	RefSeq	CDS	2682	4148	.	+	0	ID=cds-NP_041835.1;Parent=gene-HpV49gp4;Dbxref=GOA:P36795	InterPro:IPR000427	InterPro:IPR001866	InterPro:IPR009021	InterPro:IPR012677	UniProtKB/Swiss-Prot:P36795	Genbank:NP_041835.1	GeneID:1489443;Name=NP_041835.1;gbkey=CDS;gene=E2;locus_tag=HpV49gp4;gene=E2 protein;protein_id=NP_041835.1			
+gi|9627363|lcl|HPV49REF.1|	RefSeq	gene	4233	5798	.	+	.	ID=gene-HpV49gp5;Dbxref=GeneID:1489447;Name=L2;gbkey=Gene;gene=L2;gene_biotype=protein_coding;locus_tag=HpV49gp5										
+gi|9627363|lcl|HPV49REF.1|	RefSeq	CDS	4233	5798	.	+	0	ID=cds-NP_041836.1;Parent=gene-HpV49gp5;Dbxref=GOA:P36762	InterPro:IPR000784	UniProtKB/Swiss-Prot:P36762	Genbank:NP_041836.1	GeneID:1489447;Name=NP_041836.1;gbkey=CDS;gene=L2;locus_tag=HpV49gp5;gene=L2 protein;protein_id=NP_041836.1						
+gi|9627363|lcl|HPV49REF.1|	RefSeq	gene	5811	7340	.	+	.	ID=gene-HpV49gp6;Dbxref=GeneID:1489446;Name=L1;gbkey=Gene;gene=L1;gene_biotype=protein_coding;locus_tag=HpV49gp6										
+gi|9627363|lcl|HPV49REF.1|	RefSeq	CDS	5811	7340	.	+	0	ID=cds-NP_041837.1;Parent=gene-HpV49gp6;Dbxref=GOA:P36742	InterPro:IPR002210	UniProtKB/Swiss-Prot:P36742	Genbank:NP_041837.1	GeneID:1489446;Name=NP_041837.1;gbkey=CDS;gene=L1;locus_tag=HpV49gp6;gene=L1 protein;protein_id=NP_041837.1						
+##sequence-region HPV50REF.1 1 7184																		

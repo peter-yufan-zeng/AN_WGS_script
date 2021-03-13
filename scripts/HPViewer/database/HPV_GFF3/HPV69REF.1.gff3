@@ -1,0 +1,20 @@
+##sequence-region HPV69REF.1 1 7700																		
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=37121																		
+gi|6970418|lcl|HPV69REF.1|	DDBJ	region	1	7700	.	+	.	ID=AB027020.1:1..7700;Dbxref=taxon:37121;Is_circular=true;gbkey=Src;mol_type=genomic DNA;sub-species=type 69										
+gi|6970418|lcl|HPV69REF.1|	DDBJ	gene	102	557	.	+	.	ID=gene-E6;Name=E6;gbkey=Gene;gene=E6;gene_biotype=protein_coding										
+gi|6970418|lcl|HPV69REF.1|	DDBJ	CDS	102	557	.	+	0	ID=cds-BAA90727.1;Parent=gene-E6;Dbxref=NCBI_GP:BAA90727.1;Name=BAA90727.1;gbkey=CDS;gene=E6;gene=BAA90727.1;protein_id=BAA90727.1										
+gi|6970418|lcl|HPV69REF.1|	DDBJ	gene	564	878	.	+	.	ID=gene-E7;Name=E7;gbkey=Gene;gene=E7;gene_biotype=protein_coding										
+gi|6970418|lcl|HPV69REF.1|	DDBJ	CDS	564	878	.	+	0	ID=cds-BAA90728.1;Parent=gene-E7;Dbxref=NCBI_GP:BAA90728.1;Name=BAA90728.1;gbkey=CDS;gene=E7;gene=BAA90728.1;protein_id=BAA90728.1										
+gi|6970418|lcl|HPV69REF.1|	DDBJ	gene	886	2790	.	+	.	ID=gene-E1;Name=E1;gbkey=Gene;gene=E1;gene_biotype=protein_coding										
+gi|6970418|lcl|HPV69REF.1|	DDBJ	CDS	886	2790	.	+	0	ID=cds-BAA90729.1;Parent=gene-E1;Dbxref=NCBI_GP:BAA90729.1;Name=BAA90729.1;gbkey=CDS;gene=E1;gene=BAA90729.1;protein_id=BAA90729.1										
+gi|6970418|lcl|HPV69REF.1|	DDBJ	gene	2732	3838	.	+	.	ID=gene-E2;Name=E2;gbkey=Gene;gene=E2;gene_biotype=protein_coding										
+gi|6970418|lcl|HPV69REF.1|	DDBJ	CDS	2732	3838	.	+	0	ID=cds-BAA90730.1;Parent=gene-E2;Dbxref=NCBI_GP:BAA90730.1;Name=BAA90730.1;gbkey=CDS;gene=E2;gene=BAA90730.1;protein_id=BAA90730.1										
+gi|6970418|lcl|HPV69REF.1|	DDBJ	gene	3309	3614	.	+	.	ID=gene-E4;Name=E4;gbkey=Gene;gene=E4;gene_biotype=protein_coding;partial=true;start_range=.	3309									
+gi|6970418|lcl|HPV69REF.1|	DDBJ	CDS	3309	3614	.	+	0	ID=cds-BAA90731.1;Parent=gene-E4;Dbxref=NCBI_GP:BAA90731.1;Name=BAA90731.1;Note=start codon is not identified;gbkey=CDS;gene=E4;partial=true;gene=BAA90731.1;protein_id=BAA90731.1;start_range=.	3309									
+gi|6970418|lcl|HPV69REF.1|	DDBJ	gene	3846	4142	.	+	.	ID=gene-E5;Name=E5;gbkey=Gene;gene=E5;gene_biotype=protein_coding;partial=true;start_range=.	3846									
+gi|6970418|lcl|HPV69REF.1|	DDBJ	CDS	3846	4142	.	+	0	ID=cds-BAA90732.1;Parent=gene-E5;Dbxref=NCBI_GP:BAA90732.1;Name=BAA90732.1;Note=start codon is not identified;gbkey=CDS;gene=E5;partial=true;gene=BAA90732.1;protein_id=BAA90732.1;start_range=.	3846									
+gi|6970418|lcl|HPV69REF.1|	DDBJ	gene	4157	5560	.	+	.	ID=gene-L2;Name=L2;gbkey=Gene;gene=L2;gene_biotype=protein_coding										
+gi|6970418|lcl|HPV69REF.1|	DDBJ	CDS	4157	5560	.	+	0	ID=cds-BAA90733.1;Parent=gene-L2;Dbxref=NCBI_GP:BAA90733.1;Name=BAA90733.1;gbkey=CDS;gene=L2;gene=BAA90733.1;protein_id=BAA90733.1										
+gi|6970418|lcl|HPV69REF.1|	DDBJ	gene	5541	7064	.	+	.	ID=gene-L1;Name=L1;gbkey=Gene;gene=L1;gene_biotype=protein_coding										
+gi|6970418|lcl|HPV69REF.1|	DDBJ	CDS	5541	7064	.	+	0	ID=cds-BAA90734.1;Parent=gene-L1;Dbxref=NCBI_GP:BAA90734.1;Name=BAA90734.1;gbkey=CDS;gene=L1;gene=BAA90734.1;protein_id=BAA90734.1										
+##sequence-region HPV70REF.1 1 7905																		

@@ -1,0 +1,16 @@
+##sequence-region HPV3REF.1 1 7820																		
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=10614																		
+gi|397005|lcl|HPV3REF.1|	EMBL	region	1	7820	.	+	.	ID=X74462.1:1..7820;Dbxref=taxon:10614;clone=insert in BamHI site of pBR322;gbkey=Src;mol_type=genomic DNA										
+gi|397005|lcl|HPV3REF.1|	EMBL	gene	102	560	.	+	.	ID=gene-E6;Name=E6;gbkey=Gene;gene=E6;gene_biotype=protein_coding										
+gi|397005|lcl|HPV3REF.1|	EMBL	CDS	102	560	.	+	0	ID=cds-CAA52469.1;Parent=gene-E6;Dbxref=GOA:P36799	InterPro:IPR001334	UniProtKB/Swiss-Prot:P36799	NCBI_GP:CAA52469.1;Name=CAA52469.1;Note=alternative;gbkey=CDS;gene=E6;gene=early protein;protein_id=CAA52469.1							
+gi|397005|lcl|HPV3REF.1|	EMBL	CDS	114	560	.	+	0	ID=cds-CAA52470.1;Parent=gene-E6;Dbxref=GOA:P36799	InterPro:IPR001334	UniProtKB/Swiss-Prot:P36799	NCBI_GP:CAA52470.1;Name=CAA52470.1;gbkey=CDS;gene=E6;gene=envelope protein;protein_id=CAA52470.1							
+gi|397005|lcl|HPV3REF.1|	EMBL	gene	806	2785	.	+	.	ID=gene-E1;Name=E1;gbkey=Gene;gene=E1;gene_biotype=protein_coding										
+gi|397005|lcl|HPV3REF.1|	EMBL	CDS	806	2785	.	+	0	ID=cds-CAA52471.1;Parent=gene-E1;Dbxref=GOA:P36719	InterPro:IPR001177	InterPro:IPR014000	InterPro:IPR014015	InterPro:IPR016393	UniProtKB/Swiss-Prot:P36719	NCBI_GP:CAA52471.1;Name=CAA52471.1;gbkey=CDS;gene=E1;gene=envelope protein;protein_id=CAA52471.1				
+gi|397005|lcl|HPV3REF.1|	EMBL	gene	2727	3878	.	+	.	ID=gene-E2;Name=E2;gbkey=Gene;gene=E2;gene_biotype=protein_coding										
+gi|397005|lcl|HPV3REF.1|	EMBL	CDS	2727	3878	.	+	0	ID=cds-CAA52472.1;Parent=gene-E2;Dbxref=GOA:P36778	InterPro:IPR000427	InterPro:IPR001866	InterPro:IPR009021	InterPro:IPR012677	UniProtKB/Swiss-Prot:P36778	NCBI_GP:CAA52472.1;Name=CAA52472.1;gbkey=CDS;gene=E2;gene=envelope protein;protein_id=CAA52472.1				
+gi|397005|lcl|HPV3REF.1|	EMBL	gene	4349	5770	.	+	.	ID=gene-L2;Name=L2;gbkey=Gene;gene=L2;gene_biotype=protein_coding										
+gi|397005|lcl|HPV3REF.1|	EMBL	CDS	4349	5770	.	+	0	ID=cds-CAA52473.1;Parent=gene-L2;Dbxref=GOA:P36744	InterPro:IPR000784	UniProtKB/Swiss-Prot:P36744	NCBI_GP:CAA52473.1;Name=CAA52473.1;gbkey=CDS;gene=L2;gene=late protein;protein_id=CAA52473.1							
+gi|397005|lcl|HPV3REF.1|	EMBL	gene	5667	7265	.	+	.	ID=gene-L1;Name=L1;gbkey=Gene;gene=L1;gene_biotype=protein_coding										
+gi|397005|lcl|HPV3REF.1|	EMBL	CDS	5667	7265	.	+	0	ID=cds-CAA52474.1;Parent=gene-L1;Dbxref=GOA:P36731	InterPro:IPR002210	InterPro:IPR011222	UniProtKB/Swiss-Prot:P36731	NCBI_GP:CAA52474.1;Name=CAA52474.1;Note=alternative;gbkey=CDS;gene=L1;gene=late protein;protein_id=CAA52474.1						
+gi|397005|lcl|HPV3REF.1|	EMBL	CDS	5751	7265	.	+	0	ID=cds-CAA52475.1;Parent=gene-L1;Dbxref=GOA:Q81961	HSSP:1DZL	InterPro:IPR002210	InterPro:IPR011222	UniProtKB/TrEMBL:Q81961	NCBI_GP:CAA52475.1;Name=CAA52475.1;gbkey=CDS;gene=L1;gene=late protein;protein_id=CAA52475.1					
+##sequence-region HPV4REF.1 1 7353																		

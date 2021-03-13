@@ -1,0 +1,22 @@
+##sequence-region HPV125REF.2 1 7809																		
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=673323																		
+gi|339639364|lcl|HPV125REF.2|	EMBL	region	1	7809	.	+	.	ID=FN547152.2:1..7809;Dbxref=taxon:673323;Is_circular=true;country=Slovenia;gbkey=Src;mol_type=genomic DNA;nat-host=Homo sapiens;strain=SIBX9										
+gi|339639364|lcl|HPV125REF.2|	EMBL	gene	1	447	.	+	.	ID=gene-E6;Name=E6;gbkey=Gene;gene=E6;gene_biotype=protein_coding										
+gi|339639364|lcl|HPV125REF.2|	EMBL	CDS	1	447	.	+	0	ID=cds-CBD35694.2;Parent=gene-E6;Dbxref=GOA:C7U315	InterPro:IPR001334	UniProtKB/TrEMBL:C7U315	NCBI_GP:CBD35694.2;Name=CBD35694.2;gbkey=CDS;gene=E6;gene=putative E6 protein;protein_id=CBD35694.2							
+gi|339639364|lcl|HPV125REF.2|	EMBL	gene	423	686	.	+	.	ID=gene-E7;Name=E7;gbkey=Gene;gene=E7;gene_biotype=protein_coding;partial=true;start_range=.	423									
+gi|339639364|lcl|HPV125REF.2|	EMBL	CDS	423	686	.	+	0	ID=cds-CBD35695.2;Parent=gene-E7;Dbxref=GOA:C7U316	InterPro:IPR000148	UniProtKB/TrEMBL:C7U316	NCBI_GP:CBD35695.2;Name=CBD35695.2;gbkey=CDS;gene=E7;partial=true;gene=putative E7 protein;protein_id=CBD35695.2;start_range=.	423						
+gi|339639364|lcl|HPV125REF.2|	EMBL	gene	693	708	.	+	.	ID=gene-E1-E4;Name=E1-E4;gbkey=Gene;gene=E1-E4;gene_biotype=protein_coding;is_ordered=true;part=1/2										
+gi|339639364|lcl|HPV125REF.2|	EMBL	gene	3237	3517	.	+	.	ID=gene-E1-E4;Name=E1-E4;gbkey=Gene;gene=E1-E4;gene_biotype=protein_coding;is_ordered=true;part=2/2										
+gi|339639364|lcl|HPV125REF.2|	EMBL	CDS	693	708	.	+	0	ID=cds-CBD35698.2;Parent=gene-E1-E4;Dbxref=InterPro:IPR003861	UniProtKB/TrEMBL:C7U319	NCBI_GP:CBD35698.2;Name=CBD35698.2;gbkey=CDS;gene=E1-E4;gene=putative E4 protein;protein_id=CBD35698.2								
+gi|339639364|lcl|HPV125REF.2|	EMBL	CDS	3237	3517	.	+	2	ID=cds-CBD35698.2;Parent=gene-E1-E4;Dbxref=InterPro:IPR003861	UniProtKB/TrEMBL:C7U319	NCBI_GP:CBD35698.2;Name=CBD35698.2;gbkey=CDS;gene=E1-E4;gene=putative E4 protein;protein_id=CBD35698.2								
+gi|339639364|lcl|HPV125REF.2|	EMBL	gene	693	2681	.	+	.	ID=gene-E1;Name=E1;gbkey=Gene;gene=E1;gene_biotype=protein_coding										
+gi|339639364|lcl|HPV125REF.2|	EMBL	CDS	693	2681	.	+	0	ID=cds-CBD35696.1;Parent=gene-E1;Dbxref=GOA:C7U317	InterPro:IPR001177	InterPro:IPR014000	InterPro:IPR014015	InterPro:IPR016393	UniProtKB/TrEMBL:C7U317	NCBI_GP:CBD35696.1;Name=CBD35696.1;gbkey=CDS;gene=E1;gene=putative E1 protein;protein_id=CBD35696.1				
+gi|339639364|lcl|HPV125REF.2|	EMBL	gene	2623	3756	.	+	.	ID=gene-E2;Name=E2;gbkey=Gene;gene=E2;gene_biotype=protein_coding										
+gi|339639364|lcl|HPV125REF.2|	EMBL	CDS	2623	3756	.	+	0	ID=cds-CBD35697.1;Parent=gene-E2;Dbxref=GOA:C7U318	InterPro:IPR000427	InterPro:IPR001866	InterPro:IPR012677	UniProtKB/TrEMBL:C7U318	NCBI_GP:CBD35697.1;Name=CBD35697.1;gbkey=CDS;gene=E2;gene=putative E2 protein;protein_id=CBD35697.1					
+gi|339639364|lcl|HPV125REF.2|	EMBL	gene	4217	5644	.	+	.	ID=gene-L2;Name=L2;gbkey=Gene;gene=L2;gene_biotype=protein_coding										
+gi|339639364|lcl|HPV125REF.2|	EMBL	CDS	4217	5644	.	+	0	ID=cds-CBD35700.2;Parent=gene-L2;Dbxref=GOA:C7U321	InterPro:IPR000784	UniProtKB/TrEMBL:C7U321	NCBI_GP:CBD35700.2;Name=CBD35700.2;gbkey=CDS;gene=L2;gene=putative L2 protein;protein_id=CBD35700.2							
+gi|339639364|lcl|HPV125REF.2|	EMBL	gene	5541	7136	.	+	.	ID=gene-L1a;Name=L1a;gbkey=Gene;gene=L1a;gene_biotype=protein_coding										
+gi|339639364|lcl|HPV125REF.2|	EMBL	CDS	5541	7136	.	+	0	ID=cds-CCC33093.1;Parent=gene-L1a;Dbxref=GOA:G0KZ01	InterPro:IPR002210	InterPro:IPR011222	UniProtKB/TrEMBL:G0KZ01	NCBI_GP:CCC33093.1;Name=CCC33093.1;gbkey=CDS;gene=L1a;gene=alternative L1 protein;protein_id=CCC33093.1						
+gi|339639364|lcl|HPV125REF.2|	EMBL	gene	5625	7136	.	+	.	ID=gene-L1;Name=L1;gbkey=Gene;gene=L1;gene_biotype=protein_coding										
+gi|339639364|lcl|HPV125REF.2|	EMBL	CDS	5625	7136	.	+	0	ID=cds-CBD35701.2;Parent=gene-L1;Dbxref=GOA:C7U322	InterPro:IPR002210	InterPro:IPR011222	UniProtKB/TrEMBL:C7U322	NCBI_GP:CBD35701.2;Name=CBD35701.2;gbkey=CDS;gene=L1;gene=putative L1 protein;protein_id=CBD35701.2						
+##sequence-region HPV126REF.1 1 7326																		

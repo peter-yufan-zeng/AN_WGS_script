@@ -1,0 +1,18 @@
+##sequence-region HPV129REF.1 1 7219																		
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=931210																		
+gi|319976676|lcl|HPV129REF.1|	RefSeq	region	1	7219	.	+	.	ID=NC_014953.1:1..7219;Dbxref=taxon:931210;Is_circular=true;collected-by=Anja Koehler;country=Germany;gbkey=Src;genome=genomic;identified-by=Anja Koehler;isolation-source=wart of an immunosuppressed patient;mol_type=genomic DNA;nat-host=Homo sapiens;old-name=Human papillomavirus 129										
+gi|319976676|lcl|HPV129REF.1|	RefSeq	gene	1	459	.	+	.	ID=gene-HPV129_gp1;Dbxref=GeneID:10146734;Name=E6;gbkey=Gene;gene=E6;gene_biotype=protein_coding;locus_tag=HPV129_gp1										
+gi|319976676|lcl|HPV129REF.1|	RefSeq	CDS	1	459	.	+	0	ID=cds-YP_004169270.1;Parent=gene-HPV129_gp1;Dbxref=Genbank:YP_004169270.1	GeneID:10146734;Name=YP_004169270.1;gbkey=CDS;gene=E6;locus_tag=HPV129_gp1;gene=E6;protein_id=YP_004169270.1									
+gi|319976676|lcl|HPV129REF.1|	RefSeq	gene	462	755	.	+	.	ID=gene-HPV129_gp2;Dbxref=GeneID:10146728;Name=E7;gbkey=Gene;gene=E7;gene_biotype=protein_coding;locus_tag=HPV129_gp2										
+gi|319976676|lcl|HPV129REF.1|	RefSeq	CDS	462	755	.	+	0	ID=cds-YP_004169271.1;Parent=gene-HPV129_gp2;Dbxref=Genbank:YP_004169271.1	GeneID:10146728;Name=YP_004169271.1;gbkey=CDS;gene=E7;locus_tag=HPV129_gp2;gene=E7;protein_id=YP_004169271.1									
+gi|319976676|lcl|HPV129REF.1|	RefSeq	gene	739	2544	.	+	.	ID=gene-HPV129_gp3;Dbxref=GeneID:10146733;Name=E1;gbkey=Gene;gene=E1;gene_biotype=protein_coding;locus_tag=HPV129_gp3										
+gi|319976676|lcl|HPV129REF.1|	RefSeq	CDS	739	2544	.	+	0	ID=cds-YP_004169272.1;Parent=gene-HPV129_gp3;Dbxref=Genbank:YP_004169272.1	GeneID:10146733;Name=YP_004169272.1;gbkey=CDS;gene=E1;locus_tag=HPV129_gp3;gene=E1;protein_id=YP_004169272.1									
+gi|319976676|lcl|HPV129REF.1|	RefSeq	gene	2489	3649	.	+	.	ID=gene-HPV129_gp4;Dbxref=GeneID:10146729;Name=E2;gbkey=Gene;gene=E2;gene_biotype=protein_coding;locus_tag=HPV129_gp4										
+gi|319976676|lcl|HPV129REF.1|	RefSeq	CDS	2489	3649	.	+	0	ID=cds-YP_004169273.1;Parent=gene-HPV129_gp4;Dbxref=Genbank:YP_004169273.1	GeneID:10146729;Name=YP_004169273.1;gbkey=CDS;gene=E2;locus_tag=HPV129_gp4;gene=E2;protein_id=YP_004169273.1									
+gi|319976676|lcl|HPV129REF.1|	RefSeq	gene	2922	3419	.	+	.	ID=gene-HPV129_gp5;Dbxref=GeneID:10146730;Name=E4;gbkey=Gene;gene=E4;gene_biotype=protein_coding;locus_tag=HPV129_gp5										
+gi|319976676|lcl|HPV129REF.1|	RefSeq	CDS	2922	3419	.	+	0	ID=cds-YP_004169274.1;Parent=gene-HPV129_gp5;Dbxref=Genbank:YP_004169274.1	GeneID:10146730;Name=YP_004169274.1;gbkey=CDS;gene=E4;locus_tag=HPV129_gp5;gene=E4;protein_id=YP_004169274.1									
+gi|319976676|lcl|HPV129REF.1|	RefSeq	gene	3651	5168	.	+	.	ID=gene-HPV129_gp6;Dbxref=GeneID:10146731;Name=L2;gbkey=Gene;gene=L2;gene_biotype=protein_coding;locus_tag=HPV129_gp6										
+gi|319976676|lcl|HPV129REF.1|	RefSeq	CDS	3651	5168	.	+	0	ID=cds-YP_004169275.1;Parent=gene-HPV129_gp6;Dbxref=Genbank:YP_004169275.1	GeneID:10146731;Name=YP_004169275.1;gbkey=CDS;gene=L2;locus_tag=HPV129_gp6;gene=L2;protein_id=YP_004169275.1									
+gi|319976676|lcl|HPV129REF.1|	RefSeq	gene	5177	6730	.	+	.	ID=gene-HPV129_gp7;Dbxref=GeneID:10146732;Name=L1;gbkey=Gene;gene=L1;gene_biotype=protein_coding;locus_tag=HPV129_gp7										
+gi|319976676|lcl|HPV129REF.1|	RefSeq	CDS	5177	6730	.	+	0	ID=cds-YP_004169276.1;Parent=gene-HPV129_gp7;Dbxref=Genbank:YP_004169276.1	GeneID:10146732;Name=YP_004169276.1;gbkey=CDS;gene=L1;locus_tag=HPV129_gp7;gene=L1;protein_id=YP_004169276.1									
+##sequence-region HPV130REF.1 1 7388																		

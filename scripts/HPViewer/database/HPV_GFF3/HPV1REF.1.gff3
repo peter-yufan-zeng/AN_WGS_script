@@ -1,0 +1,14 @@
+##sequence-region HPV1REF.1 1 7815																		
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=10583																		
+gi|60966|lcl|HPV1REF.1|	EMBL	region	1	7815	.	+	.	ID=V01116.1:1..7815;Dbxref=taxon:10583;Is_circular=true;gbkey=Src;mol_type=genomic DNA										
+gi|60966|lcl|HPV1REF.1|	EMBL	gene	104	526	.	+	.	ID=gene-E6;Name=E6;gbkey=Gene;gene=E6;gene_biotype=protein_coding										
+gi|60966|lcl|HPV1REF.1|	EMBL	CDS	104	526	.	+	0	ID=cds-CAA24314.1;Parent=gene-E6;Dbxref=GOA:P06929	InterPro:IPR001334	UniProtKB/Swiss-Prot:P06929	NCBI_GP:CAA24314.1;Name=CAA24314.1;gbkey=CDS;gene=E6;gene=E6 protein;protein_id=CAA24314.1							
+gi|60966|lcl|HPV1REF.1|	EMBL	gene	165	356	.	+	.	ID=gene-E8;Name=E8;gbkey=Gene;gene=E8;gene_biotype=protein_coding										
+gi|60966|lcl|HPV1REF.1|	EMBL	CDS	165	356	.	+	0	ID=cds-CAA24315.1;Parent=gene-E8;Dbxref=UniProtKB/TrEMBL:Q84215	NCBI_GP:CAA24315.1;Name=CAA24315.1;gbkey=CDS;gene=E8;gene=E8 protein;protein_id=CAA24315.1									
+gi|60966|lcl|HPV1REF.1|	EMBL	gene	529	810	.	+	.	ID=gene-E7;Name=E7;gbkey=Gene;gene=E7;gene_biotype=protein_coding										
+gi|60966|lcl|HPV1REF.1|	EMBL	CDS	529	810	.	+	0	ID=cds-CAA24316.1;Parent=gene-E7;Dbxref=GOA:P06465	InterPro:IPR000148	PDB:2B9D	UniProtKB/Swiss-Prot:P06465	NCBI_GP:CAA24316.1;Name=CAA24316.1;gbkey=CDS;gene=E7;gene=E7 protein;protein_id=CAA24316.1						
+gi|60966|lcl|HPV1REF.1|	EMBL	gene	3897	5420	.	+	.	ID=gene-L2;Name=L2;gbkey=Gene;gene=L2;gene_biotype=protein_coding										
+gi|60966|lcl|HPV1REF.1|	EMBL	CDS	3897	5420	.	+	0	ID=cds-CAA24317.1;Parent=gene-L2;Dbxref=GOA:P03105	InterPro:IPR000784	UniProtKB/Swiss-Prot:P03105	NCBI_GP:CAA24317.1;Name=CAA24317.1;gbkey=CDS;gene=L2;gene=minor capsid protein L2;protein_id=CAA24317.1							
+gi|60966|lcl|HPV1REF.1|	EMBL	gene	5413	6939	.	+	.	ID=gene-L1;Name=L1;gbkey=Gene;gene=L1;gene_biotype=protein_coding										
+gi|60966|lcl|HPV1REF.1|	EMBL	CDS	5413	6939	.	+	0	ID=cds-CAA24318.1;Parent=gene-L1;Dbxref=GOA:P03099	InterPro:IPR002210	InterPro:IPR011222	UniProtKB/Swiss-Prot:P03099	NCBI_GP:CAA24318.1;Name=CAA24318.1;gbkey=CDS;gene=L1;gene=major capsid protein L1;protein_id=CAA24318.1						
+##sequence-region HPV2REF.1 1 7860																		

@@ -1,0 +1,17 @@
+##sequence-region HPV184REF.1 1 7324																		
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=1472343																		
+gi|551364092|lcl|HPV184REF.1|	EMBL	region	1	7324	.	+	.	ID=HG530535.1:1..7324;Dbxref=taxon:1472343;Is_circular=true;country=Slovenia;gbkey=Src;isolate=SIBX17;isolation-source=fresh tissue from verruca vulgaris;mol_type=genomic DNA;nat-host=Homo sapiens;old-name=Human papillomavirus type 184										
+gi|551364092|lcl|HPV184REF.1|	EMBL	gene	1	432	.	+	.	ID=gene-E6;Name=E6;gbkey=Gene;gene=E6;gene_biotype=protein_coding										
+gi|551364092|lcl|HPV184REF.1|	EMBL	CDS	1	432	.	+	0	ID=cds-CDI44917.1;Parent=gene-E6;Dbxref=GOA:U6EMG5	InterPro:IPR001334	UniProtKB/TrEMBL:U6EMG5	NCBI_GP:CDI44917.1;Name=CDI44917.1;gbkey=CDS;gene=E6;gene=E6 protein;protein_id=CDI44917.1							
+gi|551364092|lcl|HPV184REF.1|	EMBL	gene	419	712	.	+	.	ID=gene-E7;Name=E7;gbkey=Gene;gene=E7;gene_biotype=protein_coding										
+gi|551364092|lcl|HPV184REF.1|	EMBL	CDS	419	712	.	+	0	ID=cds-CDI44918.1;Parent=gene-E7;Dbxref=GOA:U6EJJ4	InterPro:IPR000148	UniProtKB/TrEMBL:U6EJJ4	NCBI_GP:CDI44918.1;Name=CDI44918.1;gbkey=CDS;gene=E7;gene=E7 protein;protein_id=CDI44918.1							
+gi|551364092|lcl|HPV184REF.1|	EMBL	gene	696	2507	.	+	.	ID=gene-E1;Name=E1;gbkey=Gene;gene=E1;gene_biotype=protein_coding										
+gi|551364092|lcl|HPV184REF.1|	EMBL	CDS	696	2507	.	+	0	ID=cds-CDI44919.1;Parent=gene-E1;Dbxref=GOA:U6EJ38	InterPro:IPR001177	InterPro:IPR014000	InterPro:IPR014015	InterPro:IPR016393	InterPro:IPR027417	UniProtKB/TrEMBL:U6EJ38	NCBI_GP:CDI44919.1;Name=CDI44919.1;gbkey=CDS;gene=E1;gene=E1 protein;protein_id=CDI44919.1			
+gi|551364092|lcl|HPV184REF.1|	EMBL	gene	2443	3660	.	+	.	ID=gene-E2;Name=E2;gbkey=Gene;gene=E2;gene_biotype=protein_coding										
+gi|551364092|lcl|HPV184REF.1|	EMBL	CDS	2443	3660	.	+	0	ID=cds-CDI44920.1;Parent=gene-E2;Dbxref=GOA:U6ELC3	InterPro:IPR000427	InterPro:IPR001866	InterPro:IPR012677	UniProtKB/TrEMBL:U6ELC3	NCBI_GP:CDI44920.1;Name=CDI44920.1;gbkey=CDS;gene=E2;gene=E2 protein;protein_id=CDI44920.1					
+gi|551364092|lcl|HPV184REF.1|	EMBL	gene	3668	5242	.	+	.	ID=gene-L2;Name=L2;gbkey=Gene;gene=L2;gene_biotype=protein_coding										
+gi|551364092|lcl|HPV184REF.1|	EMBL	CDS	3668	5242	.	+	0	ID=cds-CDI44921.1;Parent=gene-L2;Dbxref=GOA:U6ELR9	InterPro:IPR000784	UniProtKB/TrEMBL:U6ELR9	NCBI_GP:CDI44921.1;Name=CDI44921.1;gbkey=CDS;gene=L2;gene=L2 protein;protein_id=CDI44921.1							
+gi|551364092|lcl|HPV184REF.1|	EMBL	gene	5232	6797	.	+	.	ID=gene-L1;Name=L1;gbkey=Gene;gene=L1;gene_biotype=protein_coding										
+gi|551364092|lcl|HPV184REF.1|	EMBL	CDS	5232	6797	.	+	0	ID=cds-CDI44922.1;Parent=gene-L1;Dbxref=GOA:U6EMH0	InterPro:IPR002210	InterPro:IPR011222	UniProtKB/TrEMBL:U6EMH0	NCBI_GP:CDI44922.1;Name=CDI44922.1;gbkey=CDS;gene=L1;gene=L1 protein;protein_id=CDI44922.1						
+gi|551364092|lcl|HPV184REF.1|	EMBL	sequence_feature	6798	7324	.	+	.	ID=id-HG530535.1:6798..7324;Note=long control region;gbkey=misc_feature										
+##sequence-region HPV197REF.1 1 7278																		

@@ -1,0 +1,18 @@
+##sequence-region HPV62REF.1 1 8092																		
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=334210																		
+gi|39932599|lcl|HPV62REF.1|	Genbank	region	1	8092	.	+	.	ID=AY395706.1:1..8092;Dbxref=taxon:334210;Is_circular=true;country=Costa Rica;gbkey=Src;genome=genomic;isolate=Qv18091;mol_type=genomic DNA;type=62										
+gi|39932599|lcl|HPV62REF.1|	Genbank	gene	1	447	.	+	.	ID=gene-E6;Name=E6;gbkey=Gene;gene=E6;gene_biotype=protein_coding										
+gi|39932599|lcl|HPV62REF.1|	Genbank	CDS	1	447	.	+	0	ID=cds-AAR32246.1;Parent=gene-E6;Dbxref=NCBI_GP:AAR32246.1;Name=AAR32246.1;gbkey=CDS;gene=E6;gene=putative transforming protein E6;protein_id=AAR32246.1										
+gi|39932599|lcl|HPV62REF.1|	Genbank	gene	423	713	.	+	.	ID=gene-E7;Name=E7;gbkey=Gene;gene=E7;gene_biotype=protein_coding										
+gi|39932599|lcl|HPV62REF.1|	Genbank	CDS	423	713	.	+	0	ID=cds-AAR32247.1;Parent=gene-E7;Dbxref=NCBI_GP:AAR32247.1;Name=AAR32247.1;gbkey=CDS;gene=E7;gene=putative transforming protein E7;protein_id=AAR32247.1										
+gi|39932599|lcl|HPV62REF.1|	Genbank	gene	719	2677	.	+	.	ID=gene-E1;Name=E1;gbkey=Gene;gene=E1;gene_biotype=protein_coding										
+gi|39932599|lcl|HPV62REF.1|	Genbank	CDS	719	2677	.	+	0	ID=cds-AAR32248.1;Parent=gene-E1;Dbxref=NCBI_GP:AAR32248.1;Name=AAR32248.1;gbkey=CDS;gene=E1;gene=putative replication protein E1;protein_id=AAR32248.1										
+gi|39932599|lcl|HPV62REF.1|	Genbank	gene	2619	3758	.	+	.	ID=gene-E2;Name=E2;gbkey=Gene;gene=E2;gene_biotype=protein_coding										
+gi|39932599|lcl|HPV62REF.1|	Genbank	CDS	2619	3758	.	+	0	ID=cds-AAR32249.1;Parent=gene-E2;Dbxref=NCBI_GP:AAR32249.1;Name=AAR32249.1;gbkey=CDS;gene=E2;gene=putative regulatory protein E2;protein_id=AAR32249.1										
+gi|39932599|lcl|HPV62REF.1|	Genbank	gene	3202	3516	.	+	.	ID=gene-E4;Name=E4;gbkey=Gene;gene=E4;gene_biotype=protein_coding										
+gi|39932599|lcl|HPV62REF.1|	Genbank	CDS	3202	3516	.	+	0	ID=cds-AAR32250.1;Parent=gene-E4;Dbxref=NCBI_GP:AAR32250.1;Name=AAR32250.1;gbkey=CDS;gene=E4;gene=putative E4 protein;protein_id=AAR32250.1										
+gi|39932599|lcl|HPV62REF.1|	Genbank	gene	4372	5799	.	+	.	ID=gene-L2;Name=L2;gbkey=Gene;gene=L2;gene_biotype=protein_coding										
+gi|39932599|lcl|HPV62REF.1|	Genbank	CDS	4372	5799	.	+	0	ID=cds-AAR32251.1;Parent=gene-L2;Dbxref=NCBI_GP:AAR32251.1;Name=AAR32251.1;gbkey=CDS;gene=L2;gene=putative minor capsid protein L2;protein_id=AAR32251.1										
+gi|39932599|lcl|HPV62REF.1|	Genbank	gene	5777	7288	.	+	.	ID=gene-L1;Name=L1;gbkey=Gene;gene=L1;gene_biotype=protein_coding										
+gi|39932599|lcl|HPV62REF.1|	Genbank	CDS	5777	7288	.	+	0	ID=cds-AAR32252.1;Parent=gene-L1;Dbxref=NCBI_GP:AAR32252.1;Name=AAR32252.1;gbkey=CDS;gene=L1;gene=putative major capsid protein L1;protein_id=AAR32252.1										
+##sequence-region HPV63REF.1 1 7348																		

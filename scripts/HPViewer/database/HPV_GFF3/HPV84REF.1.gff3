@@ -1,0 +1,18 @@
+##sequence-region HPV84REF.1 1 7948																		
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=150546																		
+gi|12958167|lcl|HPV84REF.1|	Genbank	region	1	7948	.	+	.	ID=AF293960.1:1..7948;Dbxref=taxon:150546;gbkey=Src;mol_type=genomic DNA										
+gi|12958167|lcl|HPV84REF.1|	Genbank	gene	1	447	.	+	.	ID=gene-E6;Name=E6;gbkey=Gene;gene=E6;gene_biotype=protein_coding										
+gi|12958167|lcl|HPV84REF.1|	Genbank	CDS	1	447	.	+	0	ID=cds-AAK09271.1;Parent=gene-E6;Dbxref=NCBI_GP:AAK09271.1;Name=AAK09271.1;gbkey=CDS;gene=E6;gene=putative transforming protein E6;protein_id=AAK09271.1										
+gi|12958167|lcl|HPV84REF.1|	Genbank	gene	423	713	.	+	.	ID=gene-E7;Name=E7;gbkey=Gene;gene=E7;gene_biotype=protein_coding										
+gi|12958167|lcl|HPV84REF.1|	Genbank	CDS	423	713	.	+	0	ID=cds-AAK09272.1;Parent=gene-E7;Dbxref=NCBI_GP:AAK09272.1;Name=AAK09272.1;gbkey=CDS;gene=E7;gene=putative transforming protein E7;protein_id=AAK09272.1										
+gi|12958167|lcl|HPV84REF.1|	Genbank	gene	715	2667	.	+	.	ID=gene-E1;Name=E1;gbkey=Gene;gene=E1;gene_biotype=protein_coding										
+gi|12958167|lcl|HPV84REF.1|	Genbank	CDS	715	2667	.	+	0	ID=cds-AAK09273.1;Parent=gene-E1;Dbxref=NCBI_GP:AAK09273.1;Name=AAK09273.1;gbkey=CDS;gene=E1;gene=putative replication protein E1;protein_id=AAK09273.1										
+gi|12958167|lcl|HPV84REF.1|	Genbank	gene	2609	3742	.	+	.	ID=gene-E2;Name=E2;gbkey=Gene;gene=E2;gene_biotype=protein_coding										
+gi|12958167|lcl|HPV84REF.1|	Genbank	CDS	2609	3742	.	+	0	ID=cds-AAK09274.1;Parent=gene-E2;Dbxref=NCBI_GP:AAK09274.1;Name=AAK09274.1;gbkey=CDS;gene=E2;gene=putative regulatory protein E2;protein_id=AAK09274.1										
+gi|12958167|lcl|HPV84REF.1|	Genbank	gene	3198	3509	.	+	.	ID=gene-E4;Name=E4;gbkey=Gene;gene=E4;gene_biotype=protein_coding										
+gi|12958167|lcl|HPV84REF.1|	Genbank	CDS	3198	3509	.	+	0	ID=cds-AAK09275.1;Parent=gene-E4;Dbxref=NCBI_GP:AAK09275.1;Name=AAK09275.1;gbkey=CDS;gene=E4;gene=putative E4 protein;protein_id=AAK09275.1										
+gi|12958167|lcl|HPV84REF.1|	Genbank	gene	4263	5687	.	+	.	ID=gene-L2;Name=L2;gbkey=Gene;gene=L2;gene_biotype=protein_coding										
+gi|12958167|lcl|HPV84REF.1|	Genbank	CDS	4263	5687	.	+	0	ID=cds-AAK09276.1;Parent=gene-L2;Dbxref=NCBI_GP:AAK09276.1;Name=AAK09276.1;gbkey=CDS;gene=L2;gene=putative minor capsid protein L2;protein_id=AAK09276.1										
+gi|12958167|lcl|HPV84REF.1|	Genbank	gene	5665	7176	.	+	.	ID=gene-L1;Name=L1;gbkey=Gene;gene=L1;gene_biotype=protein_coding										
+gi|12958167|lcl|HPV84REF.1|	Genbank	CDS	5665	7176	.	+	0	ID=cds-AAK09277.1;Parent=gene-L1;Dbxref=NCBI_GP:AAK09277.1;Name=AAK09277.1;gbkey=CDS;gene=L1;gene=putative major capsid protein L1;protein_id=AAK09277.1										
+##sequence-region HPV85REF.1 1 7812																		

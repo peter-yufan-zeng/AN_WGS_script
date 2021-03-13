@@ -1,0 +1,20 @@
+##sequence-region HPV47REF.1 1 7726																		
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=10594																		
+gi|333062|lcl|HPV47REF.1|	Genbank	region	1	7726	.	+	.	ID=M32305.1:1..7726;Dbxref=taxon:10594;gbkey=Src;mol_type=genomic DNA										
+gi|333062|lcl|HPV47REF.1|	Genbank	primary_transcript	1	4465	.	+	.	ID=id-M32305.1:1..4465;Note=HPV-47-2 mRNA and intron;gbkey=prim_transcript;partial=true;start_range=.	1									
+gi|333062|lcl|HPV47REF.1|	Genbank	primary_transcript	198	4465	.	+	.	ID=id-M32305.1:198..4465;Note=HPV-47-1 mRNA and intron;gbkey=prim_transcript										
+gi|333062|lcl|HPV47REF.1|	Genbank	gene	208	678	.	+	0	ID=cds-AAA46976.1;Dbxref=NCBI_GP:AAA46976.1;Name=E6;gbkey=CDS;gene=AAA46976.1;protein_id=AAA46976.1										
+gi|333062|lcl|HPV47REF.1|	Genbank	gene	668	979	.	+	0	ID=cds-AAA46977.1;Dbxref=NCBI_GP:AAA46977.1;Name=E7;gbkey=CDS;gene=AAA46977.1;protein_id=AAA46977.1										
+gi|333062|lcl|HPV47REF.1|	Genbank	gene	966	981	.	+	0	ID=cds-AAA46975.1;Dbxref=NCBI_GP:AAA46975.1;Name=E1E4 Fusion;gbkey=CDS;gene=AAA46975.1;protein_id=AAA46975.1										
+gi|333062|lcl|HPV47REF.1|	Genbank	gene	3324	4000	.	+	2	ID=cds-AAA46975.1;Dbxref=NCBI_GP:AAA46975.1;Name=E1E4 Fusion;gbkey=CDS;gene=AAA46975.1;protein_id=AAA46975.1										
+gi|333062|lcl|HPV47REF.1|	Genbank	gene	966	2783	.	+	0	ID=cds-AAA46978.1;Dbxref=NCBI_GP:AAA46978.1;Name=E1;gbkey=CDS;gene=AAA46978.1;protein_id=AAA46978.1										
+gi|333062|lcl|HPV47REF.1|	Genbank	exon	966	981	.	+	.	ID=id-M32305.1:966..981-1;Note=E1/E4 fusion protein;exon_number=1;gbkey=exon;number=1;partial=true;start_range=.	966									
+gi|333062|lcl|HPV47REF.1|	Genbank	intron	982	3323	.	+	.	ID=id-M32305.1:982..3323;Note=HPV-47-1 intron;gbkey=intron										
+gi|333062|lcl|HPV47REF.1|	Genbank	intron	1359	2677	.	+	.	ID=id-M32305.1:1359..2677;Note=HPV-47-2 intron;gbkey=intron										
+gi|333062|lcl|HPV47REF.1|	Genbank	gene	2725	4245	.	+	0	ID=cds-AAA46979.1;Dbxref=NCBI_GP:AAA46979.1;Name=E2;gbkey=CDS;gene=AAA46979.1;protein_id=AAA46979.1										
+gi|333062|lcl|HPV47REF.1|	Genbank	gene	3086	4000	.	+	0	ID=cds-AAA46980.1;Dbxref=NCBI_GP:AAA46980.1;Name=E4;gbkey=CDS;gene=AAA46980.1;protein_id=AAA46980.1										
+gi|333062|lcl|HPV47REF.1|	Genbank	exon	3324	4000	.	+	.	ID=id-M32305.1:3324..4000-2;Note=E1/E4 fusion protein;end_range=4000	.;exon_number=2;gbkey=exon;number=2;partial=true									
+gi|333062|lcl|HPV47REF.1|	Genbank	gene	4334	5890	.	+	0	ID=cds-AAA46981.1;Dbxref=NCBI_GP:AAA46981.1;Name=L2;gbkey=CDS;gene=AAA46981.1;protein_id=AAA46981.1										
+gi|333062|lcl|HPV47REF.1|	Genbank	region	4424	4429	.	+	.	ID=id-M32305.1:4424..4429;gbkey=polyA_signal										
+gi|333062|lcl|HPV47REF.1|	Genbank	gene	5903	7447	.	+	0	ID=cds-AAA46982.1;Dbxref=NCBI_GP:AAA46982.1;Name=L1;gbkey=CDS;gene=AAA46982.1;protein_id=AAA46982.1										
+##sequence-region HPV48REF.1 1 7100																		

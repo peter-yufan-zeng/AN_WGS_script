@@ -1,0 +1,16 @@
+##sequence-region HPV17REF.1 1 7427																		
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=10607																		
+gi|396932|lcl|HPV17REF.1|	EMBL	region	1	7427	.	+	.	ID=X74469.1:1..7427;Dbxref=taxon:10607;clone=insert in BamHI site of pBR322;gbkey=Src;mol_type=genomic DNA										
+gi|396932|lcl|HPV17REF.1|	EMBL	gene	200	625	.	+	.	ID=gene-E6;Name=E6;gbkey=Gene;gene=E6;gene_biotype=protein_coding										
+gi|396932|lcl|HPV17REF.1|	EMBL	CDS	200	625	.	+	0	ID=cds-CAA52512.1;Parent=gene-E6;Dbxref=GOA:P36805	InterPro:IPR001334	UniProtKB/Swiss-Prot:P36805	NCBI_GP:CAA52512.1;Name=CAA52512.1;gbkey=CDS;gene=E6;gene=early protein;protein_id=CAA52512.1							
+gi|396932|lcl|HPV17REF.1|	EMBL	gene	622	909	.	+	.	ID=gene-E7;Name=E7;gbkey=Gene;gene=E7;gene_biotype=protein_coding										
+gi|396932|lcl|HPV17REF.1|	EMBL	CDS	622	909	.	+	0	ID=cds-CAA52513.1;Parent=gene-E7;Dbxref=GOA:P36821	InterPro:IPR000148	UniProtKB/Swiss-Prot:P36821	NCBI_GP:CAA52513.1;Name=CAA52513.1;gbkey=CDS;gene=E7;gene=early protein;protein_id=CAA52513.1							
+gi|396932|lcl|HPV17REF.1|	EMBL	gene	902	2731	.	+	.	ID=gene-E1;Name=E1;gbkey=Gene;gene=E1;gene_biotype=protein_coding										
+gi|396932|lcl|HPV17REF.1|	EMBL	CDS	902	2731	.	+	0	ID=cds-CAA52514.1;Parent=gene-E1;Dbxref=GOA:Q02512	InterPro:IPR001177	InterPro:IPR014000	InterPro:IPR014015	InterPro:IPR016393	UniProtKB/Swiss-Prot:Q02512	NCBI_GP:CAA52514.1;Name=CAA52514.1;gbkey=CDS;gene=E1;gene=early protein;protein_id=CAA52514.1				
+gi|396932|lcl|HPV17REF.1|	EMBL	gene	2673	4031	.	+	.	ID=gene-E2;Name=E2;gbkey=Gene;gene=E2;gene_biotype=protein_coding										
+gi|396932|lcl|HPV17REF.1|	EMBL	CDS	2673	4031	.	+	0	ID=cds-CAA52515.1;Parent=gene-E2;Dbxref=GOA:P36785	InterPro:IPR000427	InterPro:IPR001866	InterPro:IPR009021	InterPro:IPR012677	UniProtKB/Swiss-Prot:P36785	NCBI_GP:CAA52515.1;Name=CAA52515.1;gbkey=CDS;gene=E2;gene=early protein;protein_id=CAA52515.1				
+gi|396932|lcl|HPV17REF.1|	EMBL	gene	4101	5675	.	+	.	ID=gene-L2;Name=L2;gbkey=Gene;gene=L2;gene_biotype=protein_coding										
+gi|396932|lcl|HPV17REF.1|	EMBL	CDS	4101	5675	.	+	0	ID=cds-CAA52516.1;Parent=gene-L2;Dbxref=GOA:P36751	InterPro:IPR000784	UniProtKB/Swiss-Prot:P36751	NCBI_GP:CAA52516.1;Name=CAA52516.1;gbkey=CDS;gene=L2;gene=late protein;protein_id=CAA52516.1							
+gi|396932|lcl|HPV17REF.1|	EMBL	gene	5724	7247	.	+	.	ID=gene-L1;Name=L1;gbkey=Gene;gene=L1;gene_biotype=protein_coding										
+gi|396932|lcl|HPV17REF.1|	EMBL	CDS	5724	7247	.	+	0	ID=cds-CAA52517.1;Parent=gene-L1;Dbxref=GOA:Q02514	InterPro:IPR002210	InterPro:IPR011222	UniProtKB/Swiss-Prot:Q02514	NCBI_GP:CAA52517.1;Name=CAA52517.1;gbkey=CDS;gene=L1;gene=late protein;protein_id=CAA52517.1						
+##sequence-region HPV18REF.1 1 7857																		

@@ -1,0 +1,18 @@
+##sequence-region HPV169REF.1 1 7252																		
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=1315260																		
+gi|409183105|lcl|HPV169REF.1|	Genbank	region	1	7252	.	+	.	ID=JX413105.1:1..7252;Dbxref=taxon:1315260;Is_circular=true;collection-date=01-Nov-2008;country=China;gbkey=Src;genome=genomic;isolate=KC6;mol_type=genomic DNA;nat-host=Homo sapiens										
+gi|409183105|lcl|HPV169REF.1|	Genbank	gene	157	588	.	+	.	ID=gene-E6;Name=E6;gbkey=Gene;gene=E6;gene_biotype=protein_coding										
+gi|409183105|lcl|HPV169REF.1|	Genbank	CDS	157	588	.	+	0	ID=cds-AFV27096.1;Parent=gene-E6;Dbxref=NCBI_GP:AFV27096.1;Name=E6;gene=E6;protein_id=AFV27096.1										
+gi|409183105|lcl|HPV169REF.1|	Genbank	gene	591	890	.	+	.	ID=gene-E7;Name=E7;gbkey=Gene;gene=E7;gene_biotype=protein_coding										
+gi|409183105|lcl|HPV169REF.1|	Genbank	CDS	591	890	.	+	0	ID=cds-AFV27097.1;Parent=gene-E7;Dbxref=NCBI_GP:AFV27097.1;Name=E7;gene=E7;protein_id=AFV27097.1										
+gi|409183105|lcl|HPV169REF.1|	Genbank	gene	874	2685	.	+	.	ID=gene-E1;Name=E1;gbkey=Gene;gene=E1;gene_biotype=protein_coding										
+gi|409183105|lcl|HPV169REF.1|	Genbank	CDS	874	2685	.	+	0	ID=cds-AFV27098.1;Parent=gene-E1;Dbxref=NCBI_GP:AFV27098.1;Name=AFV27098.1;gbkey=CDS;gene=E1;gene=E1;protein_id=AFV27098.1										
+gi|409183105|lcl|HPV169REF.1|	Genbank	gene	2621	3793	.	+	.	ID=gene-E2;Name=E2;gbkey=Gene;gene=E2;gene_biotype=protein_coding										
+gi|409183105|lcl|HPV169REF.1|	Genbank	CDS	2621	3793	.	+	0	ID=cds-AFV27099.1;Parent=gene-E2;Dbxref=NCBI_GP:AFV27099.1;Name=AFV27099.1;gbkey=CDS;gene=E2;gene=E2;protein_id=AFV27099.1										
+gi|409183105|lcl|HPV169REF.1|	Genbank	gene	3048	3566	.	+	.	ID=gene-E4;Name=E4;gbkey=Gene;gene=E4;gene_biotype=protein_coding										
+gi|409183105|lcl|HPV169REF.1|	Genbank	CDS	3048	3566	.	+	0	ID=cds-AFV27100.1;Parent=gene-E4;Dbxref=NCBI_GP:AFV27100.1;Name=AFV27100.1;gbkey=CDS;gene=E4;gene=E4;protein_id=AFV27100.1										
+gi|409183105|lcl|HPV169REF.1|	Genbank	gene	3795	5285	.	+	.	ID=gene-L2;Name=L2;gbkey=Gene;gene=L2;gene_biotype=protein_coding										
+gi|409183105|lcl|HPV169REF.1|	Genbank	CDS	3795	5285	.	+	0	ID=cds-AFV27101.1;Parent=gene-L2;Dbxref=NCBI_GP:AFV27101.1;Name=AFV27101.1;gbkey=CDS;gene=L2;gene=L2;protein_id=AFV27101.1										
+gi|409183105|lcl|HPV169REF.1|	Genbank	gene	5294	6871	.	+	.	ID=gene-L1;Name=L1;gbkey=Gene;gene=L1;gene_biotype=protein_coding										
+gi|409183105|lcl|HPV169REF.1|	Genbank	CDS	5294	6871	.	+	0	ID=cds-AFV27102.1;Parent=gene-L1;Dbxref=NCBI_GP:AFV27102.1;Name=AFV27102.1;gbkey=CDS;gene=L1;gene=L1;protein_id=AFV27102.1										
+##sequence-region HPV170REF.1 1 7417																		

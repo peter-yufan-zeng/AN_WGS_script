@@ -1,0 +1,18 @@
+##sequence-region HPV54REF.1 1 7759																		
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=1671798																		
+gi|9628437|lcl|HPV54REF.1|	RefSeq	region	1	7759	.	+	.	ID=NC_001676.1:1..7759;Dbxref=taxon:1671798;gbkey=Src;genome=genomic;mol_type=genomic DNA;old-name=Human papillomavirus type 54										
+gi|9628437|lcl|HPV54REF.1|	RefSeq	gene	102	536	.	+	.	ID=gene-HpV54gp1;Dbxref=GeneID:1497432;Name=E6;gbkey=Gene;gene=E6;gene_biotype=protein_coding;locus_tag=HpV54gp1										
+gi|9628437|lcl|HPV54REF.1|	RefSeq	CDS	102	536	.	+	0	ID=cds-NP_043288.1;Parent=gene-HpV54gp1;Dbxref=Genbank:NP_043288.1	GeneID:1497432;Name=NP_043288.1;Note=putative%3B ORF E6 from bp 7708 to 536;gbkey=CDS;gene=E6;locus_tag=HpV54gp1;gene=transforming protein;protein_id=NP_043288.1									
+gi|9628437|lcl|HPV54REF.1|	RefSeq	gene	536	823	.	+	.	ID=gene-HpV54gp2;Dbxref=GeneID:1497433;Name=E7;gbkey=Gene;gene=E7;gene_biotype=protein_coding;locus_tag=HpV54gp2										
+gi|9628437|lcl|HPV54REF.1|	RefSeq	CDS	536	823	.	+	0	ID=cds-NP_043289.1;Parent=gene-HpV54gp2;Dbxref=Genbank:NP_043289.1	GeneID:1497433;Name=NP_043289.1;Note=putative%3B ORF E7 from bp 512 to 823;gbkey=CDS;gene=E7;locus_tag=HpV54gp2;gene=transforming protein;protein_id=NP_043289.1									
+gi|9628437|lcl|HPV54REF.1|	RefSeq	gene	828	2729	.	+	.	ID=gene-HpV54gp3;Dbxref=GeneID:1497434;Name=E1;gbkey=Gene;gene=E1;gene_biotype=protein_coding;locus_tag=HpV54gp3										
+gi|9628437|lcl|HPV54REF.1|	RefSeq	CDS	828	2729	.	+	0	ID=cds-NP_043290.1;Parent=gene-HpV54gp3;Dbxref=Genbank:NP_043290.1	GeneID:1497434;Name=NP_043290.1;Note=putative%3B ORF E1 from bp 795 to 2729;gbkey=CDS;gene=E1;locus_tag=HpV54gp3;gene=replication protein;protein_id=NP_043290.1									
+gi|9628437|lcl|HPV54REF.1|	RefSeq	gene	2671	3774	.	+	.	ID=gene-HpV54gp4;Dbxref=GeneID:1497435;Name=E2;gbkey=Gene;gene=E2;gene_biotype=protein_coding;locus_tag=HpV54gp4										
+gi|9628437|lcl|HPV54REF.1|	RefSeq	CDS	2671	3774	.	+	0	ID=cds-NP_043291.1;Parent=gene-HpV54gp4;Dbxref=Genbank:NP_043291.1	GeneID:1497435;Name=NP_043291.1;Note=putative%3B ORF E2 from bp 2644 to 3774;gbkey=CDS;gene=E2;locus_tag=HpV54gp4;gene=regulatory protein;protein_id=NP_043291.1									
+gi|9628437|lcl|HPV54REF.1|	RefSeq	gene	3134	3538	.	+	.	ID=gene-HpV54gp5;Dbxref=GeneID:1497436;Name=E4;gbkey=Gene;gene=E4;gene_biotype=protein_coding;locus_tag=HpV54gp5										
+gi|9628437|lcl|HPV54REF.1|	RefSeq	CDS	3134	3538	.	+	0	ID=cds-NP_043292.1;Parent=gene-HpV54gp5;Dbxref=Genbank:NP_043292.1	GeneID:1497436;Name=NP_043292.1;gbkey=CDS;gene=E4;locus_tag=HpV54gp5;gene=hypothetical protein;protein_id=NP_043292.1									
+gi|9628437|lcl|HPV54REF.1|	RefSeq	gene	4215	5627	.	+	.	ID=gene-HpV54gp6;Dbxref=GeneID:1497437;Name=L2;gbkey=Gene;gene=L2;gene_biotype=protein_coding;locus_tag=HpV54gp6										
+gi|9628437|lcl|HPV54REF.1|	RefSeq	CDS	4215	5627	.	+	0	ID=cds-NP_043293.1;Parent=gene-HpV54gp6;Dbxref=Genbank:NP_043293.1	GeneID:1497437;Name=NP_043293.1;Note=putative%3B ORF L2 from bp 4200 to 5627;gbkey=CDS;gene=L2;locus_tag=HpV54gp6;gene=minor capsid protein;protein_id=NP_043293.1									
+gi|9628437|lcl|HPV54REF.1|	RefSeq	gene	5614	7107	.	+	.	ID=gene-HpV54gp7;Dbxref=GeneID:1497438;Name=L1;gbkey=Gene;gene=L1;gene_biotype=protein_coding;locus_tag=HpV54gp7										
+gi|9628437|lcl|HPV54REF.1|	RefSeq	CDS	5614	7107	.	+	0	ID=cds-NP_043294.1;Parent=gene-HpV54gp7;Dbxref=Genbank:NP_043294.1	GeneID:1497438;Name=NP_043294.1;Note=putative%3B ORF L1 from bp 5422 to 7107;gbkey=CDS;gene=L1;locus_tag=HpV54gp7;gene=major capsid protein;protein_id=NP_043294.1									
+##sequence-region HPV56REF.1 1 7844																		

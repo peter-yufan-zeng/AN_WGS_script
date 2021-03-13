@@ -1,0 +1,31 @@
+##sequence-region HPV33REF.1 1 7909																		
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=10586																		
+gi|333049|lcl|HPV33REF.1|	Genbank	region	1	7909	.	+	.	ID=M12732.1:1..7909;Dbxref=taxon:10586;Is_circular=true;gbkey=Src;mol_type=genomic DNA										
+gi|333049|lcl|HPV33REF.1|	Genbank	region	7	10	.	+	.	ID=id-M12732.1:7..10;Note=putative;gbkey=TATA_signal										
+gi|333049|lcl|HPV33REF.1|	Genbank	protein_binding_site	39	50	.	+	.	ID=id-M12732.1:39..50;Note=putative;bound_moiety=E2;function=gene transcription;gbkey=protein_bind										
+gi|333049|lcl|HPV33REF.1|	Genbank	protein_binding_site	54	65	.	+	.	ID=id-M12732.1:54..65;Note=putative;bound_moiety=E2;function=gene transcription;gbkey=protein_bind										
+gi|333049|lcl|HPV33REF.1|	Genbank	region	71	75	.	+	.	ID=id-M12732.1:71..75;Note=putative;gbkey=TATA_signal										
+gi|333049|lcl|HPV33REF.1|	Genbank	gene	109	558	.	+	.	ID=gene-E6;Name=E6;gbkey=Gene;gene=E6;gene_biotype=protein_coding										
+gi|333049|lcl|HPV33REF.1|	Genbank	CDS	109	558	.	+	0	ID=cds-AAA46958.1;Parent=gene-E6;Dbxref=NCBI_GP:AAA46958.1;Name=AAA46958.1;Note=E6 ORF from 76 to 558%3B putative;gbkey=CDS;gene=E6;gene=transforming protein;protein_id=AAA46958.1										
+gi|333049|lcl|HPV33REF.1|	Genbank	gene	573	866	.	+	.	ID=gene-E7;Name=E7;gbkey=Gene;gene=E7;gene_biotype=protein_coding										
+gi|333049|lcl|HPV33REF.1|	Genbank	CDS	573	866	.	+	0	ID=cds-AAA46959.1;Parent=gene-E7;Dbxref=NCBI_GP:AAA46959.1;Name=AAA46959.1;Note=E7 ORF from bp 543 to 866%3B putative;gbkey=CDS;gene=E7;gene=transforming protein;protein_id=AAA46959.1										
+gi|333049|lcl|HPV33REF.1|	Genbank	gene	879	2813	.	+	.	ID=gene-E1;Name=E1;gbkey=Gene;gene=E1;gene_biotype=protein_coding										
+gi|333049|lcl|HPV33REF.1|	Genbank	CDS	879	2813	.	+	0	ID=cds-AAA46960.1;Parent=gene-E1;Dbxref=NCBI_GP:AAA46960.1;Name=AAA46960.1;Note=E1 ORF from bp 867 to 2813%3B putative;gbkey=CDS;gene=E1;gene=replication protein;protein_id=AAA46960.1										
+gi|333049|lcl|HPV33REF.1|	Genbank	gene	2749	3810	.	+	.	ID=gene-E2;Name=E2;gbkey=Gene;gene=E2;gene_biotype=protein_coding										
+gi|333049|lcl|HPV33REF.1|	Genbank	CDS	2749	3810	.	+	0	ID=cds-AAA46961.1;Parent=gene-E2;Dbxref=NCBI_GP:AAA46961.1;Name=AAA46961.1;Note=E2 ORF from bp 2728 to 3810%3B putative;gbkey=CDS;gene=E2;gene=regulatory protein;protein_id=AAA46961.1										
+gi|333049|lcl|HPV33REF.1|	Genbank	gene	3326	3577	.	+	.	ID=gene-E4;Name=E4;gbkey=Gene;gene=E4;gene_biotype=protein_coding										
+gi|333049|lcl|HPV33REF.1|	Genbank	CDS	3326	3577	.	+	0	ID=cds-AAA46957.1;Parent=gene-E4;Dbxref=NCBI_GP:AAA46957.1;Name=AAA46957.1;gbkey=CDS;gene=E4;partial=true;gene=AAA46957.1;protein_id=AAA46957.1;start_range=.	3326									
+gi|333049|lcl|HPV33REF.1|	Genbank	gene	3854	4081	.	+	.	ID=gene-E5;Name=E5;gbkey=Gene;gene=E5;gene_biotype=protein_coding										
+gi|333049|lcl|HPV33REF.1|	Genbank	CDS	3854	4081	.	+	0	ID=cds-AAA46962.1;Parent=gene-E5;Dbxref=NCBI_GP:AAA46962.1;Name=AAA46962.1;gbkey=CDS;gene=E5;gene=AAA46962.1;protein_id=AAA46962.1										
+gi|333049|lcl|HPV33REF.1|	Genbank	gene	4210	5613	.	+	.	ID=gene-L2;Name=L2;gbkey=Gene;gene=L2;gene_biotype=protein_coding										
+gi|333049|lcl|HPV33REF.1|	Genbank	CDS	4210	5613	.	+	0	ID=cds-AAA46963.1;Parent=gene-L2;Dbxref=NCBI_GP:AAA46963.1;Name=AAA46963.1;Note=L2 ORF from bp 4198 to 5613%3B putative;gbkey=CDS;gene=L2;gene=minor capsid protein;protein_id=AAA46963.1										
+gi|333049|lcl|HPV33REF.1|	Genbank	gene	5594	7093	.	+	.	ID=gene-L1;Name=L1;gbkey=Gene;gene=L1;gene_biotype=protein_coding										
+gi|333049|lcl|HPV33REF.1|	Genbank	CDS	5594	7093	.	+	0	ID=cds-AAA46964.1;Parent=gene-L1;Dbxref=NCBI_GP:AAA46964.1;Name=AAA46964.1;Note=L1 ORF from bp 5516 to 7093%3B putative;gbkey=CDS;gene=L1;gene=major capsid protein;protein_id=AAA46964.1										
+gi|333049|lcl|HPV33REF.1|	Genbank	repeat_region	7098	7323	.	+	.	ID=id-M12732.1:7098..7323;Note=putative;gbkey=repeat_region										
+gi|333049|lcl|HPV33REF.1|	Genbank	protein_binding_site	7502	7513	.	+	.	ID=id-M12732.1:7502..7513;Note=putative;bound_moiety=E2;function=gene transcription;gbkey=protein_bind										
+gi|333049|lcl|HPV33REF.1|	Genbank	repeat_region	7517	7574	.	+	.	ID=id-M12732.1:7517..7574;gbkey=repeat_region										
+gi|333049|lcl|HPV33REF.1|	Genbank	sequence_secondary_structure	7520	7530	.	+	.	ID=id-M12732.1:7520..7530;Note=putative;gbkey=misc_structure;standard_name=Z DNA structure										
+gi|333049|lcl|HPV33REF.1|	Genbank	sequence_secondary_structure	7599	7609	.	+	.	ID=id-M12732.1:7599..7609;Note=putative;gbkey=misc_structure;standard_name=Z DNA structure										
+gi|333049|lcl|HPV33REF.1|	Genbank	region	7891	7894	.	+	.	ID=id-M12732.1:7891..7894;Note=putative;gbkey=TATA_signal										
+gi|333049|lcl|HPV33REF.1|	Genbank	region	7901	7904	.	+	.	ID=id-M12732.1:7901..7904;Note=putative;gbkey=TATA_signal										
+##sequence-region HPV34REF.1 1 7723																		

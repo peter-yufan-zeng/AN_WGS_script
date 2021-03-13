@@ -1,0 +1,16 @@
+##sequence-region HPV34REF.1 1 7723																		
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=333764																		
+gi|9627334|lcl|HPV34REF.1|	RefSeq	region	1	7723	.	+	.	ID=NC_001587.1:1..7723;Dbxref=taxon:333764;clone=insert in BgIII/BamHI site of pSP64;gbkey=Src;genome=genomic;mol_type=genomic DNA										
+gi|9627334|lcl|HPV34REF.1|	RefSeq	gene	102	548	.	+	.	ID=gene-HpV34gp1;Dbxref=GeneID:1489431;Name=E6;gbkey=Gene;gene=E6;gene_biotype=protein_coding;locus_tag=HpV34gp1										
+gi|9627334|lcl|HPV34REF.1|	RefSeq	CDS	102	548	.	+	0	ID=cds-NP_041807.1;Parent=gene-HpV34gp1;Dbxref=GOA:P36811	InterPro:IPR001334	UniProtKB/Swiss-Prot:P36811	Genbank:NP_041807.1	GeneID:1489431;Name=NP_041807.1;gbkey=CDS;gene=E6;locus_tag=HpV34gp1;gene=early protein;protein_id=NP_041807.1						
+gi|9627334|lcl|HPV34REF.1|	RefSeq	gene	551	844	.	+	.	ID=gene-HpV34gp2;Dbxref=GeneID:1489432;Name=E7;gbkey=Gene;gene=E7;gene_biotype=protein_coding;locus_tag=HpV34gp2										
+gi|9627334|lcl|HPV34REF.1|	RefSeq	CDS	551	844	.	+	0	ID=cds-NP_041808.1;Parent=gene-HpV34gp2;Dbxref=GOA:P36828	InterPro:IPR000148	UniProtKB/Swiss-Prot:P36828	Genbank:NP_041808.1	GeneID:1489432;Name=NP_041808.1;gbkey=CDS;gene=E7;locus_tag=HpV34gp2;gene=early protein;protein_id=NP_041808.1						
+gi|9627334|lcl|HPV34REF.1|	RefSeq	gene	851	2794	.	+	.	ID=gene-HpV34gp3;Dbxref=GeneID:1489429;Name=E1;gbkey=Gene;gene=E1;gene_biotype=protein_coding;locus_tag=HpV34gp3										
+gi|9627334|lcl|HPV34REF.1|	RefSeq	CDS	851	2794	.	+	0	ID=cds-NP_041809.1;Parent=gene-HpV34gp3;Dbxref=GOA:P36725	InterPro:IPR001177	InterPro:IPR014000	InterPro:IPR014015	InterPro:IPR016393	UniProtKB/Swiss-Prot:P36725	Genbank:NP_041809.1	GeneID:1489429;Name=NP_041809.1;gbkey=CDS;gene=E1;locus_tag=HpV34gp3;gene=early protein;protein_id=NP_041809.1			
+gi|9627334|lcl|HPV34REF.1|	RefSeq	gene	2733	3770	.	+	.	ID=gene-HpV34gp4;Dbxref=GeneID:1489430;Name=E2;gbkey=Gene;gene=E2;gene_biotype=protein_coding;locus_tag=HpV34gp4										
+gi|9627334|lcl|HPV34REF.1|	RefSeq	CDS	2733	3770	.	+	0	ID=cds-NP_041810.1;Parent=gene-HpV34gp4;Dbxref=GOA:P36792	InterPro:IPR000427	InterPro:IPR001866	InterPro:IPR009021	InterPro:IPR012677	UniProtKB/Swiss-Prot:P36792	Genbank:NP_041810.1	GeneID:1489430;Name=NP_041810.1;gbkey=CDS;gene=E2;locus_tag=HpV34gp4;gene=early protein;protein_id=NP_041810.1			
+gi|9627334|lcl|HPV34REF.1|	RefSeq	gene	4106	5524	.	+	.	ID=gene-HpV34gp5;Dbxref=GeneID:1489434;Name=L2;gbkey=Gene;gene=L2;gene_biotype=protein_coding;locus_tag=HpV34gp5										
+gi|9627334|lcl|HPV34REF.1|	RefSeq	CDS	4106	5524	.	+	0	ID=cds-NP_041811.1;Parent=gene-HpV34gp5;Dbxref=GOA:P36758	InterPro:IPR000784	UniProtKB/Swiss-Prot:P36758	Genbank:NP_041811.1	GeneID:1489434;Name=NP_041811.1;gbkey=CDS;gene=L2;locus_tag=HpV34gp5;gene=late protein;protein_id=NP_041811.1						
+gi|9627334|lcl|HPV34REF.1|	RefSeq	gene	5430	7016	.	+	.	ID=gene-HpV34gp6;Dbxref=GeneID:1489433;Name=L1;gbkey=Gene;gene=L1;gene_biotype=protein_coding;locus_tag=HpV34gp6										
+gi|9627334|lcl|HPV34REF.1|	RefSeq	CDS	5430	7016	.	+	0	ID=cds-NP_041812.1;Parent=gene-HpV34gp6;Dbxref=GOA:P36738	InterPro:IPR002210	InterPro:IPR011222	UniProtKB/Swiss-Prot:P36738	Genbank:NP_041812.1	GeneID:1489433;Name=NP_041812.1;gbkey=CDS;gene=L1;locus_tag=HpV34gp6;gene=late protein;protein_id=NP_041812.1					
+##sequence-region HPV35REF.1 1 7879																		

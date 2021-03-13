@@ -1,0 +1,18 @@
+##sequence-region HPV134REF.1 1 7309																		
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=909333																		
+gi|319962660|lcl|HPV134REF.1|	RefSeq	region	1	7309	.	+	.	ID=NC_014956.1:1..7309;Dbxref=taxon:909333;Is_circular=true;collected-by=Anja Koehler;country=Germany;gbkey=Src;genome=genomic;identified-by=Anja Koehler;isolate=39-65;isolation-source=wart of an immunosuppressed organ transplant patient;mol_type=genomic DNA;nat-host=Homo sapiens;old-name=Human papillomavirus 39-65										
+gi|319962660|lcl|HPV134REF.1|	RefSeq	gene	1	414	.	+	.	ID=gene-E6;Dbxref=GeneID:10146758;Name=E6;gbkey=Gene;gene=E6;gene_biotype=protein_coding;locus_tag=HPV134_gp1										
+gi|319962660|lcl|HPV134REF.1|	RefSeq	CDS	1	414	.	+	0	ID=cds-YP_004169291.1;Parent=gene-HPV134_gp1;Dbxref=Genbank:YP_004169291.1	GeneID:10146758;Name=YP_004169291.1;gbkey=CDS;gene=E6;locus_tag=HPV134_gp1;gene=E6;protein_id=YP_004169291.1									
+gi|319962660|lcl|HPV134REF.1|	RefSeq	gene	414	689	.	+	.	ID=gene-E7;Dbxref=GeneID:10146755;Name=E7;gbkey=Gene;gene=E7;gene_biotype=protein_coding;locus_tag=HPV134_gp2										
+gi|319962660|lcl|HPV134REF.1|	RefSeq	CDS	414	689	.	+	0	ID=cds-YP_004169292.1;Parent=gene-HPV134_gp2;Dbxref=Genbank:YP_004169292.1	GeneID:10146755;Name=YP_004169292.1;gbkey=CDS;gene=E7;locus_tag=HPV134_gp2;gene=E7;protein_id=YP_004169292.1									
+gi|319962660|lcl|HPV134REF.1|	RefSeq	gene	679	2487	.	+	.	ID=gene-E1;Dbxref=GeneID:10146756;Name=E1;gbkey=Gene;gene=E1;gene_biotype=protein_coding;locus_tag=HPV134_gp3										
+gi|319962660|lcl|HPV134REF.1|	RefSeq	CDS	679	2487	.	+	0	ID=cds-YP_004169293.1;Parent=gene-HPV134_gp3;Dbxref=Genbank:YP_004169293.1	GeneID:10146756;Name=YP_004169293.1;gbkey=CDS;gene=E1;locus_tag=HPV134_gp3;gene=E1;protein_id=YP_004169293.1									
+gi|319962660|lcl|HPV134REF.1|	RefSeq	gene	2429	3679	.	+	.	ID=gene-E2;Dbxref=GeneID:10146757;Name=E2;gbkey=Gene;gene=E2;gene_biotype=protein_coding;locus_tag=HPV134_gp4										
+gi|319962660|lcl|HPV134REF.1|	RefSeq	CDS	2429	3679	.	+	0	ID=cds-YP_004169294.1;Parent=gene-HPV134_gp4;Dbxref=Genbank:YP_004169294.1	GeneID:10146757;Name=YP_004169294.1;gbkey=CDS;gene=E2;locus_tag=HPV134_gp4;gene=E2;protein_id=YP_004169294.1									
+gi|319962660|lcl|HPV134REF.1|	RefSeq	gene	2955	3440	.	+	.	ID=gene-E4;Dbxref=GeneID:10146754;Name=E4;gbkey=Gene;gene=E4;gene_biotype=protein_coding;locus_tag=HPV134_gp5										
+gi|319962660|lcl|HPV134REF.1|	RefSeq	CDS	2955	3440	.	+	0	ID=cds-YP_004169295.1;Parent=gene-HPV134_gp5;Dbxref=Genbank:YP_004169295.1	GeneID:10146754;Name=YP_004169295.1;gbkey=CDS;gene=E4;locus_tag=HPV134_gp5;gene=E4;protein_id=YP_004169295.1									
+gi|319962660|lcl|HPV134REF.1|	RefSeq	gene	3682	5226	.	+	.	ID=gene-L2;Dbxref=GeneID:10146753;Name=L2;gbkey=Gene;gene=L2;gene_biotype=protein_coding;locus_tag=HPV134_gp6										
+gi|319962660|lcl|HPV134REF.1|	RefSeq	CDS	3682	5226	.	+	0	ID=cds-YP_004169296.1;Parent=gene-HPV134_gp6;Dbxref=Genbank:YP_004169296.1	GeneID:10146753;Name=YP_004169296.1;gbkey=CDS;gene=L2;locus_tag=HPV134_gp6;gene=L2;protein_id=YP_004169296.1									
+gi|319962660|lcl|HPV134REF.1|	RefSeq	gene	5237	6787	.	+	.	ID=gene-L1;Dbxref=GeneID:10146752;Name=L1;gbkey=Gene;gene=L1;gene_biotype=protein_coding;locus_tag=HPV134_gp7										
+gi|319962660|lcl|HPV134REF.1|	RefSeq	CDS	5237	6787	.	+	0	ID=cds-YP_004169297.1;Parent=gene-HPV134_gp7;Dbxref=Genbank:YP_004169297.1	GeneID:10146752;Name=YP_004169297.1;gbkey=CDS;gene=L1;locus_tag=HPV134_gp7;gene=L1;protein_id=YP_004169297.1									
+##sequence-region HPV135REF.1 1 7293																		

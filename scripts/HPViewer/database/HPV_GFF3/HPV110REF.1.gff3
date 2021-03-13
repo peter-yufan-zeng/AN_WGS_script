@@ -1,0 +1,18 @@
+##sequence-region HPV110REF.1 1 7423																		
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=518629																		
+gi|186461194|lcl|HPV110REF.1|	Genbank	region	1	7423	.	+	.	ID=EU410348.1:1..7423;Dbxref=taxon:518629;Is_circular=true;gbkey=Src;genome=genomic;mol_type=genomic DNA;old-name=Human papillomavirus 110										
+gi|186461194|lcl|HPV110REF.1|	Genbank	gene	172	597	.	+	.	ID=gene-E6;Name=E6;gbkey=Gene;gene=E6;gene_biotype=protein_coding										
+gi|186461194|lcl|HPV110REF.1|	Genbank	CDS	172	597	.	+	0	ID=cds-ACC78263.1;Parent=gene-E6;Dbxref=NCBI_GP:ACC78263.1;Name=E6;gbkey=CDS;gene=E6;gene=E6 protein;protein_id=ACC78263.1										
+gi|186461194|lcl|HPV110REF.1|	Genbank	gene	594	878	.	+	.	ID=gene-E7;Name=E7;gbkey=Gene;gene=E7;gene_biotype=protein_coding										
+gi|186461194|lcl|HPV110REF.1|	Genbank	CDS	594	878	.	+	0	ID=cds-ACC78264.1;Parent=gene-E7;Dbxref=NCBI_GP:ACC78264.1;Name=E7;gbkey=CDS;gene=E7;gene=E7 protein;protein_id=ACC78264.1										
+gi|186461194|lcl|HPV110REF.1|	Genbank	gene	871	2694	.	+	.	ID=gene-E1;Name=E1;gbkey=Gene;gene=E1;gene_biotype=protein_coding										
+gi|186461194|lcl|HPV110REF.1|	Genbank	CDS	871	2694	.	+	0	ID=cds-ACC78265.1;Parent=gene-E1;Dbxref=NCBI_GP:ACC78265.1;Name=E1;gbkey=CDS;gene=E1;gene=E1 protein;protein_id=ACC78265.1										
+gi|186461194|lcl|HPV110REF.1|	Genbank	gene	2636	4000	.	+	.	ID=gene-E2;Name=E2;gbkey=Gene;gene=E2;gene_biotype=protein_coding										
+gi|186461194|lcl|HPV110REF.1|	Genbank	CDS	2636	4000	.	+	0	ID=cds-ACC78267.1;Parent=gene-E2;Dbxref=NCBI_GP:ACC78267.1;Name=E2;gbkey=CDS;gene=E2;gene=E2 protein;protein_id=ACC78267.1										
+gi|186461194|lcl|HPV110REF.1|	Genbank	gene	3159	3755	.	+	.	ID=gene-E4;Name=E4;gbkey=Gene;gene=E4;gene_biotype=protein_coding										
+gi|186461194|lcl|HPV110REF.1|	Genbank	CDS	3159	3755	.	+	0	ID=cds-ACC78266.1;Parent=gene-E4;Dbxref=NCBI_GP:ACC78266.1;Name=E4;gbkey=CDS;gene=E4;gene=E4 protein;protein_id=ACC78266.1										
+gi|186461194|lcl|HPV110REF.1|	Genbank	gene	4051	5664	.	+	.	ID=gene-L2;Name=L2;gbkey=Gene;gene=L2;gene_biotype=protein_coding										
+gi|186461194|lcl|HPV110REF.1|	Genbank	CDS	4051	5664	.	+	0	ID=cds-ACC78268.1;Parent=gene-L2;Dbxref=NCBI_GP:ACC78268.1;Name=L2;gbkey=CDS;gene=L2;gene=L2 protein;protein_id=ACC78268.1										
+gi|186461194|lcl|HPV110REF.1|	Genbank	gene	5676	7196	.	+	.	ID=gene-L1;Name=L1;gbkey=Gene;gene=L1;gene_biotype=protein_coding										
+gi|186461194|lcl|HPV110REF.1|	Genbank	CDS	5676	7196	.	+	0	ID=cds-ACC78269.1;Parent=gene-L1;Dbxref=NCBI_GP:ACC78269.1;Name=L1;gbkey=CDS;gene=L1;gene=L1 protein;protein_id=ACC78269.1										
+##sequence-region HPV111REF.1 1 7384																		

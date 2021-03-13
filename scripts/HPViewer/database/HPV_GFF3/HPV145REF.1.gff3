@@ -1,0 +1,18 @@
+##sequence-region HPV145REF.1 1 7375																		
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=1070418																		
+gi|343411593|lcl|HPV145REF.1|	Genbank	region	1	7375	.	+	.	ID=HM999997.1:1..7375;Dbxref=taxon:1070418;Is_circular=true;collection-date=2009;country=USA;gbkey=Src;genome=genomic;isolate=CL4112;mol_type=genomic DNA;nat-host=Homo sapiens										
+gi|343411593|lcl|HPV145REF.1|	Genbank	gene	1	426	.	+	.	ID=gene-E6;Name=E6;gbkey=Gene;gene=E6;gene_biotype=protein_coding										
+gi|343411593|lcl|HPV145REF.1|	Genbank	CDS	1	426	.	+	0	ID=cds-AEM24663.1;Parent=gene-E6;Dbxref=NCBI_GP:AEM24663.1;Name=E6;gbkey=CDS;gene=E6;gene=transforming protein;protein_id=AEM24663.1										
+gi|343411593|lcl|HPV145REF.1|	Genbank	gene	423	713	.	+	.	ID=gene-E7;Name=E7;gbkey=Gene;gene=E7;gene_biotype=protein_coding										
+gi|343411593|lcl|HPV145REF.1|	Genbank	CDS	423	713	.	+	0	ID=cds-AEM24664.1;Parent=gene-E7;Dbxref=NCBI_GP:AEM24664.1;Name=E7;gbkey=CDS;gene=E7;gene=transforming protein;protein_id=AEM24664.1										
+gi|343411593|lcl|HPV145REF.1|	Genbank	gene	706	2526	.	+	.	ID=gene-E1;Name=E1;gbkey=Gene;gene=E1;gene_biotype=protein_coding										
+gi|343411593|lcl|HPV145REF.1|	Genbank	CDS	706	2526	.	+	0	ID=cds-AEM24665.1;Parent=gene-E1;Dbxref=NCBI_GP:AEM24665.1;Name=E1;gbkey=CDS;gene=E1;gene=replication protein;protein_id=AEM24665.1										
+gi|343411593|lcl|HPV145REF.1|	Genbank	gene	2468	3769	.	+	.	ID=gene-E2;Name=E2;gbkey=Gene;gene=E2;gene_biotype=protein_coding										
+gi|343411593|lcl|HPV145REF.1|	Genbank	CDS	2468	3769	.	+	0	ID=cds-AEM24666.1;Parent=gene-E2;Dbxref=NCBI_GP:AEM24666.1;Name=E2;gbkey=CDS;gene=E2;gene=regulatory protein;protein_id=AEM24666.1										
+gi|343411593|lcl|HPV145REF.1|	Genbank	gene	2931	3524	.	+	.	ID=gene-E4;Name=E4;gbkey=Gene;gene=E4;gene_biotype=protein_coding										
+gi|343411593|lcl|HPV145REF.1|	Genbank	CDS	2931	3524	.	+	0	ID=cds-AEM24667.1;Parent=gene-E4;Dbxref=NCBI_GP:AEM24667.1;Name=E4;gbkey=CDS;gene=E4;gene=hypothetical protein;protein_id=AEM24667.1										
+gi|343411593|lcl|HPV145REF.1|	Genbank	gene	3822	5420	.	+	.	ID=gene-L2;Name=L2;gbkey=Gene;gene=L2;gene_biotype=protein_coding										
+gi|343411593|lcl|HPV145REF.1|	Genbank	CDS	3822	5420	.	+	0	ID=cds-AEM24668.1;Parent=gene-L2;Dbxref=NCBI_GP:AEM24668.1;Name=L2;gbkey=CDS;gene=L2;gene=minor capsid protein;protein_id=AEM24668.1										
+gi|343411593|lcl|HPV145REF.1|	Genbank	gene	5432	6955	.	+	.	ID=gene-L1;Name=L1;gbkey=Gene;gene=L1;gene_biotype=protein_coding										
+gi|343411593|lcl|HPV145REF.1|	Genbank	CDS	5432	6955	.	+	0	ID=cds-AEM24669.1;Parent=gene-L1;Dbxref=NCBI_GP:AEM24669.1;Name=L1;gbkey=CDS;gene=L1;gene=major capsid protein;protein_id=AEM24669.1										
+##sequence-region HPV146REF.1 1 7265																		

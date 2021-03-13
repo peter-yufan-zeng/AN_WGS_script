@@ -1,0 +1,18 @@
+##sequence-region HPV153REF.1 1 7240																		
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=1110710																		
+gi|356483524|lcl|HPV153REF.1|	Genbank	region	1	7240	.	+	.	ID=JN171845.1:1..7240;Dbxref=taxon:1110710;Is_circular=true;country=Sweden;gbkey=Src;genome=genomic;isolation-source=condyloma swab sample;mol_type=genomic DNA;nat-host=Homo sapiens										
+gi|356483524|lcl|HPV153REF.1|	Genbank	gene	1	432	.	+	.	ID=gene-E6;Name=E6;gbkey=Gene;gene=E6;gene_biotype=protein_coding										
+gi|356483524|lcl|HPV153REF.1|	Genbank	CDS	1	432	.	+	0	ID=cds-AET11872.1;Parent=gene-E6;Dbxref=NCBI_GP:AET11872.1;Name=AET11872.1;gbkey=CDS;gene=E6;gene=E6 protein;protein_id=AET11872.1										
+gi|356483524|lcl|HPV153REF.1|	Genbank	gene	422	712	.	+	.	ID=gene-E7;Name=E7;gbkey=Gene;gene=E7;gene_biotype=protein_coding										
+gi|356483524|lcl|HPV153REF.1|	Genbank	CDS	422	712	.	+	0	ID=cds-AET11873.1;Parent=gene-E7;Dbxref=NCBI_GP:AET11873.1;Name=AET11873.1;gbkey=CDS;gene=E7;gene=E7 protein;protein_id=AET11873.1										
+gi|356483524|lcl|HPV153REF.1|	Genbank	gene	699	2516	.	+	.	ID=gene-E1;Name=E1;gbkey=Gene;gene=E1;gene_biotype=protein_coding										
+gi|356483524|lcl|HPV153REF.1|	Genbank	CDS	699	2516	.	+	0	ID=cds-AET11874.1;Parent=gene-E1;Dbxref=NCBI_GP:AET11874.1;Name=AET11874.1;gbkey=CDS;gene=E1;gene=E1 protein;protein_id=AET11874.1										
+gi|356483524|lcl|HPV153REF.1|	Genbank	gene	2452	3654	.	+	.	ID=gene-E2;Name=E2;gbkey=Gene;gene=E2;gene_biotype=protein_coding										
+gi|356483524|lcl|HPV153REF.1|	Genbank	CDS	2452	3654	.	+	0	ID=cds-AET11875.1;Parent=gene-E2;Dbxref=NCBI_GP:AET11875.1;Name=AET11875.1;gbkey=CDS;gene=E2;gene=E2 protein;protein_id=AET11875.1										
+gi|356483524|lcl|HPV153REF.1|	Genbank	gene	2969	3403	.	+	.	ID=gene-E4;Name=E4;gbkey=Gene;gene=E4;gene_biotype=protein_coding										
+gi|356483524|lcl|HPV153REF.1|	Genbank	CDS	2969	3403	.	+	0	ID=cds-AET11876.1;Parent=gene-E4;Dbxref=NCBI_GP:AET11876.1;Name=AET11876.1;gbkey=CDS;gene=E4;gene=E4 protein;protein_id=AET11876.1										
+gi|356483524|lcl|HPV153REF.1|	Genbank	gene	3657	5192	.	+	.	ID=gene-L2;Name=L2;gbkey=Gene;gene=L2;gene_biotype=protein_coding										
+gi|356483524|lcl|HPV153REF.1|	Genbank	CDS	3657	5192	.	+	0	ID=cds-AET11877.1;Parent=gene-L2;Dbxref=NCBI_GP:AET11877.1;Name=AET11877.1;gbkey=CDS;gene=L2;gene=E2 protein;protein_id=AET11877.1										
+gi|356483524|lcl|HPV153REF.1|	Genbank	gene	5201	6736	.	+	.	ID=gene-L1;Name=L1;gbkey=Gene;gene=L1;gene_biotype=protein_coding										
+gi|356483524|lcl|HPV153REF.1|	Genbank	CDS	5201	6736	.	+	0	ID=cds-AET11878.1;Parent=gene-L1;Dbxref=NCBI_GP:AET11878.1;Name=AET11878.1;gbkey=CDS;gene=L1;gene=L1 protein;protein_id=AET11878.1										
+##sequence-region HPV154REF.1 1 7286																		

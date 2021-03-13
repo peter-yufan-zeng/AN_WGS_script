@@ -1,0 +1,27 @@
+##sequence-region HPV70REF.1 1 7905																		
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=39457																		
+gi|1173493|lcl|HPV70REF.1|	Genbank	region	1	7905	.	+	.	ID=U21941.1:1..7905;Dbxref=taxon:39457;gbkey=Src;mol_type=genomic DNA;note=isolated from a cervical brush sample from a patient with diagnosis of cervical condyloma%3B from cloned overlapping PCR products										
+gi|1173493|lcl|HPV70REF.1|	Genbank	gene	107	583	.	+	.	ID=gene-E6;Name=E6;gbkey=Gene;gene=E6;gene_biotype=protein_coding										
+gi|1173493|lcl|HPV70REF.1|	Genbank	CDS	107	583	.	+	0	ID=cds-AAC54850.1;Parent=gene-E6;Dbxref=NCBI_GP:AAC54850.1;Name=AAC54850.1;gbkey=CDS;gene=E6;gene=AAC54850.1;protein_id=AAC54850.1										
+gi|1173493|lcl|HPV70REF.1|	Genbank	gene	592	921	.	+	.	ID=gene-E7;Name=E7;gbkey=Gene;gene=E7;gene_biotype=protein_coding										
+gi|1173493|lcl|HPV70REF.1|	Genbank	CDS	592	921	.	+	0	ID=cds-AAC54851.1;Parent=gene-E7;Dbxref=NCBI_GP:AAC54851.1;Name=AAC54851.1;gbkey=CDS;gene=E7;gene=AAC54851.1;protein_id=AAC54851.1										
+gi|1173493|lcl|HPV70REF.1|	Genbank	gene	928	2746	.	+	.	ID=gene-E1;Name=E1;gbkey=Gene;gene=E1;gene_biotype=other;part=1/2										
+gi|1173493|lcl|HPV70REF.1|	Genbank	gene	2748	2886	.	+	.	ID=gene-E1;Name=E1;gbkey=Gene;gene=E1;gene_biotype=other;part=2/2										
+gi|1173493|lcl|HPV70REF.1|	Genbank	CDS	928	2886	.	+	0	ID=cds-AAC54852.1;Dbxref=NCBI_GP:AAC54852.1;Name=AAC54852.1;gbkey=CDS;gene=AAC54852.1;protein_id=AAC54852.1										
+gi|1173493|lcl|HPV70REF.1|	Genbank	gene	2813	3079	.	+	.	ID=gene-E2;Name=E2;gbkey=Gene;gene=E2;gene_biotype=other;part=1/3										
+gi|1173493|lcl|HPV70REF.1|	Genbank	gene	3081	3260	.	+	.	ID=gene-E2;Name=E2;gbkey=Gene;gene=E2;gene_biotype=other;part=2/3										
+gi|1173493|lcl|HPV70REF.1|	Genbank	gene	3262	3895	.	+	.	ID=gene-E2;Name=E2;gbkey=Gene;gene=E2;gene_biotype=other;part=3/3										
+gi|1173493|lcl|HPV70REF.1|	Genbank	CDS	2813	3895	.	+	0	ID=cds-AAC54853.1;Dbxref=NCBI_GP:AAC54853.1;Name=AAC54853.1;gbkey=CDS;gene=AAC54853.1;protein_id=AAC54853.1										
+gi|1173493|lcl|HPV70REF.1|	Genbank	gene	3408	3662	.	+	.	ID=gene-E4;Name=E4;gbkey=Gene;gene=E4;gene_biotype=protein_coding										
+gi|1173493|lcl|HPV70REF.1|	Genbank	CDS	3408	3662	.	+	0	ID=cds-AAC54854.1;Parent=gene-E4;Dbxref=NCBI_GP:AAC54854.1;Name=AAC54854.1;gbkey=CDS;gene=E4;partial=true;gene=AAC54854.1;protein_id=AAC54854.1;start_range=.	3408									
+gi|1173493|lcl|HPV70REF.1|	Genbank	gene	3909	4145	.	+	.	ID=gene-E5;Name=E5;gbkey=Gene;gene=E5;gene_biotype=protein_coding										
+gi|1173493|lcl|HPV70REF.1|	Genbank	CDS	3909	4145	.	+	0	ID=cds-AAC54855.1;Parent=gene-E5;Dbxref=NCBI_GP:AAC54855.1;Name=AAC54855.1;gbkey=CDS;gene=E5;gene=AAC54855.1;protein_id=AAC54855.1										
+gi|1173493|lcl|HPV70REF.1|	Genbank	gene	4209	4752	.	+	.	ID=gene-L2;Name=L2;gbkey=Gene;gene=L2;gene_biotype=other;part=1/4										
+gi|1173493|lcl|HPV70REF.1|	Genbank	gene	4754	5174	.	+	.	ID=gene-L2;Name=L2;gbkey=Gene;gene=L2;gene_biotype=other;part=2/4										
+gi|1173493|lcl|HPV70REF.1|	Genbank	gene	5176	5560	.	+	.	ID=gene-L2;Name=L2;gbkey=Gene;gene=L2;gene_biotype=other;part=3/4										
+gi|1173493|lcl|HPV70REF.1|	Genbank	gene	5562	5609	.	+	.	ID=gene-L2;Name=L2;gbkey=Gene;gene=L2;gene_biotype=other;part=4/4										
+gi|1173493|lcl|HPV70REF.1|	Genbank	CDS	4209	5609	.	+	0	ID=cds-AAC54856.1;Dbxref=NCBI_GP:AAC54856.1;Name=AAC54856.1;gbkey=CDS;gene=AAC54856.1;protein_id=AAC54856.1										
+gi|1173493|lcl|HPV70REF.1|	Genbank	gene	5590	6784	.	+	.	ID=gene-L1;Name=L1;gbkey=Gene;gene=L1;gene_biotype=other;part=1/2										
+gi|1173493|lcl|HPV70REF.1|	Genbank	gene	6786	7104	.	+	.	ID=gene-L1;Name=L1;gbkey=Gene;gene=L1;gene_biotype=other;part=2/2										
+gi|1173493|lcl|HPV70REF.1|	Genbank	CDS	5590	7104	.	+	0	ID=cds-AAC54857.1;Dbxref=NCBI_GP:AAC54857.1;Name=AAC54857.1;gbkey=CDS;gene=AAC54857.1;protein_id=AAC54857.1										
+##sequence-region HPV71REF.1 1 8017																		

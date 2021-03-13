@@ -1,0 +1,20 @@
+##sequence-region HPV59REF.1 1 7896																		
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=37115																		
+gi|557236|lcl|HPV59REF.1|	EMBL	region	1	7896	.	+	.	ID=X77858.1:1..7896;Dbxref=taxon:37115;gbkey=Src;mol_type=genomic DNA										
+gi|557236|lcl|HPV59REF.1|	EMBL	gene	55	537	.	+	.	ID=gene-ORF putative E6;Name=E6;gbkey=Gene;gene=ORF putative E6;gene_biotype=protein_coding										
+gi|557236|lcl|HPV59REF.1|	EMBL	CDS	55	537	.	+	0	ID=cds-CAA54849.1;Parent=gene-ORF putative E6;Dbxref=GOA:Q81964	InterPro:IPR001334	UniProtKB/TrEMBL:Q81964	NCBI_GP:CAA54849.1;Name=CAA54849.1;gbkey=CDS;gene=ORF putative E6;gene=CAA54849.1;protein_id=CAA54849.1							
+gi|557236|lcl|HPV59REF.1|	EMBL	gene	542	865	.	+	.	ID=gene-ORF putative E7;Name=E7;gbkey=Gene;gene=ORF putative E7;gene_biotype=protein_coding										
+gi|557236|lcl|HPV59REF.1|	EMBL	CDS	542	865	.	+	0	ID=cds-CAA54850.1;Parent=gene-ORF putative E7;Dbxref=GOA:Q81965	InterPro:IPR000148	UniProtKB/TrEMBL:Q81965	NCBI_GP:CAA54850.1;Name=CAA54850.1;gbkey=CDS;gene=ORF putative E7;gene=CAA54850.1;protein_id=CAA54850.1							
+gi|557236|lcl|HPV59REF.1|	EMBL	gene	872	2806	.	+	.	ID=gene-ORF putative E1;Name=E1;gbkey=Gene;gene=ORF putative E1;gene_biotype=protein_coding										
+gi|557236|lcl|HPV59REF.1|	EMBL	CDS	872	2806	.	+	0	ID=cds-CAA54851.1;Parent=gene-ORF putative E1;Dbxref=GOA:Q81966	InterPro:IPR001177	InterPro:IPR014000	InterPro:IPR014015	InterPro:IPR016393	UniProtKB/Swiss-Prot:Q81966	NCBI_GP:CAA54851.1;Name=CAA54851.1;gbkey=CDS;gene=ORF putative E1;gene=CAA54851.1;protein_id=CAA54851.1				
+gi|557236|lcl|HPV59REF.1|	EMBL	gene	2736	3848	.	+	.	ID=gene-ORF putative E2;Name=E2;gbkey=Gene;gene=ORF putative E2;gene_biotype=protein_coding										
+gi|557236|lcl|HPV59REF.1|	EMBL	CDS	2736	3848	.	+	0	ID=cds-CAA54852.1;Parent=gene-ORF putative E2;Dbxref=GOA:Q81967	HSSP:1JJ4	InterPro:IPR000427	InterPro:IPR001866	InterPro:IPR009021	InterPro:IPR012677	UniProtKB/TrEMBL:Q81967	NCBI_GP:CAA54852.1;Name=CAA54852.1;gbkey=CDS;gene=ORF putative E2;gene=CAA54852.1;protein_id=CAA54852.1			
+gi|557236|lcl|HPV59REF.1|	EMBL	gene	3268	3615	.	+	.	ID=gene-ORF putative E4;Name=E4;gbkey=Gene;gene=ORF putative E4;gene_biotype=protein_coding										
+gi|557236|lcl|HPV59REF.1|	EMBL	CDS	3268	3615	.	+	0	ID=cds-CAA54853.1;Parent=gene-ORF putative E4;Dbxref=InterPro:IPR003861	UniProtKB/TrEMBL:Q76QV7	NCBI_GP:CAA54853.1;Name=CAA54853.1;gbkey=CDS;gene=ORF putative E4;gene=CAA54853.1;protein_id=CAA54853.1								
+gi|557236|lcl|HPV59REF.1|	EMBL	gene	3908	4129	.	+	.	ID=gene-ORF putative E5;Name=E5;gbkey=Gene;gene=ORF putative E5;gene_biotype=protein_coding										
+gi|557236|lcl|HPV59REF.1|	EMBL	CDS	3908	4129	.	+	0	ID=cds-CAA54854.1;Parent=gene-ORF putative E5;Dbxref=InterPro:IPR004270	UniProtKB/TrEMBL:Q81969	NCBI_GP:CAA54854.1;Name=CAA54854.1;gbkey=CDS;gene=ORF putative E5;gene=CAA54854.1;protein_id=CAA54854.1								
+gi|557236|lcl|HPV59REF.1|	EMBL	gene	4231	5625	.	+	.	ID=gene-ORF putative L2;Name=L2;gbkey=Gene;gene=ORF putative L2;gene_biotype=protein_coding										
+gi|557236|lcl|HPV59REF.1|	EMBL	CDS	4231	5625	.	+	0	ID=cds-CAA54855.1;Parent=gene-ORF putative L2;Dbxref=GOA:Q81970	InterPro:IPR000784	UniProtKB/TrEMBL:Q81970	NCBI_GP:CAA54855.1;Name=CAA54855.1;gbkey=CDS;gene=ORF putative L2;gene=CAA54855.1;protein_id=CAA54855.1							
+gi|557236|lcl|HPV59REF.1|	EMBL	gene	5606	7132	.	+	.	ID=gene-ORF putative L1;Name=L1;gbkey=Gene;gene=ORF putative L1;gene_biotype=protein_coding										
+gi|557236|lcl|HPV59REF.1|	EMBL	CDS	5606	7132	.	+	0	ID=cds-CAA54856.1;Parent=gene-ORF putative L1;Dbxref=GOA:Q81971	HSSP:1DZL	InterPro:IPR002210	InterPro:IPR011222	UniProtKB/TrEMBL:Q81971	NCBI_GP:CAA54856.1;Name=CAA54856.1;gbkey=CDS;gene=ORF putative L1;gene=CAA54856.1;protein_id=CAA54856.1					
+##sequence-region HPV60REF.1 1 7313																		

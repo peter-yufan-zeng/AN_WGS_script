@@ -1,0 +1,18 @@
+##sequence-region HPV204REF.1 1 7227																		
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=1650736																		
+gi|819925266|lcl|HPV204REF.1|	Genbank	region	1	7227	.	+	.	ID=KP769769.1:1..7227;Dbxref=taxon:1650736;Is_circular=true;collection-date=2009;country=Slovenia;gbkey=Src;genome=genomic;isolate=A342;mol_type=genomic DNA;nat-host=Homo sapiens;old-name=Human papillomavirus type 204										
+gi|819925266|lcl|HPV204REF.1|	Genbank	gene	1	411	.	+	.	ID=gene-E6;Name=E6;gbkey=Gene;gene=E6;gene_biotype=protein_coding										
+gi|819925266|lcl|HPV204REF.1|	Genbank	CDS	1	411	.	+	0	ID=cds-AKG54924.1;Parent=gene-E6;Dbxref=NCBI_GP:AKG54924.1;Name=AKG54924.1;gbkey=CDS;gene=E6;gene=E6 protein;protein_id=AKG54924.1										
+gi|819925266|lcl|HPV204REF.1|	Genbank	gene	411	689	.	+	.	ID=gene-E7;Name=E7;gbkey=Gene;gene=E7;gene_biotype=protein_coding										
+gi|819925266|lcl|HPV204REF.1|	Genbank	CDS	411	689	.	+	0	ID=cds-AKG54925.1;Parent=gene-E7;Dbxref=NCBI_GP:AKG54925.1;Name=AKG54925.1;gbkey=CDS;gene=E7;gene=E7 protein;protein_id=AKG54925.1										
+gi|819925266|lcl|HPV204REF.1|	Genbank	gene	689	2536	.	+	.	ID=gene-E1;Name=E1;gbkey=Gene;gene=E1;gene_biotype=protein_coding										
+gi|819925266|lcl|HPV204REF.1|	Genbank	CDS	689	2536	.	+	0	ID=cds-AKG54926.1;Parent=gene-E1;Dbxref=NCBI_GP:AKG54926.1;Name=AKG54926.1;gbkey=CDS;gene=E1;gene=E1 protein;protein_id=AKG54926.1										
+gi|819925266|lcl|HPV204REF.1|	Genbank	gene	2478	3644	.	+	.	ID=gene-E2;Name=E2;gbkey=Gene;gene=E2;gene_biotype=protein_coding										
+gi|819925266|lcl|HPV204REF.1|	Genbank	CDS	2478	3644	.	+	0	ID=cds-AKG54927.1;Parent=gene-E2;Dbxref=NCBI_GP:AKG54927.1;Name=AKG54927.1;gbkey=CDS;gene=E2;gene=E2 protein;protein_id=AKG54927.1										
+gi|819925266|lcl|HPV204REF.1|	Genbank	gene	3001	3396	.	+	.	ID=gene-E4;Name=E4;gbkey=Gene;gene=E4;gene_biotype=protein_coding										
+gi|819925266|lcl|HPV204REF.1|	Genbank	CDS	3001	3396	.	+	0	ID=cds-AKG54928.1;Parent=gene-E4;Dbxref=NCBI_GP:AKG54928.1;Name=AKG54928.1;gbkey=CDS;gene=E4;gene=E4 protein;protein_id=AKG54928.1										
+gi|819925266|lcl|HPV204REF.1|	Genbank	gene	3669	5180	.	+	.	ID=gene-L2;Name=L2;gbkey=Gene;gene=L2;gene_biotype=protein_coding										
+gi|819925266|lcl|HPV204REF.1|	Genbank	CDS	3669	5180	.	+	0	ID=cds-AKG54929.1;Parent=gene-L2;Dbxref=NCBI_GP:AKG54929.1;Name=AKG54929.1;gbkey=CDS;gene=L2;gene=L2 protein;protein_id=AKG54929.1										
+gi|819925266|lcl|HPV204REF.1|	Genbank	gene	5191	6717	.	+	.	ID=gene-L1;Name=L1;gbkey=Gene;gene=L1;gene_biotype=protein_coding										
+gi|819925266|lcl|HPV204REF.1|	Genbank	CDS	5191	6717	.	+	0	ID=cds-AKG54930.1;Parent=gene-L1;Dbxref=NCBI_GP:AKG54930.1;Name=AKG54930.1;gbkey=CDS;gene=L1;gene=L1 protein;protein_id=AKG54930.1										
+##sequence-region HPV205REF.1 1 7298																		

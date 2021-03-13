@@ -1,0 +1,18 @@
+##sequence-region HPV66REF.1 1 7824																		
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=37119																		
+gi|1020290|lcl|HPV66REF.1|	Genbank	region	1	7824	.	+	.	ID=U31794.1:1..7824;Dbxref=taxon:37119;gbkey=Src;mol_type=genomic DNA;note=cloned HPV-66 DNA was obtained from the Papillomavirus Reference Center%2C Heidelberg and sequenced by Dr. H. Delius										
+gi|1020290|lcl|HPV66REF.1|	Genbank	gene	102	569	.	+	.	ID=gene-E6;Name=E6;gbkey=Gene;gene=E6;gene_biotype=protein_coding										
+gi|1020290|lcl|HPV66REF.1|	Genbank	CDS	102	569	.	+	0	ID=cds-AAA79499.1;Parent=gene-E6;Dbxref=NCBI_GP:AAA79499.1;Name=AAA79499.1;Note=putative;gbkey=CDS;gene=E6;gene=transforming protein E6;protein_id=AAA79499.1										
+gi|1020290|lcl|HPV66REF.1|	Genbank	gene	572	889	.	+	.	ID=gene-E7;Name=E7;gbkey=Gene;gene=E7;gene_biotype=protein_coding										
+gi|1020290|lcl|HPV66REF.1|	Genbank	CDS	572	889	.	+	0	ID=cds-AAA79500.1;Parent=gene-E7;Dbxref=NCBI_GP:AAA79500.1;Name=AAA79500.1;Note=putative;gbkey=CDS;gene=E7;gene=transforming protein E7;protein_id=AAA79500.1										
+gi|1020290|lcl|HPV66REF.1|	Genbank	gene	895	2787	.	+	.	ID=gene-E1;Name=E1;gbkey=Gene;gene=E1;gene_biotype=protein_coding										
+gi|1020290|lcl|HPV66REF.1|	Genbank	CDS	895	2787	.	+	0	ID=cds-AAA79501.1;Parent=gene-E1;Dbxref=NCBI_GP:AAA79501.1;Name=AAA79501.1;Note=putative;gbkey=CDS;gene=E1;gene=replication protein E1;protein_id=AAA79501.1										
+gi|1020290|lcl|HPV66REF.1|	Genbank	gene	2729	3838	.	+	.	ID=gene-E2;Name=E2;gbkey=Gene;gene=E2;gene_biotype=protein_coding										
+gi|1020290|lcl|HPV66REF.1|	Genbank	CDS	2729	3838	.	+	0	ID=cds-AAA79502.1;Parent=gene-E2;Dbxref=NCBI_GP:AAA79502.1;Name=AAA79502.1;Note=putative;gbkey=CDS;gene=E2;gene=regulatory protein E2;protein_id=AAA79502.1										
+gi|1020290|lcl|HPV66REF.1|	Genbank	gene	3081	3605	.	+	.	ID=gene-E4;Name=E4;gbkey=Gene;gene=E4;gene_biotype=protein_coding										
+gi|1020290|lcl|HPV66REF.1|	Genbank	CDS	3081	3605	.	+	0	ID=cds-AAA79503.1;Parent=gene-E4;Dbxref=NCBI_GP:AAA79503.1;Name=AAA79503.1;gbkey=CDS;gene=E4;partial=true;gene=AAA79503.1;protein_id=AAA79503.1;start_range=.	3081									
+gi|1020290|lcl|HPV66REF.1|	Genbank	gene	4272	5666	.	+	.	ID=gene-L2;Name=L2;gbkey=Gene;gene=L2;gene_biotype=protein_coding										
+gi|1020290|lcl|HPV66REF.1|	Genbank	CDS	4272	5666	.	+	0	ID=cds-AAA79504.1;Parent=gene-L2;Dbxref=NCBI_GP:AAA79504.1;Name=AAA79504.1;Note=putative;gbkey=CDS;gene=L2;gene=minor capsid protein L2;protein_id=AAA79504.1										
+gi|1020290|lcl|HPV66REF.1|	Genbank	gene	5647	7158	.	+	.	ID=gene-L1;Name=L1;gbkey=Gene;gene=L1;gene_biotype=protein_coding										
+gi|1020290|lcl|HPV66REF.1|	Genbank	CDS	5647	7158	.	+	0	ID=cds-AAA79505.1;Parent=gene-L1;Dbxref=NCBI_GP:AAA79505.1;Name=AAA79505.1;Note=putative;gbkey=CDS;gene=L1;gene=major capsid protein L1;protein_id=AAA79505.1										
+##sequence-region HPV67REF.1 1 7801																		

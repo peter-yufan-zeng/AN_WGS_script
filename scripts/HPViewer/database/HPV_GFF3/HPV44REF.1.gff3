@@ -1,0 +1,18 @@
+##sequence-region HPV44REF.1 1 7833																		
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=10592																		
+gi|1020242|lcl|HPV44REF.1|	Genbank	region	1	7833	.	+	.	ID=U31788.1:1..7833;Dbxref=taxon:10592;gbkey=Src;mol_type=genomic DNA;note=cloned HPV-44 DNA was obtained from the Papillomavirus Reference Center%2C Heidelberg and sequenced by Dr. H. Delius										
+gi|1020242|lcl|HPV44REF.1|	Genbank	gene	105	557	.	+	.	ID=gene-E6;Name=E6;gbkey=Gene;gene=E6;gene_biotype=protein_coding										
+gi|1020242|lcl|HPV44REF.1|	Genbank	CDS	105	557	.	+	0	ID=cds-AAA79457.1;Parent=gene-E6;Dbxref=NCBI_GP:AAA79457.1;Name=AAA79457.1;Note=putative;gbkey=CDS;gene=E6;gene=transforming protein E6;protein_id=AAA79457.1										
+gi|1020242|lcl|HPV44REF.1|	Genbank	gene	533	826	.	+	.	ID=gene-E7;Name=E7;gbkey=Gene;gene=E7;gene_biotype=protein_coding										
+gi|1020242|lcl|HPV44REF.1|	Genbank	CDS	533	826	.	+	0	ID=cds-AAA79458.1;Parent=gene-E7;Dbxref=NCBI_GP:AAA79458.1;Name=AAA79458.1;Note=putative;gbkey=CDS;gene=E7;gene=transforming protein E7;protein_id=AAA79458.1										
+gi|1020242|lcl|HPV44REF.1|	Genbank	gene	832	2763	.	+	.	ID=gene-E1;Name=E1;gbkey=Gene;gene=E1;gene_biotype=protein_coding										
+gi|1020242|lcl|HPV44REF.1|	Genbank	CDS	832	2763	.	+	0	ID=cds-AAA79459.1;Parent=gene-E1;Dbxref=NCBI_GP:AAA79459.1;Name=AAA79459.1;Note=putative;gbkey=CDS;gene=E1;gene=replication protein E1;protein_id=AAA79459.1										
+gi|1020242|lcl|HPV44REF.1|	Genbank	gene	2705	3838	.	+	.	ID=gene-E2;Name=E2;gbkey=Gene;gene=E2;gene_biotype=protein_coding										
+gi|1020242|lcl|HPV44REF.1|	Genbank	CDS	2705	3838	.	+	0	ID=cds-AAA79460.1;Parent=gene-E2;Dbxref=NCBI_GP:AAA79460.1;Name=AAA79460.1;Note=putative;gbkey=CDS;gene=E2;gene=regulatory protein E2;protein_id=AAA79460.1										
+gi|1020242|lcl|HPV44REF.1|	Genbank	gene	3162	3596	.	+	.	ID=gene-E4;Name=E4;gbkey=Gene;gene=E4;gene_biotype=protein_coding										
+gi|1020242|lcl|HPV44REF.1|	Genbank	CDS	3162	3596	.	+	0	ID=cds-AAA79461.1;Parent=gene-E4;Dbxref=NCBI_GP:AAA79461.1;Name=AAA79461.1;gbkey=CDS;gene=E4;partial=true;gene=AAA79461.1;protein_id=AAA79461.1;start_range=.	3162									
+gi|1020242|lcl|HPV44REF.1|	Genbank	gene	4325	5707	.	+	.	ID=gene-L2;Name=L2;gbkey=Gene;gene=L2;gene_biotype=protein_coding										
+gi|1020242|lcl|HPV44REF.1|	Genbank	CDS	4325	5707	.	+	0	ID=cds-AAA79462.1;Parent=gene-L2;Dbxref=NCBI_GP:AAA79462.1;Name=AAA79462.1;Note=putative;gbkey=CDS;gene=L2;gene=minor capsid protein L2;protein_id=AAA79462.1										
+gi|1020242|lcl|HPV44REF.1|	Genbank	gene	5694	7196	.	+	.	ID=gene-L1;Name=L1;gbkey=Gene;gene=L1;gene_biotype=protein_coding										
+gi|1020242|lcl|HPV44REF.1|	Genbank	CDS	5694	7196	.	+	0	ID=cds-AAA79463.1;Parent=gene-L1;Dbxref=NCBI_GP:AAA79463.1;Name=AAA79463.1;Note=putative;gbkey=CDS;gene=L1;gene=major capsid protein L1;protein_id=AAA79463.1										
+##sequence-region HPV45REF.1 1 7858																		

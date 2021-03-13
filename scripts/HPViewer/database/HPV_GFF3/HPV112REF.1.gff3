@@ -1,0 +1,18 @@
+##sequence-region HPV112REF.1 1 7227																		
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=915427																		
+gi|225927568|lcl|HPV112REF.1|	RefSeq	region	1	7227	.	+	.	ID=NC_012486.1:1..7227;Dbxref=taxon:915427;Is_circular=true;country=Sweden;gbkey=Src;genome=genomic;mol_type=genomic DNA;old-name=Human papillomavirus type 112										
+gi|225927568|lcl|HPV112REF.1|	RefSeq	gene	252	671	.	+	.	ID=gene-HPV-112_gp1;Dbxref=GeneID:7701325;Name=E6;gbkey=Gene;gene=E6;gene_biotype=protein_coding;locus_tag=HPV-112_gp1										
+gi|225927568|lcl|HPV112REF.1|	RefSeq	CDS	252	671	.	+	0	ID=cds-YP_002756545.1;Parent=gene-HPV-112_gp1;Dbxref=Genbank:YP_002756545.1	GeneID:7701325;Name=YP_002756545.1;gbkey=CDS;gene=E6;locus_tag=HPV-112_gp1;gene=E6 protein;protein_id=YP_002756545.1									
+gi|225927568|lcl|HPV112REF.1|	RefSeq	gene	668	961	.	+	.	ID=gene-HPV-112_gp2;Dbxref=GeneID:7701319;Name=E7;gbkey=Gene;gene=E7;gene_biotype=protein_coding;locus_tag=HPV-112_gp2										
+gi|225927568|lcl|HPV112REF.1|	RefSeq	CDS	668	961	.	+	0	ID=cds-YP_002756546.1;Parent=gene-HPV-112_gp2;Dbxref=Genbank:YP_002756546.1	GeneID:7701319;Name=YP_002756546.1;gbkey=CDS;gene=E7;locus_tag=HPV-112_gp2;gene=E7 protein;protein_id=YP_002756546.1									
+gi|225927568|lcl|HPV112REF.1|	RefSeq	gene	945	2747	.	+	.	ID=gene-HPV-112_gp3;Dbxref=GeneID:7701320;Name=E1;gbkey=Gene;gene=E1;gene_biotype=protein_coding;locus_tag=HPV-112_gp3										
+gi|225927568|lcl|HPV112REF.1|	RefSeq	CDS	945	2747	.	+	0	ID=cds-YP_002756547.1;Parent=gene-HPV-112_gp3;Dbxref=Genbank:YP_002756547.1	GeneID:7701320;Name=YP_002756547.1;gbkey=CDS;gene=E1;locus_tag=HPV-112_gp3;gene=E1 protein;protein_id=YP_002756547.1									
+gi|225927568|lcl|HPV112REF.1|	RefSeq	gene	2677	3855	.	+	.	ID=gene-HPV-112_gp4;Dbxref=GeneID:7701321;Name=E2;gbkey=Gene;gene=E2;gene_biotype=protein_coding;locus_tag=HPV-112_gp4										
+gi|225927568|lcl|HPV112REF.1|	RefSeq	CDS	2677	3855	.	+	0	ID=cds-YP_002756548.1;Parent=gene-HPV-112_gp4;Dbxref=Genbank:YP_002756548.1	GeneID:7701321;Name=YP_002756548.1;gbkey=CDS;gene=E2;locus_tag=HPV-112_gp4;gene=E2 protein;protein_id=YP_002756548.1									
+gi|225927568|lcl|HPV112REF.1|	RefSeq	gene	3257	3631	.	+	.	ID=gene-HPV-112_gp5;Dbxref=GeneID:7701322;Name=E4;gbkey=Gene;gene=E4;gene_biotype=protein_coding;locus_tag=HPV-112_gp5										
+gi|225927568|lcl|HPV112REF.1|	RefSeq	CDS	3257	3631	.	+	0	ID=cds-YP_002756549.1;Parent=gene-HPV-112_gp5;Dbxref=Genbank:YP_002756549.1	GeneID:7701322;Name=YP_002756549.1;gbkey=CDS;gene=E4;locus_tag=HPV-112_gp5;gene=E4 protein;protein_id=YP_002756549.1									
+gi|225927568|lcl|HPV112REF.1|	RefSeq	gene	3859	5439	.	+	.	ID=gene-HPV-112_gp6;Dbxref=GeneID:7701323;Name=L2;gbkey=Gene;gene=L2;gene_biotype=protein_coding;locus_tag=HPV-112_gp6										
+gi|225927568|lcl|HPV112REF.1|	RefSeq	CDS	3859	5439	.	+	0	ID=cds-YP_002756550.1;Parent=gene-HPV-112_gp6;Dbxref=Genbank:YP_002756550.1	GeneID:7701323;Name=YP_002756550.1;gbkey=CDS;gene=L2;locus_tag=HPV-112_gp6;gene=L2 protein;protein_id=YP_002756550.1									
+gi|225927568|lcl|HPV112REF.1|	RefSeq	gene	5451	7031	.	+	.	ID=gene-HPV-112_gp7;Dbxref=GeneID:7701324;Name=L1;gbkey=Gene;gene=L1;gene_biotype=protein_coding;locus_tag=HPV-112_gp7										
+gi|225927568|lcl|HPV112REF.1|	RefSeq	CDS	5451	7031	.	+	0	ID=cds-YP_002756551.1;Parent=gene-HPV-112_gp7;Dbxref=Genbank:YP_002756551.1	GeneID:7701324;Name=YP_002756551.1;gbkey=CDS;gene=L1;locus_tag=HPV-112_gp7;gene=L1 protein;protein_id=YP_002756551.1									
+##sequence-region HPV113REF.1 1 7412																		

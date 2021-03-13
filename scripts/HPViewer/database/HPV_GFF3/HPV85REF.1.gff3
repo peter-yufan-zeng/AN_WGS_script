@@ -1,0 +1,26 @@
+##sequence-region HPV85REF.1 1 7812																		
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=151757																		
+gi|4574720|lcl|HPV85REF.1|	Genbank	region	1	7812	.	+	.	ID=AF131950.1:1..7812;Dbxref=taxon:151757;Is_circular=true;gbkey=Src;mol_type=genomic DNA;note=isolated from scraped uterine cervical cells from a female sex worker%3B overlapping PCR products;old-name=Human papillomavirus candHPV85										
+gi|4574720|lcl|HPV85REF.1|	Genbank	protein_binding_site	40	51	.	+	.	ID=id-AF131950.1:40..51;Note=putative;bound_moiety=E2 protein;function=transcriptional regulation;gbkey=protein_bind										
+gi|4574720|lcl|HPV85REF.1|	Genbank	protein_binding_site	56	67	.	+	.	ID=id-AF131950.1:56..67;Note=putative;bound_moiety=E2 protein;function=transcriptional regulation;gbkey=protein_bind										
+gi|4574720|lcl|HPV85REF.1|	Genbank	TATA_box	71	79	.	+	.	ID=id-AF131950.1:71..79;Note=putative;gbkey=regulatory;regulatory_class=TATA_box										
+gi|4574720|lcl|HPV85REF.1|	Genbank	gene	105	578	.	+	.	ID=gene-E6;Name=E6;gbkey=Gene;gene=E6;gene_biotype=protein_coding										
+gi|4574720|lcl|HPV85REF.1|	Genbank	CDS	105	578	.	+	0	ID=cds-AAD24181.1;Parent=gene-E6;Dbxref=NCBI_GP:AAD24181.1;Name=AAD24181.1;gbkey=CDS;gene=E6;gene=putative transforming protein E6;protein_id=AAD24181.1										
+gi|4574720|lcl|HPV85REF.1|	Genbank	gene	587	913	.	+	.	ID=gene-E7;Name=E7;gbkey=Gene;gene=E7;gene_biotype=protein_coding										
+gi|4574720|lcl|HPV85REF.1|	Genbank	CDS	587	913	.	+	0	ID=cds-AAD24182.1;Parent=gene-E7;Dbxref=NCBI_GP:AAD24182.1;Name=AAD24182.1;gbkey=CDS;gene=E7;gene=putative transforming protein E7;protein_id=AAD24182.1										
+gi|4574720|lcl|HPV85REF.1|	Genbank	gene	920	2866	.	+	.	ID=gene-E1;Name=E1;gbkey=Gene;gene=E1;gene_biotype=protein_coding										
+gi|4574720|lcl|HPV85REF.1|	Genbank	CDS	920	2866	.	+	0	ID=cds-AAD24183.1;Parent=gene-E1;Dbxref=NCBI_GP:AAD24183.1;Name=AAD24183.1;gbkey=CDS;gene=E1;gene=putative replication protein E1;protein_id=AAD24183.1										
+gi|4574720|lcl|HPV85REF.1|	Genbank	gene	2799	3932	.	+	.	ID=gene-E2;Name=E2;gbkey=Gene;gene=E2;gene_biotype=protein_coding										
+gi|4574720|lcl|HPV85REF.1|	Genbank	CDS	2799	3932	.	+	0	ID=cds-AAD24184.1;Parent=gene-E2;Dbxref=NCBI_GP:AAD24184.1;Name=AAD24184.1;gbkey=CDS;gene=E2;gene=putative regulatory protein E2;protein_id=AAD24184.1										
+gi|4574720|lcl|HPV85REF.1|	Genbank	gene	3412	3699	.	+	.	ID=gene-E4;Name=E4;gbkey=Gene;gene=E4;gene_biotype=protein_coding;partial=true;start_range=.	3412									
+gi|4574720|lcl|HPV85REF.1|	Genbank	CDS	3412	3699	.	+	0	ID=cds-AAD24185.1;Parent=gene-E4;Dbxref=NCBI_GP:AAD24185.1;Name=AAD24185.1;Note=start codon absent;gbkey=CDS;gene=E4;partial=true;gene=putative protein E4;protein_id=AAD24185.1;start_range=.	3412									
+gi|4574720|lcl|HPV85REF.1|	Genbank	gene	3940	4161	.	+	.	ID=gene-E5;Name=E5;gbkey=Gene;gene=E5;gene_biotype=protein_coding										
+gi|4574720|lcl|HPV85REF.1|	Genbank	CDS	3940	4161	.	+	0	ID=cds-AAD24186.1;Parent=gene-E5;Dbxref=NCBI_GP:AAD24186.1;Name=AAD24186.1;gbkey=CDS;gene=E5;gene=putative protein E5;protein_id=AAD24186.1										
+gi|4574720|lcl|HPV85REF.1|	Genbank	gene	4226	5629	.	+	.	ID=gene-L2;Name=L2;gbkey=Gene;gene=L2;gene_biotype=protein_coding										
+gi|4574720|lcl|HPV85REF.1|	Genbank	CDS	4226	5629	.	+	0	ID=cds-AAD24187.1;Parent=gene-L2;Dbxref=NCBI_GP:AAD24187.1;Name=AAD24187.1;gbkey=CDS;gene=L2;gene=putative minor capsid protein L2;protein_id=AAD24187.1										
+gi|4574720|lcl|HPV85REF.1|	Genbank	gene	5610	7124	.	+	.	ID=gene-L1;Name=L1;gbkey=Gene;gene=L1;gene_biotype=protein_coding										
+gi|4574720|lcl|HPV85REF.1|	Genbank	CDS	5610	7124	.	+	0	ID=cds-AAD24188.1;Parent=gene-L1;Dbxref=NCBI_GP:AAD24188.1;Name=AAD24188.1;gbkey=CDS;gene=L1;gene=putative major capsid protein L1;protein_id=AAD24188.1										
+gi|4574720|lcl|HPV85REF.1|	Genbank	protein_binding_site	7456	7467	.	+	.	ID=id-AF131950.1:7456..7467;Note=putative;bound_moiety=E2 protein;function=transcriptional regulation;gbkey=protein_bind										
+gi|4574720|lcl|HPV85REF.1|	Genbank	sequence_feature	7647	7666	.	+	.	ID=id-AF131950.1:7647..7666;Note=consensus motif of oncogenic anogenital HPV types;gbkey=misc_feature										
+gi|4574720|lcl|HPV85REF.1|	Genbank	protein_binding_site	7776	7787	.	+	.	ID=id-AF131950.1:7776..7787;Note=putative;bound_moiety=E2 protein;function=transcriptional regulation;gbkey=protein_bind										
+##sequence-region HPV86REF.1 1 7983																		

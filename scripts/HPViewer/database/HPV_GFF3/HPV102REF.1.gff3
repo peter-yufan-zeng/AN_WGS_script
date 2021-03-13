@@ -1,0 +1,11 @@
+##sequence-region HPV102REF.1 1 8078																		
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=338327																		
+gi|71726718|lcl|HPV102REF.1|	Genbank	region	1	8078	.	+	.	ID=DQ080083.1:1..8078;Dbxref=taxon:338327;Is_circular=true;acronym=HPV102;country=Costa Rica;gbkey=Src;genome=genomic;isolate=Qv34077;isolation-source=cervicovaginal cells from a 49 year old female with normal cytological screening test;mol_type=genomic DNA;type=102										
+gi|71726718|lcl|HPV102REF.1|	Genbank	gene	1	444	.	+	0	ID=cds-AAZ39520.1;Dbxref=NCBI_GP:AAZ39520.1;Name=E6;gbkey=CDS;gene=E6 protein;protein_id=AAZ39520.1										
+gi|71726718|lcl|HPV102REF.1|	Genbank	gene	420	710	.	+	0	ID=cds-AAZ39521.1;Dbxref=NCBI_GP:AAZ39521.1;Name=E7;gbkey=CDS;gene=E7 protein;protein_id=AAZ39521.1										
+gi|71726718|lcl|HPV102REF.1|	Genbank	gene	715	2670	.	+	0	ID=cds-AAZ39522.1;Dbxref=NCBI_GP:AAZ39522.1;Name=E1;gbkey=CDS;gene=E1 protein;protein_id=AAZ39522.1										
+gi|71726718|lcl|HPV102REF.1|	Genbank	gene	2612	3754	.	+	0	ID=cds-AAZ39523.1;Dbxref=NCBI_GP:AAZ39523.1;Name=E2;gbkey=CDS;gene=E2 protein;protein_id=AAZ39523.1										
+gi|71726718|lcl|HPV102REF.1|	Genbank	gene	3150	3512	.	+	0	ID=cds-AAZ39524.1;Dbxref=NCBI_GP:AAZ39524.1;Name=E4;gbkey=CDS;gene=E4 protein;protein_id=AAZ39524.1										
+gi|71726718|lcl|HPV102REF.1|	Genbank	gene	4380	5807	.	+	0	ID=cds-AAZ39525.1;Dbxref=NCBI_GP:AAZ39525.1;Name=L2;gbkey=CDS;gene=L2 protein;protein_id=AAZ39525.1										
+gi|71726718|lcl|HPV102REF.1|	Genbank	gene	5353	7296	.	+	0	ID=cds-AAZ39526.1;Dbxref=NCBI_GP:AAZ39526.1;Name=L1;gbkey=CDS;gene=L1 protein;protein_id=AAZ39526.1										
+##sequence-region HPV103REF.1 1 7263																		

@@ -1,0 +1,16 @@
+##sequence-region HPV40REF.1 1 7909																		
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=10615																		
+gi|397014|lcl|HPV40REF.1|	EMBL	region	1	7909	.	+	.	ID=X74478.1:1..7909;Dbxref=taxon:10615;clone=insert in SacI site of pUC19;gbkey=Src;mol_type=genomic DNA										
+gi|397014|lcl|HPV40REF.1|	EMBL	gene	102	566	.	+	.	ID=gene-E6;Name=E6;gbkey=Gene;gene=E6;gene_biotype=protein_coding										
+gi|397014|lcl|HPV40REF.1|	EMBL	CDS	102	566	.	+	0	ID=cds-CAA52567.1;Parent=gene-E6;Dbxref=GOA:P36812	InterPro:IPR001334	UniProtKB/Swiss-Prot:P36812	NCBI_GP:CAA52567.1;Name=CAA52567.1;gbkey=CDS;gene=E6;gene=early protein;protein_id=CAA52567.1							
+gi|397014|lcl|HPV40REF.1|	EMBL	gene	527	862	.	+	.	ID=gene-E7;Name=E7;gbkey=Gene;gene=E7;gene_biotype=protein_coding										
+gi|397014|lcl|HPV40REF.1|	EMBL	CDS	527	862	.	+	0	ID=cds-CAA52568.1;Parent=gene-E7;Dbxref=GOA:P36829	InterPro:IPR000148	UniProtKB/Swiss-Prot:P36829	NCBI_GP:CAA52568.1;Name=CAA52568.1;gbkey=CDS;gene=E7;gene=early protein;protein_id=CAA52568.1							
+gi|397014|lcl|HPV40REF.1|	EMBL	gene	868	2811	.	+	.	ID=gene-E1;Name=E1;gbkey=Gene;gene=E1;gene_biotype=protein_coding										
+gi|397014|lcl|HPV40REF.1|	EMBL	CDS	868	2811	.	+	0	ID=cds-CAA52569.1;Parent=gene-E1;Dbxref=GOA:P36727	InterPro:IPR001177	InterPro:IPR014000	InterPro:IPR014015	InterPro:IPR016393	UniProtKB/Swiss-Prot:P36727	NCBI_GP:CAA52569.1;Name=CAA52569.1;gbkey=CDS;gene=E1;gene=early protein;protein_id=CAA52569.1				
+gi|397014|lcl|HPV40REF.1|	EMBL	gene	2753	3865	.	+	.	ID=gene-E2;Name=E2;gbkey=Gene;gene=E2;gene_biotype=protein_coding										
+gi|397014|lcl|HPV40REF.1|	EMBL	CDS	2753	3865	.	+	0	ID=cds-CAA52570.1;Parent=gene-E2;Dbxref=GOA:P36793	InterPro:IPR000427	InterPro:IPR001866	InterPro:IPR009021	InterPro:IPR012677	UniProtKB/Swiss-Prot:P36793	NCBI_GP:CAA52570.1;Name=CAA52570.1;gbkey=CDS;gene=E2;gene=early protein;protein_id=CAA52570.1				
+gi|397014|lcl|HPV40REF.1|	EMBL	gene	4389	5792	.	+	.	ID=gene-L2;Name=L2;gbkey=Gene;gene=L2;gene_biotype=protein_coding										
+gi|397014|lcl|HPV40REF.1|	EMBL	CDS	4389	5792	.	+	0	ID=cds-CAA52571.1;Parent=gene-L2;Dbxref=GOA:P36760	InterPro:IPR000784	UniProtKB/Swiss-Prot:P36760	NCBI_GP:CAA52571.1;Name=CAA52571.1;gbkey=CDS;gene=L2;gene=late protein;protein_id=CAA52571.1							
+gi|397014|lcl|HPV40REF.1|	EMBL	gene	5779	7296	.	+	.	ID=gene-L1;Name=L1;gbkey=Gene;gene=L1;gene_biotype=protein_coding										
+gi|397014|lcl|HPV40REF.1|	EMBL	CDS	5779	7296	.	+	0	ID=cds-CAA52572.1;Parent=gene-L1;Dbxref=GOA:P36740	InterPro:IPR002210	InterPro:IPR011222	UniProtKB/Swiss-Prot:P36740	NCBI_GP:CAA52572.1;Name=CAA52572.1;gbkey=CDS;gene=L1;gene=late protein;protein_id=CAA52572.1						
+##sequence-region HPV41REF.1 1 7614																		

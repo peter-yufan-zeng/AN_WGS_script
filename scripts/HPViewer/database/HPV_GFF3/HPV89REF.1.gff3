@@ -1,0 +1,17 @@
+##sequence-region HPV89REF.1 1 8078																		
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=202250																		
+gi|22095322|lcl|HPV89REF.1|	Genbank	region	1	8078	.	+	.	ID=AF436128.1:1..8078;Dbxref=taxon:202250;acronym=candHPV89;gbkey=Src;mol_type=genomic DNA;note=Human papillomavirus type 89 candidate;serotype=89										
+gi|22095322|lcl|HPV89REF.1|	Genbank	CDS	1	453	.	+	0	ID=cds-AAM92151.1;Dbxref=NCBI_GP:AAM92151.1;Name=E6;gbkey=CDS;gene=putative transforming protein E6;protein_id=AAM92151.1										
+gi|22095322|lcl|HPV89REF.1|	Genbank	gene	420	716	.	+	.	ID=gene-E7;Name=E7;gbkey=Gene;gene=E7;gene_biotype=protein_coding										
+gi|22095322|lcl|HPV89REF.1|	Genbank	CDS	420	716	.	+	0	ID=cds-AAM92152.1;Parent=gene-E7;Dbxref=NCBI_GP:AAM92152.1;Name=E7gbkey=CDS;gene=E7;gene=putative transforming protein E7;protein_id=AAM92152.1										
+gi|22095322|lcl|HPV89REF.1|	Genbank	gene	721	2685	.	+	.	ID=gene-E1;Name=E1;gbkey=Gene;gene=E1;gene_biotype=protein_coding										
+gi|22095322|lcl|HPV89REF.1|	Genbank	CDS	721	2685	.	+	0	ID=cds-AAM92153.1;Parent=gene-E1;Dbxref=NCBI_GP:AAM92153.1;Name=E1;gbkey=CDS;gene=E1;gene=putative replication protein E1;protein_id=AAM92153.1										
+gi|22095322|lcl|HPV89REF.1|	Genbank	gene	2627	3760	.	+	.	ID=gene-E2;Name=E2;gbkey=Gene;gene=E2;gene_biotype=protein_coding										
+gi|22095322|lcl|HPV89REF.1|	Genbank	CDS	2627	3760	.	+	0	ID=cds-AAM92154.1;Parent=gene-E2;Dbxref=NCBI_GP:AAM92154.1;Name=E2;gbkey=CDS;gene=E2;gene=putative regulatory protein E2;protein_id=AAM92154.1										
+gi|22095322|lcl|HPV89REF.1|	Genbank	gene	3165	3518	.	+	.	ID=gene-E4;Name=E4;gbkey=Gene;gene=E4;gene_biotype=protein_coding										
+gi|22095322|lcl|HPV89REF.1|	Genbank	CDS	3165	3518	.	+	0	ID=cds-AAM92155.1;Parent=gene-E4;Dbxref=NCBI_GP:AAM92155.1;Name=E4;gbkey=CDS;gene=E4;gene=putative protein E4;protein_id=AAM92155.1										
+gi|22095322|lcl|HPV89REF.1|	Genbank	gene	4352	5722	.	+	.	ID=gene-L2;Name=L2;gbkey=Gene;gene=L2;gene_biotype=protein_coding										
+gi|22095322|lcl|HPV89REF.1|	Genbank	CDS	4352	5722	.	+	0	ID=cds-AAM92156.1;Parent=gene-L2;Dbxref=NCBI_GP:AAM92156.1;Name=L2;gbkey=CDS;gene=L2;gene=putative minor capsid protein L2;protein_id=AAM92156.1										
+gi|22095322|lcl|HPV89REF.1|	Genbank	gene	5707	7263	.	+	.	ID=gene-L1;Name=L1;gbkey=Gene;gene=L1;gene_biotype=protein_coding										
+gi|22095322|lcl|HPV89REF.1|	Genbank	CDS	5707	7263	.	+	0	ID=cds-AAM92157.1;Parent=gene-L1;Dbxref=NCBI_GP:AAM92157.1;Name=L1;gbkey=CDS;gene=L1;gene=putative major capsid protein L1;protein_id=AAM92157.1										
+##sequence-region HPV90REF.1 1 8033																		

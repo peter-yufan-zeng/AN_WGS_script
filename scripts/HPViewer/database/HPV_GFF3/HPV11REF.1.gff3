@@ -1,0 +1,36 @@
+##sequence-region HPV11REF.1 1 7931																		
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=10580																		
+gi|333026|lcl|HPV11REF.1|	Genbank	region	1	7931	.	+	.	ID=M14119.1:1..7931;Dbxref=taxon:10580;Is_circular=true;gbkey=Src;mol_type=genomic DNA										
+gi|333026|lcl|HPV11REF.1|	Genbank	region	9	15	.	+	.	ID=id-M14119.1:9..15;Note=putative;gbkey=CAAT_signal										
+gi|333026|lcl|HPV11REF.1|	Genbank	protein_binding_site	35	46	.	+	.	ID=id-M14119.1:35..46;Note=putative;bound_moiety=E2;function=gene transcription;gbkey=protein_bind										
+gi|333026|lcl|HPV11REF.1|	Genbank	protein_binding_site	50	61	.	+	.	ID=id-M14119.1:50..61;Note=putative;bound_moiety=E2;function=gene transcription;gbkey=protein_bind										
+gi|333026|lcl|HPV11REF.1|	Genbank	region	66	71	.	+	.	ID=id-M14119.1:66..71;Note=putative;gbkey=TATA_signal										
+gi|333026|lcl|HPV11REF.1|	Genbank	gene	102	554	.	+	.	ID=gene-E6;Name=E6;gbkey=Gene;gene=E6;gene_biotype=protein_coding										
+gi|333026|lcl|HPV11REF.1|	Genbank	CDS	102	554	.	+	0	ID=cds-AAA46927.1;Parent=gene-E6;Dbxref=NCBI_GP:AAA46927.1;Name=AAA46927.1;Note=102 is position of first start codon in ORF E6%3B putative;gbkey=CDS;gene=E6;gene=transforming protein;protein_id=AAA46927.1										
+gi|333026|lcl|HPV11REF.1|	Genbank	gene	530	826	.	+	.	ID=gene-E7;Name=E7;gbkey=Gene;gene=E7;gene_biotype=protein_coding										
+gi|333026|lcl|HPV11REF.1|	Genbank	CDS	530	826	.	+	0	ID=cds-AAA46928.1;Parent=gene-E7;Dbxref=NCBI_GP:AAA46928.1;Name=AAA46928.1;Note=530 is position of first start codon in ORF E7%3B putative;gbkey=CDS;gene=E7;gene=transforming protein;protein_id=AAA46928.1										
+gi|333026|lcl|HPV11REF.1|	Genbank	gene	832	2781	.	+	.	ID=gene-E1;Name=E1;gbkey=Gene;gene=E1;gene_biotype=protein_coding										
+gi|333026|lcl|HPV11REF.1|	Genbank	CDS	832	2781	.	+	0	ID=cds-AAA46929.1;Parent=gene-E1;Dbxref=NCBI_GP:AAA46929.1;Name=AAA46929.1;Note=832 is position of first start codon in ORF E1%3B putative;gbkey=CDS;gene=E1;gene=replication protein;protein_id=AAA46929.1										
+gi|333026|lcl|HPV11REF.1|	Genbank	gene	2723	3826	.	+	.	ID=gene-E2;Name=E2;gbkey=Gene;gene=E2;gene_biotype=protein_coding										
+gi|333026|lcl|HPV11REF.1|	Genbank	CDS	2723	3826	.	+	0	ID=cds-AAA46930.1;Parent=gene-E2;Dbxref=NCBI_GP:AAA46930.1;Name=AAA46930.1;Note=2723 is position of first start codon in ORF E2%3B putative;gbkey=CDS;gene=E2;gene=regulatory protein;protein_id=AAA46930.1										
+gi|333026|lcl|HPV11REF.1|	Genbank	gene	3255	3581	.	+	.	ID=gene-E4;Name=E4;gbkey=Gene;gene=E4;gene_biotype=protein_coding										
+gi|333026|lcl|HPV11REF.1|	Genbank	CDS	3255	3581	.	+	0	ID=cds-AAA46931.1;Parent=gene-E4;Dbxref=NCBI_GP:AAA46931.1;Name=AAA46931.1;gbkey=CDS;gene=E4;gene=AAA46931.1;protein_id=AAA46931.1										
+gi|333026|lcl|HPV11REF.1|	Genbank	gene	3871	4146	.	+	.	ID=gene-E5A;Name=E5A;gbkey=Gene;gene=E5A;gene_biotype=protein_coding										
+gi|333026|lcl|HPV11REF.1|	Genbank	CDS	3871	4146	.	+	0	ID=cds-AAA46932.1;Parent=gene-E5A;Dbxref=NCBI_GP:AAA46932.1;Name=AAA46932.1;gbkey=CDS;gene=E5A;gene=AAA46932.1;protein_id=AAA46932.1										
+gi|333026|lcl|HPV11REF.1|	Genbank	gene	4146	4370	.	+	.	ID=gene-E5B;Name=E5B;gbkey=Gene;gene=E5B;gene_biotype=protein_coding										
+gi|333026|lcl|HPV11REF.1|	Genbank	CDS	4146	4370	.	+	0	ID=cds-AAA46933.1;Parent=gene-E5B;Dbxref=NCBI_GP:AAA46933.1;Name=AAA46933.1;gbkey=CDS;gene=E5B;gene=AAA46933.1;protein_id=AAA46933.1										
+gi|333026|lcl|HPV11REF.1|	Genbank	region	4371	4376	.	+	.	ID=id-M14119.1:4371..4376;Note=putative;gbkey=polyA_signal										
+gi|333026|lcl|HPV11REF.1|	Genbank	gene	4417	5784	.	+	.	ID=gene-L2;Name=L2;gbkey=Gene;gene=L2;gene_biotype=protein_coding										
+gi|333026|lcl|HPV11REF.1|	Genbank	CDS	4417	5784	.	+	0	ID=cds-AAA46934.1;Parent=gene-L2;Dbxref=NCBI_GP:AAA46934.1;Name=AAA46934.1;Note=4417 is position of first start codon in ORF L2%3B putative;gbkey=CDS;gene=L2;gene=minor capsid protein;protein_id=AAA46934.1										
+gi|333026|lcl|HPV11REF.1|	Genbank	region	4545	4551	.	+	.	ID=id-L2;Note=putative;gbkey=polyA_signal;gene=L2										
+gi|333026|lcl|HPV11REF.1|	Genbank	gene	5771	7276	.	+	.	ID=gene-L1;Name=L1;gbkey=Gene;gene=L1;gene_biotype=protein_coding										
+gi|333026|lcl|HPV11REF.1|	Genbank	CDS	5771	7276	.	+	0	ID=cds-AAA46935.1;Parent=gene-L1;Dbxref=NCBI_GP:AAA46935.1;Name=AAA46935.1;Note=5771 is position of first start codon in ORF L1%3B putative;gbkey=CDS;gene=L1;gene=major capsid protein;protein_id=AAA46935.1										
+gi|333026|lcl|HPV11REF.1|	Genbank	five_prime_UTR	7277	8032	.	+	.	ID=id-M14119.1:1..7931;function=regulatory region;gbkey=5'UTR;standard_name=LCR										
+gi|333026|lcl|HPV11REF.1|	Genbank	repeat_region	7320	7360	.	+	.	ID=id-M14119.1:7320..7360;Note=putative;gbkey=repeat_region;standard_name=direct repeats										
+gi|333026|lcl|HPV11REF.1|	Genbank	repeat_region	7339	7374	.	+	.	ID=id-M14119.1:7339..7374;Note=putative;gbkey=repeat_region;standard_name=direct repeats										
+gi|333026|lcl|HPV11REF.1|	Genbank	repeat_region	7374	7403	.	+	.	ID=id-M14119.1:7374..7403;Note=putative;gbkey=repeat_region										
+gi|333026|lcl|HPV11REF.1|	Genbank	region	7457	7462	.	+	.	ID=id-M14119.1:7457..7462;Note=putative;gbkey=polyA_signal										
+gi|333026|lcl|HPV11REF.1|	Genbank	protein_binding_site	7592	7603	.	+	.	ID=id-M14119.1:7592..7603;Note=putative;bound_moiety=E2;function=gene transcription;gbkey=protein_bind										
+gi|333026|lcl|HPV11REF.1|	Genbank	region	7748	7753	.	+	.	ID=id-M14119.1:7748..7753;Note=putative;gbkey=polyA_signal										
+gi|333026|lcl|HPV11REF.1|	Genbank	protein_binding_site	7890	7901	.	+	.	ID=id-M14119.1:7890..7901;Note=putative;bound_moiety=E2;function=gene transcription;gbkey=protein_bind										
+##sequence-region HPV12REF.1 1 7673																		

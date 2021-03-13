@@ -1,0 +1,20 @@
+##sequence-region HPV13REF.1 1 7880																		
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=10573																		
+gi|60295|lcl|HPV13REF.1|	EMBL	region	1	7880	.	+	.	ID=X62843.1:1..7880;Dbxref=taxon:10573;gbkey=Src;mol_type=genomic DNA										
+gi|60295|lcl|HPV13REF.1|	EMBL	gene	104	556	.	+	.	ID=gene-E6;Name=E6;gbkey=Gene;gene=E6;gene_biotype=protein_coding										
+gi|60295|lcl|HPV13REF.1|	EMBL	CDS	104	556	.	+	0	ID=cds-CAA44647.1;Parent=gene-E6;Dbxref=GOA:Q02269	InterPro:IPR001334	UniProtKB/Swiss-Prot:Q02269	NCBI_GP:CAA44647.1;Name=CAA44647.1;gbkey=CDS;gene=E6;gene=CAA44647.1;protein_id=CAA44647.1							
+gi|60295|lcl|HPV13REF.1|	EMBL	gene	532	837	.	+	.	ID=gene-E7;Name=E7;gbkey=Gene;gene=E7;gene_biotype=protein_coding										
+gi|60295|lcl|HPV13REF.1|	EMBL	CDS	532	837	.	+	0	ID=cds-CAA44648.1;Parent=gene-E7;Dbxref=GOA:Q02271	InterPro:IPR000148	UniProtKB/Swiss-Prot:Q02271	NCBI_GP:CAA44648.1;Name=CAA44648.1;gbkey=CDS;gene=E7;gene=CAA44648.1;protein_id=CAA44648.1							
+gi|60295|lcl|HPV13REF.1|	EMBL	gene	843	2783	.	+	.	ID=gene-E1;Name=E1;gbkey=Gene;gene=E1;gene_biotype=protein_coding										
+gi|60295|lcl|HPV13REF.1|	EMBL	CDS	843	2783	.	+	0	ID=cds-CAA44649.1;Parent=gene-E1;Dbxref=GOA:Q02261	InterPro:IPR001177	InterPro:IPR014000	InterPro:IPR014015	InterPro:IPR016393	UniProtKB/Swiss-Prot:Q02261	NCBI_GP:CAA44649.1;Name=CAA44649.1;gbkey=CDS;gene=E1;gene=CAA44649.1;protein_id=CAA44649.1				
+gi|60295|lcl|HPV13REF.1|	EMBL	gene	2725	3858	.	+	.	ID=gene-E2;Name=E2;gbkey=Gene;gene=E2;gene_biotype=protein_coding										
+gi|60295|lcl|HPV13REF.1|	EMBL	CDS	2725	3858	.	+	0	ID=cds-CAA44650.1;Parent=gene-E2;Dbxref=GOA:Q02263	InterPro:IPR000427	InterPro:IPR001866	InterPro:IPR009021	InterPro:IPR012677	UniProtKB/Swiss-Prot:Q02263	NCBI_GP:CAA44650.1;Name=CAA44650.1;gbkey=CDS;gene=E2;gene=CAA44650.1;protein_id=CAA44650.1				
+gi|60295|lcl|HPV13REF.1|	EMBL	gene	3257	3613	.	+	.	ID=gene-E4;Name=E4;gbkey=Gene;gene=E4;gene_biotype=protein_coding										
+gi|60295|lcl|HPV13REF.1|	EMBL	CDS	3257	3613	.	+	0	ID=cds-CAA44651.1;Parent=gene-E4;Dbxref=InterPro:IPR003861	UniProtKB/Swiss-Prot:Q02265	NCBI_GP:CAA44651.1;Name=CAA44651.1;gbkey=CDS;gene=E4;gene=CAA44651.1;protein_id=CAA44651.1								
+gi|60295|lcl|HPV13REF.1|	EMBL	gene	3908	4183	.	+	.	ID=gene-E5;Name=E5;gbkey=Gene;gene=E5;gene_biotype=protein_coding										
+gi|60295|lcl|HPV13REF.1|	EMBL	CDS	3908	4183	.	+	0	ID=cds-CAA44652.1;Parent=gene-E5;Dbxref=InterPro:IPR008736	UniProtKB/Swiss-Prot:Q02267	NCBI_GP:CAA44652.1;Name=CAA44652.1;gbkey=CDS;gene=E5;gene=CAA44652.1;protein_id=CAA44652.1								
+gi|60295|lcl|HPV13REF.1|	EMBL	gene	4364	5755	.	+	.	ID=gene-L2;Name=L2;gbkey=Gene;gene=L2;gene_biotype=protein_coding										
+gi|60295|lcl|HPV13REF.1|	EMBL	CDS	4364	5755	.	+	0	ID=cds-CAA44653.1;Parent=gene-L2;Dbxref=GOA:Q02275	InterPro:IPR000784	UniProtKB/Swiss-Prot:Q02275	NCBI_GP:CAA44653.1;Name=CAA44653.1;gbkey=CDS;gene=L2;gene=CAA44653.1;protein_id=CAA44653.1							
+gi|60295|lcl|HPV13REF.1|	EMBL	gene	5742	7241	.	+	.	ID=gene-L1;Name=L1;gbkey=Gene;gene=L1;gene_biotype=protein_coding										
+gi|60295|lcl|HPV13REF.1|	EMBL	CDS	5742	7241	.	+	0	ID=cds-CAA44654.1;Parent=gene-L1;Dbxref=GOA:Q02273	InterPro:IPR002210	InterPro:IPR011222	UniProtKB/Swiss-Prot:Q02273	NCBI_GP:CAA44654.1;Name=CAA44654.1;gbkey=CDS;gene=L1;gene=CAA44654.1;protein_id=CAA44654.1						
+##sequence-region HPV14REF.1 1 7439																		

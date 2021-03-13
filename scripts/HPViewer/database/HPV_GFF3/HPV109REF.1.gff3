@@ -1,0 +1,18 @@
+##sequence-region HPV109REF.1 1 7346																		
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=915426																		
+gi|225927560|lcl|HPV109REF.1|	RefSeq	region	1	7346	.	+	.	ID=NC_012485.1:1..7346;Dbxref=taxon:915426;Is_circular=true;country=Sweden;gbkey=Src;genome=genomic;mol_type=genomic DNA;old-name=Human papillomavirus type 109										
+gi|225927560|lcl|HPV109REF.1|	RefSeq	gene	96	518	.	+	.	ID=gene-HPV-109_gp1;Dbxref=GeneID:7701334;Name=E6;gbkey=Gene;gene=E6;gene_biotype=protein_coding;locus_tag=HPV-109_gp1										
+gi|225927560|lcl|HPV109REF.1|	RefSeq	CDS	96	518	.	+	0	ID=cds-YP_002756538.1;Parent=gene-HPV-109_gp1;Dbxref=Genbank:YP_002756538.1	GeneID:7701334;Name=YP_002756538.1;gbkey=CDS;gene=E6;locus_tag=HPV-109_gp1;gene=E6 protein;protein_id=YP_002756538.1									
+gi|225927560|lcl|HPV109REF.1|	RefSeq	gene	508	798	.	+	.	ID=gene-HPV-109_gp2;Dbxref=GeneID:7701328;Name=E7;gbkey=Gene;gene=E7;gene_biotype=protein_coding;locus_tag=HPV-109_gp2										
+gi|225927560|lcl|HPV109REF.1|	RefSeq	CDS	508	798	.	+	0	ID=cds-YP_002756539.1;Parent=gene-HPV-109_gp2;Dbxref=Genbank:YP_002756539.1	GeneID:7701328;Name=YP_002756539.1;gbkey=CDS;gene=E7;locus_tag=HPV-109_gp2;gene=E7 protein;protein_id=YP_002756539.1									
+gi|225927560|lcl|HPV109REF.1|	RefSeq	gene	788	2638	.	+	.	ID=gene-HPV-109_gp3;Dbxref=GeneID:7701329;Name=E1;gbkey=Gene;gene=E1;gene_biotype=protein_coding;locus_tag=HPV-109_gp3										
+gi|225927560|lcl|HPV109REF.1|	RefSeq	CDS	788	2638	.	+	0	ID=cds-YP_002756540.1;Parent=gene-HPV-109_gp3;Dbxref=Genbank:YP_002756540.1	GeneID:7701329;Name=YP_002756540.1;gbkey=CDS;gene=E1;locus_tag=HPV-109_gp3;gene=E1 protein;protein_id=YP_002756540.1									
+gi|225927560|lcl|HPV109REF.1|	RefSeq	gene	2577	3797	.	+	.	ID=gene-HPV-109_gp4;Dbxref=GeneID:7701330;Name=E2;gbkey=Gene;gene=E2;gene_biotype=protein_coding;locus_tag=HPV-109_gp4										
+gi|225927560|lcl|HPV109REF.1|	RefSeq	CDS	2577	3797	.	+	0	ID=cds-YP_002756541.1;Parent=gene-HPV-109_gp4;Dbxref=Genbank:YP_002756541.1	GeneID:7701330;Name=YP_002756541.1;gbkey=CDS;gene=E2;locus_tag=HPV-109_gp4;gene=E2 protein;protein_id=YP_002756541.1									
+gi|225927560|lcl|HPV109REF.1|	RefSeq	gene	3106	3564	.	+	.	ID=gene-HPV-109_gp5;Dbxref=GeneID:7701331;Name=E4;gbkey=Gene;gene=E4;gene_biotype=protein_coding;locus_tag=HPV-109_gp5										
+gi|225927560|lcl|HPV109REF.1|	RefSeq	CDS	3106	3564	.	+	0	ID=cds-YP_002756542.1;Parent=gene-HPV-109_gp5;Dbxref=Genbank:YP_002756542.1	GeneID:7701331;Name=YP_002756542.1;gbkey=CDS;gene=E4;locus_tag=HPV-109_gp5;gene=E4 protein;protein_id=YP_002756542.1									
+gi|225927560|lcl|HPV109REF.1|	RefSeq	gene	3800	5365	.	+	.	ID=gene-HPV-109_gp6;Dbxref=GeneID:7701332;Name=L2;gbkey=Gene;gene=L2;gene_biotype=protein_coding;locus_tag=HPV-109_gp6										
+gi|225927560|lcl|HPV109REF.1|	RefSeq	CDS	3800	5365	.	+	0	ID=cds-YP_002756543.1;Parent=gene-HPV-109_gp6;Dbxref=Genbank:YP_002756543.1	GeneID:7701332;Name=YP_002756543.1;gbkey=CDS;gene=L2;locus_tag=HPV-109_gp6;gene=L2 protein;protein_id=YP_002756543.1									
+gi|225927560|lcl|HPV109REF.1|	RefSeq	gene	5376	6929	.	+	.	ID=gene-HPV-109_gp7;Dbxref=GeneID:7701333;Name=L1;gbkey=Gene;gene=L1;gene_biotype=protein_coding;locus_tag=HPV-109_gp7										
+gi|225927560|lcl|HPV109REF.1|	RefSeq	CDS	5376	6929	.	+	0	ID=cds-YP_002756544.1;Parent=gene-HPV-109_gp7;Dbxref=Genbank:YP_002756544.1	GeneID:7701333;Name=YP_002756544.1;gbkey=CDS;gene=L1;locus_tag=HPV-109_gp7;gene=L1 protein;protein_id=YP_002756544.1									
+##sequence-region HPV110REF.1 1 7423																		

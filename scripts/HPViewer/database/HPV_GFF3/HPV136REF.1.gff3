@@ -1,0 +1,18 @@
+##sequence-region HPV136REF.1 1 7319																		
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=1070409																		
+gi|389656408|lcl|HPV136REF.1|	RefSeq	region	1	7319	.	+	.	ID=NC_017994.1:1..7319;Dbxref=taxon:1070409;Is_circular=true;collection-date=2009;country=USA;gbkey=Src;genome=genomic;isolate=CL3865;mol_type=genomic DNA;nat-host=Homo sapiens										
+gi|389656408|lcl|HPV136REF.1|	RefSeq	gene	1	429	.	+	.	ID=gene-E6;Dbxref=GeneID:12983968;Name=E6;gbkey=Gene;gene=E6;gene_biotype=protein_coding;locus_tag=A398_gp1										
+gi|389656408|lcl|HPV136REF.1|	RefSeq	CDS	1	429	.	+	0	ID=cds-YP_006393288.1;Parent=gene-A398_gp1;Dbxref=Genbank:YP_006393288.1	GeneID:12983968;Name=YP_006393288.1;gbkey=CDS;gene=E6;locus_tag=A398_gp1;gene=transforming protein;protein_id=YP_006393288.1									
+gi|389656408|lcl|HPV136REF.1|	RefSeq	gene	432	728	.	+	.	ID=gene-E7;Dbxref=GeneID:12983962;Name=E7;gbkey=Gene;gene=E7;gene_biotype=protein_coding;locus_tag=A398_gp2										
+gi|389656408|lcl|HPV136REF.1|	RefSeq	CDS	432	728	.	+	0	ID=cds-YP_006393289.1;Parent=gene-A398_gp2;Dbxref=Genbank:YP_006393289.1	GeneID:12983962;Name=YP_006393289.1;gbkey=CDS;gene=E7;locus_tag=A398_gp2;gene=transforming protein;protein_id=YP_006393289.1									
+gi|389656408|lcl|HPV136REF.1|	RefSeq	gene	715	2526	.	+	.	ID=gene-E1;Dbxref=GeneID:12983963;Name=E1;gbkey=Gene;gene=E1;gene_biotype=protein_coding;locus_tag=A398_gp3										
+gi|389656408|lcl|HPV136REF.1|	RefSeq	CDS	715	2526	.	+	0	ID=cds-YP_006393290.1;Parent=gene-A398_gp3;Dbxref=Genbank:YP_006393290.1	GeneID:12983963;Name=YP_006393290.1;gbkey=CDS;gene=E1;locus_tag=A398_gp3;gene=replication protein;protein_id=YP_006393290.1									
+gi|389656408|lcl|HPV136REF.1|	RefSeq	gene	2462	3640	.	+	.	ID=gene-E2;Dbxref=GeneID:12983964;Name=E2;gbkey=Gene;gene=E2;gene_biotype=protein_coding;locus_tag=A398_gp4										
+gi|389656408|lcl|HPV136REF.1|	RefSeq	CDS	2462	3640	.	+	0	ID=cds-YP_006393291.1;Parent=gene-A398_gp4;Dbxref=Genbank:YP_006393291.1	GeneID:12983964;Name=YP_006393291.1;gbkey=CDS;gene=E2;locus_tag=A398_gp4;gene=regulatory protein;protein_id=YP_006393291.1									
+gi|389656408|lcl|HPV136REF.1|	RefSeq	gene	2958	3401	.	+	.	ID=gene-E4;Dbxref=GeneID:12983965;Name=E4;gbkey=Gene;gene=E4;gene_biotype=protein_coding;locus_tag=A398_gp5										
+gi|389656408|lcl|HPV136REF.1|	RefSeq	CDS	2958	3401	.	+	0	ID=cds-YP_006393292.1;Parent=gene-A398_gp5;Dbxref=Genbank:YP_006393292.1	GeneID:12983965;Name=YP_006393292.1;gbkey=CDS;gene=E4;locus_tag=A398_gp5;gene=hypothetical protein;protein_id=YP_006393292.1									
+gi|389656408|lcl|HPV136REF.1|	RefSeq	gene	3640	5151	.	+	.	ID=gene-L2;Dbxref=GeneID:12983966;Name=L2;gbkey=Gene;gene=L2;gene_biotype=protein_coding;locus_tag=A398_gp6										
+gi|389656408|lcl|HPV136REF.1|	RefSeq	CDS	3640	5151	.	+	0	ID=cds-YP_006393293.1;Parent=gene-A398_gp6;Dbxref=Genbank:YP_006393293.1	GeneID:12983966;Name=YP_006393293.1;gbkey=CDS;gene=L2;locus_tag=A398_gp6;gene=minor capsid protein;protein_id=YP_006393293.1									
+gi|389656408|lcl|HPV136REF.1|	RefSeq	gene	5160	6731	.	+	.	ID=gene-L1;Dbxref=GeneID:12983967;Name=L1;gbkey=Gene;gene=L1;gene_biotype=protein_coding;locus_tag=A398_gp7										
+gi|389656408|lcl|HPV136REF.1|	RefSeq	CDS	5160	6731	.	+	0	ID=cds-YP_006393294.1;Parent=gene-A398_gp7;Dbxref=Genbank:YP_006393294.1	GeneID:12983967;Name=YP_006393294.1;gbkey=CDS;gene=L1;locus_tag=A398_gp7;gene=major capsid protein;protein_id=YP_006393294.1									
+##sequence-region HPV137REF.1 1 7236																		

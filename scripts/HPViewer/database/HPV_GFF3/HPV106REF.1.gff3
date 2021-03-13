@@ -1,0 +1,11 @@
+##sequence-region HPV106REF.1 1 8035																		
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=338326																		
+gi|71726710|lcl|HPV106REF.1|	Genbank	region	1	8035	.	+	.	ID=DQ080082.1:1..8035;Dbxref=taxon:338326;Is_circular=true;acronym=HPV106;country=Costa Rica;gbkey=Src;genome=genomic;isolate=Qv28897;isolation-source=cervicovaginal cells from a 42 year old female with atypical squamous cells of unknown significance;mol_type=genomic DNA;type=106										
+gi|71726710|lcl|HPV106REF.1|	Genbank	gene	1	492	.	+	0	ID=cds-AAZ39513.1;Dbxref=NCBI_GP:AAZ39513.1;Name=E6;gbkey=CDS;gene=E6 protein;protein_id=AAZ39513.1										
+gi|71726710|lcl|HPV106REF.1|	Genbank	gene	468	755	.	+	0	ID=cds-AAZ39514.1;Dbxref=NCBI_GP:AAZ39514.1;Name=E7;gbkey=CDS;gene=E7 protein;protein_id=AAZ39514.1										
+gi|71726710|lcl|HPV106REF.1|	Genbank	gene	761	2701	.	+	0	ID=cds-AAZ39515.1;Dbxref=NCBI_GP:AAZ39515.1;Name=E1;gbkey=CDS;gene=E1 protein;protein_id=AAZ39515.1										
+gi|71726710|lcl|HPV106REF.1|	Genbank	gene	2643	3794	.	+	0	ID=cds-AAZ39516.1;Dbxref=NCBI_GP:AAZ39516.1;Name=E2;gbkey=CDS;gene=E2 protein;protein_id=AAZ39516.1										
+gi|71726710|lcl|HPV106REF.1|	Genbank	gene	3151	3546	.	+	0	ID=cds-AAZ39517.1;Dbxref=NCBI_GP:AAZ39517.1;Name=E4;gbkey=CDS;gene=E4 protein;protein_id=AAZ39517.1										
+gi|71726710|lcl|HPV106REF.1|	Genbank	gene	4401	5801	.	+	0	ID=cds-AAZ39518.1;Dbxref=NCBI_GP:AAZ39518.1;Name=L2;gbkey=CDS;gene=L2 protein;protein_id=AAZ39518.1										
+gi|71726710|lcl|HPV106REF.1|	Genbank	gene	5599	7302	.	+	0	ID=cds-AAZ39519.1;Dbxref=NCBI_GP:AAZ39519.1;Name=L1;gbkey=CDS;gene=L1 protein;protein_id=AAZ39519.1										
+##sequence-region HPV107REF.1 1 7562																		

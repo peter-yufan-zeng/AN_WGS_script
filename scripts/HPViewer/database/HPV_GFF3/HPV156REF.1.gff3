@@ -1,0 +1,18 @@
+##sequence-region HPV156REF.1 1 7329																		
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=1248396																		
+gi|410443770|lcl|HPV156REF.1|	Genbank	region	1	7329	.	+	.	ID=JX429973.1:1..7329;Dbxref=taxon:1248396;Is_circular=true;collection-date=2008;country=Argentina;gbkey=Src;genome=genomic;isolate=GC01;isolation-source=healthy skin from a sun-exposed area of an immunocompetent individual;mol_type=genomic DNA;nat-host=Homo sapiens										
+gi|410443770|lcl|HPV156REF.1|	Genbank	gene	106	528	.	+	.	ID=gene-E6;Name=E6;gbkey=Gene;gene=E6;gene_biotype=protein_coding;locus_tag=HPV156gp1										
+gi|410443770|lcl|HPV156REF.1|	Genbank	CDS	106	528	.	+	0	ID=cds-AFV67965.1;Parent=gene-HPV156gp1;Dbxref=NCBI_GP:AFV67965.1;Name=AFV67965.1;gbkey=CDS;gene=E6;locus_tag=HPV156gp1;gene=early protein E6;protein_id=AFV67965.1										
+gi|410443770|lcl|HPV156REF.1|	Genbank	gene	525	818	.	+	.	ID=gene-E7;Name=E7;gbkey=Gene;gene=E7;gene_biotype=protein_coding;locus_tag=HPV156gp2										
+gi|410443770|lcl|HPV156REF.1|	Genbank	CDS	525	818	.	+	0	ID=cds-AFV67966.1;Parent=gene-HPV156gp2;Dbxref=NCBI_GP:AFV67966.1;Name=AFV67966.1;gbkey=CDS;gene=E7;locus_tag=HPV156gp2;gene=early protein E7;protein_id=AFV67966.1										
+gi|410443770|lcl|HPV156REF.1|	Genbank	gene	805	2631	.	+	.	ID=gene-E1;Name=E1;gbkey=Gene;gene=E1;gene_biotype=protein_coding;locus_tag=HPV156gp3										
+gi|410443770|lcl|HPV156REF.1|	Genbank	CDS	805	2631	.	+	0	ID=cds-AFV67967.1;Parent=gene-HPV156gp3;Dbxref=NCBI_GP:AFV67967.1;Name=AFV67967.1;gbkey=CDS;gene=E1;locus_tag=HPV156gp3;gene=early protein E1;protein_id=AFV67967.1										
+gi|410443770|lcl|HPV156REF.1|	Genbank	gene	2567	3766	.	+	.	ID=gene-E2;Name=E2;gbkey=Gene;gene=E2;gene_biotype=protein_coding;locus_tag=HPV156gp4										
+gi|410443770|lcl|HPV156REF.1|	Genbank	CDS	2567	3766	.	+	0	ID=cds-AFV67968.1;Parent=gene-HPV156gp4;Dbxref=NCBI_GP:AFV67968.1;Name=AFV67968.1;gbkey=CDS;gene=E2;locus_tag=HPV156gp4;gene=early protein E2;protein_id=AFV67968.1										
+gi|410443770|lcl|HPV156REF.1|	Genbank	gene	2925	3530	.	+	.	ID=gene-E4;Name=E4;gbkey=Gene;gene=E4;gene_biotype=protein_coding;locus_tag=HPV156gp5										
+gi|410443770|lcl|HPV156REF.1|	Genbank	CDS	2925	3530	.	+	0	ID=cds-AFV67969.1;Parent=gene-HPV156gp5;Dbxref=NCBI_GP:AFV67969.1;Name=AFV67969.1;gbkey=CDS;gene=E4;locus_tag=HPV156gp5;gene=early protein E4;protein_id=AFV67969.1										
+gi|410443770|lcl|HPV156REF.1|	Genbank	gene	3775	5430	.	+	.	ID=gene-L2;Name=L2;gbkey=Gene;gene=L2;gene_biotype=protein_coding;locus_tag=HPV156gp6										
+gi|410443770|lcl|HPV156REF.1|	Genbank	CDS	3775	5430	.	+	0	ID=cds-AFV67970.1;Parent=gene-HPV156gp6;Dbxref=NCBI_GP:AFV67970.1;Name=AFV67970.1;gbkey=CDS;gene=L2;locus_tag=HPV156gp6;gene=late protein L2;protein_id=AFV67970.1										
+gi|410443770|lcl|HPV156REF.1|	Genbank	gene	5361	6890	.	+	.	ID=gene-L1;Name=L1;gbkey=Gene;gene=L1;gene_biotype=protein_coding;locus_tag=HPV156gp7										
+gi|410443770|lcl|HPV156REF.1|	Genbank	CDS	5361	6890	.	+	0	ID=cds-AFV67971.1;Parent=gene-HPV156gp7;Dbxref=NCBI_GP:AFV67971.1;Name=AFV67971.1;gbkey=CDS;gene=L1;locus_tag=HPV156gp7;gene=major capsid protein L1;protein_id=AFV67971.1										
+##sequence-region HPV157REF.1 1 7154																		

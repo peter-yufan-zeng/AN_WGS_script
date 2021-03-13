@@ -1,0 +1,32 @@
+##sequence-region HPV5REF.1 1 7746																		
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=333923																		
+gi|333071|lcl|HPV5REF.1|	Genbank	region	1	7746	.	+	.	ID=M17463.1:1..7746;Dbxref=taxon:333923;Is_circular=true;gbkey=Src;mol_type=genomic DNA;note=from EV patient benign flat wart										
+gi|333071|lcl|HPV5REF.1|	Genbank	polyA_signal_sequence	146	151	.	+	.	ID=id-M17463.1:146..151;Note=putative;gbkey=regulatory;regulatory_class=polyA_signal_sequence										
+gi|333071|lcl|HPV5REF.1|	Genbank	TATA_box	152	158	.	+	.	ID=id-M17463.1:152..158;Note=putative;gbkey=regulatory;regulatory_class=TATA_box										
+gi|333071|lcl|HPV5REF.1|	Genbank	TATA_box	154	160	.	+	.	ID=id-M17463.1:154..160;Note=putative;gbkey=regulatory;regulatory_class=TATA_box										
+gi|333071|lcl|HPV5REF.1|	Genbank	TATA_box	156	162	.	+	.	ID=id-M17463.1:156..162;Note=putative;gbkey=regulatory;regulatory_class=TATA_box										
+gi|333071|lcl|HPV5REF.1|	Genbank	TATA_box	158	164	.	+	.	ID=id-M17463.1:158..164;Note=putative;gbkey=regulatory;regulatory_class=TATA_box										
+gi|333071|lcl|HPV5REF.1|	Genbank	TATA_box	160	166	.	+	.	ID=id-M17463.1:160..166;Note=putative;gbkey=regulatory;regulatory_class=TATA_box										
+gi|333071|lcl|HPV5REF.1|	Genbank	gene	200	673	.	+	.	ID=gene-E6;Name=E6;gbkey=Gene;gene=E6;gene_biotype=protein_coding										
+gi|333071|lcl|HPV5REF.1|	Genbank	CDS	200	673	.	+	0	ID=cds-AAA46983.1;Parent=gene-E6;Dbxref=NCBI_GP:AAA46983.1;Name=AAA46983.1;Note=putative;gbkey=CDS;gene=E6;gene=transforming protein;protein_id=AAA46983.1										
+gi|333071|lcl|HPV5REF.1|	Genbank	gene	663	974	.	+	.	ID=gene-E7;Name=E7;gbkey=Gene;gene=E7;gene_biotype=protein_coding										
+gi|333071|lcl|HPV5REF.1|	Genbank	CDS	663	974	.	+	0	ID=cds-AAA46984.1;Parent=gene-E7;Dbxref=NCBI_GP:AAA46984.1;Name=AAA46984.1;Note=putative;gbkey=CDS;gene=E7;gene=transforming protein;protein_id=AAA46984.1										
+gi|333071|lcl|HPV5REF.1|	Genbank	gene	961	2781	.	+	.	ID=gene-E1;Name=E1;gbkey=Gene;gene=E1;gene_biotype=protein_coding										
+gi|333071|lcl|HPV5REF.1|	Genbank	CDS	961	2781	.	+	0	ID=cds-AAA46985.1;Parent=gene-E1;Dbxref=NCBI_GP:AAA46985.1;Name=AAA46985.1;Note=putative;gbkey=CDS;gene=E1;gene=replication protein;protein_id=AAA46985.1										
+gi|333071|lcl|HPV5REF.1|	Genbank	gene	2723	4267	.	+	.	ID=gene-E2;Name=E2;gbkey=Gene;gene=E2;gene_biotype=protein_coding										
+gi|333071|lcl|HPV5REF.1|	Genbank	CDS	2723	4267	.	+	0	ID=cds-AAA46986.1;Parent=gene-E2;Dbxref=NCBI_GP:AAA46986.1;Name=AAA46986.1;Note=putative;gbkey=CDS;gene=E2;gene=regulatory protein;protein_id=AAA46986.1										
+gi|333071|lcl|HPV5REF.1|	Genbank	gene	3285	4022	.	+	.	ID=gene-E4;Name=E4;gbkey=Gene;gene=E4;gene_biotype=protein_coding;partial=true;start_range=.	3285									
+gi|333071|lcl|HPV5REF.1|	Genbank	CDS	3285	4022	.	+	0	ID=cds-AAA46987.1;Parent=gene-E4;Dbxref=NCBI_GP:AAA46987.1;Name=AAA46987.1;Note=putative;gbkey=CDS;gene=E4;partial=true;gene=E4;protein_id=AAA46987.1;start_range=.	3285									
+gi|333071|lcl|HPV5REF.1|	Genbank	gene	3406	3912	.	+	.	ID=gene-E5;Name=E5;gbkey=Gene;gene=E5;gene_biotype=protein_coding;partial=true;start_range=.	3406									
+gi|333071|lcl|HPV5REF.1|	Genbank	CDS	3406	3912	.	+	0	ID=cds-AAA46988.1;Parent=gene-E5;Dbxref=NCBI_GP:AAA46988.1;Name=AAA46988.1;Note=putative;gbkey=CDS;gene=E5;partial=true;gene=E5;protein_id=AAA46988.1;start_range=.	3406									
+gi|333071|lcl|HPV5REF.1|	Genbank	protein_binding_site	3537	3548	.	+	.	ID=id-E5;Note=putative;bound_moiety=E2 protein;function=gene regulation;gbkey=protein_bind;gene=E5										
+gi|333071|lcl|HPV5REF.1|	Genbank	gene	4348	5904	.	+	.	ID=gene-L2;Name=L2;gbkey=Gene;gene=L2;gene_biotype=protein_coding										
+gi|333071|lcl|HPV5REF.1|	Genbank	CDS	4348	5904	.	+	0	ID=cds-AAA46989.1;Parent=gene-L2;Dbxref=NCBI_GP:AAA46989.1;Name=AAA46989.1;Note=putative;gbkey=CDS;gene=L2;gene=minor capsid protein;protein_id=AAA46989.1										
+gi|333071|lcl|HPV5REF.1|	Genbank	polyA_signal_sequence	4438	4443	.	+	.	ID=id-L2;Note=putative;gbkey=regulatory;gene=L2;regulatory_class=polyA_signal_sequence										
+gi|333071|lcl|HPV5REF.1|	Genbank	gene	5917	7467	.	+	.	ID=gene-L1;Name=L1;gbkey=Gene;gene=L1;gene_biotype=protein_coding										
+gi|333071|lcl|HPV5REF.1|	Genbank	CDS	5917	7467	.	+	0	ID=cds-AAA46990.1;Parent=gene-L1;Dbxref=NCBI_GP:AAA46990.1;Name=AAA46990.1;Note=putative;gbkey=CDS;gene=L1;gene=major capsid protein;protein_id=AAA46990.1										
+gi|333071|lcl|HPV5REF.1|	Genbank	polyA_signal_sequence	6289	6294	.	+	.	ID=id-L1;Note=putative;gbkey=regulatory;gene=L1;regulatory_class=polyA_signal_sequence										
+gi|333071|lcl|HPV5REF.1|	Genbank	protein_binding_site	7564	7575	.	+	.	ID=id-M17463.1:7564..7575;Note=putative;bound_moiety=E2 protein;function=gene regulation;gbkey=protein_bind										
+gi|333071|lcl|HPV5REF.1|	Genbank	tandem_repeat	7703	7730	.	+	.	ID=id-M17463.1:7703..7730;Note=putative;gbkey=repeat_region;rpt_type=tandem										
+gi|333071|lcl|HPV5REF.1|	Genbank	protein_binding_site	7741	7752	.	+	.	ID=id-M17463.1:1..7746;Note=putative;bound_moiety=E2 protein;function=gene regulation;gbkey=protein_bind										
+##sequence-region HPV6REF.1 1 7902																		

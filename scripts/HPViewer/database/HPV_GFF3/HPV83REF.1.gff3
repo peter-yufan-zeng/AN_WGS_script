@@ -1,0 +1,18 @@
+##sequence-region HPV83REF.1 1 8104																		
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=333772																		
+gi|5059324|lcl|HPV83REF.1|	Genbank	region	1	8104	.	+	.	ID=AF151983.1:1..8104;Dbxref=taxon:333772;gbkey=Src;mol_type=genomic DNA;old-name=Human papillomavirus type 83										
+gi|5059324|lcl|HPV83REF.1|	Genbank	gene	1	444	.	+	.	ID=gene-E6;Name=E6;gbkey=Gene;gene=E6;gene_biotype=protein_coding										
+gi|5059324|lcl|HPV83REF.1|	Genbank	CDS	1	444	.	+	0	ID=cds-AAD38968.1;Parent=gene-E6;Dbxref=NCBI_GP:AAD38968.1;Name=AAD38968.1;gbkey=CDS;gene=E6;gene=transforming protein;protein_id=AAD38968.1										
+gi|5059324|lcl|HPV83REF.1|	Genbank	gene	420	713	.	+	.	ID=gene-E7;Name=E7;gbkey=Gene;gene=E7;gene_biotype=protein_coding										
+gi|5059324|lcl|HPV83REF.1|	Genbank	CDS	420	713	.	+	0	ID=cds-AAD38969.1;Parent=gene-E7;Dbxref=NCBI_GP:AAD38969.1;Name=AAD38969.1;gbkey=CDS;gene=E7;gene=transforming protein;protein_id=AAD38969.1										
+gi|5059324|lcl|HPV83REF.1|	Genbank	gene	718	2673	.	+	.	ID=gene-E1;Name=E1;gbkey=Gene;gene=E1;gene_biotype=protein_coding										
+gi|5059324|lcl|HPV83REF.1|	Genbank	CDS	718	2673	.	+	0	ID=cds-AAD38970.1;Parent=gene-E1;Dbxref=NCBI_GP:AAD38970.1;Name=AAD38970.1;gbkey=CDS;gene=E1;gene=replication protein;protein_id=AAD38970.1										
+gi|5059324|lcl|HPV83REF.1|	Genbank	gene	2615	3757	.	+	.	ID=gene-E2;Name=E2;gbkey=Gene;gene=E2;gene_biotype=protein_coding										
+gi|5059324|lcl|HPV83REF.1|	Genbank	CDS	2615	3757	.	+	0	ID=cds-AAD38971.1;Parent=gene-E2;Dbxref=NCBI_GP:AAD38971.1;Name=AAD38971.1;gbkey=CDS;gene=E2;gene=transactivator;protein_id=AAD38971.1										
+gi|5059324|lcl|HPV83REF.1|	Genbank	gene	3153	3494	.	+	.	ID=gene-E4;Name=E4;gbkey=Gene;gene=E4;gene_biotype=protein_coding										
+gi|5059324|lcl|HPV83REF.1|	Genbank	CDS	3153	3494	.	+	0	ID=cds-AAD38972.1;Parent=gene-E4;Dbxref=NCBI_GP:AAD38972.1;Name=AAD38972.1;gbkey=CDS;gene=E4;gene=E4;protein_id=AAD38972.1										
+gi|5059324|lcl|HPV83REF.1|	Genbank	gene	4349	5764	.	+	.	ID=gene-L2;Name=L2;gbkey=Gene;gene=L2;gene_biotype=protein_coding										
+gi|5059324|lcl|HPV83REF.1|	Genbank	CDS	4349	5764	.	+	0	ID=cds-AAD38973.1;Parent=gene-L2;Dbxref=NCBI_GP:AAD38973.1;Name=AAD38973.1;gbkey=CDS;gene=L2;gene=minor capsid protein;protein_id=AAD38973.1										
+gi|5059324|lcl|HPV83REF.1|	Genbank	gene	5742	7253	.	+	.	ID=gene-L1;Name=L1;gbkey=Gene;gene=L1;gene_biotype=protein_coding										
+gi|5059324|lcl|HPV83REF.1|	Genbank	CDS	5742	7253	.	+	0	ID=cds-AAD38974.1;Parent=gene-L1;Dbxref=NCBI_GP:AAD38974.1;Name=AAD38974.1;gbkey=CDS;gene=L1;gene=major capsid protein;protein_id=AAD38974.1										
+##sequence-region HPV84REF.1 1 7948																		

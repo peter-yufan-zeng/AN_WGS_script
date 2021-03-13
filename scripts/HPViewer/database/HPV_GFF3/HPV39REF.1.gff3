@@ -1,0 +1,31 @@
+##sequence-region HPV39REF.1 1 7833																		
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=10588																		
+gi|333245|lcl|HPV39REF.1|	Genbank	region	1	7833	.	+	.	ID=M62849.1:1..7833;Dbxref=taxon:10588;Is_circular=true;gbkey=Src;mol_type=genomic DNA										
+gi|333245|lcl|HPV39REF.1|	Genbank	promoter	33	42	.	+	.	ID=id-M62849.1:33..42;Note=putative;gbkey=promoter										
+gi|333245|lcl|HPV39REF.1|	Genbank	protein_binding_site	43	54	.	+	.	ID=id-M62849.1:43..54;Note=putative;bound_moiety=E2;function=gene transcription;gbkey=protein_bind										
+gi|333245|lcl|HPV39REF.1|	Genbank	protein_binding_site	59	70	.	+	.	ID=id-M62849.1:59..70;Note=putative;bound_moiety=E2;function=gene transcription;gbkey=protein_bind										
+gi|333245|lcl|HPV39REF.1|	Genbank	region	74	80	.	+	.	ID=id-M62849.1:74..80;Note=putative;gbkey=TATA_signal										
+gi|333245|lcl|HPV39REF.1|	Genbank	gene	107	583	.	+	.	ID=gene-E6;Name=E6;gbkey=Gene;gene=E6;gene_biotype=protein_coding										
+gi|333245|lcl|HPV39REF.1|	Genbank	CDS	107	583	.	+	0	ID=cds-AAA47050.1;Parent=gene-E6;Dbxref=NCBI_GP:AAA47050.1;Name=AAA47050.1;Note=putative;gbkey=CDS;gene=E6;gene=transforming protein;protein_id=AAA47050.1										
+gi|333245|lcl|HPV39REF.1|	Genbank	gene	592	921	.	+	.	ID=gene-E7;Name=E7;gbkey=Gene;gene=E7;gene_biotype=protein_coding										
+gi|333245|lcl|HPV39REF.1|	Genbank	CDS	592	921	.	+	0	ID=cds-AAA47051.1;Parent=gene-E7;Dbxref=NCBI_GP:AAA47051.1;Name=AAA47051.1;Note=putative;gbkey=CDS;gene=E7;gene=transforming protein;protein_id=AAA47051.1										
+gi|333245|lcl|HPV39REF.1|	Genbank	gene	928	2871	.	+	.	ID=gene-E1;Name=E1;gbkey=Gene;gene=E1;gene_biotype=protein_coding										
+gi|333245|lcl|HPV39REF.1|	Genbank	CDS	928	2871	.	+	0	ID=cds-AAA47052.1;Parent=gene-E1;Dbxref=NCBI_GP:AAA47052.1;Name=AAA47052.1;Note=putative;gbkey=CDS;gene=E1;gene=replication protein;protein_id=AAA47052.1										
+gi|333245|lcl|HPV39REF.1|	Genbank	gene	2798	3910	.	+	.	ID=gene-E2;Name=E2;gbkey=Gene;gene=E2;gene_biotype=protein_coding										
+gi|333245|lcl|HPV39REF.1|	Genbank	CDS	2798	3910	.	+	0	ID=cds-AAA47053.1;Parent=gene-E2;Dbxref=NCBI_GP:AAA47053.1;Name=AAA47053.1;Note=putative;gbkey=CDS;gene=E2;gene=regulatory protein;protein_id=AAA47053.1										
+gi|333245|lcl|HPV39REF.1|	Genbank	gene	3393	3677	.	+	.	ID=gene-E4;Name=E4;gbkey=Gene;gene=E4;gene_biotype=protein_coding										
+gi|333245|lcl|HPV39REF.1|	Genbank	CDS	3393	3677	.	+	0	ID=cds-AAA47049.1;Parent=gene-E4;Dbxref=NCBI_GP:AAA47049.1;Name=AAA47049.1;gbkey=CDS;gene=E4;partial=true;gene=E4 ORF;protein_id=AAA47049.1;start_range=.	3393									
+gi|333245|lcl|HPV39REF.1|	Genbank	gene	3958	4176	.	+	.	ID=gene-E5;Name=E5;gbkey=Gene;gene=E5;gene_biotype=protein_coding										
+gi|333245|lcl|HPV39REF.1|	Genbank	CDS	3958	4176	.	+	0	ID=cds-AAA47054.1;Parent=gene-E5;Dbxref=NCBI_GP:AAA47054.1;Name=AAA47054.1;gbkey=CDS;gene=E5;gene=E5 ORF;protein_id=AAA47054.1										
+gi|333245|lcl|HPV39REF.1|	Genbank	region	4243	4248	.	+	.	ID=id-M62849.1:4243..4248;gbkey=polyA_signal										
+gi|333245|lcl|HPV39REF.1|	Genbank	gene	4250	5662	.	+	.	ID=gene-L2;Name=L2;gbkey=Gene;gene=L2;gene_biotype=protein_coding										
+gi|333245|lcl|HPV39REF.1|	Genbank	CDS	4250	5662	.	+	0	ID=cds-AAA47055.1;Parent=gene-L2;Dbxref=NCBI_GP:AAA47055.1;Name=AAA47055.1;Note=putative;gbkey=CDS;gene=L2;gene=minor capsid protein;protein_id=AAA47055.1										
+gi|333245|lcl|HPV39REF.1|	Genbank	gene	5643	7160	.	+	.	ID=gene-L1;Name=L1;gbkey=Gene;gene=L1;gene_biotype=protein_coding										
+gi|333245|lcl|HPV39REF.1|	Genbank	CDS	5643	7160	.	+	0	ID=cds-AAA47056.1;Parent=gene-L1;Dbxref=NCBI_GP:AAA47056.1;Name=AAA47056.1;Note=L1 ORF from bp 5610 to 7160%3B putative;gbkey=CDS;gene=L1;gene=major capsid protein;protein_id=AAA47056.1										
+gi|333245|lcl|HPV39REF.1|	Genbank	protein_binding_site	6367	6381	.	+	.	ID=id-L1;Note=putative;bound_moiety=hormone receptor;gbkey=protein_bind;gene=L1;standard_name=glucocorticoid responsive element										
+gi|333245|lcl|HPV39REF.1|	Genbank	five_prime_UTR	7161	7939	.	+	.	ID=id-M62849.1:1..7833;gbkey=5'UTR;standard_name=LCR										
+gi|333245|lcl|HPV39REF.1|	Genbank	region	7261	7266	.	+	.	ID=id-M62849.1:7261..7266;gbkey=polyA_signal										
+gi|333245|lcl|HPV39REF.1|	Genbank	protein_binding_site	7425	7439	.	+	.	ID=id-M62849.1:7425..7439;Note=putative;bound_moiety=hormone receptor;gbkey=protein_bind;standard_name=glucocorticoid responsive element										
+gi|333245|lcl|HPV39REF.1|	Genbank	protein_binding_site	7456	7467	.	+	.	ID=id-M62849.1:7456..7467;Note=putative;bound_moiety=E2;function=gene transcription;gbkey=protein_bind										
+gi|333245|lcl|HPV39REF.1|	Genbank	protein_binding_site	7798	7809	.	+	.	ID=id-M62849.1:7798..7809;Note=putative;bound_moiety=E2;function=gene transcription;gbkey=protein_bind										
+##sequence-region HPV40REF.1 1 7909																		

@@ -1,0 +1,18 @@
+##sequence-region HPV61REF.1 1 7989																		
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=333767																		
+gi|9628574|lcl|HPV61REF.1|	RefSeq	region	1	7989	.	+	.	ID=NC_001694.1:1..7989;Dbxref=taxon:333767;Is_circular=true;gbkey=Src;genome=genomic;mol_type=genomic DNA;old-name=Human papillomavirus - 61										
+gi|9628574|lcl|HPV61REF.1|	RefSeq	gene	102	542	.	+	.	ID=gene-HpV61gp1;Dbxref=GeneID:1403312;Name=E6;gbkey=Gene;gene=E6;gene_biotype=protein_coding;locus_tag=HpV61gp1										
+gi|9628574|lcl|HPV61REF.1|	RefSeq	CDS	102	542	.	+	0	ID=cds-NP_043444.1;Parent=gene-HpV61gp1;Dbxref=Genbank:NP_043444.1	GeneID:1403312;Name=NP_043444.1;Note=putative;gbkey=CDS;gene=E6;locus_tag=HpV61gp1;gene=transforming protein E6;protein_id=NP_043444.1									
+gi|9628574|lcl|HPV61REF.1|	RefSeq	gene	518	805	.	+	.	ID=gene-HpV61gp2;Dbxref=GeneID:1403313;Name=E7;gbkey=Gene;gene=E7;gene_biotype=protein_coding;locus_tag=HpV61gp2										
+gi|9628574|lcl|HPV61REF.1|	RefSeq	CDS	518	805	.	+	0	ID=cds-NP_043445.1;Parent=gene-HpV61gp2;Dbxref=Genbank:NP_043445.1	GeneID:1403313;Name=NP_043445.1;Note=putative;gbkey=CDS;gene=E7;locus_tag=HpV61gp2;gene=transforming protein E7;protein_id=NP_043445.1									
+gi|9628574|lcl|HPV61REF.1|	RefSeq	gene	811	2769	.	+	.	ID=gene-HpV61gp3;Dbxref=GeneID:1403314;Name=E1;gbkey=Gene;gene=E1;gene_biotype=protein_coding;locus_tag=HpV61gp3										
+gi|9628574|lcl|HPV61REF.1|	RefSeq	CDS	811	2769	.	+	0	ID=cds-NP_043446.1;Parent=gene-HpV61gp3;Dbxref=Genbank:NP_043446.1	GeneID:1403314;Name=NP_043446.1;Note=putative;gbkey=CDS;gene=E1;locus_tag=HpV61gp3;gene=replication protein E1;protein_id=NP_043446.1									
+gi|9628574|lcl|HPV61REF.1|	RefSeq	gene	2705	3853	.	+	.	ID=gene-HpV61gp4;Dbxref=GeneID:1403315;Name=E2;gbkey=Gene;gene=E2;gene_biotype=protein_coding;locus_tag=HpV61gp4										
+gi|9628574|lcl|HPV61REF.1|	RefSeq	CDS	2705	3853	.	+	0	ID=cds-NP_043447.1;Parent=gene-HpV61gp4;Dbxref=Genbank:NP_043447.1	GeneID:1403315;Name=NP_043447.1;Note=putative;gbkey=CDS;gene=E2;locus_tag=HpV61gp4;gene=regulatory protein E2;protein_id=NP_043447.1									
+gi|9628574|lcl|HPV61REF.1|	RefSeq	gene	3297	3611	.	+	.	ID=gene-HpV61gp5;Dbxref=GeneID:1403316;Name=E4;gbkey=Gene;gene=E4;gene_biotype=protein_coding;locus_tag=HpV61gp5										
+gi|9628574|lcl|HPV61REF.1|	RefSeq	CDS	3297	3611	.	+	0	ID=cds-NP_043448.2;Parent=gene-HpV61gp5;Dbxref=Genbank:NP_043448.2	GeneID:1403316;Name=NP_043448.2;gbkey=CDS;gene=E4;locus_tag=HpV61gp5;gene=E4 protein;protein_id=NP_043448.2									
+gi|9628574|lcl|HPV61REF.1|	RefSeq	gene	4407	5786	.	+	.	ID=gene-HpV61gp6;Dbxref=GeneID:1403317;Name=L2;gbkey=Gene;gene=L2;gene_biotype=protein_coding;locus_tag=HpV61gp6										
+gi|9628574|lcl|HPV61REF.1|	RefSeq	CDS	4407	5786	.	+	0	ID=cds-NP_043449.1;Parent=gene-HpV61gp6;Dbxref=Genbank:NP_043449.1	GeneID:1403317;Name=NP_043449.1;Note=putative;gbkey=CDS;gene=L2;locus_tag=HpV61gp6;gene=minor capsid protein L2;protein_id=NP_043449.1									
+gi|9628574|lcl|HPV61REF.1|	RefSeq	gene	5764	7281	.	+	.	ID=gene-HpV61gp7;Dbxref=GeneID:1403318;Name=L1;gbkey=Gene;gene=L1;gene_biotype=protein_coding;locus_tag=HpV61gp7										
+gi|9628574|lcl|HPV61REF.1|	RefSeq	CDS	5764	7281	.	+	0	ID=cds-NP_043450.1;Parent=gene-HpV61gp7;Dbxref=Genbank:NP_043450.1	GeneID:1403318;Name=NP_043450.1;Note=putative;gbkey=CDS;gene=L1;locus_tag=HpV61gp7;gene=major capsid protein L1;protein_id=NP_043450.1									
+##sequence-region HPV62REF.1 1 8092																		

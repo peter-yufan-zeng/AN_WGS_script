@@ -1,0 +1,18 @@
+##sequence-region HPV120REF.1 1 7304																		
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=765052																		
+gi|296495836|lcl|HPV120REF.1|	Genbank	region	1	7304	.	+	.	ID=GQ845442.1:1..7304;Dbxref=taxon:765052;Is_circular=true;gbkey=Src;genome=genomic;isolate=CL3857;mol_type=genomic DNA;nat-host=Homo sapiens;type=120										
+gi|296495836|lcl|HPV120REF.1|	Genbank	gene	1	426	.	+	.	ID=gene-E6;Name=E6;gbkey=Gene;gene=E6;gene_biotype=protein_coding										
+gi|296495836|lcl|HPV120REF.1|	Genbank	CDS	1	426	.	+	0	ID=cds-ADH29798.1;Parent=gene-E6;Dbxref=NCBI_GP:ADH29798.1;Name=ADH29798.1;gbkey=CDS;gene=E6;gene=transforming protein E6;protein_id=ADH29798.1										
+gi|296495836|lcl|HPV120REF.1|	Genbank	gene	423	716	.	+	.	ID=gene-E7;Name=E7;gbkey=Gene;gene=E7;gene_biotype=protein_coding										
+gi|296495836|lcl|HPV120REF.1|	Genbank	CDS	423	716	.	+	0	ID=cds-ADH29799.1;Parent=gene-E7;Dbxref=NCBI_GP:ADH29799.1;Name=ADH29799.1;gbkey=CDS;gene=E7;gene=transforming protein E7;protein_id=ADH29799.1										
+gi|296495836|lcl|HPV120REF.1|	Genbank	gene	703	2517	.	+	.	ID=gene-E1;Name=E1;gbkey=Gene;gene=E1;gene_biotype=protein_coding										
+gi|296495836|lcl|HPV120REF.1|	Genbank	CDS	703	2517	.	+	0	ID=cds-ADH29800.1;Parent=gene-E1;Dbxref=NCBI_GP:ADH29800.1;Name=ADH29800.1;gbkey=CDS;gene=E1;gene=replication protein E1;protein_id=ADH29800.1										
+gi|296495836|lcl|HPV120REF.1|	Genbank	gene	2459	3751	.	+	.	ID=gene-E2;Name=E2;gbkey=Gene;gene=E2;gene_biotype=protein_coding										
+gi|296495836|lcl|HPV120REF.1|	Genbank	CDS	2459	3751	.	+	0	ID=cds-ADH29801.1;Parent=gene-E2;Dbxref=NCBI_GP:ADH29801.1;Name=ADH29801.1;gbkey=CDS;gene=E2;gene=regulatory protein E2;protein_id=ADH29801.1										
+gi|296495836|lcl|HPV120REF.1|	Genbank	gene	2979	3506	.	+	.	ID=gene-E4;Name=E4;gbkey=Gene;gene=E4;gene_biotype=protein_coding										
+gi|296495836|lcl|HPV120REF.1|	Genbank	CDS	2979	3506	.	+	0	ID=cds-ADH29802.1;Parent=gene-E4;Dbxref=NCBI_GP:ADH29802.1;Name=ADH29802.1;gbkey=CDS;gene=E4;gene=hypothetical protein;protein_id=ADH29802.1										
+gi|296495836|lcl|HPV120REF.1|	Genbank	gene	3824	5383	.	+	.	ID=gene-L2;Name=L2;gbkey=Gene;gene=L2;gene_biotype=protein_coding										
+gi|296495836|lcl|HPV120REF.1|	Genbank	CDS	3824	5383	.	+	0	ID=cds-ADH29803.1;Parent=gene-L2;Dbxref=NCBI_GP:ADH29803.1;Name=ADH29803.1;gbkey=CDS;gene=L2;gene=minor capsid protein L2;protein_id=ADH29803.1										
+gi|296495836|lcl|HPV120REF.1|	Genbank	gene	5394	6914	.	+	.	ID=gene-L1;Name=L1;gbkey=Gene;gene=L1;gene_biotype=protein_coding										
+gi|296495836|lcl|HPV120REF.1|	Genbank	CDS	5394	6914	.	+	0	ID=cds-ADH29804.1;Parent=gene-L1;Dbxref=NCBI_GP:ADH29804.1;Name=ADH29804.1;gbkey=CDS;gene=L1;gene=major capsid protein L1;protein_id=ADH29804.1										
+##sequence-region HPV121REF.1 1 7342																		

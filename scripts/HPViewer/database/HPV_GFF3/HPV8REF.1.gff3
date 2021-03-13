@@ -1,0 +1,4 @@
+##sequence-region HPV8REF.1 1 7654																		
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=10579																		
+gi|333074|lcl|HPV8REF.1|	Genbank	region	1	7654	.	+	.	ID=M12737.1:1..7654;Dbxref=taxon:10579;Is_circular=true;gbkey=Src;mol_type=genomic DNA										
+##sequence-region HPV9REF.1 1 7434																		

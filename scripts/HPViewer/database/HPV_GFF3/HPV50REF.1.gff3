@@ -1,0 +1,18 @@
+##sequence-region HPV50REF.1 1 7184																		
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=40539																		
+gi|9628550|lcl|HPV50REF.1|	RefSeq	region	1	7184	.	+	.	ID=NC_001691.1:1..7184;Dbxref=taxon:40539;gbkey=Src;genome=genomic;mol_type=genomic DNA;note=cloned HPV-50 DNA was obtained from the Papillomavirus Reference Center%2C Heidelberg and sequenced by Dr. H. Delius										
+gi|9628550|lcl|HPV50REF.1|	RefSeq	gene	102	527	.	+	.	ID=gene-E6;Dbxref=GeneID:1403629;Name=E6;gbkey=Gene;gene=E6;gene_biotype=protein_coding										
+gi|9628550|lcl|HPV50REF.1|	RefSeq	CDS	102	527	.	+	0	ID=cds-NP_043423.1;Parent=gene-E6;Dbxref=Genbank:NP_043423.1	GeneID:1403629;Name=NP_043423.1;Note=putative;gbkey=CDS;gene=E6;gene=transforming protein E6;protein_id=NP_043423.1									
+gi|9628550|lcl|HPV50REF.1|	RefSeq	gene	517	798	.	+	.	ID=gene-E7;Dbxref=GeneID:1403630;Name=E7;gbkey=Gene;gene=E7;gene_biotype=protein_coding										
+gi|9628550|lcl|HPV50REF.1|	RefSeq	CDS	517	798	.	+	0	ID=cds-NP_043424.1;Parent=gene-E7;Dbxref=Genbank:NP_043424.1	GeneID:1403630;Name=NP_043424.1;Note=putative;gbkey=CDS;gene=E7;gene=transforming protein E7;protein_id=NP_043424.1									
+gi|9628550|lcl|HPV50REF.1|	RefSeq	gene	785	2584	.	+	.	ID=gene-E1;Dbxref=GeneID:1403631;Name=E1;gbkey=Gene;gene=E1;gene_biotype=protein_coding										
+gi|9628550|lcl|HPV50REF.1|	RefSeq	CDS	785	2584	.	+	0	ID=cds-NP_043425.1;Parent=gene-E1;Dbxref=Genbank:NP_043425.1	GeneID:1403631;Name=NP_043425.1;Note=putative;gbkey=CDS;gene=E1;gene=replication protein E1;protein_id=NP_043425.1									
+gi|9628550|lcl|HPV50REF.1|	RefSeq	gene	2508	3698	.	+	.	ID=gene-E2;Dbxref=GeneID:1403632;Name=E2;gbkey=Gene;gene=E2;gene_biotype=protein_coding										
+gi|9628550|lcl|HPV50REF.1|	RefSeq	CDS	2508	3698	.	+	0	ID=cds-NP_043426.1;Parent=gene-E2;Dbxref=Genbank:NP_043426.1	GeneID:1403632;Name=NP_043426.1;Note=putative;gbkey=CDS;gene=E2;gene=regulatory protein E2;protein_id=NP_043426.1									
+gi|9628550|lcl|HPV50REF.1|	RefSeq	gene	3016	3456	.	+	.	ID=gene-E4;Dbxref=GeneID:1403633;Name=E4;gbkey=Gene;gene=E4;gene_biotype=protein_coding										
+gi|9628550|lcl|HPV50REF.1|	RefSeq	CDS	3016	3456	.	+	0	ID=cds-NP_043427.1;Parent=gene-E4;Dbxref=Genbank:NP_043427.1	GeneID:1403633;Name=NP_043427.1;gbkey=CDS;gene=E4;partial=true;gene=hypothetical protein;protein_id=NP_043427.1;start_range=.	3016								
+gi|9628550|lcl|HPV50REF.1|	RefSeq	gene	3698	5218	.	+	.	ID=gene-L2;Dbxref=GeneID:1403634;Name=L2;gbkey=Gene;gene=L2;gene_biotype=protein_coding										
+gi|9628550|lcl|HPV50REF.1|	RefSeq	CDS	3698	5218	.	+	0	ID=cds-NP_043428.1;Parent=gene-L2;Dbxref=Genbank:NP_043428.1	GeneID:1403634;Name=NP_043428.1;Note=putative;gbkey=CDS;gene=L2;gene=minor capsid protein L2;protein_id=NP_043428.1									
+gi|9628550|lcl|HPV50REF.1|	RefSeq	gene	5231	6778	.	+	.	ID=gene-L1;Dbxref=GeneID:1403635;Name=L1;gbkey=Gene;gene=L1;gene_biotype=protein_coding										
+gi|9628550|lcl|HPV50REF.1|	RefSeq	CDS	5231	6778	.	+	0	ID=cds-NP_043429.1;Parent=gene-L1;Dbxref=Genbank:NP_043429.1	GeneID:1403635;Name=NP_043429.1;Note=putative;gbkey=CDS;gene=L1;gene=major capsid protein L1;protein_id=NP_043429.1									
+##sequence-region HPV51REF.1 1 7808																		

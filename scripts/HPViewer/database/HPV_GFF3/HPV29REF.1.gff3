@@ -1,0 +1,18 @@
+##sequence-region HPV29REF.1 1 7916																		
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=37112																		
+gi|1020210|lcl|HPV29REF.1|	Genbank	region	1	7916	.	+	.	ID=U31784.1:1..7916;Dbxref=taxon:37112;gbkey=Src;mol_type=genomic DNA;note=cloned HPV-29 was obtained from the Papillomavirus Reference Center%2C Heidelberg and sequenced by Dr. H. Delius										
+gi|1020210|lcl|HPV29REF.1|	Genbank	gene	102	548	.	+	.	ID=gene-E6;Name=E6;gbkey=Gene;gene=E6;gene_biotype=protein_coding										
+gi|1020210|lcl|HPV29REF.1|	Genbank	CDS	102	548	.	+	0	ID=cds-AAA79429.1;Parent=gene-E6;Dbxref=NCBI_GP:AAA79429.1;Name=AAA79429.1;Note=putative;gbkey=CDS;gene=E6;gene=transforming protein E6;protein_id=AAA79429.1										
+gi|1020210|lcl|HPV29REF.1|	Genbank	gene	524	796	.	+	.	ID=gene-E7;Name=E7;gbkey=Gene;gene=E7;gene_biotype=protein_coding										
+gi|1020210|lcl|HPV29REF.1|	Genbank	CDS	524	796	.	+	0	ID=cds-AAA79430.1;Parent=gene-E7;Dbxref=NCBI_GP:AAA79430.1;Name=AAA79430.1;Note=putative;gbkey=CDS;gene=E7;gene=transforming protein E7;protein_id=AAA79430.1										
+gi|1020210|lcl|HPV29REF.1|	Genbank	gene	803	2785	.	+	.	ID=gene-E1;Name=E1;gbkey=Gene;gene=E1;gene_biotype=protein_coding										
+gi|1020210|lcl|HPV29REF.1|	Genbank	CDS	803	2785	.	+	0	ID=cds-AAA79431.1;Parent=gene-E1;Dbxref=NCBI_GP:AAA79431.1;Name=AAA79431.1;Note=putative;gbkey=CDS;gene=E1;gene=replication protein E1;protein_id=AAA79431.1										
+gi|1020210|lcl|HPV29REF.1|	Genbank	gene	2727	3893	.	+	.	ID=gene-E2;Name=E2;gbkey=Gene;gene=E2;gene_biotype=protein_coding										
+gi|1020210|lcl|HPV29REF.1|	Genbank	CDS	2727	3893	.	+	0	ID=cds-AAA79432.1;Parent=gene-E2;Dbxref=NCBI_GP:AAA79432.1;Name=AAA79432.1;Note=putative;gbkey=CDS;gene=E2;gene=regulatory protein E2;protein_id=AAA79432.1										
+gi|1020210|lcl|HPV29REF.1|	Genbank	gene	3310	3657	.	+	.	ID=gene-E4;Name=E4;gbkey=Gene;gene=E4;gene_biotype=protein_coding										
+gi|1020210|lcl|HPV29REF.1|	Genbank	CDS	3310	3657	.	+	0	ID=cds-AAA79433.1;Parent=gene-E4;Dbxref=NCBI_GP:AAA79433.1;Name=AAA79433.1;gbkey=CDS;gene=E4;partial=true;gene=AAA79433.1;protein_id=AAA79433.1;start_range=.	3310									
+gi|1020210|lcl|HPV29REF.1|	Genbank	gene	4411	5832	.	+	.	ID=gene-L2;Name=L2;gbkey=Gene;gene=L2;gene_biotype=protein_coding										
+gi|1020210|lcl|HPV29REF.1|	Genbank	CDS	4411	5832	.	+	0	ID=cds-AAA79434.1;Parent=gene-L2;Dbxref=NCBI_GP:AAA79434.1;Name=AAA79434.1;Note=putative;gbkey=CDS;gene=L2;gene=minor capsid protein L2;protein_id=AAA79434.1										
+gi|1020210|lcl|HPV29REF.1|	Genbank	gene	5813	7324	.	+	.	ID=gene-L1;Name=L1;gbkey=Gene;gene=L1;gene_biotype=protein_coding										
+gi|1020210|lcl|HPV29REF.1|	Genbank	CDS	5813	7324	.	+	0	ID=cds-AAA79435.1;Parent=gene-L1;Dbxref=NCBI_GP:AAA79435.1;Name=AAA79435.1;Note=putative;gbkey=CDS;gene=L1;gene=major capsid protein L1;protein_id=AAA79435.1										
+##sequence-region HPV30REF.1 1 7852																		

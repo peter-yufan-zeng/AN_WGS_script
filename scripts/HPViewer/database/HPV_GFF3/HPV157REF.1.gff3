@@ -1,0 +1,10 @@
+##sequence-region HPV157REF.1 1 7154																		
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=2259331																		
+gi|1020934679|lcl|HPV157REF.1|	Genbank	region	1	7154	.	+	.	ID=KT698166.1:1..7154;Dbxref=taxon:2259331;Is_circular=true;collection-date=2008;country=Argentina;gbkey=Src;genome=genomic;isolate=GC08;isolation-source=healthy skin from a sun-exposed area of an immunocompetent individual;mol_type=genomic DNA;nat-host=Homo sapiens;type=157										
+gi|1020934679|lcl|HPV157REF.1|	Genbank	gene	1	417	.	+	0	ID=E6;Dbxref=NCBI_GP:ANA05265.1;Name=E6;Note=gp1;gbkey=CDS;gene=early protein E6;protein_id=ANA05265.1										
+gi|1020934679|lcl|HPV157REF.1|	Genbank	gene	417	698	.	+	0	ID=E7;Dbxref=NCBI_GP:ANA05266.1;Name=E7;Note=gp2;gbkey=CDS;gene=early protein E7;protein_id=ANA05266.1										
+gi|1020934679|lcl|HPV157REF.1|	Genbank	gene	682	2487	.	+	0	ID=E1;Dbxref=NCBI_GP:ANA05267.1;Name=E1;Note=gp3;gbkey=CDS;gene=early protein E1;protein_id=ANA05267.1										
+gi|1020934679|lcl|HPV157REF.1|	Genbank	gene	2420	3622	.	+	0	ID=E2;Dbxref=NCBI_GP:ANA05268.1;Name=E2;Note=gp4;gbkey=CDS;gene=early protein E2;protein_id=ANA05268.1										
+gi|1020934679|lcl|HPV157REF.1|	Genbank	gene	3624	5144	.	+	0	ID=L2;Dbxref=NCBI_GP:ANA05269.1;Name=L2;Note=gp5;gbkey=CDS;gene=late protein L2;protein_id=ANA05269.1										
+gi|1020934679|lcl|HPV157REF.1|	Genbank	gene	5155	6687	.	+	0	ID=L1;Dbxref=NCBI_GP:ANA05270.1;Name=L1;Note=gp6;gbkey=CDS;gene=late protein L1;protein_id=ANA05270.1										
+##sequence-region HPV158REF.1 1 7192																		

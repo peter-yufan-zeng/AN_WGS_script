@@ -1,58 +1,161 @@
 import pandas as pd
 import os
 
+localrules: all
+
 ###
 ### LOAD SAMPLES
 ###
 SCRATCH = "/gpfs/fs0/scratch/n/nicholsa/zyfniu"
-print(config['input'])
-INPUT = pd.read_table(config['input'],names = ['Sample','Lane','Fastq1','Fastq2'])
-SAMPLE =  INPUT['Sample']
-INPUT['Sample_Lane'] = INPUT.Sample + "_" + INPUT.Lane.astype(str)
+print("\n***INPUT FILE: " + config['input'] + "***\n")
+INPUT = pd.read_table(config['input'],names = ['Patient','Sex','n_vs_t','Sample','Lane','Fastq1','Fastq2'])
+INPUT['Lane'] = INPUT.Lane.apply(str)
+INPUT['Sample_Lane'] = INPUT.Sample + "_" + INPUT.Lane
+SAMPLE =  INPUT['Sample'].unique()
 TMP = "temp"
+PAT = INPUT.Patient.drop_duplicates()
+TUMOR = INPUT[(INPUT.n_vs_t == 1)].Sample.drop_duplicates()
+SAMPLE_LANE = INPUT.Sample_Lane
 print(INPUT)
 
+
+### PRINT OUTPUT DIRECTORY
+OUTDIR = config['outdir']
+print("***OUTPUT DIRECTORY: " + OUTDIR + "***")
+
+### rule all
 rule all:
 	input:
-		o1 = expand("/media/ionadmin/lab3/results/polyidusOutput/{sample_lane}_HpvIntegrationInfo.tsv",sample_lane = INPUT['Sample_Lane']),
-		o2 = expand("/media/ionadmin/lab3/results/polyidusOutput/{sample_lane}_exactHpvIntegrations.tsv",sample_lane = INPUT['Sample_Lane'])
+		expand(OUTDIR + "/results/hpv/polyidus/{sample}_HpvIntegrationInfo.tsv", sample = SAMPLE),
+		expand(OUTDIR + "/results/hpv/polyidus/{sample}_exactHpvIntegrations.tsv", sample = SAMPLE),
+		expand(OUTDIR + "/results/hpv/mpileup/{sample}_HPV.snpEff.vcf", sample = SAMPLE)
+
+
+###
+### Combine multiple fastqs if samples was separate files
+###
+
+def get_fastq1(wildcards):
+	return expand(INPUT[INPUT.Sample == wildcards.sample].Fastq1)
+
+rule merge_fastq1:
+	input:
+		get_fastq1
+	output:
+		temp(OUTDIR + "/orphan/merged_fastq/{sample}.merged.r1.fastq.gz")
+	threads: 2
+	group: "hpv"
+	shell:
+		"""
+		cat {input} > {output}
+		"""
+
+def get_fastq2(wildcards):
+	return expand(INPUT[INPUT.Sample == wildcards.sample].Fastq2)
+
+rule merge_fastq2:
+	input:
+		get_fastq2
+	output:
+		temp(OUTDIR + "/orphan/merged_fastq/{sample}.merged.r2.fastq.gz")
+	threads: 2
+	group: "hpv"
+	shell:
+		"""
+		cat {input} > {output}
+		"""
+
+rule hpvviewer:
+	input:
+		r1 = OUTDIR + "/orphan/merged_fastq/{sample}.merged.r1.fastq.gz",
+		r2 = OUTDIR + "/orphan/merged_fastq/{sample}.merged.r2.fastq.gz"
+	output:
+		OUTDIR + "/results/hpviewer/{samples}_HPV_profile.txt"
+	threads: 80
+	group: "hpv"
+	shell:
+		"""
+		module load CCEnv
+		module load StdEnv/2020
+		module load scipy-stack/2020a bowtie2 samtools/1.10 bedtools
+		source $SCRATCH/singularity_images/polyidus/bin/activate
+		python $SCRATCH/AN_WGS/AN_WGS_script/scripts/HPViewer.py \
+		-1 {input.r1} -2 {input.r2} -p {threads} \
+		-o {OUTDIR}/orphan/HPViewer/{wildcards.sample}
+		cp {OUTDIR}/orphan/HPViewer/{wildcards.sample}_HPV_profile.txt {output}
+		"""
+
 ###
 ### Run polyidus
 ###
 
-def bwa_mem_fastq1(wildcards):
-	return expand(INPUT[INPUT.Sample_Lane == wildcards.sample_lane].Fastq1)
-
-def bwa_mem_fastq2(wildcards):
-	return expand(INPUT[INPUT.Sample_Lane == wildcards.sample_lane].Fastq2)
-
 rule polyidus:
 	input:
-		r1 = bwa_mem_fastq1,
-		r2 = bwa_mem_fastq2,
-		polyidus_script = "/media/ionadmin/b68e1a06-1bb3-442c-bb3c-553aab1edfce/bioinformatics/polyidus/src/polyidus.py"
+		r1 = OUTDIR + "/orphan/merged_fastq/{sample}.merged.r1.fastq.gz",
+		r2 = OUTDIR + "/orphan/merged_fastq/{sample}.merged.r2.fastq.gz"
 	output:
-		o1 = "/media/ionadmin/lab8/results/polyidusOutput/{sample_lane}/results/HpvIntegrationInfo.tsv",
-		o2 = "/media/ionadmin/lab8/results/polyidusOutput/{sample_lane}/results/exactHpvIntegrations.tsv"
-	threads: 15
-    # wildcard_constraints:
-    #     sample="[A-Za-z0-9]+"
+		o1 = OUTDIR + "/orphan/polyidus/{sample}/results/HpvIntegrationInfo.tsv",
+		o2 = OUTDIR + "/orphan/polyidus/{sample}/results/exactHpvIntegrations.tsv",
+		virusbam = OUTDIR + "/orphan/polyidus/{sample}/results/viral/virusAligned-final.bam"
+	threads: 80
+	group: "hpv"
 	shell:
 		"""
-		python {input.polyidus_script} \
-		/media/ionadmin/b68e1a06-1bb3-442c-bb3c-553aab1edfce/bioinformatics/polyidus/bowtie2_index/grch38 \
-		/media/ionadmin/b68e1a06-1bb3-442c-bb3c-553aab1edfce/bioinformatics/polyidus/data/hpv16/hpv16_bowt_ind \
+		module load CCEnv
+		module load StdEnv/2020
+		module load scipy-stack/2020a bowtie2 samtools/1.10 bedtools
+		source $SCRATCH/singularity_images/polyidus/bin/activate
+		python $SCRATCH/AN_WGS/AN_WGS_script/scripts/polyidus/polyidus.py $SCRATCH/igenomes_ref/bowtie2_index/Homo_sapiens_assembly38 \
+		$SCRATCH/igenomes_ref/bowtie2_index/HPV16 \
 		--fastq {input.r1} {input.r2} \
-		--outdir /media/ionadmin/lab8/results/polyidusOutput/{wildcards.sample_lane}
+		--outdir /orphan/polyidus/{wildcards.sample}
+		"""
+
+rule variant_calling:
+	input:
+		OUTDIR + "/orphan/polyidus/{sample}/results/viral/virusAligned-final.bam"
+	output:
+		OUTDIR + "/results/hpv/mpileup/{sample}_HPV.vcf"
+	group: "hpv"
+	threads: 2
+ 	shell:
+		"""
+		module load CCEnv
+		module load StdEnv/2020
+		module load scipy-stack/2020a bowtie2 samtools/1.10 bedtools
+		source $SCRATCH/singularity_images/polyidus/bin/activate
+		samtools sort viral/virusAligned-final.bam | \
+		bcftools mpileup -Ou -f $SCRATCH/igenomes_ref/bowtie2_index/HPV16.fasta - | \
+		bcftools call -mv -Ov - > {output}
+		"""
+
+rule annotate_snpeff:
+	input:
+		OUTDIR + "/results/hpv/mpileup/{sample}_HPV.vcf"
+	output:
+		OUTDIR + "/results/hpv/mpileup/{sample}_HPV.snpEff.vcf"
+	threads: 2
+	group: "hpv"
+	shell:
+		"""
+		cd {OUTDIR}/results/hpv/mpileup/
+		java jar -Xmx8g $SCRATCH/igenomes_ref/snpEff/snpEff.jar \
+		HPV16 \
+		-csvStats {wildcards.sample}_hpv16_snpEff.csv \
+		-nodownload \
+		-canon \
+		{input} > {output}
 		"""
 
 rule copy_files:
 	input:
-		i1 = "/media/ionadmin/lab8/results/polyidusOutput/{sample_lane}/results/HpvIntegrationInfo.tsv",
-		i2 = "/media/ionadmin/lab8/results/polyidusOutput/{sample_lane}/results/exactHpvIntegrations.tsv"
+		i1 = OUTDIR + "/orphan/polyidus/{sample}/results/HpvIntegrationInfo.tsv",
+		i2 = OUTDIR + "/orphan/polyidus/{sample}/results/exactHpvIntegrations.tsv"
 	output:
-		o1 = "/media/ionadmin/lab3/results/polyidusOutput/{sample_lane}_HpvIntegrationInfo.tsv",
-		o2 = "/media/ionadmin/lab3/results/polyidusOutput/{sample_lane}_exactHpvIntegrations.tsv"
+		o1 = OUTDIR + "/results/hpv/polyidus/{sample}_HpvIntegrationInfo.tsv",
+		o2 = OUTDIR + "/results/hpv/polyidus/{sample}_exactHpvIntegrations.tsv"
+	threads: 2
+	group: "hpv"
 	shell:
 		"""
 		cp {input.i1} {output.o1}

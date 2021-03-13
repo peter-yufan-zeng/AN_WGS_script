@@ -1,0 +1,29 @@
+##sequence-region HPV6REF.1 1 7902																		
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=10600																		
+gi|60955|lcl|HPV6REF.1|	EMBL	region	1	7902	.	+	.	ID=X00203.1:1..7902;Dbxref=taxon:10600;Is_circular=true;gbkey=Src;mol_type=genomic DNA;strain=type 6b (HPV6b)										
+gi|60955|lcl|HPV6REF.1|	EMBL	gene	64	67	.	+	.	ID=gene-E6;Name=E6;gbkey=Gene;gene=E6;gene_biotype=protein_coding;is_ordered=true;part=1/2										
+gi|60955|lcl|HPV6REF.1|	EMBL	gene	102	554	.	+	.	ID=gene-E6;Name=E6;gbkey=Gene;gene=E6;gene_biotype=protein_coding;is_ordered=true;part=2/2										
+gi|60955|lcl|HPV6REF.1|	EMBL	CDS	102	554	.	+	0	ID=cds-CAA25018.1;Parent=gene-E6;Dbxref=GOA:P06462	InterPro:IPR001334	UniProtKB/Swiss-Prot:P06462	NCBI_GP:CAA25018.1;Name=CAA25018.1;gbkey=CDS;gene=E6;gene=E6 protein;protein_id=CAA25018.1							
+gi|60955|lcl|HPV6REF.1|	EMBL	region	64	67	.	+	.	ID=id-E6;gbkey=TATA_signal;gene=E6										
+gi|60955|lcl|HPV6REF.1|	EMBL	gene	530	826	.	+	.	ID=gene-E7;Name=E7;gbkey=Gene;gene=E7;gene_biotype=protein_coding										
+gi|60955|lcl|HPV6REF.1|	EMBL	CDS	530	826	.	+	0	ID=cds-CAA25019.1;Parent=gene-E7;Dbxref=GOA:P06464	InterPro:IPR000148	UniProtKB/Swiss-Prot:P06464	NCBI_GP:CAA25019.1;Name=CAA25019.1;gbkey=CDS;gene=E7;gene=E7 protein;protein_id=CAA25019.1							
+gi|60955|lcl|HPV6REF.1|	EMBL	gene	832	2781	.	+	.	ID=gene-E1;Name=E1;gbkey=Gene;gene=E1;gene_biotype=protein_coding										
+gi|60955|lcl|HPV6REF.1|	EMBL	CDS	832	2781	.	+	0	ID=cds-CAA25020.1;Parent=gene-E1;Dbxref=GOA:P03113	InterPro:IPR001177	InterPro:IPR003861	InterPro:IPR014000	InterPro:IPR014015	InterPro:IPR016393	UniProtKB/Swiss-Prot:P03113	UniProtKB/Swiss-Prot:P06459	NCBI_GP:CAA25020.1;Name=CAA25020.1;gbkey=CDS;gene=E1;gene=replication protein E1;protein_id=CAA25020.1		
+gi|60955|lcl|HPV6REF.1|	EMBL	gene	2723	3829	.	+	.	ID=gene-E2;Name=E2;gbkey=Gene;gene=E2;gene_biotype=protein_coding										
+gi|60955|lcl|HPV6REF.1|	EMBL	CDS	2723	3829	.	+	0	ID=cds-CAA25021.1;Parent=gene-E2;Dbxref=GOA:P03119	InterPro:IPR000427	InterPro:IPR001866	InterPro:IPR009021	InterPro:IPR012677	UniProtKB/Swiss-Prot:P03119	NCBI_GP:CAA25021.1;Name=CAA25021.1;gbkey=CDS;gene=E2;gene=regulatory protein E2;protein_id=CAA25021.1				
+gi|60955|lcl|HPV6REF.1|	EMBL	gene	3255	3584	.	+	.	ID=gene-E4;Name=E4;gbkey=Gene;gene=E4;gene_biotype=protein_coding										
+gi|60955|lcl|HPV6REF.1|	EMBL	CDS	3255	3584	.	+	0	ID=cds-CAA25022.1;Parent=gene-E4;Dbxref=InterPro:IPR003861	UniProtKB/Swiss-Prot:P06459	NCBI_GP:CAA25022.1;Name=CAA25022.1;gbkey=CDS;gene=E4;gene=E4 protein;protein_id=CAA25022.1								
+gi|60955|lcl|HPV6REF.1|	EMBL	gene	3887	4162	.	+	.	ID=gene-E5a;Name=E5a;gbkey=Gene;gene=E5a;gene_biotype=protein_coding										
+gi|60955|lcl|HPV6REF.1|	EMBL	CDS	3887	4162	.	+	0	ID=cds-CAA25023.1;Parent=gene-E5a;Dbxref=InterPro:IPR008736	UniProtKB/Swiss-Prot:P06460	NCBI_GP:CAA25023.1;Name=CAA25023.1;gbkey=CDS;gene=E5a;gene=E5a protein;protein_id=CAA25023.1								
+gi|60955|lcl|HPV6REF.1|	EMBL	gene	4159	4377	.	+	.	ID=gene-E5b;Name=E5b;gbkey=Gene;gene=E5b;gene_biotype=protein_coding										
+gi|60955|lcl|HPV6REF.1|	EMBL	CDS	4159	4377	.	+	0	ID=cds-CAA25024.1;Parent=gene-E5b;Dbxref=UniProtKB/Swiss-Prot:P06461	NCBI_GP:CAA25024.1;Name=CAA25024.1;gbkey=CDS;gene=E5b;gene=E5b protein;protein_id=CAA25024.1									
+gi|60955|lcl|HPV6REF.1|	EMBL	gene	4423	5802	.	+	.	ID=gene-L2;Name=L2;gbkey=Gene;gene=L2;gene_biotype=protein_coding										
+gi|60955|lcl|HPV6REF.1|	EMBL	CDS	4423	5802	.	+	0	ID=cds-CAA25025.1;Parent=gene-L2;Dbxref=GOA:P03106	InterPro:IPR000784	UniProtKB/Swiss-Prot:P03106	NCBI_GP:CAA25025.1;Name=CAA25025.1;gbkey=CDS;gene=L2;gene=minor capsid protein L2;protein_id=CAA25025.1							
+gi|60955|lcl|HPV6REF.1|	EMBL	region	4554	4554	.	+	.	ID=id-L2;gbkey=polyA_signal;gene=L2										
+gi|60955|lcl|HPV6REF.1|	EMBL	gene	5789	7291	.	+	.	ID=gene-L1;Name=L1;gbkey=Gene;gene=L1;gene_biotype=protein_coding										
+gi|60955|lcl|HPV6REF.1|	EMBL	CDS	5789	7291	.	+	0	ID=cds-CAA25026.1;Parent=gene-L1;Dbxref=GOA:P69899	InterPro:IPR002210	InterPro:IPR011222	UniProtKB/Swiss-Prot:P69899	NCBI_GP:CAA25026.1;Name=CAA25026.1;gbkey=CDS;gene=L1;gene=major capsid protein L1;protein_id=CAA25026.1						
+gi|60955|lcl|HPV6REF.1|	EMBL	TANDEM	7292	7315	.	+	.	ID=id-X00203.1:7292..7315;gbkey=repeat_region;rpt_type=TANDEM										
+gi|60955|lcl|HPV6REF.1|	EMBL	TANDEM	7316	7339	.	+	.	ID=id-X00203.1:7316..7339;gbkey=repeat_region;rpt_type=TANDEM										
+gi|60955|lcl|HPV6REF.1|	EMBL	region	7407	7407	.	+	.	ID=id-X00203.1:7407..7407;gbkey=polyA_signal										
+gi|60955|lcl|HPV6REF.1|	EMBL	INVERTED	7681	7705	.	+	.	ID=id-X00203.1:7681..7705;gbkey=repeat_region;rpt_type=INVERTED										
+##sequence-region HPV7REF.1 1 8027																		

@@ -1,0 +1,16 @@
+##sequence-region HPV200REF.1 1 7137																		
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=1682339																		
+gi|870702416|lcl|HPV200REF.1|	Genbank	region	1	7137	.	+	.	ID=KP692114.1:1..7137;Dbxref=taxon:1682339;Is_circular=true;collection-date=2014;country=Sweden;gbkey=Src;genome=genomic;isolate=HPV200;mol_type=genomic DNA;nat-host=Homo sapiens										
+gi|870702416|lcl|HPV200REF.1|	Genbank	gene	1	420	.	+	.	ID=gene-E6;Name=E6;gbkey=Gene;gene=E6;gene_biotype=protein_coding										
+gi|870702416|lcl|HPV200REF.1|	Genbank	CDS	1	420	.	+	0	ID=cds-AKP16334.1;Parent=gene-E6;Dbxref=NCBI_GP:AKP16334.1;Name=AKP16334.1;gbkey=CDS;gene=E6;gene=E6;protein_id=AKP16334.1										
+gi|870702416|lcl|HPV200REF.1|	Genbank	gene	417	698	.	+	.	ID=gene-E7;Name=E7;gbkey=Gene;gene=E7;gene_biotype=protein_coding										
+gi|870702416|lcl|HPV200REF.1|	Genbank	CDS	417	698	.	+	0	ID=cds-AKP16335.1;Parent=gene-E7;Dbxref=NCBI_GP:AKP16335.1;Name=AKP16335.1;gbkey=CDS;gene=E7;gene=E7;protein_id=AKP16335.1										
+gi|870702416|lcl|HPV200REF.1|	Genbank	gene	685	2481	.	+	.	ID=gene-E1;Name=E1;gbkey=Gene;gene=E1;gene_biotype=protein_coding										
+gi|870702416|lcl|HPV200REF.1|	Genbank	CDS	685	2481	.	+	0	ID=cds-AKP16336.1;Parent=gene-E1;Dbxref=NCBI_GP:AKP16336.1;Name=AKP16336.1;gbkey=CDS;gene=E1;gene=E1;protein_id=AKP16336.1										
+gi|870702416|lcl|HPV200REF.1|	Genbank	gene	2408	3613	.	+	.	ID=gene-E2;Name=E2;gbkey=Gene;gene=E2;gene_biotype=protein_coding										
+gi|870702416|lcl|HPV200REF.1|	Genbank	CDS	2408	3613	.	+	0	ID=cds-AKP16337.1;Parent=gene-E2;Dbxref=NCBI_GP:AKP16337.1;Name=AKP16337.1;gbkey=CDS;gene=E2;gene=E2;protein_id=AKP16337.1										
+gi|870702416|lcl|HPV200REF.1|	Genbank	gene	3613	5121	.	+	.	ID=gene-L2;Name=L2;gbkey=Gene;gene=L2;gene_biotype=protein_coding										
+gi|870702416|lcl|HPV200REF.1|	Genbank	CDS	3613	5121	.	+	0	ID=cds-AKP16338.1;Parent=gene-L2;Dbxref=NCBI_GP:AKP16338.1;Name=AKP16338.1;gbkey=CDS;gene=L2;gene=L2;protein_id=AKP16338.1										
+gi|870702416|lcl|HPV200REF.1|	Genbank	gene	5132	6676	.	+	.	ID=gene-L1;Name=L1;gbkey=Gene;gene=L1;gene_biotype=protein_coding										
+gi|870702416|lcl|HPV200REF.1|	Genbank	CDS	5132	6676	.	+	0	ID=cds-AKP16339.1;Parent=gene-L1;Dbxref=NCBI_GP:AKP16339.1;Name=AKP16339.1;gbkey=CDS;gene=L1;gene=L1;protein_id=AKP16339.1										
+##sequence-region HPV201REF.1 1 7291																		

@@ -1,0 +1,16 @@
+##sequence-region HPV26REF.1 1 7855																		
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=333762																		
+gi|9627305|lcl|HPV26REF.1|	RefSeq	region	1	7855	.	+	.	ID=NC_001583.1:1..7855;Dbxref=taxon:333762;clone=insert in BamHI site of pUC19;gbkey=Src;genome=genomic;mol_type=genomic DNA										
+gi|9627305|lcl|HPV26REF.1|	RefSeq	gene	97	549	.	+	.	ID=gene-HpV26gp1;Dbxref=GeneID:1496946;Name=E6;gbkey=Gene;gene=E6;gene_biotype=protein_coding;locus_tag=HpV26gp1										
+gi|9627305|lcl|HPV26REF.1|	RefSeq	CDS	97	549	.	+	0	ID=cds-NP_041782.1;Parent=gene-HpV26gp1;Dbxref=GOA:P36807	InterPro:IPR001334	UniProtKB/Swiss-Prot:P36807	Genbank:NP_041782.1	GeneID:1496946;Name=NP_041782.1;gbkey=CDS;gene=E6;locus_tag=HpV26gp1;gene=early protein;protein_id=NP_041782.1						
+gi|9627305|lcl|HPV26REF.1|	RefSeq	gene	556	870	.	+	.	ID=gene-HpV26gp2;Dbxref=GeneID:1496947;Name=E7;gbkey=Gene;gene=E7;gene_biotype=protein_coding;locus_tag=HpV26gp2										
+gi|9627305|lcl|HPV26REF.1|	RefSeq	CDS	556	870	.	+	0	ID=cds-NP_041783.1;Parent=gene-HpV26gp2;Dbxref=GOA:P36824	InterPro:IPR000148	UniProtKB/Swiss-Prot:P36824	Genbank:NP_041783.1	GeneID:1496947;Name=NP_041783.1;gbkey=CDS;gene=E7;locus_tag=HpV26gp2;gene=early protein;protein_id=NP_041783.1						
+gi|9627305|lcl|HPV26REF.1|	RefSeq	gene	878	2794	.	+	.	ID=gene-HpV26gp3;Dbxref=GeneID:1496944;Name=E1;gbkey=Gene;gene=E1;gene_biotype=protein_coding;locus_tag=HpV26gp3										
+gi|9627305|lcl|HPV26REF.1|	RefSeq	CDS	878	2794	.	+	0	ID=cds-NP_041784.1;Parent=gene-HpV26gp3;Dbxref=GOA:P36722	InterPro:IPR001177	InterPro:IPR014000	InterPro:IPR014015	InterPro:IPR016393	UniProtKB/Swiss-Prot:P36722	Genbank:NP_041784.1	GeneID:1496944;Name=NP_041784.1;gbkey=CDS;gene=E1;locus_tag=HpV26gp3;gene=early protein;protein_id=NP_041784.1			
+gi|9627305|lcl|HPV26REF.1|	RefSeq	gene	2736	3863	.	+	.	ID=gene-HpV26gp4;Dbxref=GeneID:1496945;Name=E2;gbkey=Gene;gene=E2;gene_biotype=protein_coding;locus_tag=HpV26gp4										
+gi|9627305|lcl|HPV26REF.1|	RefSeq	CDS	2736	3863	.	+	0	ID=cds-NP_041785.1;Parent=gene-HpV26gp4;Dbxref=GOA:P36788	InterPro:IPR000427	InterPro:IPR001866	InterPro:IPR009021	InterPro:IPR012677	UniProtKB/Swiss-Prot:P36788	Genbank:NP_041785.1	GeneID:1496945;Name=NP_041785.1;gbkey=CDS;gene=E2;locus_tag=HpV26gp4;gene=early protein;protein_id=NP_041785.1			
+gi|9627305|lcl|HPV26REF.1|	RefSeq	gene	4189	5607	.	+	.	ID=gene-HpV26gp5;Dbxref=GeneID:1496949;Name=L2;gbkey=Gene;gene=L2;gene_biotype=protein_coding;locus_tag=HpV26gp5										
+gi|9627305|lcl|HPV26REF.1|	RefSeq	CDS	4189	5607	.	+	0	ID=cds-NP_041786.1;Parent=gene-HpV26gp5;Dbxref=GOA:P36754	InterPro:IPR000784	UniProtKB/Swiss-Prot:P36754	Genbank:NP_041786.1	GeneID:1496949;Name=NP_041786.1;gbkey=CDS;gene=L2;locus_tag=HpV26gp5;gene=late protein;protein_id=NP_041786.1						
+gi|9627305|lcl|HPV26REF.1|	RefSeq	gene	5588	7099	.	+	.	ID=gene-HpV26gp6;Dbxref=GeneID:1496948;Name=L1;gbkey=Gene;gene=L1;gene_biotype=protein_coding;locus_tag=HpV26gp6										
+gi|9627305|lcl|HPV26REF.1|	RefSeq	CDS	5588	7099	.	+	0	ID=cds-NP_041787.1;Parent=gene-HpV26gp6;Dbxref=GOA:P36735	InterPro:IPR002210	InterPro:IPR011222	UniProtKB/Swiss-Prot:P36735	Genbank:NP_041787.1	GeneID:1496948;Name=NP_041787.1;gbkey=CDS;gene=L1;locus_tag=HpV26gp6;gene=late protein;protein_id=NP_041787.1					
+##sequence-region HPV27REF.1 1 7823																		

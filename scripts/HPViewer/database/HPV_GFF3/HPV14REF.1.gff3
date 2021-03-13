@@ -1,0 +1,12 @@
+##sequence-region HPV14REF.1 1 7439																		
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=31546																		
+gi|396918|lcl|HPV14REF.1|	EMBL	region	1	7439	.	+	.	ID=X74467.1:1..7439;Dbxref=taxon:31546;clone=insert in HindIII site of pBR322;gbkey=Src;mol_type=genomic DNA										
+gi|396918|lcl|HPV14REF.1|	EMBL	gene	731	2548	.	+	.	ID=gene-E1;Name=E1;gbkey=Gene;gene=E1;gene_biotype=protein_coding										
+gi|396918|lcl|HPV14REF.1|	EMBL	CDS	731	2548	.	+	0	ID=cds-CAA52502.1;Parent=gene-E1;Dbxref=GOA:P36721	InterPro:IPR001177	InterPro:IPR014000	InterPro:IPR014015	InterPro:IPR016393	UniProtKB/Swiss-Prot:P36721	NCBI_GP:CAA52502.1;Name=CAA52502.1;gbkey=CDS;gene=E1;gene=early protein;protein_id=CAA52502.1				
+gi|396918|lcl|HPV14REF.1|	EMBL	gene	2490	3941	.	+	.	ID=gene-E2;Name=E2;gbkey=Gene;gene=E2;gene_biotype=protein_coding										
+gi|396918|lcl|HPV14REF.1|	EMBL	CDS	2490	3941	.	+	0	ID=cds-CAA52503.1;Parent=gene-E2;Dbxref=GOA:P36783	InterPro:IPR000427	InterPro:IPR001866	InterPro:IPR009021	InterPro:IPR012677	UniProtKB/Swiss-Prot:P36783	NCBI_GP:CAA52503.1;Name=CAA52503.1;gbkey=CDS;gene=E2;gene=early protein;protein_id=CAA52503.1				
+gi|396918|lcl|HPV14REF.1|	EMBL	gene	4028	5587	.	+	.	ID=gene-L2;Name=L2;gbkey=Gene;gene=L2;gene_biotype=protein_coding										
+gi|396918|lcl|HPV14REF.1|	EMBL	CDS	4028	5587	.	+	0	ID=cds-CAA52504.1;Parent=gene-L2;Dbxref=GOA:P36749	InterPro:IPR000784	UniProtKB/Swiss-Prot:P36749	NCBI_GP:CAA52504.1;Name=CAA52504.1;gbkey=CDS;gene=L2;gene=late protein;protein_id=CAA52504.1							
+gi|396918|lcl|HPV14REF.1|	EMBL	gene	5603	7159	.	+	.	ID=gene-L1;Name=L1;gbkey=Gene;gene=L1;gene_biotype=protein_coding										
+gi|396918|lcl|HPV14REF.1|	EMBL	CDS	5603	7159	.	+	0	ID=cds-CAA52505.1;Parent=gene-L1;Dbxref=GOA:P36734	InterPro:IPR002210	InterPro:IPR011222	UniProtKB/Swiss-Prot:P36734	NCBI_GP:CAA52505.1;Name=CAA52505.1;gbkey=CDS;gene=L1;gene=late protein;protein_id=CAA52505.1						
+##sequence-region HPV15REF.1 1 7412																		

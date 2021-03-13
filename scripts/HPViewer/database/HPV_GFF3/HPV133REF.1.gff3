@@ -1,0 +1,18 @@
+##sequence-region HPV133REF.1 1 7358																		
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=909332																		
+gi|312451813|lcl|HPV133REF.1|	Genbank	region	1	7358	.	+	.	ID=GU117633.1:1..7358;Dbxref=taxon:909332;Is_circular=true;collected-by=Anja Koehler;country=Germany;gbkey=Src;identified-by=Anja Koehler;isolate=28-52;isolation-source=wart of an immunosuppressed organ transplant patient;mol_type=genomic DNA;nat-host=Homo sapiens;old-name=Human papillomavirus 28-52										
+gi|312451813|lcl|HPV133REF.1|	Genbank	gene	1	432	.	+	.	ID=gene-E6;Name=E6;gbkey=Gene;gene=E6;gene_biotype=protein_coding										
+gi|312451813|lcl|HPV133REF.1|	Genbank	CDS	1	432	.	+	0	ID=cds-ADQ85971.1;Parent=gene-E6;Dbxref=NCBI_GP:ADQ85971.1;Name=ADQ85971.1;gbkey=CDS;gene=E6;gene=E6;protein_id=ADQ85971.1										
+gi|312451813|lcl|HPV133REF.1|	Genbank	gene	434	733	.	+	.	ID=gene-E7;Name=E7;gbkey=Gene;gene=E7;gene_biotype=protein_coding										
+gi|312451813|lcl|HPV133REF.1|	Genbank	CDS	434	733	.	+	0	ID=cds-ADQ85972.1;Parent=gene-E7;Dbxref=NCBI_GP:ADQ85972.1;Name=ADQ85972.1;gbkey=CDS;gene=E7;gene=E7;protein_id=ADQ85972.1										
+gi|312451813|lcl|HPV133REF.1|	Genbank	gene	720	2549	.	+	.	ID=gene-E1;Name=E1;gbkey=Gene;gene=E1;gene_biotype=protein_coding										
+gi|312451813|lcl|HPV133REF.1|	Genbank	CDS	720	2549	.	+	0	ID=cds-ADQ85968.1;Parent=gene-E1;Dbxref=NCBI_GP:ADQ85968.1;Name=ADQ85968.1;gbkey=CDS;gene=E1;gene=E1;protein_id=ADQ85968.1										
+gi|312451813|lcl|HPV133REF.1|	Genbank	gene	2491	3666	.	+	.	ID=gene-E2;Name=E2;gbkey=Gene;gene=E2;gene_biotype=protein_coding										
+gi|312451813|lcl|HPV133REF.1|	Genbank	CDS	2491	3666	.	+	0	ID=cds-ADQ85969.1;Parent=gene-E2;Dbxref=NCBI_GP:ADQ85969.1;Name=ADQ85969.1;gbkey=CDS;gene=E2;gene=E2;protein_id=ADQ85969.1										
+gi|312451813|lcl|HPV133REF.1|	Genbank	gene	3056	3439	.	+	.	ID=gene-E4;Name=E4;gbkey=Gene;gene=E4;gene_biotype=protein_coding;partial=true;start_range=.	3056									
+gi|312451813|lcl|HPV133REF.1|	Genbank	CDS	3056	3439	.	+	0	ID=cds-ADQ85970.1;Parent=gene-E4;Dbxref=NCBI_GP:ADQ85970.1;Name=ADQ85970.1;Note=start site not determined;gbkey=CDS;gene=E4;partial=true;gene=E4;protein_id=ADQ85970.1;start_range=.	3056									
+gi|312451813|lcl|HPV133REF.1|	Genbank	gene	3669	5243	.	+	.	ID=gene-L2;Name=L2;gbkey=Gene;gene=L2;gene_biotype=protein_coding										
+gi|312451813|lcl|HPV133REF.1|	Genbank	CDS	3669	5243	.	+	0	ID=cds-ADQ85974.1;Parent=gene-L2;Dbxref=NCBI_GP:ADQ85974.1;Name=ADQ85974.1;gbkey=CDS;gene=L2;gene=L2;protein_id=ADQ85974.1										
+gi|312451813|lcl|HPV133REF.1|	Genbank	gene	5255	6811	.	+	.	ID=gene-L1;Name=L1;gbkey=Gene;gene=L1;gene_biotype=protein_coding										
+gi|312451813|lcl|HPV133REF.1|	Genbank	CDS	5255	6811	.	+	0	ID=cds-ADQ85973.1;Parent=gene-L1;Dbxref=NCBI_GP:ADQ85973.1;Name=ADQ85973.1;gbkey=CDS;gene=L1;gene=L1;protein_id=ADQ85973.1										
+##sequence-region HPV134REF.1 1 7309																		

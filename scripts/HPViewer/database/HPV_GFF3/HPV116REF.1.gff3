@@ -1,0 +1,18 @@
+##sequence-region HPV116REF.1 1 7184																		
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=915428																		
+gi|254810663|lcl|HPV116REF.1|	RefSeq	region	1	7184	.	+	.	ID=NC_013035.1:1..7184;Dbxref=taxon:915428;Is_circular=true;collection-date=2008;country=USA;gbkey=Src;genome=genomic;isolation-source=rectal swab of an encephalitis patient;mol_type=genomic DNA;nat-host=Homo sapiens;old-name=human papillomavirus HPV116;strain=HPV116										
+gi|254810663|lcl|HPV116REF.1|	RefSeq	gene	1	426	.	+	.	ID=gene-HpV-116_gp1;Dbxref=GeneID:8223424;gene=HpV-116_gp1;gbkey=Gene;gene_biotype=protein_coding;locus_tag=HpV-116_gp1;Name=E6										
+gi|254810663|lcl|HPV116REF.1|	RefSeq	CDS	1	426	.	+	0	ID=cds-YP_003084346.1;Parent=gene-HpV-116_gp1;Dbxref=Genbank:YP_003084346.1	GeneID:8223424;Name=YP_003084346.1;gbkey=CDS;locus_tag=HpV-116_gp1;gene=E6 protein;protein_id=YP_003084346.1									
+gi|254810663|lcl|HPV116REF.1|	RefSeq	gene	428	724	.	+	.	ID=gene-HpV-116_gp2;Dbxref=GeneID:8223418;gene=HpV-116_gp2;gbkey=Gene;gene_biotype=protein_coding;locus_tag=HpV-116_gp2;Name=E7										
+gi|254810663|lcl|HPV116REF.1|	RefSeq	CDS	428	724	.	+	0	ID=cds-YP_003084347.1;Parent=gene-HpV-116_gp2;Dbxref=Genbank:YP_003084347.1	GeneID:8223418;Name=YP_003084347.1;gbkey=CDS;locus_tag=HpV-116_gp2;gene=E7 protein;protein_id=YP_003084347.1									
+gi|254810663|lcl|HPV116REF.1|	RefSeq	gene	708	2516	.	+	.	ID=gene-HpV-116_gp3;Dbxref=GeneID:8223419;gene=HpV-116_gp3;gbkey=Gene;gene_biotype=protein_coding;locus_tag=HpV-116_gp3;Name=E1										
+gi|254810663|lcl|HPV116REF.1|	RefSeq	CDS	708	2516	.	+	0	ID=cds-YP_003084348.1;Parent=gene-HpV-116_gp3;Dbxref=Genbank:YP_003084348.1	GeneID:8223419;Name=YP_003084348.1;gbkey=CDS;locus_tag=HpV-116_gp3;gene=E1 protein;protein_id=YP_003084348.1									
+gi|254810663|lcl|HPV116REF.1|	RefSeq	gene	2452	3648	.	+	.	ID=gene-HpV-116_gp4;Dbxref=GeneID:8223420;gene=HpV-116_gp4;gbkey=Gene;gene_biotype=protein_coding;locus_tag=HpV-116_gp4;Name=E2										
+gi|254810663|lcl|HPV116REF.1|	RefSeq	CDS	2452	3648	.	+	0	ID=cds-YP_003084349.1;Parent=gene-HpV-116_gp4;Dbxref=Genbank:YP_003084349.1	GeneID:8223420;Name=YP_003084349.1;gbkey=CDS;locus_tag=HpV-116_gp4;gene=E2 protein;protein_id=YP_003084349.1									
+gi|254810663|lcl|HPV116REF.1|	RefSeq	gene	3023	3409	.	+	.	ID=gene-HpV-116_gp5;Dbxref=GeneID:8223421;gene=HpV-116_gp5;gbkey=Gene;gene_biotype=protein_coding;locus_tag=HpV-116_gp5;Name=E4										
+gi|254810663|lcl|HPV116REF.1|	RefSeq	CDS	3023	3409	.	+	0	ID=cds-YP_003084350.1;Parent=gene-HpV-116_gp5;Dbxref=Genbank:YP_003084350.1	GeneID:8223421;Name=YP_003084350.1;gbkey=CDS;locus_tag=HpV-116_gp5;gene=putative E4 protein;protein_id=YP_003084350.1									
+gi|254810663|lcl|HPV116REF.1|	RefSeq	gene	3651	5186	.	+	.	ID=gene-HpV-116_gp6;Dbxref=GeneID:8223422;gene=HpV-116_gp6;gbkey=Gene;gene_biotype=protein_coding;locus_tag=HpV-116_gp6;Name=L2										
+gi|254810663|lcl|HPV116REF.1|	RefSeq	CDS	3651	5186	.	+	0	ID=cds-YP_003084351.1;Parent=gene-HpV-116_gp6;Dbxref=Genbank:YP_003084351.1	GeneID:8223422;Name=YP_003084351.1;gbkey=CDS;locus_tag=HpV-116_gp6;gene=L2 protein;protein_id=YP_003084351.1									
+gi|254810663|lcl|HPV116REF.1|	RefSeq	gene	5187	6743	.	+	.	ID=gene-HpV-116_gp7;Dbxref=GeneID:8223423;gene=HpV-116_gp7;gbkey=Gene;gene_biotype=protein_coding;locus_tag=HpV-116_gp7;Name=L1										
+gi|254810663|lcl|HPV116REF.1|	RefSeq	CDS	5187	6743	.	+	0	ID=cds-YP_003084352.1;Parent=gene-HpV-116_gp7;Dbxref=Genbank:YP_003084352.1	GeneID:8223423;Name=YP_003084352.1;gbkey=CDS;locus_tag=HpV-116_gp7;gene=L1 protein;protein_id=YP_003084352.1									
+##sequence-region HPV117REF.1 1 7895																		

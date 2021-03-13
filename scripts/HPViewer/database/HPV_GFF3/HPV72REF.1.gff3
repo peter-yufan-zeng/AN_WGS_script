@@ -1,0 +1,28 @@
+##sequence-region HPV72REF.1 1 7988																		
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=333770																		
+gi|1491683|lcl|HPV72REF.1|	EMBL	region	1	7988	.	+	.	ID=X94164.1:1..7988;Dbxref=taxon:333770;gbkey=Src;mol_type=genomic DNA;old-name=Human papillomavirus - 72										
+gi|1491683|lcl|HPV72REF.1|	EMBL	gene	102	548	.	+	.	ID=gene-E6;Name=E6;gbkey=Gene;gene=E6;gene_biotype=protein_coding										
+gi|1491683|lcl|HPV72REF.1|	EMBL	CDS	102	548	.	+	0	ID=cds-CAA63881.1;Parent=gene-E6;Dbxref=GOA:Q81997	InterPro:IPR001334	UniProtKB/TrEMBL:Q81997	NCBI_GP:CAA63881.1;Name=CAA63881.1;Note=early gene%2C putative;gbkey=CDS;gene=E6;gene=CAA63881.1;protein_id=CAA63881.1							
+gi|1491683|lcl|HPV72REF.1|	EMBL	gene	524	826	.	+	.	ID=gene-E7;Name=E7;gbkey=Gene;gene=E7;gene_biotype=protein_coding										
+gi|1491683|lcl|HPV72REF.1|	EMBL	CDS	524	826	.	+	0	ID=cds-CAA63874.1;Parent=gene-E7;Dbxref=GOA:Q81998	InterPro:IPR000148	UniProtKB/TrEMBL:Q81998	NCBI_GP:CAA63874.1;Name=CAA63874.1;Note=putative;gbkey=CDS;gene=E7;gene=CAA63874.1;protein_id=CAA63874.1							
+gi|1491683|lcl|HPV72REF.1|	EMBL	gene	832	2783	.	+	.	ID=gene-E1A and E1B;Name=E1A and E1B;gbkey=Gene;gene=E1A and E1B;gene_biotype=protein_coding										
+gi|1491683|lcl|HPV72REF.1|	EMBL	CDS	832	2142	.	+	0	ID=cds-CAA63875.1;Parent=gene-E1A and E1B;Dbxref=GOA:Q81999	InterPro:IPR001177	InterPro:IPR014000	InterPro:IPR014015	InterPro:IPR016393	UniProtKB/Swiss-Prot:Q81999	NCBI_GP:CAA63875.1;Name=CAA63875.1;Note=putative;gbkey=CDS;gene=E1A and E1B;gene=CAA63875.1;protein_id=CAA63875.1				
+gi|1491683|lcl|HPV72REF.1|	EMBL	CDS	2142	2783	.	+	0	ID=cds-CAA63875.1;Parent=gene-E1A and E1B;Dbxref=GOA:Q81999	InterPro:IPR001177	InterPro:IPR014000	InterPro:IPR014015	InterPro:IPR016393	UniProtKB/Swiss-Prot:Q81999	NCBI_GP:CAA63875.1;Name=CAA63875.1;Note=putative;gbkey=CDS;gene=E1A and E1B;gene=CAA63875.1;protein_id=CAA63875.1				
+gi|1491683|lcl|HPV72REF.1|	EMBL	gene	832	2142	.	+	.	ID=gene-E1A;Name=E1A;gbkey=Gene;gene=E1A;gene_biotype=other										
+gi|1491683|lcl|HPV72REF.1|	EMBL	mRNA	832	2142	.	+	.	ID=rna-E1A;Parent=gene-E1A;Note=putative;gbkey=mRNA;gene=E1A;partial=true										
+gi|1491683|lcl|HPV72REF.1|	EMBL	exon	832	2142	.	+	.	ID=exon-E1A-1;Parent=rna-E1A;Note=putative;gbkey=mRNA;gene=E1A;partial=true										
+gi|1491683|lcl|HPV72REF.1|	EMBL	exon	832	2142	.	+	.	ID=id-E1A-1;Parent=gene-E1A;exon_number=1;gbkey=exon;gene=E1A;number=1										
+gi|1491683|lcl|HPV72REF.1|	EMBL	gene	2142	2783	.	+	.	ID=gene-E1B;Name=E1B;gbkey=Gene;gene=E1B;gene_biotype=other										
+gi|1491683|lcl|HPV72REF.1|	EMBL	mRNA	2142	2783	.	+	.	ID=rna-E1B;Parent=gene-E1B;Note=putative;gbkey=mRNA;gene=E1B;partial=true										
+gi|1491683|lcl|HPV72REF.1|	EMBL	exon	2142	2783	.	+	.	ID=exon-E1B-1;Parent=rna-E1B;Note=putative;gbkey=mRNA;gene=E1B;partial=true										
+gi|1491683|lcl|HPV72REF.1|	EMBL	exon	2142	2783	.	+	.	ID=id-E1B-2;Parent=gene-E1B;exon_number=2;gbkey=exon;gene=E1B;number=2										
+gi|1491683|lcl|HPV72REF.1|	EMBL	gene	2719	3873	.	+	.	ID=gene-E2;Name=E2;gbkey=Gene;gene=E2;gene_biotype=protein_coding										
+gi|1491683|lcl|HPV72REF.1|	EMBL	CDS	2719	3873	.	+	0	ID=cds-CAA63876.1;Parent=gene-E2;Dbxref=GOA:Q82000	HSSP:1JJ4	InterPro:IPR000427	InterPro:IPR001866	InterPro:IPR009021	InterPro:IPR012677	UniProtKB/TrEMBL:Q82000	NCBI_GP:CAA63876.1;Name=CAA63876.1;Note=putative;gbkey=CDS;gene=E2;gene=CAA63876.1;protein_id=CAA63876.1			
+gi|1491683|lcl|HPV72REF.1|	EMBL	gene	3311	3631	.	+	.	ID=gene-E4;Name=E4;gbkey=Gene;gene=E4;gene_biotype=protein_coding										
+gi|1491683|lcl|HPV72REF.1|	EMBL	CDS	3311	3631	.	+	0	ID=cds-CAA63877.1;Parent=gene-E4;Dbxref=InterPro:IPR003861	UniProtKB/TrEMBL:Q82001	NCBI_GP:CAA63877.1;Name=CAA63877.1;Note=putative;gbkey=CDS;gene=E4;gene=CAA63877.1;protein_id=CAA63877.1								
+gi|1491683|lcl|HPV72REF.1|	EMBL	gene	4409	5809	.	+	.	ID=gene-L2;Name=L2;gbkey=Gene;gene=L2;gene_biotype=protein_coding										
+gi|1491683|lcl|HPV72REF.1|	EMBL	CDS	4409	5809	.	+	0	ID=cds-CAA63878.1;Parent=gene-L2;Dbxref=GOA:Q82002	InterPro:IPR000784	UniProtKB/TrEMBL:Q82002	NCBI_GP:CAA63878.1;Name=CAA63878.1;Note=late gene%2C putative;gbkey=CDS;gene=L2;gene=CAA63878.1;protein_id=CAA63878.1							
+gi|1491683|lcl|HPV72REF.1|	EMBL	gene	5703	7307	.	+	.	ID=gene-L1;Name=L1;gbkey=Gene;gene=L1;gene_biotype=protein_coding										
+gi|1491683|lcl|HPV72REF.1|	EMBL	CDS	5703	7307	.	+	0	ID=cds-CAA63879.1;Parent=gene-L1;Dbxref=GOA:Q82003	HSSP:1DZL	InterPro:IPR002210	InterPro:IPR011222	UniProtKB/TrEMBL:Q82003	NCBI_GP:CAA63879.1;Name=CAA63879.1;Note=1st ATG%2C putative;gbkey=CDS;gene=L1;gene=CAA63879.1;protein_id=CAA63879.1					
+gi|1491683|lcl|HPV72REF.1|	EMBL	CDS	5787	7307	.	+	0	ID=cds-CAA63880.1;Parent=gene-L1;Dbxref=GOA:Q82004	HSSP:1DZL	InterPro:IPR002210	InterPro:IPR011222	UniProtKB/TrEMBL:Q82004	NCBI_GP:CAA63880.1;Name=CAA63880.1;Note=2nd ATG%2C putative;gbkey=CDS;gene=L1;gene=CAA63880.1;protein_id=CAA63880.1					
+##sequence-region HPV73REF.1 1 7700																		

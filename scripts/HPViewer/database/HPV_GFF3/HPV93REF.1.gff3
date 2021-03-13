@@ -1,0 +1,11 @@
+##sequence-region HPV93REF.1 1 7450																		
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=247268																		
+gi|37089393|lcl|HPV93REF.1|	Genbank	region	1	7450	.	+	.	ID=AY382778.1:1..7450;Dbxref=taxon:247268;Is_circular=true;gbkey=Src;genome=genomic;isolation-source=solar keratosis on dorsum of hand of a non-immunosuppressed Australian male 82 years old;mol_type=genomic DNA										
+gi|37089393|lcl|HPV93REF.1|	Genbank	gene	105	545	.	+	0	ID=cds-AAQ88286.1;Dbxref=NCBI_GP:AAQ88286.1;Name=E6;gbkey=CDS;gene=E6;protein_id=AAQ88286.1										
+gi|37089393|lcl|HPV93REF.1|	Genbank	gene	551	844	.	+	0	ID=cds-AAQ88282.1;Dbxref=NCBI_GP:AAQ88282.1;Name=E7;gbkey=CDS;gene=E7;protein_id=AAQ88282.1										
+gi|37089393|lcl|HPV93REF.1|	Genbank	gene	831	2642	.	+	0	ID=cds-AAQ88287.1;Dbxref=NCBI_GP:AAQ88287.1;Name=E1;gbkey=CDS;gene=E1;protein_id=AAQ88287.1										
+gi|37089393|lcl|HPV93REF.1|	Genbank	gene	2584	4014	.	+	0	ID=cds-AAQ88283.1;Dbxref=NCBI_GP:AAQ88283.1;Name=E2;gbkey=CDS;gene=E2;protein_id=AAQ88283.1										
+gi|37089393|lcl|HPV93REF.1|	Genbank	gene	3107	3769	.	+	0	ID=cds-AAQ88288.1;Dbxref=NCBI_GP:AAQ88288.1;Name=E4;gbkey=CDS;gene=E4;protein_id=AAQ88288.1										
+gi|37089393|lcl|HPV93REF.1|	Genbank	gene	4077	5630	.	+	0	ID=cds-AAQ88284.1;Dbxref=NCBI_GP:AAQ88284.1;Name=L2;gbkey=CDS;gene=L2;protein_id=AAQ88284.1										
+gi|37089393|lcl|HPV93REF.1|	Genbank	gene	5640	7181	.	+	0	ID=cds-AAQ88285.1;Dbxref=NCBI_GP:AAQ88285.1;Name=L1;gbkey=CDS;gene=L1;protein_id=AAQ88285.1										
+##sequence-region HPV94REF.1 1 7881																		

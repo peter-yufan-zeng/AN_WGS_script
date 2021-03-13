@@ -1,0 +1,12 @@
+##sequence-region HPV155REF.1 1 7352																		
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=1165934																		
+gi|353441719|lcl|HPV155REF.1|	Genbank	region	1	7352	.	+	.	ID=JF906559.1:1..7352;Dbxref=taxon:1165934;collection-date=2009;country=Sweden;gbkey=Src;genome=genomic;genotype=gamma;isolate=SE42;mol_type=genomic DNA;nat-host=Homo sapiens;old-name=Human papillomavirus 155										
+gi|353441719|lcl|HPV155REF.1|	Genbank	gene	1	438	.	+	0	ID=E6;Dbxref=NCBI_GP:AEQ98805.1;Name=E6;gbkey=CDS;gene=E6;protein_id=AEQ98805.1										
+gi|353441719|lcl|HPV155REF.1|	Genbank	gene	413	697	.	+	0	ID=E7;Dbxref=NCBI_GP:AEQ98806.1;Name=E7;gbkey=CDS;gene=E7;protein_id=AEQ98806.1										
+gi|353441719|lcl|HPV155REF.1|	Genbank	gene	687	2507	.	+	0	ID=E1;Dbxref=NCBI_GP:AEQ98807.1;Name=E1;gbkey=CDS;gene=E1;protein_id=AEQ98807.1										
+gi|353441719|lcl|HPV155REF.1|	Genbank	gene	2449	3666	.	+	0	ID=E2;Dbxref=NCBI_GP:AEQ98808.1;Name=E2;gbkey=CDS;gene=E2;protein_id=AEQ98808.1										
+gi|353441719|lcl|HPV155REF.1|	Genbank	gene	2939	3433	.	+	0	ID=E4;Dbxref=NCBI_GP:AEQ98809.1;Name=E4;gbkey=CDS;gene=E4;protein_id=AEQ98809.1										
+gi|353441719|lcl|HPV155REF.1|	Genbank	gene	3668	5224	.	+	0	ID=L2;Dbxref=NCBI_GP:AEQ98810.1;Name=L2;gbkey=CDS;gene=L2;protein_id=AEQ98810.1										
+gi|353441719|lcl|HPV155REF.1|	Genbank	gene	5235	6779	.	+	.	ID=L1;Name=L1;gbkey=Gene;gene=L1;gene_biotype=protein_coding										
+gi|353441719|lcl|HPV155REF.1|	Genbank	gene	5235	6779	.	+	0	ID=cds-AEQ98804.1;Parent=gene-L1;Dbxref=NCBI_GP:AEQ98804.1;Name=L1;gbkey=CDS;gene=L1;gene=major capsid protein;protein_id=AEQ98804.1										
+##sequence-region HPV156REF.1 1 7329																		

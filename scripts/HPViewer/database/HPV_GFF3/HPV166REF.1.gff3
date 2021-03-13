@@ -1,0 +1,18 @@
+##sequence-region HPV166REF.1 1 7212																		
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=1315259																		
+gi|410118099|lcl|HPV166REF.1|	RefSeq	region	1	7212	.	+	.	ID=NC_019023.1:1..7212;Dbxref=taxon:1315259;Is_circular=true;collection-date=30-Oct-2008;country=China;gbkey=Src;genome=genomic;isolate=KC9;mol_type=genomic DNA;nat-host=Homo sapiens										
+gi|410118099|lcl|HPV166REF.1|	RefSeq	gene	298	717	.	+	.	ID=gene-E6;Dbxref=GeneID:16879158;Name=E6;gbkey=Gene;gene=E6;gene_biotype=protein_coding;locus_tag=D564_gp1										
+gi|410118099|lcl|HPV166REF.1|	RefSeq	CDS	298	717	.	+	0	ID=cds-YP_006908972.1;Parent=gene-D564_gp1;Dbxref=Genbank:YP_006908972.1	GeneID:16879158;Name=YP_006908972.1;gbkey=CDS;gene=E6;locus_tag=D564_gp1;gene=E6;protein_id=YP_006908972.1									
+gi|410118099|lcl|HPV166REF.1|	RefSeq	gene	717	1022	.	+	.	ID=gene-E7;Dbxref=GeneID:16879159;Name=E7;gbkey=Gene;gene=E7;gene_biotype=protein_coding;locus_tag=D564_gp2										
+gi|410118099|lcl|HPV166REF.1|	RefSeq	CDS	717	1022	.	+	0	ID=cds-YP_006908973.1;Parent=gene-D564_gp2;Dbxref=Genbank:YP_006908973.1	GeneID:16879159;Name=YP_006908973.1;gbkey=CDS;gene=E7;locus_tag=D564_gp2;gene=E7;protein_id=YP_006908973.1									
+gi|410118099|lcl|HPV166REF.1|	RefSeq	gene	1006	3689	.	+	.	ID=gene-E4;Dbxref=GeneID:16879160;Name=E1^E4;gbkey=Gene;gene=E1^E4;gene_biotype=other;locus_tag=D564_gp3										
+gi|410118099|lcl|HPV166REF.1|	RefSeq	sequence_feature	1006	3689	.	+	.	ID=id-D564_gp3;Dbxref=GeneID:16879160;Note=similar to E1^E4%3B putative E4 protein;gbkey=misc_feature;gene=E1^E4;locus_tag=D564_gp3										
+gi|410118099|lcl|HPV166REF.1|	RefSeq	gene	1006	2829	.	+	.	ID=gene-E1;Dbxref=GeneID:16879161;Name=E1;gbkey=Gene;gene=E1;gene_biotype=protein_coding;locus_tag=D564_gp4										
+gi|410118099|lcl|HPV166REF.1|	RefSeq	CDS	1006	2829	.	+	0	ID=cds-YP_006908974.1;Parent=gene-D564_gp4;Dbxref=Genbank:YP_006908974.1	GeneID:16879161;Name=YP_006908974.1;gbkey=CDS;gene=E1;locus_tag=D564_gp4;gene=E1;protein_id=YP_006908974.1									
+gi|410118099|lcl|HPV166REF.1|	RefSeq	gene	2762	3931	.	+	.	ID=gene-E2;Dbxref=GeneID:16879162;Name=E2;gbkey=Gene;gene=E2;gene_biotype=protein_coding;locus_tag=D564_gp5										
+gi|410118099|lcl|HPV166REF.1|	RefSeq	CDS	2762	3931	.	+	0	ID=cds-YP_006908975.1;Parent=gene-D564_gp5;Dbxref=Genbank:YP_006908975.1	GeneID:16879162;Name=YP_006908975.1;gbkey=CDS;gene=E2;locus_tag=D564_gp5;gene=E2;protein_id=YP_006908975.1									
+gi|410118099|lcl|HPV166REF.1|	RefSeq	gene	3931	5463	.	+	.	ID=gene-L2;Dbxref=GeneID:16879163;Name=L2;gbkey=Gene;gene=L2;gene_biotype=protein_coding;locus_tag=D564_gp6										
+gi|410118099|lcl|HPV166REF.1|	RefSeq	CDS	3931	5463	.	+	0	ID=cds-YP_006908976.1;Parent=gene-D564_gp6;Dbxref=Genbank:YP_006908976.1	GeneID:16879163;Name=YP_006908976.1;gbkey=CDS;gene=L2;locus_tag=D564_gp6;gene=L2;protein_id=YP_006908976.1									
+gi|410118099|lcl|HPV166REF.1|	RefSeq	gene	5474	6994	.	+	.	ID=gene-L1;Dbxref=GeneID:16879164;Name=L1;gbkey=Gene;gene=L1;gene_biotype=protein_coding;locus_tag=D564_gp7										
+gi|410118099|lcl|HPV166REF.1|	RefSeq	CDS	5474	6994	.	+	0	ID=cds-YP_006908977.1;Parent=gene-D564_gp7;Dbxref=Genbank:YP_006908977.1	GeneID:16879164;Name=YP_006908977.1;gbkey=CDS;gene=L1;locus_tag=D564_gp7;gene=L1;protein_id=YP_006908977.1									
+##sequence-region HPV167REF.1 1 7228																		

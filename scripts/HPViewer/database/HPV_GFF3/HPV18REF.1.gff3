@@ -1,0 +1,20 @@
+##sequence-region HPV18REF.1 1 7857																		
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=333761																		
+gi|60975|lcl|HPV18REF.1|	EMBL	region	1	7857	.	+	.	ID=X05015.1:1..7857;Dbxref=taxon:333761;gbkey=Src;mol_type=genomic DNA										
+gi|60975|lcl|HPV18REF.1|	EMBL	gene	105	581	.	+	.	ID=gene-E6;Name=E6;gbkey=Gene;gene=E6;gene_biotype=protein_coding										
+gi|60975|lcl|HPV18REF.1|	EMBL	CDS	105	581	.	+	0	ID=cds-CAA28664.1;Parent=gene-E6;Dbxref=GOA:P06463	InterPro:IPR001334	PDB:2I04	PDB:2I0I	PDB:2I0L	UniProtKB/Swiss-Prot:P06463	NCBI_GP:CAA28664.1;Name=CAA28664.1;gbkey=CDS;gene=E6;gene=E6 protein;protein_id=CAA28664.1				
+gi|60975|lcl|HPV18REF.1|	EMBL	gene	590	907	.	+	.	ID=gene-E7;Name=E7;gbkey=Gene;gene=E7;gene_biotype=protein_coding										
+gi|60975|lcl|HPV18REF.1|	EMBL	CDS	590	907	.	+	0	ID=cds-CAA28665.1;Parent=gene-E7;Dbxref=GOA:P06788	InterPro:IPR000148	UniProtKB/Swiss-Prot:P06788	NCBI_GP:CAA28665.1;Name=CAA28665.1;gbkey=CDS;gene=E7;gene=E7 protein;protein_id=CAA28665.1							
+gi|60975|lcl|HPV18REF.1|	EMBL	gene	914	2887	.	+	.	ID=gene-E1;Name=E1;gbkey=Gene;gene=E1;gene_biotype=protein_coding										
+gi|60975|lcl|HPV18REF.1|	EMBL	CDS	914	2887	.	+	0	ID=cds-CAA28666.1;Parent=gene-E1;Dbxref=GOA:P06789	InterPro:IPR001177	InterPro:IPR014000	InterPro:IPR014015	InterPro:IPR016393	PDB:1R9W	PDB:1TUE	UniProtKB/Swiss-Prot:P06789	NCBI_GP:CAA28666.1;Name=CAA28666.1;gbkey=CDS;gene=E1;gene=E1 protein;protein_id=CAA28666.1		
+gi|60975|lcl|HPV18REF.1|	EMBL	gene	2817	3914	.	+	.	ID=gene-E2;Name=E2;gbkey=Gene;gene=E2;gene_biotype=protein_coding										
+gi|60975|lcl|HPV18REF.1|	EMBL	CDS	2817	3914	.	+	0	ID=cds-CAA28667.1;Parent=gene-E2;Dbxref=GOA:P06790	InterPro:IPR000427	InterPro:IPR001866	InterPro:IPR009021	InterPro:IPR012677	PDB:1F9F	PDB:1JJ4	PDB:1QQH	PDB:1TUE	UniProtKB/Swiss-Prot:P06790	NCBI_GP:CAA28667.1;Name=CAA28667.1;gbkey=CDS;gene=E2;gene=E2 protein;protein_id=CAA28667.1
+gi|60975|lcl|HPV18REF.1|	EMBL	gene	3418	3684	.	+	.	ID=gene-E4;Name=E4;gbkey=Gene;gene=E4;gene_biotype=protein_coding										
+gi|60975|lcl|HPV18REF.1|	EMBL	CDS	3418	3684	.	+	0	ID=cds-CAA28668.1;Parent=gene-E4;Dbxref=InterPro:IPR003861	UniProtKB/Swiss-Prot:P06791	NCBI_GP:CAA28668.1;Name=CAA28668.1;gbkey=CDS;gene=E4;gene=E4 protein;protein_id=CAA28668.1								
+gi|60975|lcl|HPV18REF.1|	EMBL	gene	3936	4157	.	+	.	ID=gene-E5;Name=E5;gbkey=Gene;gene=E5;gene_biotype=protein_coding										
+gi|60975|lcl|HPV18REF.1|	EMBL	CDS	3936	4157	.	+	0	ID=cds-CAA28669.1;Parent=gene-E5;Dbxref=InterPro:IPR004270	UniProtKB/Swiss-Prot:P06792	NCBI_GP:CAA28669.1;Name=CAA28669.1;gbkey=CDS;gene=E5;gene=E5 protein;protein_id=CAA28669.1								
+gi|60975|lcl|HPV18REF.1|	EMBL	gene	4244	5632	.	+	.	ID=gene-L2;Name=L2;gbkey=Gene;gene=L2;gene_biotype=protein_coding										
+gi|60975|lcl|HPV18REF.1|	EMBL	CDS	4244	5632	.	+	0	ID=cds-CAA28670.1;Parent=gene-L2;Dbxref=GOA:P06793	InterPro:IPR000784	UniProtKB/Swiss-Prot:P06793	NCBI_GP:CAA28670.1;Name=CAA28670.1;gbkey=CDS;gene=L2;gene=L2 protein;protein_id=CAA28670.1							
+gi|60975|lcl|HPV18REF.1|	EMBL	gene	5430	7136	.	+	.	ID=gene-L1;Name=L1;gbkey=Gene;gene=L1;gene_biotype=protein_coding										
+gi|60975|lcl|HPV18REF.1|	EMBL	CDS	5430	7136	.	+	0	ID=cds-CAA28671.1;Parent=gene-L1;Dbxref=GOA:P06794	InterPro:IPR002210	InterPro:IPR011222	PDB:2R5I	UniProtKB/Swiss-Prot:P06794	NCBI_GP:CAA28671.1;Name=CAA28671.1;gbkey=CDS;gene=L1;gene=L1 protein;protein_id=CAA28671.1					
+##sequence-region HPV19REF.1 1 7685																		

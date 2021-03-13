@@ -1,0 +1,13 @@
+##sequence-region HPV58REF.1 1 7824																		
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=10598																		
+gi|222386|lcl|HPV58REF.1|	DDBJ	region	1	7824	.	+	.	ID=D90400.1:1..7824;Dbxref=taxon:10598;Is_circular=true;gbkey=Src;isolate=patient specimen GN479;mol_type=genomic DNA;note=HPV58										
+gi|222386|lcl|HPV58REF.1|	DDBJ	TATA_box	72	77	.	+	.	ID=id-D90400.1:72..77;gbkey=regulatory;regulatory_class=TATA_box										
+gi|222386|lcl|HPV58REF.1|	DDBJ	gene	110	559	.	+	0	ID=cds-BAA31845.1;Dbxref=NCBI_GP:BAA31845.1;Name=E6;Note=open reading frame E6;gbkey=CDS;gene=BAA31845.1;protein_id=BAA31845.1;gene=E6										
+gi|222386|lcl|HPV58REF.1|	DDBJ	gene	574	870	.	+	0	ID=cds-BAA31846.1;Dbxref=NCBI_GP:BAA31846.1;Name=E7;Note=open reading frame E7;gbkey=CDS;gene=BAA31846.1;protein_id=BAA31846.1;gene=E7										
+gi|222386|lcl|HPV58REF.1|	DDBJ	gene	883	2817	.	+	0	ID=cds-BAA31847.1;Dbxref=NCBI_GP:BAA31847.1;Name=E1;Note=open reading frame E1;gbkey=CDS;gene=BAA31847.1;protein_id=BAA31847.1;gene=E1										
+gi|222386|lcl|HPV58REF.1|	DDBJ	gene	2753	3829	.	+	0	ID=cds-BAA31848.1;Dbxref=NCBI_GP:BAA31848.1;Name=E2;Note=open reading frame E2;gbkey=CDS;gene=BAA31848.1;protein_id=BAA31848.1;gene=E2										
+gi|222386|lcl|HPV58REF.1|	DDBJ	gene	3330	3605	.	+	0	ID=cds-BAA14396.1;Dbxref=NCBI_GP:BAA14396.1;Name=E4;Note=no ATG start codon~open reading frame E4;gbkey=CDS;partial=true;gene=BAA14396.1;protein_id=BAA14396.1;start_range=.	3330									
+gi|222386|lcl|HPV58REF.1|	DDBJ	gene	3892	4122	.	+	0	ID=cds-BAA31849.1;Dbxref=NCBI_GP:BAA31849.1;Name=E5;Note=open reading frame E5;gbkey=CDS;gene=BAA31849.1;protein_id=BAA31849.1;gene=E5										
+gi|222386|lcl|HPV58REF.1|	DDBJ	gene	4244	5662	.	+	0	ID=cds-BAA31850.1;Dbxref=NCBI_GP:BAA31850.1;Name=L2;Note=open reading frame L2;gbkey=CDS;gene=BAA31850.1;protein_id=BAA31850.1;gene=L2										
+gi|222386|lcl|HPV58REF.1|	DDBJ	gene	5565	7139	.	+	0	ID=cds-BAA31851.1;Dbxref=NCBI_GP:BAA31851.1;Name=L1;Note=open reading frame L1;gbkey=CDS;gene=BAA31851.1;protein_id=BAA31851.1;;gene=L1										
+##sequence-region HPV59REF.1 1 7896																		

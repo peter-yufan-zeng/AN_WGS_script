@@ -1,0 +1,18 @@
+##sequence-region HPV160REF.1 1 7779																		
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=2259332																		
+gi|457866359|lcl|HPV160REF.1|	DDBJ	region	1	7779	.	+	.	ID=AB745694.1:1..7779;Dbxref=taxon:2259332;Is_circular=true;gbkey=Src;mol_type=genomic DNA;strain=TM										
+gi|457866359|lcl|HPV160REF.1|	DDBJ	gene	101	535	.	+	.	ID=gene-E6;Name=E6;gbkey=Gene;gene=E6;gene_biotype=protein_coding										
+gi|457866359|lcl|HPV160REF.1|	DDBJ	CDS	101	535	.	+	0	ID=cds-BAM93531.1;Parent=gene-E6;Dbxref=NCBI_GP:BAM93531.1;Name=BAM93531.1;gbkey=CDS;gene=E6;gene=putative E6 protein;protein_id=BAM93531.1										
+gi|457866359|lcl|HPV160REF.1|	DDBJ	gene	523	798	.	+	.	ID=gene-E7;Name=E7;gbkey=Gene;gene=E7;gene_biotype=protein_coding										
+gi|457866359|lcl|HPV160REF.1|	DDBJ	CDS	523	798	.	+	0	ID=cds-BAM93532.1;Parent=gene-E7;Dbxref=NCBI_GP:BAM93532.1;Name=BAM93532.1;gbkey=CDS;gene=E7;gene=putative E7 protein;protein_id=BAM93532.1										
+gi|457866359|lcl|HPV160REF.1|	DDBJ	gene	805	2787	.	+	.	ID=gene-E1;Name=E1;gbkey=Gene;gene=E1;gene_biotype=protein_coding										
+gi|457866359|lcl|HPV160REF.1|	DDBJ	CDS	805	2787	.	+	0	ID=cds-BAM93533.1;Parent=gene-E1;Dbxref=NCBI_GP:BAM93533.1;Name=BAM93533.1;gbkey=CDS;gene=E1;gene=putative E1 protein;protein_id=BAM93533.1										
+gi|457866359|lcl|HPV160REF.1|	DDBJ	gene	2729	3844	.	+	.	ID=gene-E2;Name=E2;gbkey=Gene;gene=E2;gene_biotype=protein_coding										
+gi|457866359|lcl|HPV160REF.1|	DDBJ	CDS	2729	3844	.	+	0	ID=cds-BAM93534.1;Parent=gene-E2;Dbxref=NCBI_GP:BAM93534.1;Name=BAM93534.1;gbkey=CDS;gene=E2;gene=putative E2 protein;protein_id=BAM93534.1										
+gi|457866359|lcl|HPV160REF.1|	DDBJ	gene	3243	3605	.	+	.	ID=gene-E4;Name=E4;gbkey=Gene;gene=E4;gene_biotype=protein_coding;partial=true;start_range=.	3243									
+gi|457866359|lcl|HPV160REF.1|	DDBJ	CDS	3243	3605	.	+	0	ID=cds-BAM93535.1;Parent=gene-E4;Dbxref=NCBI_GP:BAM93535.1;Name=BAM93535.1;Note=Start codon is not identified.;gbkey=CDS;gene=E4;partial=true;gene=putative E4 protein;protein_id=BAM93535.1;start_range=.	3243									
+gi|457866359|lcl|HPV160REF.1|	DDBJ	gene	4313	5737	.	+	.	ID=gene-L2;Name=L2;gbkey=Gene;gene=L2;gene_biotype=protein_coding										
+gi|457866359|lcl|HPV160REF.1|	DDBJ	CDS	4313	5737	.	+	0	ID=cds-BAM93536.1;Parent=gene-L2;Dbxref=NCBI_GP:BAM93536.1;Name=BAM93536.1;gbkey=CDS;gene=L2;gene=putative L2 protein;protein_id=BAM93536.1										
+gi|457866359|lcl|HPV160REF.1|	DDBJ	gene	5634	7229	.	+	.	ID=gene-L1;Name=L1;gbkey=Gene;gene=L1;gene_biotype=protein_coding										
+gi|457866359|lcl|HPV160REF.1|	DDBJ	CDS	5634	7229	.	+	0	ID=cds-BAM93537.1;Parent=gene-L1;Dbxref=NCBI_GP:BAM93537.1;Name=BAM93537.1;gbkey=CDS;gene=L1;gene=putative L1 protein;protein_id=BAM93537.1										
+##sequence-region HPV161REF.1 1 7238																		

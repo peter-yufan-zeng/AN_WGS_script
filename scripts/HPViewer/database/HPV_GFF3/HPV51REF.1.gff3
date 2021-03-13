@@ -1,0 +1,4 @@
+##sequence-region HPV51REF.1 1 7808																		
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=10595																		
+gi|333087|lcl|HPV51REF.1|	Genbank	region	1	7808	.	+	.	ID=M62877.1:1..7808;Dbxref=taxon:10595;gbkey=Src;mol_type=genomic DNA										
+##sequence-region HPV52REF.1 1 7942																		

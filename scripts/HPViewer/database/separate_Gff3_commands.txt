@@ -1,0 +1,18 @@
+grep "sequence-region" HPV_all_genotype.gff.csv | awk '{print $2}' > identifiers
+
+
+for i in `cat ./identifiers`; do grep -e $i -e Species -A1 HPV_all_genotype.gff.csv > HPV_GFF3/$i.gff3; done
+
+python ~/bioinformatics/STAR_indexes/HPViewer/HPViewer.py -1 UWO37R_R1_val_1.fq -2 UWO37R_R2_val_2.fq -p 16 -o UWO37R_HPViewer
+
+
+while read line
+do
+    if [[ ${line:0:1} == '>' ]]
+    then
+        outfile=${line:1:11}.fa
+        echo $line > $outfile
+    else
+        echo $line >> $outfile
+    fi
+done < myseq.fa

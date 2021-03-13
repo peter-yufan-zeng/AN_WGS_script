@@ -1,0 +1,19 @@
+##sequence-region HPV127REF.1 1 7181																		
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=746832																		
+gi|304522114|lcl|HPV127REF.1|	RefSeq	region	1	7181	.	+	.	ID=NC_014469.1:1..7181;Dbxref=taxon:746832;Is_circular=true;collection-date=2009;country=USA;gbkey=Src;genome=genomic;isolate=R3a;isolation-source=skin;mol_type=genomic DNA;nat-host=Homo sapiens;old-name=Gammapapillomavirus HPV127										
+gi|304522114|lcl|HPV127REF.1|	RefSeq	gene	81	500	.	+	.	ID=gene-HPV127_gp1;Dbxref=GeneID:9714360;Name=E6;gbkey=Gene;gene_biotype=protein_coding;locus_tag=HPV127_gp1										
+gi|304522114|lcl|HPV127REF.1|	RefSeq	CDS	81	500	.	+	0	ID=cds-YP_003858573.1;Parent=gene-HPV127_gp1;Dbxref=Genbank:YP_003858573.1	GeneID:9714360;Name=YP_003858573.1;gbkey=CDS;locus_tag=HPV127_gp1;gene=E6;protein_id=YP_003858573.1									
+gi|304522114|lcl|HPV127REF.1|	RefSeq	gene	497	793	.	+	.	ID=gene-HPV127_gp2;Dbxref=GeneID:9714354;Name=E7;gbkey=Gene;gene_biotype=protein_coding;locus_tag=HPV127_gp2										
+gi|304522114|lcl|HPV127REF.1|	RefSeq	CDS	497	793	.	+	0	ID=cds-YP_003858574.1;Parent=gene-HPV127_gp2;Dbxref=Genbank:YP_003858574.1	GeneID:9714354;Name=YP_003858574.1;gbkey=CDS;locus_tag=HPV127_gp2;gene=E7;protein_id=YP_003858574.1									
+gi|304522114|lcl|HPV127REF.1|	RefSeq	gene	777	3499	.	+	.	ID=gene-HPV127_gp3;Dbxref=GeneID:9714355;Name=E1;gbkey=Gene;gene_biotype=protein_coding;locus_tag=HPV127_gp3										
+gi|304522114|lcl|HPV127REF.1|	RefSeq	CDS	777	795	.	+	0	ID=cds-YP_003858575.1;Parent=gene-HPV127_gp3;Dbxref=Genbank:YP_003858575.1	GeneID:9714355;Name=YP_003858575.1;Note=believed to be expressed from a spliced mRNA that joins part of the 5' end of E1 to the E4 ORF;gbkey=CDS;locus_tag=HPV127_gp3;gene=E1^E4;protein_id=YP_003858575.1									
+gi|304522114|lcl|HPV127REF.1|	RefSeq	CDS	3135	3499	.	+	2	ID=cds-YP_003858575.1;Parent=gene-HPV127_gp3;Dbxref=Genbank:YP_003858575.1	GeneID:9714355;Name=YP_003858575.1;Note=believed to be expressed from a spliced mRNA that joins part of the 5' end of E1 to the E4 ORF;gbkey=CDS;locus_tag=HPV127_gp3;gene=E1^E4;protein_id=YP_003858575.1									
+gi|304522114|lcl|HPV127REF.1|	RefSeq	gene	777	2591	.	+	.	ID=gene-HPV127_gp4;Dbxref=GeneID:9714358;Name=E1E4;gbkey=Gene;gene_biotype=protein_coding;locus_tag=HPV127_gp4										
+gi|304522114|lcl|HPV127REF.1|	RefSeq	CDS	777	2591	.	+	0	ID=cds-YP_003858576.1;Parent=gene-HPV127_gp4;Dbxref=Genbank:YP_003858576.1	GeneID:9714358;Name=YP_003858576.1;gbkey=CDS;locus_tag=HPV127_gp4;gene=E1;protein_id=YP_003858576.1									
+gi|304522114|lcl|HPV127REF.1|	RefSeq	gene	2524	3735	.	+	.	ID=gene-HPV127_gp5;Dbxref=GeneID:9714356;Name=E2;gbkey=Gene;gene_biotype=protein_coding;locus_tag=HPV127_gp5										
+gi|304522114|lcl|HPV127REF.1|	RefSeq	CDS	2524	3735	.	+	0	ID=cds-YP_003858577.1;Parent=gene-HPV127_gp5;Dbxref=Genbank:YP_003858577.1	GeneID:9714356;Name=YP_003858577.1;gbkey=CDS;locus_tag=HPV127_gp5;gene=E2;protein_id=YP_003858577.1									
+gi|304522114|lcl|HPV127REF.1|	RefSeq	gene	3735	5264	.	+	.	ID=gene-HPV127_gp6;Dbxref=GeneID:9714357;Name=L2;gbkey=Gene;gene_biotype=protein_coding;locus_tag=HPV127_gp6										
+gi|304522114|lcl|HPV127REF.1|	RefSeq	CDS	3735	5264	.	+	0	ID=cds-YP_003858578.1;Parent=gene-HPV127_gp6;Dbxref=Genbank:YP_003858578.1	GeneID:9714357;Name=YP_003858578.1;gbkey=CDS;locus_tag=HPV127_gp6;gene=L2;protein_id=YP_003858578.1									
+gi|304522114|lcl|HPV127REF.1|	RefSeq	gene	5275	6804	.	+	.	ID=gene-HPV127_gp7;Dbxref=GeneID:9714359;Name=L1;gbkey=Gene;gene_biotype=protein_coding;locus_tag=HPV127_gp7										
+gi|304522114|lcl|HPV127REF.1|	RefSeq	CDS	5275	6804	.	+	0	ID=cds-YP_003858579.1;Parent=gene-HPV127_gp7;Dbxref=Genbank:YP_003858579.1	GeneID:9714359;Name=YP_003858579.1;gbkey=CDS;locus_tag=HPV127_gp7;gene=L1;protein_id=YP_003858579.1									
+##sequence-region HPV128REF.1 1 7259																		

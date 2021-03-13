@@ -1,0 +1,23 @@
+##sequence-region HPV81REF.1 1 8070																		
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=333771																		
+gi|40804509|lcl|HPV81REF.1|	EMBL	region	1	8070	.	+	.	ID=AJ620209.1:1..8070;Dbxref=taxon:333771;Is_circular=true;gbkey=Src;mol_type=genomic DNA;nat-host=Homo sapiens;old-name=Human papillomavirus - 81										
+gi|40804509|lcl|HPV81REF.1|	EMBL	gene	102	566	.	+	.	ID=gene-E6;Name=E6;gbkey=Gene;gene=E6;gene_biotype=protein_coding										
+gi|40804509|lcl|HPV81REF.1|	EMBL	CDS	102	566	.	+	0	ID=cds-CAF05692.1;Parent=gene-E6;Dbxref=GOA:Q705E9	InterPro:IPR001334	UniProtKB/TrEMBL:Q705E9	NCBI_GP:CAF05692.1;Name=CAF05692.1;gbkey=CDS;gene=E6;gene=E6 protein;protein_id=CAF05692.1							
+gi|40804509|lcl|HPV81REF.1|	EMBL	gene	542	838	.	+	.	ID=gene-E7;Name=E7;gbkey=Gene;gene=E7;gene_biotype=protein_coding										
+gi|40804509|lcl|HPV81REF.1|	EMBL	CDS	542	838	.	+	0	ID=cds-CAF05693.1;Parent=gene-E7;Dbxref=GOA:Q705E8	InterPro:IPR000148	UniProtKB/TrEMBL:Q705E8	NCBI_GP:CAF05693.1;Name=CAF05693.1;gbkey=CDS;gene=E7;gene=E7 protein;protein_id=CAF05693.1							
+gi|40804509|lcl|HPV81REF.1|	EMBL	gene	844	2796	.	+	.	ID=gene-E1;Name=E1;gbkey=Gene;gene=E1;gene_biotype=protein_coding										
+gi|40804509|lcl|HPV81REF.1|	EMBL	CDS	844	2796	.	+	0	ID=cds-CAF05694.1;Parent=gene-E1;Dbxref=GOA:Q705E7	InterPro:IPR001177	InterPro:IPR014000	InterPro:IPR014015	InterPro:IPR016393	UniProtKB/TrEMBL:Q705E7	NCBI_GP:CAF05694.1;Name=CAF05694.1;gbkey=CDS;gene=E1;gene=E1 protein;protein_id=CAF05694.1				
+gi|40804509|lcl|HPV81REF.1|	EMBL	gene	2738	3874	.	+	.	ID=gene-E2;Name=E2;gbkey=Gene;gene=E2;gene_biotype=protein_coding										
+gi|40804509|lcl|HPV81REF.1|	EMBL	CDS	2738	3874	.	+	0	ID=cds-CAF05695.1;Parent=gene-E2;Dbxref=GOA:Q705E6	HSSP:1A7G	InterPro:IPR000427	InterPro:IPR001866	InterPro:IPR009021	InterPro:IPR012677	UniProtKB/TrEMBL:Q705E6	NCBI_GP:CAF05695.1;Name=CAF05695.1;gbkey=CDS;gene=E2;gene=E2 protein;protein_id=CAF05695.1			
+gi|40804509|lcl|HPV81REF.1|	EMBL	gene	3324	3632	.	+	.	ID=gene-E4;Name=E4;gbkey=Gene;gene=E4;gene_biotype=protein_coding										
+gi|40804509|lcl|HPV81REF.1|	EMBL	CDS	3324	3632	.	+	0	ID=cds-CAF05696.1;Parent=gene-E4;Dbxref=InterPro:IPR003861	UniProtKB/TrEMBL:Q705E5	NCBI_GP:CAF05696.1;Name=CAF05696.1;gbkey=CDS;gene=E4;gene=E4 protein;protein_id=CAF05696.1								
+gi|40804509|lcl|HPV81REF.1|	EMBL	gene	4462	5880	.	+	.	ID=gene-L2;Name=L2;gbkey=Gene;gene=L2;gene_biotype=protein_coding										
+gi|40804509|lcl|HPV81REF.1|	EMBL	CDS	4462	5880	.	+	0	ID=cds-CAF05697.1;Parent=gene-L2;Dbxref=GOA:Q705E4	InterPro:IPR000784	UniProtKB/TrEMBL:Q705E4	NCBI_GP:CAF05697.1;Name=CAF05697.1;gbkey=CDS;gene=L2;gene=L2 protein;protein_id=CAF05697.1							
+gi|40804509|lcl|HPV81REF.1|	EMBL	gene	5774	7372	.	+	.	ID=gene-L1;Name=L1;gbkey=Gene;gene=L1;gene_biotype=protein_coding										
+gi|40804509|lcl|HPV81REF.1|	EMBL	CDS	5774	7372	.	+	0	ID=cds-CAF05698.1;Parent=gene-L1;Dbxref=GOA:Q705E3	InterPro:IPR002210	InterPro:IPR011222	UniProtKB/TrEMBL:Q705E3	NCBI_GP:CAF05698.1;Name=CAF05698.1;Note=first ATG;gbkey=CDS;gene=L1;gene=L1 protein;protein_id=CAF05698.1						
+gi|40804509|lcl|HPV81REF.1|	EMBL	CDS	5858	7372	.	+	0	ID=cds-CAF05699.1;Parent=gene-L1;Dbxref=GOA:Q705E2	InterPro:IPR002210	InterPro:IPR011222	UniProtKB/TrEMBL:Q705E2	NCBI_GP:CAF05699.1;Name=CAF05699.1;Note=alternative;gbkey=CDS;gene=L1;gene=L1a protein;protein_id=CAF05699.1						
+gi|40804509|lcl|HPV81REF.1|	EMBL	gene	6387	6689	.	+	.	ID=gene-X;Name=X;gbkey=Gene;gene=X;gene_biotype=protein_coding										
+gi|40804509|lcl|HPV81REF.1|	EMBL	CDS	6387	6689	.	+	0	ID=cds-CAF05700.1;Parent=gene-X;Dbxref=UniProtKB/TrEMBL:Q705E1	NCBI_GP:CAF05700.1;Name=CAF05700.1;gbkey=CDS;gene=X;gene=X protein;protein_id=CAF05700.1									
+gi|40804509|lcl|HPV81REF.1|	EMBL	gene	7377	7700	.	+	.	ID=gene-Y;Name=Y;gbkey=Gene;gene=Y;gene_biotype=protein_coding										
+gi|40804509|lcl|HPV81REF.1|	EMBL	CDS	7377	7700	.	+	0	ID=cds-CAF05701.1;Parent=gene-Y;Dbxref=UniProtKB/TrEMBL:Q705E0	NCBI_GP:CAF05701.1;Name=CAF05701.1;gbkey=CDS;gene=Y;gene=Y protein;protein_id=CAF05701.1									
+##sequence-region HPV82REF.1 1 7871																		

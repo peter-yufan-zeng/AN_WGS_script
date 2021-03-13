@@ -1,0 +1,18 @@
+##sequence-region HPV149REF.1 1 7333																		
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=909328																		
+gi|312451781|lcl|HPV149REF.1|	Genbank	region	1	7333	.	+	.	ID=GU117629.1:1..7333;Dbxref=taxon:909328;Is_circular=true;collected-by=Anja Koehler;country=Germany;gbkey=Src;identified-by=Anja Koehler;isolate=10-18;isolation-source=wart;mol_type=genomic DNA;nat-host=Homo sapiens;old-name=Human papillomavirus 10-18										
+gi|312451781|lcl|HPV149REF.1|	Genbank	gene	1	411	.	+	.	ID=gene-E6;Name=E6;gbkey=Gene;gene=E6;gene_biotype=protein_coding										
+gi|312451781|lcl|HPV149REF.1|	Genbank	CDS	1	411	.	+	0	ID=cds-ADQ85943.1;Parent=gene-E6;Dbxref=NCBI_GP:ADQ85943.1;Name=ADQ85943.1;gbkey=CDS;gene=E6;gene=E6;protein_id=ADQ85943.1										
+gi|312451781|lcl|HPV149REF.1|	Genbank	gene	413	697	.	+	.	ID=gene-E7;Name=E7;gbkey=Gene;gene=E7;gene_biotype=protein_coding										
+gi|312451781|lcl|HPV149REF.1|	Genbank	CDS	413	697	.	+	0	ID=cds-ADQ85944.1;Parent=gene-E7;Dbxref=NCBI_GP:ADQ85944.1;Name=ADQ85944.1;gbkey=CDS;gene=E7;gene=E7;protein_id=ADQ85944.1										
+gi|312451781|lcl|HPV149REF.1|	Genbank	gene	687	2525	.	+	.	ID=gene-E1;Name=E1;gbkey=Gene;gene=E1;gene_biotype=protein_coding										
+gi|312451781|lcl|HPV149REF.1|	Genbank	CDS	687	2525	.	+	0	ID=cds-ADQ85940.1;Parent=gene-E1;Dbxref=NCBI_GP:ADQ85940.1;Name=ADQ85940.1;gbkey=CDS;gene=E1;gene=E1;protein_id=ADQ85940.1										
+gi|312451781|lcl|HPV149REF.1|	Genbank	gene	2467	3687	.	+	.	ID=gene-E2;Name=E2;gbkey=Gene;gene=E2;gene_biotype=protein_coding										
+gi|312451781|lcl|HPV149REF.1|	Genbank	CDS	2467	3687	.	+	0	ID=cds-ADQ85941.1;Parent=gene-E2;Dbxref=NCBI_GP:ADQ85941.1;Name=ADQ85941.1;gbkey=CDS;gene=E2;gene=E2;protein_id=ADQ85941.1										
+gi|312451781|lcl|HPV149REF.1|	Genbank	gene	2930	3454	.	+	.	ID=gene-E4;Name=E4;gbkey=Gene;gene=E4;gene_biotype=protein_coding										
+gi|312451781|lcl|HPV149REF.1|	Genbank	CDS	2930	3454	.	+	0	ID=cds-ADQ85942.1;Parent=gene-E4;Dbxref=NCBI_GP:ADQ85942.1;Name=ADQ85942.1;gbkey=CDS;gene=E4;gene=E4;protein_id=ADQ85942.1										
+gi|312451781|lcl|HPV149REF.1|	Genbank	gene	3689	5254	.	+	.	ID=gene-L2;Name=L2;gbkey=Gene;gene=L2;gene_biotype=protein_coding										
+gi|312451781|lcl|HPV149REF.1|	Genbank	CDS	3689	5254	.	+	0	ID=cds-ADQ85946.1;Parent=gene-L2;Dbxref=NCBI_GP:ADQ85946.1;Name=ADQ85946.1;gbkey=CDS;gene=L2;gene=L2;protein_id=ADQ85946.1										
+gi|312451781|lcl|HPV149REF.1|	Genbank	gene	5263	6813	.	+	.	ID=gene-L1;Name=L1;gbkey=Gene;gene=L1;gene_biotype=protein_coding										
+gi|312451781|lcl|HPV149REF.1|	Genbank	CDS	5263	6813	.	+	0	ID=cds-ADQ85945.1;Parent=gene-L1;Dbxref=NCBI_GP:ADQ85945.1;Name=ADQ85945.1;gbkey=CDS;gene=L1;gene=L1;protein_id=ADQ85945.1										
+##sequence-region HPV150REF.1 1 7436																		

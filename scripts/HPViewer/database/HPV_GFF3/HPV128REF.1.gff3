@@ -1,0 +1,18 @@
+##sequence-region HPV128REF.1 1 7259																		
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=931209																		
+gi|319976684|lcl|HPV128REF.1|	RefSeq	region	1	7259	.	+	.	ID=NC_014952.1:1..7259;Dbxref=taxon:931209;Is_circular=true;collected-by=Anja Koehler;country=Germany;gbkey=Src;genome=genomic;identified-by=Anja Koehler;isolation-source=wart of an immunosuppressed organ transplanted patient;mol_type=genomic DNA;nat-host=Homo sapiens;old-name=Human papillomavirus 128										
+gi|319976684|lcl|HPV128REF.1|	RefSeq	gene	1	432	.	+	.	ID=gene-HPV128_gp1;Dbxref=GeneID:10146726;Name=E6;gbkey=Gene;gene=E6;gene_biotype=protein_coding;locus_tag=HPV128_gp1										
+gi|319976684|lcl|HPV128REF.1|	RefSeq	CDS	1	432	.	+	0	ID=cds-YP_004169263.1;Parent=gene-HPV128_gp1;Dbxref=Genbank:YP_004169263.1	GeneID:10146726;Name=YP_004169263.1;gbkey=CDS;gene=E6;locus_tag=HPV128_gp1;gene=E6;protein_id=YP_004169263.1									
+gi|319976684|lcl|HPV128REF.1|	RefSeq	gene	422	712	.	+	.	ID=gene-HPV128_gp2;Dbxref=GeneID:10146720;Name=E7;gbkey=Gene;gene=E7;gene_biotype=protein_coding;locus_tag=HPV128_gp2										
+gi|319976684|lcl|HPV128REF.1|	RefSeq	CDS	422	712	.	+	0	ID=cds-YP_004169264.1;Parent=gene-HPV128_gp2;Dbxref=Genbank:YP_004169264.1	GeneID:10146720;Name=YP_004169264.1;gbkey=CDS;gene=E7;locus_tag=HPV128_gp2;gene=E7;protein_id=YP_004169264.1									
+gi|319976684|lcl|HPV128REF.1|	RefSeq	gene	699	2516	.	+	.	ID=gene-HPV128_gp3;Dbxref=GeneID:10146721;Name=E1;gbkey=Gene;gene=E1;gene_biotype=protein_coding;locus_tag=HPV128_gp3										
+gi|319976684|lcl|HPV128REF.1|	RefSeq	CDS	699	2516	.	+	0	ID=cds-YP_004169265.1;Parent=gene-HPV128_gp3;Dbxref=Genbank:YP_004169265.1	GeneID:10146721;Name=YP_004169265.1;gbkey=CDS;gene=E1;locus_tag=HPV128_gp3;gene=E1;protein_id=YP_004169265.1									
+gi|319976684|lcl|HPV128REF.1|	RefSeq	gene	2452	3651	.	+	.	ID=gene-HPV128_gp4;Dbxref=GeneID:10146722;Name=E2;gbkey=Gene;gene=E2;gene_biotype=protein_coding;locus_tag=HPV128_gp4										
+gi|319976684|lcl|HPV128REF.1|	RefSeq	CDS	2452	3651	.	+	0	ID=cds-YP_004169266.1;Parent=gene-HPV128_gp4;Dbxref=Genbank:YP_004169266.1	GeneID:10146722;Name=YP_004169266.1;gbkey=CDS;gene=E2;locus_tag=HPV128_gp4;gene=E2;protein_id=YP_004169266.1									
+gi|319976684|lcl|HPV128REF.1|	RefSeq	gene	2924	3415	.	+	.	ID=gene-HPV128_gp5;Dbxref=GeneID:10146723;Name=E4;gbkey=Gene;gene=E4;gene_biotype=protein_coding;locus_tag=HPV128_gp5										
+gi|319976684|lcl|HPV128REF.1|	RefSeq	CDS	2924	3415	.	+	0	ID=cds-YP_004169267.1;Parent=gene-HPV128_gp5;Dbxref=Genbank:YP_004169267.1	GeneID:10146723;Name=YP_004169267.1;gbkey=CDS;gene=E4;locus_tag=HPV128_gp5;gene=E4;protein_id=YP_004169267.1									
+gi|319976684|lcl|HPV128REF.1|	RefSeq	gene	3664	5199	.	+	.	ID=gene-HPV128_gp6;Dbxref=GeneID:10146724;Name=L2;gbkey=Gene;gene=L2;gene_biotype=protein_coding;locus_tag=HPV128_gp6										
+gi|319976684|lcl|HPV128REF.1|	RefSeq	CDS	3664	5199	.	+	0	ID=cds-YP_004169268.1;Parent=gene-HPV128_gp6;Dbxref=Genbank:YP_004169268.1	GeneID:10146724;Name=YP_004169268.1;gbkey=CDS;gene=L2;locus_tag=HPV128_gp6;gene=L2;protein_id=YP_004169268.1									
+gi|319976684|lcl|HPV128REF.1|	RefSeq	gene	5210	6724	.	+	.	ID=gene-HPV128_gp7;Dbxref=GeneID:10146725;Name=L1;gbkey=Gene;gene=L1;gene_biotype=protein_coding;locus_tag=HPV128_gp7										
+gi|319976684|lcl|HPV128REF.1|	RefSeq	CDS	5210	6724	.	+	0	ID=cds-YP_004169269.1;Parent=gene-HPV128_gp7;Dbxref=Genbank:YP_004169269.1	GeneID:10146725;Name=YP_004169269.1;gbkey=CDS;gene=L1;locus_tag=HPV128_gp7;gene=L1;protein_id=YP_004169269.1									
+##sequence-region HPV129REF.1 1 7219																		

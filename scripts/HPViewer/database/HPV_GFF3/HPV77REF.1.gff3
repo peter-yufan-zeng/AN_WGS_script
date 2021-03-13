@@ -1,0 +1,18 @@
+##sequence-region HPV77REF.1 1 7887																		
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=69986																		
+gi|2911558|lcl|HPV77REF.1|	EMBL	region	1	7887	.	+	.	ID=Y15175.1:1..7887;Dbxref=taxon:69986;gbkey=Src;mol_type=genomic DNA										
+gi|2911558|lcl|HPV77REF.1|	EMBL	gene	102	548	.	+	.	ID=gene-E6;Name=E6;gbkey=Gene;gene=E6;gene_biotype=protein_coding										
+gi|2911558|lcl|HPV77REF.1|	EMBL	CDS	102	548	.	+	0	ID=cds-CAA75463.1;Parent=gene-E6;Dbxref=GOA:O56946	InterPro:IPR001334	UniProtKB/TrEMBL:O56946	NCBI_GP:CAA75463.1;Name=CAA75463.1;Note=putative;gbkey=CDS;gene=E6;gene=E6 protein;protein_id=CAA75463.1							
+gi|2911558|lcl|HPV77REF.1|	EMBL	gene	524	796	.	+	.	ID=gene-E7;Name=E7;gbkey=Gene;gene=E7;gene_biotype=protein_coding										
+gi|2911558|lcl|HPV77REF.1|	EMBL	CDS	524	796	.	+	0	ID=cds-CAA75464.1;Parent=gene-E7;Dbxref=GOA:O56947	InterPro:IPR000148	UniProtKB/TrEMBL:O56947	NCBI_GP:CAA75464.1;Name=CAA75464.1;Note=putative;gbkey=CDS;gene=E7;gene=E7 protein;protein_id=CAA75464.1							
+gi|2911558|lcl|HPV77REF.1|	EMBL	gene	803	2788	.	+	.	ID=gene-E1;Name=E1;gbkey=Gene;gene=E1;gene_biotype=protein_coding										
+gi|2911558|lcl|HPV77REF.1|	EMBL	CDS	803	2788	.	+	0	ID=cds-CAA75465.1;Parent=gene-E1;Dbxref=GOA:O56948	HSSP:1R9W	InterPro:IPR001177	InterPro:IPR014000	InterPro:IPR014015	InterPro:IPR016393	UniProtKB/TrEMBL:O56948	NCBI_GP:CAA75465.1;Name=CAA75465.1;Note=putative;gbkey=CDS;gene=E1;gene=E1 protein;protein_id=CAA75465.1			
+gi|2911558|lcl|HPV77REF.1|	EMBL	gene	2772	3893	.	+	.	ID=gene-E2;Name=E2;gbkey=Gene;gene=E2;gene_biotype=protein_coding										
+gi|2911558|lcl|HPV77REF.1|	EMBL	CDS	2772	3893	.	+	0	ID=cds-CAA75466.1;Parent=gene-E2;Dbxref=GOA:O56949	HSSP:1JJ4	InterPro:IPR000427	InterPro:IPR001866	InterPro:IPR009021	InterPro:IPR012677	UniProtKB/TrEMBL:O56949	NCBI_GP:CAA75466.1;Name=CAA75466.1;Note=putative;gbkey=CDS;gene=E2;gene=E2 protein;protein_id=CAA75466.1			
+gi|2911558|lcl|HPV77REF.1|	EMBL	gene	3244	3654	.	+	.	ID=gene-E4;Name=E4;gbkey=Gene;gene=E4;gene_biotype=protein_coding;partial=true;start_range=.	3244									
+gi|2911558|lcl|HPV77REF.1|	EMBL	CDS	3244	3654	.	+	0	ID=cds-CAA75469.1;Parent=gene-E4;Dbxref=InterPro:IPR003861	UniProtKB/TrEMBL:O73451	NCBI_GP:CAA75469.1;Name=CAA75469.1;Note=putative%3B~5' end derived by splicing;gbkey=CDS;gene=E4;partial=true;gene=E4 protein;protein_id=CAA75469.1;start_range=.	3244							
+gi|2911558|lcl|HPV77REF.1|	EMBL	gene	4249	5808	.	+	.	ID=gene-L2;Name=L2;gbkey=Gene;gene=L2;gene_biotype=protein_coding										
+gi|2911558|lcl|HPV77REF.1|	EMBL	CDS	4249	5808	.	+	0	ID=cds-CAA75467.1;Parent=gene-L2;Dbxref=GOA:O56950	InterPro:IPR000784	UniProtKB/TrEMBL:O56950	NCBI_GP:CAA75467.1;Name=CAA75467.1;Note=putative;gbkey=CDS;gene=L2;gene=L2 protein;protein_id=CAA75467.1							
+gi|2911558|lcl|HPV77REF.1|	EMBL	gene	5603	7300	.	+	.	ID=gene-L1;Name=L1;gbkey=Gene;gene=L1;gene_biotype=protein_coding										
+gi|2911558|lcl|HPV77REF.1|	EMBL	CDS	5603	7300	.	+	0	ID=cds-CAA75468.1;Parent=gene-L1;Dbxref=GOA:O56951	HSSP:1DZL	InterPro:IPR002210	InterPro:IPR011222	UniProtKB/TrEMBL:O56951	NCBI_GP:CAA75468.1;Name=CAA75468.1;Note=putative;gbkey=CDS;gene=L1;gene=L1 protein;protein_id=CAA75468.1					
+##sequence-region HPV78REF.1 1 7830																		

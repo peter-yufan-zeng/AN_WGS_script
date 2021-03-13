@@ -1,0 +1,18 @@
+##sequence-region HPV87REF.2 1 7998																		
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=120381																		
+gi|14475578|lcl|HPV87REF.2|	EMBL	region	1	7998	.	+	.	ID=AJ400628.2:1..7998;Dbxref=taxon:120381;Is_circular=true;country=Italy;gbkey=Src;mol_type=genomic DNA										
+gi|14475578|lcl|HPV87REF.2|	EMBL	gene	87	551	.	+	.	ID=gene-E6;Name=E6;gbkey=Gene;gene=E6;gene_biotype=protein_coding										
+gi|14475578|lcl|HPV87REF.2|	EMBL	CDS	87	551	.	+	0	ID=cds-CAC17712.2;Parent=gene-e6;Dbxref=GOA:Q9DIH7	InterPro:IPR001334	UniProtKB/TrEMBL:Q9DIH7	NCBI_GP:CAC17712.2;Name=CAC17712.2;gbkey=CDS;gene=e6;gene=putative E6 protein;protein_id=CAC17712.2							
+gi|14475578|lcl|HPV87REF.2|	EMBL	gene	527	817	.	+	.	ID=gene-E7;Name=E7;gbkey=Gene;gene=E7;gene_biotype=protein_coding										
+gi|14475578|lcl|HPV87REF.2|	EMBL	CDS	527	817	.	+	0	ID=cds-CAC17713.2;Parent=gene-e7;Dbxref=GOA:Q9DIH6	InterPro:IPR000148	UniProtKB/TrEMBL:Q9DIH6	NCBI_GP:CAC17713.2;Name=CAC17713.2;gbkey=CDS;gene=e7;gene=putative E7 protein;protein_id=CAC17713.2							
+gi|14475578|lcl|HPV87REF.2|	EMBL	gene	890	2770	.	+	.	ID=gene-E1;Name=E1;gbkey=Gene;gene=E1;gene_biotype=protein_coding										
+gi|14475578|lcl|HPV87REF.2|	EMBL	CDS	890	2770	.	+	0	ID=cds-CAC17714.2;Parent=gene-e1;Dbxref=GOA:Q9DIH5	HSSP:1R9W	InterPro:IPR001177	InterPro:IPR014000	InterPro:IPR014015	InterPro:IPR016393	UniProtKB/TrEMBL:Q9DIH5	NCBI_GP:CAC17714.2;Name=CAC17714.2;gbkey=CDS;gene=e1;gene=putative E1 protein;protein_id=CAC17714.2			
+gi|14475578|lcl|HPV87REF.2|	EMBL	gene	2712	3839	.	+	.	ID=gene-E2;Name=E2;gbkey=Gene;gene=E2;gene_biotype=protein_coding										
+gi|14475578|lcl|HPV87REF.2|	EMBL	CDS	2712	3839	.	+	0	ID=cds-CAC17715.2;Parent=gene-e2;Dbxref=GOA:Q9DIH4	HSSP:1JJ4	InterPro:IPR000427	InterPro:IPR001866	InterPro:IPR009021	InterPro:IPR012677	UniProtKB/TrEMBL:Q9DIH4	NCBI_GP:CAC17715.2;Name=CAC17715.2;gbkey=CDS;gene=e2;gene=putative E2 protein;protein_id=CAC17715.2			
+gi|14475578|lcl|HPV87REF.2|	EMBL	gene	3073	3606	.	+	.	ID=gene-E4;Name=E4;gbkey=Gene;gene=E4;gene_biotype=protein_coding										
+gi|14475578|lcl|HPV87REF.2|	EMBL	CDS	3073	3606	.	+	0	ID=cds-CAC17716.1;Parent=gene-e4;Dbxref=InterPro:IPR003861	UniProtKB/TrEMBL:Q9DIH3	NCBI_GP:CAC17716.1;Name=CAC17716.1;gbkey=CDS;gene=e4;gene=putative E4 protein;protein_id=CAC17716.1								
+gi|14475578|lcl|HPV87REF.2|	EMBL	gene	4359	5777	.	+	.	ID=gene-L2;Name=L2;gbkey=Gene;gene=L2;gene_biotype=protein_coding										
+gi|14475578|lcl|HPV87REF.2|	EMBL	CDS	4359	5777	.	+	0	ID=cds-CAC17717.2;Parent=gene-l2;Dbxref=GOA:Q9DHD4	InterPro:IPR000784	UniProtKB/TrEMBL:Q9DHD4	NCBI_GP:CAC17717.2;Name=CAC17717.2;gbkey=CDS;gene=l2;gene=putative L2 protein;protein_id=CAC17717.2							
+gi|14475578|lcl|HPV87REF.2|	EMBL	gene	5572	7269	.	+	.	ID=gene-L1;Name=L1;gbkey=Gene;gene=L1;gene_biotype=protein_coding										
+gi|14475578|lcl|HPV87REF.2|	EMBL	CDS	5572	7269	.	+	0	ID=cds-CAC17718.2;Parent=gene-l1;Dbxref=GOA:Q9DHD3	HSSP:1DZL	InterPro:IPR002210	InterPro:IPR011222	UniProtKB/TrEMBL:Q9DHD3	NCBI_GP:CAC17718.2;Name=CAC17718.2;gbkey=CDS;gene=l1;gene=putative L1 protein;protein_id=CAC17718.2					
+##sequence-region HPV88REF.1 1 7326																		

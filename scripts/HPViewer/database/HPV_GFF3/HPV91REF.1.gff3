@@ -1,0 +1,18 @@
+##sequence-region HPV91REF.1 1 7966																		
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=202252																		
+gi|22023568|lcl|HPV91REF.1|	Genbank	region	1	7966	.	+	.	ID=AF419318.1:1..7966;Dbxref=taxon:202252;Is_circular=true;gbkey=Src;mol_type=genomic DNA;note=Human papillomavirus type 91 candidate;serotype=91;synonym=candHPV91										
+gi|22023568|lcl|HPV91REF.1|	Genbank	gene	1	645	.	+	.	ID=gene-E6;Name=E6;gbkey=Gene;gene=E6;gene_biotype=protein_coding										
+gi|22023568|lcl|HPV91REF.1|	Genbank	CDS	1	645	.	+	0	ID=cds-AAM89130.1;Parent=gene-E6;Dbxref=NCBI_GP:AAM89130.1;Name=AAM89130.1;gbkey=CDS;gene=E6;gene=E6;protein_id=AAM89130.1										
+gi|22023568|lcl|HPV91REF.1|	Genbank	gene	606	902	.	+	.	ID=gene-E7;Name=E7;gbkey=Gene;gene=E7;gene_biotype=protein_coding										
+gi|22023568|lcl|HPV91REF.1|	Genbank	CDS	606	902	.	+	0	ID=cds-AAM89131.1;Parent=gene-E7;Dbxref=NCBI_GP:AAM89131.1;Name=AAM89131.1;gbkey=CDS;gene=E7;gene=E7;protein_id=AAM89131.1										
+gi|22023568|lcl|HPV91REF.1|	Genbank	gene	908	2869	.	+	.	ID=gene-E1;Name=E1;gbkey=Gene;gene=E1;gene_biotype=protein_coding										
+gi|22023568|lcl|HPV91REF.1|	Genbank	CDS	908	2869	.	+	0	ID=cds-AAM89132.1;Parent=gene-E1;Dbxref=NCBI_GP:AAM89132.1;Name=AAM89132.1;gbkey=CDS;gene=E1;gene=E1;protein_id=AAM89132.1										
+gi|22023568|lcl|HPV91REF.1|	Genbank	gene	2811	3923	.	+	.	ID=gene-E2;Name=E2;gbkey=Gene;gene=E2;gene_biotype=protein_coding										
+gi|22023568|lcl|HPV91REF.1|	Genbank	CDS	2811	3923	.	+	0	ID=cds-AAM89133.1;Parent=gene-E2;Dbxref=NCBI_GP:AAM89133.1;Name=AAM89133.1;gbkey=CDS;gene=E2;gene=E2;protein_id=AAM89133.1										
+gi|22023568|lcl|HPV91REF.1|	Genbank	gene	3343	3687	.	+	.	ID=gene-E4;Name=E4;gbkey=Gene;gene=E4;gene_biotype=protein_coding										
+gi|22023568|lcl|HPV91REF.1|	Genbank	CDS	3343	3687	.	+	0	ID=cds-AAM89134.1;Parent=gene-E4;Dbxref=NCBI_GP:AAM89134.1;Name=AAM89134.1;gbkey=CDS;gene=E4;gene=E4;protein_id=AAM89134.1										
+gi|22023568|lcl|HPV91REF.1|	Genbank	gene	4502	5884	.	+	.	ID=gene-L2;Name=L2;gbkey=Gene;gene=L2;gene_biotype=protein_coding										
+gi|22023568|lcl|HPV91REF.1|	Genbank	CDS	4502	5884	.	+	0	ID=cds-AAM89135.1;Parent=gene-L2;Dbxref=NCBI_GP:AAM89135.1;Name=AAM89135.1;gbkey=CDS;gene=L2;gene=L2;protein_id=AAM89135.1										
+gi|22023568|lcl|HPV91REF.1|	Genbank	gene	5595	7379	.	+	.	ID=gene-L1;Name=L1;gbkey=Gene;gene=L1;gene_biotype=protein_coding										
+gi|22023568|lcl|HPV91REF.1|	Genbank	CDS	5595	7379	.	+	0	ID=cds-AAM89136.1;Parent=gene-L1;Dbxref=NCBI_GP:AAM89136.1;Name=AAM89136.1;gbkey=CDS;gene=L1;gene=L1;protein_id=AAM89136.1										
+##sequence-region HPV92REF.1 1 7461																		

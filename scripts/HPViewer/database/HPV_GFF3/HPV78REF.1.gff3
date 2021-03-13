@@ -1,0 +1,18 @@
+##sequence-region HPV78REF.1 1 7830																		
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=1288116																		
+gi|444303709|lcl|HPV78REF.1|	Genbank	region	1	7830	.	+	.	ID=KC138720.1:1..7830;Dbxref=taxon:1288116;Is_circular=true;collected-by=A. Kreuter;collection-date=11-Feb-2011;country=Germany;gbkey=Src;genome=genomic;isolation-source=wart of an immunosuppressed patient;mol_type=genomic DNA;nat-host=Homo sapiens										
+gi|444303709|lcl|HPV78REF.1|	Genbank	gene	104	550	.	+	.	ID=gene-E6;Name=E6;gbkey=Gene;gene=E6;gene_biotype=protein_coding										
+gi|444303709|lcl|HPV78REF.1|	Genbank	CDS	104	550	.	+	0	ID=cds-AGD99637.1;Parent=gene-E6;Dbxref=NCBI_GP:AGD99637.1;Name=AGD99637.1;gbkey=CDS;gene=E6;gene=E6;protein_id=AGD99637.1										
+gi|444303709|lcl|HPV78REF.1|	Genbank	gene	526	789	.	+	.	ID=gene-E7;Name=E7;gbkey=Gene;gene=E7;gene_biotype=protein_coding										
+gi|444303709|lcl|HPV78REF.1|	Genbank	CDS	526	789	.	+	0	ID=cds-AGD99638.1;Parent=gene-E7;Dbxref=NCBI_GP:AGD99638.1;Name=AGD99638.1;gbkey=CDS;gene=E7;gene=E7;protein_id=AGD99638.1										
+gi|444303709|lcl|HPV78REF.1|	Genbank	gene	796	2778	.	+	.	ID=gene-E1;Name=E1;gbkey=Gene;gene=E1;gene_biotype=protein_coding										
+gi|444303709|lcl|HPV78REF.1|	Genbank	CDS	796	2778	.	+	0	ID=cds-AGD99639.1;Parent=gene-E1;Dbxref=NCBI_GP:AGD99639.1;Name=AGD99639.1;gbkey=CDS;gene=E1;gene=E1;protein_id=AGD99639.1										
+gi|444303709|lcl|HPV78REF.1|	Genbank	gene	2720	3856	.	+	.	ID=gene-E2;Name=E2;gbkey=Gene;gene=E2;gene_biotype=protein_coding										
+gi|444303709|lcl|HPV78REF.1|	Genbank	CDS	2720	3856	.	+	0	ID=cds-AGD99640.1;Parent=gene-E2;Dbxref=NCBI_GP:AGD99640.1;Name=AGD99640.1;gbkey=CDS;gene=E2;gene=E2;protein_id=AGD99640.1										
+gi|444303709|lcl|HPV78REF.1|	Genbank	gene	4056	4199	.	+	.	ID=gene-E5;Name=E5;gbkey=Gene;gene=E5;gene_biotype=protein_coding										
+gi|444303709|lcl|HPV78REF.1|	Genbank	CDS	4056	4199	.	+	0	ID=cds-AGD99644.1;Parent=gene-E5;Dbxref=NCBI_GP:AGD99644.1;Name=AGD99644.1;gbkey=CDS;gene=E5;gene=E5;protein_id=AGD99644.1										
+gi|444303709|lcl|HPV78REF.1|	Genbank	gene	4336	5760	.	+	.	ID=gene-L2;Name=L2;gbkey=Gene;gene=L2;gene_biotype=protein_coding										
+gi|444303709|lcl|HPV78REF.1|	Genbank	CDS	4336	5760	.	+	0	ID=cds-AGD99642.1;Parent=gene-L2;Dbxref=NCBI_GP:AGD99642.1;Name=AGD99642.1;gbkey=CDS;gene=L2;gene=L2;protein_id=AGD99642.1										
+gi|444303709|lcl|HPV78REF.1|	Genbank	gene	5741	7255	.	+	.	ID=gene-L1;Name=L1;gbkey=Gene;gene=L1;gene_biotype=protein_coding										
+gi|444303709|lcl|HPV78REF.1|	Genbank	CDS	5741	7255	.	+	0	ID=cds-AGD99643.2;Parent=gene-L1;Dbxref=NCBI_GP:AGD99643.2;Name=AGD99643.2;gbkey=CDS;gene=L1;gene=L1;protein_id=AGD99643.2										
+##sequence-region HPV80REF.1 1 7427																		

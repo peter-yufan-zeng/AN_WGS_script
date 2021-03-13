@@ -1,0 +1,13 @@
+##sequence-region HPV67REF.1 1 7801																		
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=37120																		
+gi|3228267|lcl|HPV67REF.1|	DDBJ	region	1	7801	.	+	.	ID=D21208.1:1..7801;Dbxref=taxon:37120;Is_circular=true;gbkey=Src;mol_type=genomic DNA										
+gi|3228267|lcl|HPV67REF.1|	DDBJ	region	64	69	.	+	.	ID=id-D21208.1:64..69;gbkey=TATA_signal										
+gi|3228267|lcl|HPV67REF.1|	DDBJ	gene	102	551	.	+	0	ID=cds-BAA66109.1;Dbxref=NCBI_GP:BAA66109.1;Name=E6;gbkey=CDS;gene=BAA66109.1;protein_id=BAA66109.1										
+gi|3228267|lcl|HPV67REF.1|	DDBJ	gene	563	862	.	+	0	ID=cds-BAA66110.1;Dbxref=NCBI_GP:BAA66110.1;Name=E7;gbkey=CDS;gene=BAA66110.1;protein_id=BAA66110.1										
+gi|3228267|lcl|HPV67REF.1|	DDBJ	gene	875	2785	.	+	0	ID=cds-BAA66111.1;Dbxref=NCBI_GP:BAA66111.1;Name=E1;gbkey=CDS;gene=BAA66111.1;protein_id=BAA66111.1										
+gi|3228267|lcl|HPV67REF.1|	DDBJ	gene	2721	3827	.	+	0	ID=cds-BAA66112.1;Dbxref=NCBI_GP:BAA66112.1;Name=E2;gbkey=CDS;gene=BAA66112.1;protein_id=BAA66112.1										
+gi|3228267|lcl|HPV67REF.1|	DDBJ	gene	3298	3591	.	+	0	ID=cds-BAA66113.1;Dbxref=NCBI_GP:BAA66113.1;Name=E4;gbkey=CDS;gene=BAA66113.1;protein_id=BAA66113.1										
+gi|3228267|lcl|HPV67REF.1|	DDBJ	gene	3900	4121	.	+	0	ID=cds-BAA66114.1;Dbxref=NCBI_GP:BAA66114.1;Name=E5;gbkey=CDS;gene=BAA66114.1;protein_id=BAA66114.1										
+gi|3228267|lcl|HPV67REF.1|	DDBJ	gene	4238	5635	.	+	0	ID=cds-BAA66115.1;Dbxref=NCBI_GP:BAA66115.1;Name=L2;gbkey=CDS;gene=BAA66115.1;protein_id=BAA66115.1										
+gi|3228267|lcl|HPV67REF.1|	DDBJ	gene	5529	7118	.	+	0	ID=cds-BAA28859.1;Dbxref=NCBI_GP:BAA28859.1;Name=L1;gbkey=CDS;gene=BAA28859.1;protein_id=BAA28859.1										
+##sequence-region HPV68REF.1 1 7822																		

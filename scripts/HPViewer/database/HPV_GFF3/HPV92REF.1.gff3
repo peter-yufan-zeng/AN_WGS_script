@@ -1,0 +1,18 @@
+##sequence-region HPV92REF.1 1 7461																		
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=211787																		
+gi|27531786|lcl|HPV92REF.1|	RefSeq	region	1	7461	.	+	.	ID=NC_004500.1:1..7461;Dbxref=taxon:211787;country=Australia: Adelaide;gbkey=Src;genome=genomic;isolation-source=basal cell carcinoma from temple of an immuno-competent 89 year old man;mol_type=genomic DNA;type=92										
+gi|27531786|lcl|HPV92REF.1|	RefSeq	gene	106	522	.	+	.	ID=gene-HpV92gp1;Dbxref=GeneID:956304;gene=HpV92gp1;gbkey=Gene;gene_biotype=protein_coding;locus_tag=HpV92gp1;Name=E6										
+gi|27531786|lcl|HPV92REF.1|	RefSeq	CDS	106	522	.	+	0	ID=cds-NP_775305.1;Parent=gene-HpV92gp1;Dbxref=Genbank:NP_775305.1	GeneID:956304;Name=NP_775305.1;gbkey=CDS;locus_tag=HpV92gp1;gene=E6;protein_id=NP_775305.1									
+gi|27531786|lcl|HPV92REF.1|	RefSeq	gene	519	794	.	+	.	ID=gene-HpV92gp2;Dbxref=GeneID:956298;gene=HpV92gp2;gbkey=Gene;gene_biotype=protein_coding;locus_tag=HpV92gp2;Name=E7										
+gi|27531786|lcl|HPV92REF.1|	RefSeq	CDS	519	794	.	+	0	ID=cds-NP_775306.1;Parent=gene-HpV92gp2;Dbxref=Genbank:NP_775306.1	GeneID:956298;Name=NP_775306.1;gbkey=CDS;locus_tag=HpV92gp2;gene=E7;protein_id=NP_775306.1									
+gi|27531786|lcl|HPV92REF.1|	RefSeq	gene	784	2622	.	+	.	ID=gene-HpV92gp3;Dbxref=GeneID:956300;gene=HpV92gp3;gbkey=Gene;gene_biotype=protein_coding;locus_tag=HpV92gp3;Name=E1										
+gi|27531786|lcl|HPV92REF.1|	RefSeq	CDS	784	2622	.	+	0	ID=cds-NP_775307.1;Parent=gene-HpV92gp3;Dbxref=Genbank:NP_775307.1	GeneID:956300;Name=NP_775307.1;gbkey=CDS;locus_tag=HpV92gp3;gene=E1;protein_id=NP_775307.1									
+gi|27531786|lcl|HPV92REF.1|	RefSeq	gene	2564	3997	.	+	.	ID=gene-HpV92gp4;Dbxref=GeneID:956299;gene=HpV92gp4;gbkey=Gene;gene_biotype=protein_coding;locus_tag=HpV92gp4;Name=E2										
+gi|27531786|lcl|HPV92REF.1|	RefSeq	CDS	2564	3997	.	+	0	ID=cds-NP_775308.1;Parent=gene-HpV92gp4;Dbxref=Genbank:NP_775308.1	GeneID:956299;Name=NP_775308.1;gbkey=CDS;locus_tag=HpV92gp4;gene=E2;protein_id=NP_775308.1									
+gi|27531786|lcl|HPV92REF.1|	RefSeq	gene	3057	3752	.	+	.	ID=gene-HpV92gp5;Dbxref=GeneID:956302;gene=HpV92gp5;gbkey=Gene;gene_biotype=protein_coding;locus_tag=HpV92gp5;Name=E4										
+gi|27531786|lcl|HPV92REF.1|	RefSeq	CDS	3057	3752	.	+	0	ID=cds-NP_775309.1;Parent=gene-HpV92gp5;Dbxref=Genbank:NP_775309.1	GeneID:956302;Name=NP_775309.1;Note=start codon not determined;gbkey=CDS;locus_tag=HpV92gp5;partial=true;gene=E4;protein_id=NP_775309.1;start_range=.	3057								
+gi|27531786|lcl|HPV92REF.1|	RefSeq	gene	4056	5627	.	+	.	ID=gene-HpV92gp6;Dbxref=GeneID:956301;gene=HpV92gp6;gbkey=Gene;gene_biotype=protein_coding;locus_tag=HpV92gp6;Name=L2										
+gi|27531786|lcl|HPV92REF.1|	RefSeq	CDS	4056	5627	.	+	0	ID=cds-NP_775310.1;Parent=gene-HpV92gp6;Dbxref=Genbank:NP_775310.1	GeneID:956301;Name=NP_775310.1;gbkey=CDS;locus_tag=HpV92gp6;gene=L2;protein_id=NP_775310.1									
+gi|27531786|lcl|HPV92REF.1|	RefSeq	gene	5638	7176	.	+	.	ID=gene-HpV92gp7;Dbxref=GeneID:956303;gene=HpV92gp7;gbkey=Gene;gene_biotype=protein_coding;locus_tag=HpV92gp7;Name=L1										
+gi|27531786|lcl|HPV92REF.1|	RefSeq	CDS	5638	7176	.	+	0	ID=cds-NP_775311.1;Parent=gene-HpV92gp7;Dbxref=Genbank:NP_775311.1	GeneID:956303;Name=NP_775311.1;gbkey=CDS;locus_tag=HpV92gp7;gene=L1;protein_id=NP_775311.1									
+##sequence-region HPV93REF.1 1 7450																		

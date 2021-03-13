@@ -1,0 +1,11 @@
+##sequence-region HPV57REF.1 1 7861																		
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=333753																		
+gi|60882|lcl|HPV57REF.1|	EMBL	region	1	7861	.	+	.	ID=X55965.1:1..7861;Dbxref=taxon:333753;gbkey=Src;mol_type=genomic DNA										
+gi|60882|lcl|HPV57REF.1|	EMBL	gene	105	566	.	+	0	ID=cds-CAA39430.1;Dbxref=GOA:P22158;Name=E6	InterPro:IPR001334	UniProtKB/Swiss-Prot:P22158	NCBI_GP:CAA39430.1;Name=CAA39430.1;Note=ORF E6;gbkey=CDS;gene=CAA39430.1;protein_id=CAA39430.1							
+gi|60882|lcl|HPV57REF.1|	EMBL	gene	527	805	.	+	0	ID=cds-CAA39431.1;Dbxref=GOA:P22160;Name=E7	InterPro:IPR000148	UniProtKB/Swiss-Prot:P22160	NCBI_GP:CAA39431.1;Name=CAA39431.1;Note=ORF E7;gbkey=CDS;gene=CAA39431.1;protein_id=CAA39431.1							
+gi|60882|lcl|HPV57REF.1|	EMBL	gene	810	2741	.	+	0	ID=cds-CAA39432.1;Dbxref=GOA:P22153;Name=E1	InterPro:IPR001177	InterPro:IPR014000	InterPro:IPR014015	InterPro:IPR016393	UniProtKB/Swiss-Prot:P22153	NCBI_GP:CAA39432.1;Name=CAA39432.1;Note=ORF E1;gbkey=CDS;gene=CAA39432.1;protein_id=CAA39432.1				
+gi|60882|lcl|HPV57REF.1|	EMBL	gene	2683	3834	.	+	0	ID=cds-CAA39433.1;Dbxref=GOA:P22155;Name=E2	InterPro:IPR000427	InterPro:IPR001866	InterPro:IPR009021	InterPro:IPR012677	UniProtKB/Swiss-Prot:P22155	NCBI_GP:CAA39433.1;Name=CAA39433.1;Note=ORF E2;gbkey=CDS;gene=CAA39433.1;protein_id=CAA39433.1				
+gi|60882|lcl|HPV57REF.1|	EMBL	gene	3221	3595	.	+	0	ID=cds-CAA39434.1;Dbxref=InterPro:IPR003861;Name=E4	UniProtKB/Swiss-Prot:P22157	NCBI_GP:CAA39434.1;Name=CAA39434.1;Note=ORF E4;gbkey=CDS;gene=CAA39434.1;protein_id=CAA39434.1								
+gi|60882|lcl|HPV57REF.1|	EMBL	gene	4373	5770	.	+	0	ID=cds-CAA39435.1;Dbxref=GOA:P22164;Name=L2	InterPro:IPR000784	UniProtKB/Swiss-Prot:P22164	NCBI_GP:CAA39435.1;Name=CAA39435.1;Note=ORF L2;gbkey=CDS;gene=CAA39435.1;protein_id=CAA39435.1							
+gi|60882|lcl|HPV57REF.1|	EMBL	gene	5703	7235	.	+	0	ID=cds-CAA39436.1;Dbxref=GOA:P22162;Name=L1	InterPro:IPR002210	InterPro:IPR011222	UniProtKB/Swiss-Prot:P22162	NCBI_GP:CAA39436.1;Name=CAA39436.1;Note=ORF L1;gbkey=CDS;gene=CAA39436.1;protein_id=CAA39436.1						
+##sequence-region HPV58REF.1 1 7824																		

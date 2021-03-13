@@ -1,0 +1,11 @@
+##sequence-region HPV65REF.1 1 7308																		
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=28312																		
+gi|312100|lcl|HPV65REF.1|	EMBL	region	1	7308	.	+	.	ID=X70829.1:1..7308;Dbxref=taxon:28312;gbkey=Src;mol_type=genomic DNA										
+gi|312100|lcl|HPV65REF.1|	EMBL	gene	102	524	.	+	0	ID=cds-CAA50171.1;Dbxref=GOA:Q07856;Name=E6	InterPro:IPR001334	UniProtKB/Swiss-Prot:Q07856	NCBI_GP:CAA50171.1;Name=CAA50171.1;Note=putative E6 ORF;gbkey=CDS;gene=CAA50171.1;protein_id=CAA50171.1							
+gi|312100|lcl|HPV65REF.1|	EMBL	gene	521	817	.	+	0	ID=cds-CAA50172.1;Dbxref=GOA:Q07859;Name=E7	InterPro:IPR000148	UniProtKB/Swiss-Prot:Q07859	NCBI_GP:CAA50172.1;Name=CAA50172.1;Note=putative E7 ORF;gbkey=CDS;gene=CAA50172.1;protein_id=CAA50172.1							
+gi|312100|lcl|HPV65REF.1|	EMBL	gene	807	2603	.	+	0	ID=cds-CAA50173.1;Dbxref=GOA:Q07848;Name=E1	InterPro:IPR001177	InterPro:IPR014000	InterPro:IPR014015	InterPro:IPR016393	UniProtKB/Swiss-Prot:Q07848	NCBI_GP:CAA50173.1;Name=CAA50173.1;Note=putative E1 ORF;gbkey=CDS;gene=CAA50173.1;protein_id=CAA50173.1				
+gi|312100|lcl|HPV65REF.1|	EMBL	gene	2545	3753	.	+	0	ID=cds-CAA50174.1;Dbxref=GOA:Q07851;Name=E2	InterPro:IPR000427	InterPro:IPR001866	InterPro:IPR009021	InterPro:IPR012677	UniProtKB/Swiss-Prot:Q07851	NCBI_GP:CAA50174.1;Name=CAA50174.1;Note=putative E2 ORF;gbkey=CDS;gene=CAA50174.1;protein_id=CAA50174.1				
+gi|312100|lcl|HPV65REF.1|	EMBL	gene	2876	3517	.	+	0	ID=cds-CAA50175.1;Dbxref=UniProtKB/Swiss-Prot:Q07873;Name=E4	NCBI_GP:CAA50175.1;Name=CAA50175.1;Note=putative E4 ORF%3B~no ATG;gbkey=CDS;gene=CAA50175.1;protein_id=CAA50175.1									
+gi|312100|lcl|HPV65REF.1|	EMBL	gene	3755	5311	.	+	0	ID=cds-CAA50176.1;Dbxref=GOA:Q07875;Name=L2	InterPro:IPR000784	UniProtKB/Swiss-Prot:Q07875	NCBI_GP:CAA50176.1;Name=CAA50176.1;Note=putative L2 ORF;gbkey=CDS;gene=CAA50176.1;protein_id=CAA50176.1							
+gi|312100|lcl|HPV65REF.1|	EMBL	gene	5326	6876	.	+	0	ID=cds-CAA50177.1;Dbxref=GOA:Q07874;Name=L1	InterPro:IPR002210	InterPro:IPR011222	UniProtKB/Swiss-Prot:Q07874	NCBI_GP:CAA50177.1;Name=CAA50177.1;Note=putative L1 ORF;gbkey=CDS;gene=CAA50177.1;protein_id=CAA50177.1						
+##sequence-region HPV66REF.1 1 7824																		

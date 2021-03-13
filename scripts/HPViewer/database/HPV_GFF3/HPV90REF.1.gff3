@@ -1,0 +1,18 @@
+##sequence-region HPV90REF.1 1 8033																		
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=333769																		
+gi|22138122|lcl|HPV90REF.1|	RefSeq	region	1	8033	.	+	.	ID=NC_004104.1:1..8033;Dbxref=taxon:333769;Is_circular=true;gbkey=Src;genome=genomic;mol_type=genomic DNA;note=Human papillomavirus type 90 candidate%3B novel type candidate;serotype=90;synonym=candHPV90										
+gi|22138122|lcl|HPV90REF.1|	RefSeq	gene	1	447	.	+	.	ID=gene-HpV90gp1;Dbxref=GeneID:951486;Name=E6;gbkey=Gene;gene=E6;gene_biotype=protein_coding;locus_tag=HpV90gp1										
+gi|22138122|lcl|HPV90REF.1|	RefSeq	CDS	1	447	.	+	0	ID=cds-NP_671503.1;Parent=gene-HpV90gp1;Dbxref=Genbank:NP_671503.1	GeneID:951486;Name=NP_671503.1;gbkey=CDS;gene=E6;locus_tag=HpV90gp1;gene=putative transforming protein E6;protein_id=NP_671503.1									
+gi|22138122|lcl|HPV90REF.1|	RefSeq	gene	423	719	.	+	.	ID=gene-HpV90gp2;Dbxref=GeneID:951485;Name=E7;gbkey=Gene;gene=E7;gene_biotype=protein_coding;locus_tag=HpV90gp2										
+gi|22138122|lcl|HPV90REF.1|	RefSeq	CDS	423	719	.	+	0	ID=cds-NP_671504.1;Parent=gene-HpV90gp2;Dbxref=Genbank:NP_671504.1	GeneID:951485;Name=NP_671504.1;gbkey=CDS;gene=E7;locus_tag=HpV90gp2;gene=putative transforming protein E7;protein_id=NP_671504.1									
+gi|22138122|lcl|HPV90REF.1|	RefSeq	gene	725	2665	.	+	.	ID=gene-HpV90gp3;Dbxref=GeneID:951487;Name=E1;gbkey=Gene;gene=E1;gene_biotype=protein_coding;locus_tag=HpV90gp3										
+gi|22138122|lcl|HPV90REF.1|	RefSeq	CDS	725	2665	.	+	0	ID=cds-NP_671505.1;Parent=gene-HpV90gp3;Dbxref=Genbank:NP_671505.1	GeneID:951487;Name=NP_671505.1;gbkey=CDS;gene=E1;locus_tag=HpV90gp3;gene=putative replication protein E1;protein_id=NP_671505.1									
+gi|22138122|lcl|HPV90REF.1|	RefSeq	gene	2607	3749	.	+	.	ID=gene-HpV90gp4;Dbxref=GeneID:951488;Name=E2;gbkey=Gene;gene=E2;gene_biotype=protein_coding;locus_tag=HpV90gp4										
+gi|22138122|lcl|HPV90REF.1|	RefSeq	CDS	2607	3749	.	+	0	ID=cds-NP_671506.1;Parent=gene-HpV90gp4;Dbxref=Genbank:NP_671506.1	GeneID:951488;Name=NP_671506.1;gbkey=CDS;gene=E2;locus_tag=HpV90gp4;gene=putative regulatory protein E2;protein_id=NP_671506.1									
+gi|22138122|lcl|HPV90REF.1|	RefSeq	gene	3193	3501	.	+	.	ID=gene-HpV90gp5;Dbxref=GeneID:951489;Name=E4;gbkey=Gene;gene=E4;gene_biotype=protein_coding;locus_tag=HpV90gp5										
+gi|22138122|lcl|HPV90REF.1|	RefSeq	CDS	3193	3501	.	+	0	ID=cds-NP_671507.1;Parent=gene-HpV90gp5;Dbxref=Genbank:NP_671507.1	GeneID:951489;Name=NP_671507.1;gbkey=CDS;gene=E4;locus_tag=HpV90gp5;gene=putative E4 protein;protein_id=NP_671507.1									
+gi|22138122|lcl|HPV90REF.1|	RefSeq	gene	4408	5811	.	+	.	ID=gene-HpV90gp6;Dbxref=GeneID:951490;Name=L2;gbkey=Gene;gene=L2;gene_biotype=protein_coding;locus_tag=HpV90gp6										
+gi|22138122|lcl|HPV90REF.1|	RefSeq	CDS	4408	5811	.	+	0	ID=cds-NP_671508.1;Parent=gene-HpV90gp6;Dbxref=Genbank:NP_671508.1	GeneID:951490;Name=NP_671508.1;gbkey=CDS;gene=L2;locus_tag=HpV90gp6;gene=putative minor capsid protein L2;protein_id=NP_671508.1									
+gi|22138122|lcl|HPV90REF.1|	RefSeq	gene	5792	7309	.	+	.	ID=gene-HpV90gp7;Dbxref=GeneID:951491;Name=L1;gbkey=Gene;gene=L1;gene_biotype=protein_coding;locus_tag=HpV90gp7										
+gi|22138122|lcl|HPV90REF.1|	RefSeq	CDS	5792	7309	.	+	0	ID=cds-NP_671509.1;Parent=gene-HpV90gp7;Dbxref=Genbank:NP_671509.1	GeneID:951491;Name=NP_671509.1;gbkey=CDS;gene=L1;locus_tag=HpV90gp7;gene=putative major capsid protein L1;protein_id=NP_671509.1									
+##sequence-region HPV91REF.1 1 7966																		

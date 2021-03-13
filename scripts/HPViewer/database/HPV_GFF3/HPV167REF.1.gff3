@@ -1,0 +1,18 @@
+##sequence-region HPV167REF.1 1 7228																		
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=1420545																		
+gi|559797726|lcl|HPV167REF.1|	RefSeq	region	1	7228	.	+	.	ID=NC_022892.1:1..7228;Dbxref=taxon:1420545;Is_circular=true;collection-date=30-Oct-2008;country=China;gbkey=Src;genome=genomic;genotype=167;isolate=KC10;mol_type=genomic DNA;nat-host=Homo sapiens;old-name=Human papillomavirus type 167										
+gi|559797726|lcl|HPV167REF.1|	RefSeq	gene	96	515	.	+	.	ID=gene-E6;Dbxref=GeneID:17699065;Name=E6;gbkey=Gene;gene=E6;gene_biotype=protein_coding;locus_tag=X516_gp1										
+gi|559797726|lcl|HPV167REF.1|	RefSeq	CDS	96	515	.	+	0	ID=cds-YP_008828145.1;Parent=gene-X516_gp1;Dbxref=Genbank:YP_008828145.1	GeneID:17699065;Name=YP_008828145.1;gbkey=CDS;gene=E6;locus_tag=X516_gp1;gene=E6;protein_id=YP_008828145.1									
+gi|559797726|lcl|HPV167REF.1|	RefSeq	gene	512	805	.	+	.	ID=gene-E7;Dbxref=GeneID:17699059;Name=E7;gbkey=Gene;gene=E7;gene_biotype=protein_coding;locus_tag=X516_gp2										
+gi|559797726|lcl|HPV167REF.1|	RefSeq	CDS	512	805	.	+	0	ID=cds-YP_008828146.1;Parent=gene-X516_gp2;Dbxref=Genbank:YP_008828146.1	GeneID:17699059;Name=YP_008828146.1;gbkey=CDS;gene=E7;locus_tag=X516_gp2;gene=E7;protein_id=YP_008828146.1									
+gi|559797726|lcl|HPV167REF.1|	RefSeq	gene	789	2603	.	+	.	ID=gene-E1;Dbxref=GeneID:17699060;Name=E1;gbkey=Gene;gene=E1;gene_biotype=protein_coding;locus_tag=X516_gp3										
+gi|559797726|lcl|HPV167REF.1|	RefSeq	CDS	789	2603	.	+	0	ID=cds-YP_008828147.1;Parent=gene-X516_gp3;Dbxref=Genbank:YP_008828147.1	GeneID:17699060;Name=YP_008828147.1;gbkey=CDS;gene=E1;locus_tag=X516_gp3;gene=E1;protein_id=YP_008828147.1									
+gi|559797726|lcl|HPV167REF.1|	RefSeq	gene	2536	3741	.	+	.	ID=gene-E2;Dbxref=GeneID:17699061;Name=E2;gbkey=Gene;gene=E2;gene_biotype=protein_coding;locus_tag=X516_gp4										
+gi|559797726|lcl|HPV167REF.1|	RefSeq	CDS	2536	3741	.	+	0	ID=cds-YP_008828148.1;Parent=gene-X516_gp4;Dbxref=Genbank:YP_008828148.1	GeneID:17699061;Name=YP_008828148.1;gbkey=CDS;gene=E2;locus_tag=X516_gp4;gene=E2;protein_id=YP_008828148.1									
+gi|559797726|lcl|HPV167REF.1|	RefSeq	gene	3128	3499	.	+	.	ID=gene-E4;Dbxref=GeneID:17699062;Name=E4;gbkey=Gene;gene=E4;gene_biotype=other;locus_tag=X516_gp5;partial=true;start_range=.	3128									
+gi|559797726|lcl|HPV167REF.1|	RefSeq	sequence_feature	3128	3499	.	+	.	ID=id-X516_gp5;Dbxref=GeneID:17699062;Note=similar to E4;gbkey=misc_feature;gene=E4;locus_tag=X516_gp5;partial=true;start_range=.	3128									
+gi|559797726|lcl|HPV167REF.1|	RefSeq	gene	3750	5258	.	+	.	ID=gene-L2;Dbxref=GeneID:17699063;Name=L2;gbkey=Gene;gene=L2;gene_biotype=protein_coding;locus_tag=X516_gp6										
+gi|559797726|lcl|HPV167REF.1|	RefSeq	CDS	3750	5258	.	+	0	ID=cds-YP_008828149.1;Parent=gene-X516_gp6;Dbxref=Genbank:YP_008828149.1	GeneID:17699063;Name=YP_008828149.1;gbkey=CDS;gene=L2;locus_tag=X516_gp6;gene=L2;protein_id=YP_008828149.1									
+gi|559797726|lcl|HPV167REF.1|	RefSeq	gene	5269	6819	.	+	.	ID=gene-L1;Dbxref=GeneID:17699064;Name=L1;gbkey=Gene;gene=L1;gene_biotype=protein_coding;locus_tag=X516_gp7										
+gi|559797726|lcl|HPV167REF.1|	RefSeq	CDS	5269	6819	.	+	0	ID=cds-YP_008828150.1;Parent=gene-X516_gp7;Dbxref=Genbank:YP_008828150.1	GeneID:17699064;Name=YP_008828150.1;gbkey=CDS;gene=L1;locus_tag=X516_gp7;gene=L1;protein_id=YP_008828150.1									
+##sequence-region HPV168REF.1 1 7204																		

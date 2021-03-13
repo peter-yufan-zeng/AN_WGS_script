@@ -1,0 +1,34 @@
+##sequence-region HPV31REF.1 1 7912																		
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=10585																		
+gi|333048|lcl|HPV31REF.1|	Genbank	region	1	7912	.	+	.	ID=J04353.1:1..7912;Dbxref=taxon:10585;Is_circular=true;gbkey=Src;mol_type=genomic DNA										
+gi|333048|lcl|HPV31REF.1|	Genbank	region	19	24	.	+	.	ID=id-J04353.1:19..24;gbkey=TATA_signal										
+gi|333048|lcl|HPV31REF.1|	Genbank	region	69	74	.	+	.	ID=id-J04353.1:69..74;gbkey=TATA_signal										
+gi|333048|lcl|HPV31REF.1|	Genbank	gene	108	557	.	+	.	ID=gene-E6;Name=E6;gbkey=Gene;gene=E6;gene_biotype=protein_coding										
+gi|333048|lcl|HPV31REF.1|	Genbank	CDS	108	557	.	+	0	ID=cds-AAA46950.1;Parent=gene-E6;Dbxref=NCBI_GP:AAA46950.1;Name=AAA46950.1;Note=ORF E6 from bp 39 to 557;gbkey=CDS;gene=E6;gene=transforming protein;protein_id=AAA46950.1										
+gi|333048|lcl|HPV31REF.1|	Genbank	sequence_feature	228	236	.	+	.	ID=id-E6;gbkey=misc_feature;gene=E6;standard_name=Splice donor										
+gi|333048|lcl|HPV31REF.1|	Genbank	sequence_feature	403	414	.	+	.	ID=id-E6-2;gbkey=misc_feature;gene=E6;standard_name=Splice acceptor										
+gi|333048|lcl|HPV31REF.1|	Genbank	gene	560	856	.	+	.	ID=gene-E7;Name=E7;gbkey=Gene;gene=E7;gene_biotype=protein_coding										
+gi|333048|lcl|HPV31REF.1|	Genbank	CDS	560	856	.	+	0	ID=cds-AAA46951.1;Parent=gene-E7;Dbxref=NCBI_GP:AAA46951.1;Name=AAA46951.1;Note=ORF E7 from bp 545 to 856;gbkey=CDS;gene=E7;gene=transforming protein;protein_id=AAA46951.1										
+gi|333048|lcl|HPV31REF.1|	Genbank	gene	862	2751	.	+	.	ID=gene-E1;Name=E1;gbkey=Gene;gene=E1;gene_biotype=protein_coding										
+gi|333048|lcl|HPV31REF.1|	Genbank	CDS	862	2751	.	+	0	ID=cds-AAA46952.1;Parent=gene-E1;Dbxref=NCBI_GP:AAA46952.1;Name=AAA46952.1;Note=ORF E1 from bp 850 to bp 2751;gbkey=CDS;gene=E1;gene=replication protein;protein_id=AAA46952.1										
+gi|333048|lcl|HPV31REF.1|	Genbank	gene	2693	3811	.	+	.	ID=gene-E2;Name=E2;gbkey=Gene;gene=E2;gene_biotype=protein_coding										
+gi|333048|lcl|HPV31REF.1|	Genbank	CDS	2693	3811	.	+	0	ID=cds-AAA46953.1;Parent=gene-E2;Dbxref=NCBI_GP:AAA46953.1;Name=AAA46953.1;Note=ORF E2 from bp 2663 to 3811;gbkey=CDS;gene=E2;gene=regulatory protein;protein_id=AAA46953.1										
+gi|333048|lcl|HPV31REF.1|	Genbank	gene	3270	3578	.	+	.	ID=gene-E4;Name=E4;gbkey=Gene;gene=E4;gene_biotype=protein_coding										
+gi|333048|lcl|HPV31REF.1|	Genbank	CDS	3270	3578	.	+	0	ID=cds-AAA46949.1;Parent=gene-E4;Dbxref=NCBI_GP:AAA46949.1;Name=AAA46949.1;gbkey=CDS;gene=E4;partial=true;gene=AAA46949.1;protein_id=AAA46949.1;start_range=.	3270									
+gi|333048|lcl|HPV31REF.1|	Genbank	gene	3816	4070	.	+	.	ID=gene-E5;Name=E5;gbkey=Gene;gene=E5;gene_biotype=protein_coding										
+gi|333048|lcl|HPV31REF.1|	Genbank	CDS	3816	4070	.	+	0	ID=cds-AAA46954.1;Parent=gene-E5;Dbxref=NCBI_GP:AAA46954.1;Name=AAA46954.1;gbkey=CDS;gene=E5;gene=AAA46954.1;protein_id=AAA46954.1										
+gi|333048|lcl|HPV31REF.1|	Genbank	repeat_region	4099	4134	.	+	.	ID=id-J04353.1:4099..4134;gbkey=repeat_region										
+gi|333048|lcl|HPV31REF.1|	Genbank	region	4138	4143	.	+	.	ID=id-J04353.1:4138..4143;Note=putative;gbkey=polyA_signal										
+gi|333048|lcl|HPV31REF.1|	Genbank	repeat_region	4143	4158	.	+	.	ID=id-J04353.1:4143..4158;gbkey=repeat_region										
+gi|333048|lcl|HPV31REF.1|	Genbank	gene	4171	5571	.	+	.	ID=gene-L2;Name=L2;gbkey=Gene;gene=L2;gene_biotype=protein_coding										
+gi|333048|lcl|HPV31REF.1|	Genbank	CDS	4171	5571	.	+	0	ID=cds-AAA46955.1;Parent=gene-L2;Dbxref=NCBI_GP:AAA46955.1;Name=AAA46955.1;Note=ORF L2 from bp 4060 to bp 5571;gbkey=CDS;gene=L2;gene=minor capsid protein;protein_id=AAA46955.1										
+gi|333048|lcl|HPV31REF.1|	Genbank	gene	5552	7066	.	+	.	ID=gene-L1;Name=L1;gbkey=Gene;gene=L1;gene_biotype=protein_coding										
+gi|333048|lcl|HPV31REF.1|	Genbank	CDS	5552	7066	.	+	0	ID=cds-AAA46956.1;Parent=gene-L1;Dbxref=NCBI_GP:AAA46956.1;Name=AAA46956.1;Note=ORF L1 from bp 5516 to  7066;gbkey=CDS;gene=L1;gene=major capsid protein;protein_id=AAA46956.1										
+gi|333048|lcl|HPV31REF.1|	Genbank	region	7227	7231	.	+	.	ID=id-J04353.1:7227..7231;Note=putative;gbkey=polyA_signal										
+gi|333048|lcl|HPV31REF.1|	Genbank	repeat_region	7291	7302	.	+	.	ID=id-J04353.1:7291..7302;gbkey=repeat_region										
+gi|333048|lcl|HPV31REF.1|	Genbank	repeat_region	7314	7333	.	+	.	ID=id-J04353.1:7314..7333;Note=putative;gbkey=repeat_region										
+gi|333048|lcl|HPV31REF.1|	Genbank	protein_binding_site	7406	7420	.	+	.	ID=id-J04353.1:7406..7420;bound_moiety=hormone receptor;gbkey=protein_bind;standard_name=glucocorticoid responsive element										
+gi|333048|lcl|HPV31REF.1|	Genbank	protein_binding_site	7477	7488	.	+	.	ID=id-J04353.1:7477..7488;bound_moiety=E2;function=gene transcription;gbkey=protein_bind										
+gi|333048|lcl|HPV31REF.1|	Genbank	enhancer	7542	7549	.	+	.	ID=id-J04353.1:7542..7549;gbkey=enhancer;standard_name=keratinocyte-dependant enhancer										
+gi|333048|lcl|HPV31REF.1|	Genbank	protein_binding_site	7868	7879	.	+	.	ID=id-J04353.1:7868..7879;bound_moiety=E2;function=gene transcription;gbkey=protein_bind										
+##sequence-region HPV32REF.1 1 7961																		

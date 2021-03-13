@@ -1,0 +1,18 @@
+##sequence-region HPV201REF.1 1 7291																		
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=1682340																		
+gi|896684338|lcl|HPV201REF.1|	RefSeq	region	1	7291	.	+	.	ID=NC_027528.1:1..7291;Dbxref=taxon:1682340;Is_circular=true;collection-date=2014;country=Sweden;gbkey=Src;genome=genomic;isolate=HPV201;mol_type=genomic DNA;nat-host=Homo sapiens										
+gi|896684338|lcl|HPV201REF.1|	RefSeq	gene	1	423	.	+	.	ID=gene-ADP62_gp1;Dbxref=GeneID:25067474;Name=E6;gbkey=Gene;gene=E6;gene_biotype=protein_coding;locus_tag=ADP62_gp1										
+gi|896684338|lcl|HPV201REF.1|	RefSeq	CDS	1	423	.	+	0	ID=cds-YP_009158852.1;Parent=gene-ADP62_gp1;Dbxref=Genbank:YP_009158852.1	GeneID:25067474;Name=YP_009158852.1;gbkey=CDS;gene=E6;locus_tag=ADP62_gp1;gene=E6;protein_id=YP_009158852.1									
+gi|896684338|lcl|HPV201REF.1|	RefSeq	gene	420	716	.	+	.	ID=gene-ADP62_gp2;Dbxref=GeneID:25067468;Name=E7;gbkey=Gene;gene=E7;gene_biotype=protein_coding;locus_tag=ADP62_gp2										
+gi|896684338|lcl|HPV201REF.1|	RefSeq	CDS	420	716	.	+	0	ID=cds-YP_009158853.1;Parent=gene-ADP62_gp2;Dbxref=Genbank:YP_009158853.1	GeneID:25067468;Name=YP_009158853.1;gbkey=CDS;gene=E7;locus_tag=ADP62_gp2;gene=E7;protein_id=YP_009158853.1									
+gi|896684338|lcl|HPV201REF.1|	RefSeq	gene	700	2526	.	+	.	ID=gene-ADP62_gp3;Dbxref=GeneID:25067469;Name=E1;gbkey=Gene;gene=E1;gene_biotype=protein_coding;locus_tag=ADP62_gp3										
+gi|896684338|lcl|HPV201REF.1|	RefSeq	CDS	700	2526	.	+	0	ID=cds-YP_009158854.1;Parent=gene-ADP62_gp3;Dbxref=Genbank:YP_009158854.1	GeneID:25067469;Name=YP_009158854.1;gbkey=CDS;gene=E1;locus_tag=ADP62_gp3;gene=E1;protein_id=YP_009158854.1									
+gi|896684338|lcl|HPV201REF.1|	RefSeq	gene	2468	3724	.	+	.	ID=gene-ADP62_gp4;Dbxref=GeneID:25067470;Name=E2;gbkey=Gene;gene=E2;gene_biotype=protein_coding;locus_tag=ADP62_gp4										
+gi|896684338|lcl|HPV201REF.1|	RefSeq	CDS	2468	3724	.	+	0	ID=cds-YP_009158855.1;Parent=gene-ADP62_gp4;Dbxref=Genbank:YP_009158855.1	GeneID:25067470;Name=YP_009158855.1;gbkey=CDS;gene=E2;locus_tag=ADP62_gp4;gene=E2;protein_id=YP_009158855.1									
+gi|896684338|lcl|HPV201REF.1|	RefSeq	gene	2934	3482	.	+	.	ID=gene-ADP62_gp5;Dbxref=GeneID:25067471;Name=E4;gbkey=Gene;gene=E4;gene_biotype=protein_coding;locus_tag=ADP62_gp5										
+gi|896684338|lcl|HPV201REF.1|	RefSeq	CDS	2934	3482	.	+	0	ID=cds-YP_009158856.1;Parent=gene-ADP62_gp5;Dbxref=Genbank:YP_009158856.1	GeneID:25067471;Name=YP_009158856.1;gbkey=CDS;gene=E4;locus_tag=ADP62_gp5;gene=E4;protein_id=YP_009158856.1									
+gi|896684338|lcl|HPV201REF.1|	RefSeq	gene	3726	5279	.	+	.	ID=gene-ADP62_gp6;Dbxref=GeneID:25067472;Name=L2;gbkey=Gene;gene=L2;gene_biotype=protein_coding;locus_tag=ADP62_gp6										
+gi|896684338|lcl|HPV201REF.1|	RefSeq	CDS	3726	5279	.	+	0	ID=cds-YP_009158857.1;Parent=gene-ADP62_gp6;Dbxref=Genbank:YP_009158857.1	GeneID:25067472;Name=YP_009158857.1;gbkey=CDS;gene=L2;locus_tag=ADP62_gp6;gene=L2;protein_id=YP_009158857.1									
+gi|896684338|lcl|HPV201REF.1|	RefSeq	gene	5289	6815	.	+	.	ID=gene-ADP62_gp7;Dbxref=GeneID:25067473;Name=L1;gbkey=Gene;gene=L1;gene_biotype=protein_coding;locus_tag=ADP62_gp7										
+gi|896684338|lcl|HPV201REF.1|	RefSeq	CDS	5289	6815	.	+	0	ID=cds-YP_009158858.1;Parent=gene-ADP62_gp7;Dbxref=Genbank:YP_009158858.1	GeneID:25067473;Name=YP_009158858.1;gbkey=CDS;gene=L1;locus_tag=ADP62_gp7;gene=L1;protein_id=YP_009158858.1									
+##sequence-region HPV202REF.1 1 7344																		

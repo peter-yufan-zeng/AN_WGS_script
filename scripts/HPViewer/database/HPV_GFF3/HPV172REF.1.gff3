@@ -1,0 +1,11 @@
+##sequence-region HPV172REF.1 1 7203																		
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=1434987																		
+gi|564732524|lcl|HPV172REF.1|	Genbank	region	1	7203	.	+	.	ID=KF006399.1:1..7203;Dbxref=taxon:1434987;Is_circular=true;collection-date=2009;country=USA;gb-acronym=HPV 172;gbkey=Src;isolation-source=oral lavage;mol_type=genomic DNA;nat-host=Homo sapiens;old-name=Human papillomavirus type 172										
+gi|564732524|lcl|HPV172REF.1|	Genbank	gene	106	657	.	+	0	ID=E6;Dbxref=NCBI_GP:AHC00344.1;Name=E6;gbkey=CDS;gene=E6;protein_id=AHC00344.1										
+gi|564732524|lcl|HPV172REF.1|	Genbank	gene	638	934	.	+	0	ID=E7;Dbxref=NCBI_GP:AHC00345.1;Name=E7;gbkey=CDS;gene=E7;protein_id=AHC00345.1										
+gi|564732524|lcl|HPV172REF.1|	Genbank	gene	921	2723	.	+	0	ID=E1;Dbxref=NCBI_GP:AHC00346.1;Name=E1;gbkey=CDS;gene=E1;protein_id=AHC00346.1										
+gi|564732524|lcl|HPV172REF.1|	Genbank	gene	2659	3846	.	+	0	ID=E2;Dbxref=NCBI_GP:AHC00347.1;Name=E2;gbkey=CDS;gene=E2;protein_id=AHC00347.1										
+gi|564732524|lcl|HPV172REF.1|	Genbank	gene	3191	3610	.	+	0	ID=E4;Dbxref=NCBI_GP:AHC00348.1;Name=E4;gbkey=CDS;gene=E4;protein_id=AHC00348.1										
+gi|564732524|lcl|HPV172REF.1|	Genbank	gene	3846	5399	.	+	0	ID=L2;Dbxref=NCBI_GP:AHC00349.1;Name=L2;gbkey=CDS;gene=L2;protein_id=AHC00349.1										
+gi|564732524|lcl|HPV172REF.1|	Genbank	gene	5410	6960	.	+	0	ID=L1;Dbxref=NCBI_GP:AHC00350.1;Name=L1;gbkey=CDS;gene=L1;protein_id=AHC00350.1										
+##sequence-region HPV173REF.1 1 7297																		

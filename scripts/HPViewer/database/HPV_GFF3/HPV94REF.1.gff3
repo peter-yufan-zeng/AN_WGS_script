@@ -1,0 +1,19 @@
+##sequence-region HPV94REF.1 1 7881																		
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=260717																		
+gi|40804528|lcl|HPV94REF.1|	EMBL	region	1	7881	.	+	.	ID=AJ620211.1:1..7881;Dbxref=taxon:260717;Is_circular=true;gbkey=Src;mol_type=genomic DNA;nat-host=Homo sapiens										
+gi|40804528|lcl|HPV94REF.1|	EMBL	gene	93	539	.	+	.	ID=gene-E6;Name=E6;gbkey=Gene;gene=E6;gene_biotype=protein_coding										
+gi|40804528|lcl|HPV94REF.1|	EMBL	CDS	93	539	.	+	0	ID=cds-CAF05709.1;Parent=gene-E6;Dbxref=GOA:Q705D2	InterPro:IPR001334	UniProtKB/Swiss-Prot:Q705D2	NCBI_GP:CAF05709.1;Name=CAF05709.1;gbkey=CDS;gene=E6;gene=E6 protein;protein_id=CAF05709.1							
+gi|40804528|lcl|HPV94REF.1|	EMBL	gene	515	778	.	+	.	ID=gene-E7;Name=E7;gbkey=Gene;gene=E7;gene_biotype=protein_coding										
+gi|40804528|lcl|HPV94REF.1|	EMBL	CDS	515	778	.	+	0	ID=cds-CAF05710.1;Parent=gene-E7;Dbxref=GOA:Q705D1	InterPro:IPR000148	UniProtKB/Swiss-Prot:Q705D1	NCBI_GP:CAF05710.1;Name=CAF05710.1;gbkey=CDS;gene=E7;gene=E7 protein;protein_id=CAF05710.1							
+gi|40804528|lcl|HPV94REF.1|	EMBL	gene	785	2836	.	+	.	ID=gene-E1;Name=E1;gbkey=Gene;gene=E1;gene_biotype=protein_coding										
+gi|40804528|lcl|HPV94REF.1|	EMBL	CDS	785	2836	.	+	0	ID=cds-CAF05711.1;Parent=gene-E1;Dbxref=GOA:Q705D0	InterPro:IPR001177	InterPro:IPR014000	InterPro:IPR014015	InterPro:IPR016393	UniProtKB/TrEMBL:Q705D0	NCBI_GP:CAF05711.1;Name=CAF05711.1;gbkey=CDS;gene=E1;gene=E1 protein;protein_id=CAF05711.1				
+gi|40804528|lcl|HPV94REF.1|	EMBL	gene	2772	3908	.	+	.	ID=gene-E2;Name=E2;gbkey=Gene;gene=E2;gene_biotype=protein_coding										
+gi|40804528|lcl|HPV94REF.1|	EMBL	CDS	2772	3908	.	+	0	ID=cds-CAF05712.1;Parent=gene-E2;Dbxref=GOA:Q705C9	HSSP:1A7G	InterPro:IPR000427	InterPro:IPR001866	InterPro:IPR009021	InterPro:IPR012677	UniProtKB/TrEMBL:Q705C9	NCBI_GP:CAF05712.1;Name=CAF05712.1;gbkey=CDS;gene=E2;gene=E2 protein;protein_id=CAF05712.1			
+gi|40804528|lcl|HPV94REF.1|	EMBL	gene	3370	3672	.	+	.	ID=gene-E4;Name=E4;gbkey=Gene;gene=E4;gene_biotype=protein_coding										
+gi|40804528|lcl|HPV94REF.1|	EMBL	CDS	3370	3672	.	+	0	ID=cds-CAF05713.1;Parent=gene-E4;Dbxref=InterPro:IPR003861	UniProtKB/TrEMBL:Q705C8	NCBI_GP:CAF05713.1;Name=CAF05713.1;gbkey=CDS;gene=E4;gene=E4 protein;protein_id=CAF05713.1								
+gi|40804528|lcl|HPV94REF.1|	EMBL	gene	4380	5759	.	+	.	ID=gene-L2;Name=L2;gbkey=Gene;gene=L2;gene_biotype=protein_coding										
+gi|40804528|lcl|HPV94REF.1|	EMBL	CDS	4380	5759	.	+	0	ID=cds-CAF05714.1;Parent=gene-L2;Dbxref=GOA:Q705C7	InterPro:IPR000784	UniProtKB/TrEMBL:Q705C7	NCBI_GP:CAF05714.1;Name=CAF05714.1;gbkey=CDS;gene=L2;gene=L2 protein;protein_id=CAF05714.1							
+gi|40804528|lcl|HPV94REF.1|	EMBL	gene	5689	7287	.	+	.	ID=gene-L1;Name=L1;gbkey=Gene;gene=L1;gene_biotype=protein_coding										
+gi|40804528|lcl|HPV94REF.1|	EMBL	CDS	5689	7287	.	+	0	ID=cds-CAF05715.1;Parent=gene-L1;Dbxref=GOA:Q705C6	InterPro:IPR002210	InterPro:IPR011222	UniProtKB/TrEMBL:Q705C6	NCBI_GP:CAF05715.1;Name=CAF05715.1;Note=first ATG;gbkey=CDS;gene=L1;gene=L1 protein;protein_id=CAF05715.1						
+gi|40804528|lcl|HPV94REF.1|	EMBL	CDS	5773	7287	.	+	0	ID=cds-CAF05716.1;Parent=gene-L1;Dbxref=GOA:Q705C5	InterPro:IPR002210	InterPro:IPR011222	UniProtKB/TrEMBL:Q705C5	NCBI_GP:CAF05716.1;Name=CAF05716.1;Note=alternative;gbkey=CDS;gene=L1;gene=L1a protein;protein_id=CAF05716.1						
+##sequence-region HPV95REF.1 1 7337																		

@@ -1,0 +1,16 @@
+##sequence-region HPV19REF.1 1 7685																		
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=10608																		
+gi|396940|lcl|HPV19REF.1|	EMBL	region	1	7685	.	+	.	ID=X74470.1:1..7685;Dbxref=taxon:10608;clone=insert in BamHI site of pEMBL;gbkey=Src;mol_type=genomic DNA										
+gi|396940|lcl|HPV19REF.1|	EMBL	gene	200	670	.	+	.	ID=gene-E6;Name=E6;end_range=670	.;gbkey=Gene;gene=E6;gene_biotype=protein_coding;partial=true									
+gi|396940|lcl|HPV19REF.1|	EMBL	CDS	200	670	.	+	0	ID=cds-CAA52518.1;Parent=gene-E6;Dbxref=GOA:P36806	InterPro:IPR001334	UniProtKB/Swiss-Prot:P36806	NCBI_GP:CAA52518.1;Name=CAA52518.1;end_range=670	.;gbkey=CDS;gene=E6;partial=true;gene=early protein;protein_id=CAA52518.1						
+gi|396940|lcl|HPV19REF.1|	EMBL	gene	690	998	.	+	.	ID=gene-E7;Name=E7;gbkey=Gene;gene=E7;gene_biotype=protein_coding										
+gi|396940|lcl|HPV19REF.1|	EMBL	CDS	690	998	.	+	0	ID=cds-CAA52519.1;Parent=gene-E7;Dbxref=GOA:P36822	InterPro:IPR000148	UniProtKB/Swiss-Prot:P36822	NCBI_GP:CAA52519.1;Name=CAA52519.1;gbkey=CDS;gene=E7;gene=early protein;protein_id=CAA52519.1							
+gi|396940|lcl|HPV19REF.1|	EMBL	gene	985	2799	.	+	.	ID=gene-E1;Name=E1;gbkey=Gene;gene=E1;gene_biotype=protein_coding										
+gi|396940|lcl|HPV19REF.1|	EMBL	CDS	985	2799	.	+	0	ID=cds-CAA52520.1;Parent=gene-E1;Dbxref=GOA:Q02048	InterPro:IPR001177	InterPro:IPR014000	InterPro:IPR014015	InterPro:IPR016393	UniProtKB/Swiss-Prot:Q02048	NCBI_GP:CAA52520.1;Name=CAA52520.1;gbkey=CDS;gene=E1;gene=early protein;protein_id=CAA52520.1				
+gi|396940|lcl|HPV19REF.1|	EMBL	gene	2741	4222	.	+	.	ID=gene-E2;Name=E2;gbkey=Gene;gene=E2;gene_biotype=protein_coding										
+gi|396940|lcl|HPV19REF.1|	EMBL	CDS	2741	4222	.	+	0	ID=cds-CAA52521.1;Parent=gene-E2;Dbxref=GOA:P36786	InterPro:IPR000427	InterPro:IPR001866	InterPro:IPR009021	InterPro:IPR012677	UniProtKB/Swiss-Prot:P36786	NCBI_GP:CAA52521.1;Name=CAA52521.1;gbkey=CDS;gene=E2;gene=early protein;protein_id=CAA52521.1				
+gi|396940|lcl|HPV19REF.1|	EMBL	gene	4285	5847	.	+	.	ID=gene-L2;Name=L2;gbkey=Gene;gene=L2;gene_biotype=protein_coding										
+gi|396940|lcl|HPV19REF.1|	EMBL	CDS	4285	5847	.	+	0	ID=cds-CAA52522.1;Parent=gene-L2;Dbxref=GOA:P36752	InterPro:IPR000784	UniProtKB/Swiss-Prot:P36752	NCBI_GP:CAA52522.1;Name=CAA52522.1;gbkey=CDS;gene=L2;gene=late protein;protein_id=CAA52522.1							
+gi|396940|lcl|HPV19REF.1|	EMBL	gene	5774	7414	.	+	.	ID=gene-L1;Name=L1;gbkey=Gene;gene=L1;gene_biotype=protein_coding										
+gi|396940|lcl|HPV19REF.1|	EMBL	CDS	5774	7414	.	+	0	ID=cds-CAA52523.1;Parent=gene-L1;Dbxref=GOA:Q02050	InterPro:IPR002210	InterPro:IPR011222	UniProtKB/Swiss-Prot:Q02050	NCBI_GP:CAA52523.1;Name=CAA52523.1;gbkey=CDS;gene=L1;gene=late protein;protein_id=CAA52523.1						
+##sequence-region HPV20REF.1 1 7757																		

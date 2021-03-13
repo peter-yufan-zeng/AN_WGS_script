@@ -1,0 +1,16 @@
+##sequence-region HPV35REF.1 1 7879																		
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=31551																		
+gi|396997|lcl|HPV35REF.1|	EMBL	region	1	7879	.	+	.	ID=X74477.1:1..7879;Dbxref=taxon:31551;clone=insert in BamHI site of pBR322;gbkey=Src;mol_type=genomic DNA										
+gi|396997|lcl|HPV35REF.1|	EMBL	gene	110	559	.	+	.	ID=gene-E6;Name=E6;gbkey=Gene;gene=E6;gene_biotype=protein_coding										
+gi|396997|lcl|HPV35REF.1|	EMBL	CDS	110	559	.	+	0	ID=cds-CAA52561.1;Parent=gene-E6;Dbxref=GOA:P27228	InterPro:IPR001334	UniProtKB/Swiss-Prot:P27228	NCBI_GP:CAA52561.1;Name=CAA52561.1;gbkey=CDS;gene=E6;gene=early protein;protein_id=CAA52561.1							
+gi|396997|lcl|HPV35REF.1|	EMBL	gene	562	861	.	+	.	ID=gene-E7;Name=E7;gbkey=Gene;gene=E7;gene_biotype=protein_coding										
+gi|396997|lcl|HPV35REF.1|	EMBL	CDS	562	861	.	+	0	ID=cds-CAA52562.1;Parent=gene-E7;Dbxref=GOA:P27230	InterPro:IPR000148	UniProtKB/Swiss-Prot:P27230	NCBI_GP:CAA52562.1;Name=CAA52562.1;gbkey=CDS;gene=E7;gene=early protein;protein_id=CAA52562.1							
+gi|396997|lcl|HPV35REF.1|	EMBL	gene	868	2781	.	+	.	ID=gene-E1;Name=E1;gbkey=Gene;gene=E1;gene_biotype=protein_coding										
+gi|396997|lcl|HPV35REF.1|	EMBL	CDS	868	2781	.	+	0	ID=cds-CAA52563.1;Parent=gene-E1;Dbxref=GOA:P27220	InterPro:IPR001177	InterPro:IPR014000	InterPro:IPR014015	InterPro:IPR016393	UniProtKB/Swiss-Prot:P27220	NCBI_GP:CAA52563.1;Name=CAA52563.1;gbkey=CDS;gene=E1;gene=early protein;protein_id=CAA52563.1				
+gi|396997|lcl|HPV35REF.1|	EMBL	gene	2714	2717	.	+	.	ID=gene-E2;Name=E2;end_range=2717	.;gbkey=Gene;gene=E2;gene_biotype=protein_coding;partial=true									
+gi|396997|lcl|HPV35REF.1|	EMBL	CDS	2714	2717	.	+	0	ID=cds-CAA52564.1;Parent=gene-E2;Dbxref=GOA:P27222	InterPro:IPR000427	InterPro:IPR001866	InterPro:IPR009021	InterPro:IPR012677	UniProtKB/Swiss-Prot:P27222	NCBI_GP:CAA52564.1;Name=CAA52564.1;end_range=2717	.;gbkey=CDS;gene=E2;partial=true;gene=early protein;protein_id=CAA52564.1			
+gi|396997|lcl|HPV35REF.1|	EMBL	gene	4211	5620	.	+	.	ID=gene-L2;Name=L2;gbkey=Gene;gene=L2;gene_biotype=protein_coding										
+gi|396997|lcl|HPV35REF.1|	EMBL	CDS	4211	5620	.	+	0	ID=cds-CAA52565.1;Parent=gene-L2;Dbxref=GOA:P27234	InterPro:IPR000784	UniProtKB/Swiss-Prot:P27234	NCBI_GP:CAA52565.1;Name=CAA52565.1;gbkey=CDS;gene=L2;gene=late protein;protein_id=CAA52565.1							
+gi|396997|lcl|HPV35REF.1|	EMBL	gene	5601	7109	.	+	.	ID=gene-L1;Name=L1;gbkey=Gene;gene=L1;gene_biotype=protein_coding										
+gi|396997|lcl|HPV35REF.1|	EMBL	CDS	5601	7109	.	+	0	ID=cds-CAA52566.1;Parent=gene-L1;Dbxref=GOA:P27232	InterPro:IPR002210	InterPro:IPR011222	PDB:2R5J	UniProtKB/Swiss-Prot:P27232	NCBI_GP:CAA52566.1;Name=CAA52566.1;gbkey=CDS;gene=L1;gene=late protein;protein_id=CAA52566.1					
+##sequence-region HPV36REF.1 1 7722																		

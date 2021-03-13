@@ -1,0 +1,18 @@
+##sequence-region HPV132REF.1 1 7125																		
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=909331																		
+gi|319962668|lcl|HPV132REF.1|	RefSeq	region	1	7125	.	+	.	ID=NC_014955.1:1..7125;Dbxref=taxon:909331;Is_circular=true;collected-by=Anja Koehler;country=Germany;gbkey=Src;genome=genomic;identified-by=Anja Koehler;isolate=27-50;isolation-source=wart of an immunosuppressed organ transplant patient;mol_type=genomic DNA;nat-host=Homo sapiens;old-name=Human papillomavirus 27-50										
+gi|319962668|lcl|HPV132REF.1|	RefSeq	gene	1	420	.	+	.	ID=gene-E6;Dbxref=GeneID:10146750;Name=E6;gbkey=Gene;gene=E6;gene_biotype=protein_coding;locus_tag=HPV132_gp1										
+gi|319962668|lcl|HPV132REF.1|	RefSeq	CDS	1	420	.	+	0	ID=cds-YP_004169284.1;Parent=gene-HPV132_gp1;Dbxref=Genbank:YP_004169284.1	GeneID:10146750;Name=YP_004169284.1;gbkey=CDS;gene=E6;locus_tag=HPV132_gp1;gene=E6;protein_id=YP_004169284.1									
+gi|319962668|lcl|HPV132REF.1|	RefSeq	gene	417	695	.	+	.	ID=gene-E7;Dbxref=GeneID:10146744;Name=E7;gbkey=Gene;gene=E7;gene_biotype=protein_coding;locus_tag=HPV132_gp2										
+gi|319962668|lcl|HPV132REF.1|	RefSeq	CDS	417	695	.	+	0	ID=cds-YP_004169285.1;Parent=gene-HPV132_gp2;Dbxref=Genbank:YP_004169285.1	GeneID:10146744;Name=YP_004169285.1;gbkey=CDS;gene=E7;locus_tag=HPV132_gp2;gene=E7;protein_id=YP_004169285.1									
+gi|319962668|lcl|HPV132REF.1|	RefSeq	gene	679	2478	.	+	.	ID=gene-HPV132_gp3;Dbxref=GeneID:10146745;Name=E1;gbkey=Gene;gene=E1;gene_biotype=protein_coding;locus_tag=HPV132_gp3										
+gi|319962668|lcl|HPV132REF.1|	RefSeq	CDS	679	2478	.	+	0	ID=cds-YP_004169286.1;Parent=gene-HPV132_gp3;Dbxref=Genbank:YP_004169286.1	GeneID:10146745;Name=YP_004169286.1;gbkey=CDS;gene=E1;locus_tag=HPV132_gp3;gene=E1;protein_id=YP_004169286.1									
+gi|319962668|lcl|HPV132REF.1|	RefSeq	gene	2405	3592	.	+	.	ID=gene-HPV132_gp4;Dbxref=GeneID:10146746;Name=E2;gbkey=Gene;gene=E2;gene_biotype=protein_coding;locus_tag=HPV132_gp4										
+gi|319962668|lcl|HPV132REF.1|	RefSeq	CDS	2405	3592	.	+	0	ID=cds-YP_004169287.1;Parent=gene-HPV132_gp4;Dbxref=Genbank:YP_004169287.1	GeneID:10146746;Name=YP_004169287.1;gbkey=CDS;gene=E2;locus_tag=HPV132_gp4;gene=E2;protein_id=YP_004169287.1									
+gi|319962668|lcl|HPV132REF.1|	RefSeq	gene	2985	3350	.	+	.	ID=gene-HPV132_gp5;Dbxref=GeneID:10146747;Name=E4;gbkey=Gene;gene=E4;gene_biotype=protein_coding;locus_tag=HPV132_gp5;partial=true;start_range=.	2985									
+gi|319962668|lcl|HPV132REF.1|	RefSeq	CDS	2985	3350	.	+	0	ID=cds-YP_004169288.1;Parent=gene-HPV132_gp5;Dbxref=Genbank:YP_004169288.1	GeneID:10146747;Name=YP_004169288.1;Note=start site not determined;gbkey=CDS;gene=E4;locus_tag=HPV132_gp5;partial=true;gene=E4;protein_id=YP_004169288.1;start_range=.	2985								
+gi|319962668|lcl|HPV132REF.1|	RefSeq	gene	3594	5126	.	+	.	ID=gene-HPV132_gp6;Dbxref=GeneID:10146748;Name=L2;gbkey=Gene;gene=L2;gene_biotype=protein_coding;locus_tag=HPV132_gp6										
+gi|319962668|lcl|HPV132REF.1|	RefSeq	CDS	3594	5126	.	+	0	ID=cds-YP_004169289.1;Parent=gene-HPV132_gp6;Dbxref=Genbank:YP_004169289.1	GeneID:10146748;Name=YP_004169289.1;gbkey=CDS;gene=L2;locus_tag=HPV132_gp6;gene=L2;protein_id=YP_004169289.1									
+gi|319962668|lcl|HPV132REF.1|	RefSeq	gene	5137	6663	.	+	.	ID=gene-HPV132_gp7;Dbxref=GeneID:10146749;Name=L1;gbkey=Gene;gene=L1;gene_biotype=protein_coding;locus_tag=HPV132_gp7										
+gi|319962668|lcl|HPV132REF.1|	RefSeq	CDS	5137	6663	.	+	0	ID=cds-YP_004169290.1;Parent=gene-HPV132_gp7;Dbxref=Genbank:YP_004169290.1	GeneID:10146749;Name=YP_004169290.1;gbkey=CDS;gene=L1;locus_tag=HPV132_gp7;gene=L1;protein_id=YP_004169290.1									
+##sequence-region HPV133REF.1 1 7358																		

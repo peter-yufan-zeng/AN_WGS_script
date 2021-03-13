@@ -1,0 +1,18 @@
+##sequence-region HPV21REF.1 1 7779																		
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=31548																		
+gi|1020170|lcl|HPV21REF.1|	Genbank	region	1	7779	.	+	.	ID=U31779.1:1..7779;Dbxref=taxon:31548;gbkey=Src;mol_type=genomic DNA;note=cloned HPV-21 was obtained from the Papillomavirus Reference Center%2C Heidelberg and sequenced by Dr. H. Delius										
+gi|1020170|lcl|HPV21REF.1|	Genbank	gene	200	706	.	+	.	ID=gene-E6;Name=E6;gbkey=Gene;gene=E6;gene_biotype=protein_coding										
+gi|1020170|lcl|HPV21REF.1|	Genbank	CDS	200	706	.	+	0	ID=cds-AAA79394.1;Parent=gene-E6;Dbxref=NCBI_GP:AAA79394.1;Name=AAA79394.1;Note=putative;gbkey=CDS;gene=E6;gene=transforming protein E6;protein_id=AAA79394.1										
+gi|1020170|lcl|HPV21REF.1|	Genbank	gene	706	1011	.	+	.	ID=gene-E7;Name=E7;gbkey=Gene;gene=E7;gene_biotype=protein_coding										
+gi|1020170|lcl|HPV21REF.1|	Genbank	CDS	706	1011	.	+	0	ID=cds-AAA79395.1;Parent=gene-E7;Dbxref=NCBI_GP:AAA79395.1;Name=AAA79395.1;Note=putative;gbkey=CDS;gene=E7;gene=transforming protein E7;protein_id=AAA79395.1										
+gi|1020170|lcl|HPV21REF.1|	Genbank	gene	998	2809	.	+	.	ID=gene-E1;Name=E1;gbkey=Gene;gene=E1;gene_biotype=protein_coding										
+gi|1020170|lcl|HPV21REF.1|	Genbank	CDS	998	2809	.	+	0	ID=cds-AAA79396.1;Parent=gene-E1;Dbxref=NCBI_GP:AAA79396.1;Name=AAA79396.1;Note=putative;gbkey=CDS;gene=E1;gene=replication protein E1;protein_id=AAA79396.1										
+gi|1020170|lcl|HPV21REF.1|	Genbank	gene	2751	4262	.	+	.	ID=gene-E2;Name=E2;gbkey=Gene;gene=E2;gene_biotype=protein_coding										
+gi|1020170|lcl|HPV21REF.1|	Genbank	CDS	2751	4262	.	+	0	ID=cds-AAA79397.1;Parent=gene-E2;Dbxref=NCBI_GP:AAA79397.1;Name=AAA79397.1;Note=putative;gbkey=CDS;gene=E2;gene=regulatory protein E2;protein_id=AAA79397.1										
+gi|1020170|lcl|HPV21REF.1|	Genbank	gene	3037	4017	.	+	.	ID=gene-E4;Name=E4;gbkey=Gene;gene=E4;gene_biotype=protein_coding										
+gi|1020170|lcl|HPV21REF.1|	Genbank	CDS	3037	4017	.	+	0	ID=cds-AAA79398.1;Parent=gene-E4;Dbxref=NCBI_GP:AAA79398.1;Name=AAA79398.1;gbkey=CDS;gene=E4;partial=true;gene=AAA79398.1;protein_id=AAA79398.1;start_range=.	3037									
+gi|1020170|lcl|HPV21REF.1|	Genbank	gene	4351	5913	.	+	.	ID=gene-L2;Name=L2;gbkey=Gene;gene=L2;gene_biotype=protein_coding										
+gi|1020170|lcl|HPV21REF.1|	Genbank	CDS	4351	5913	.	+	0	ID=cds-AAA79399.1;Parent=gene-L2;Dbxref=NCBI_GP:AAA79399.1;Name=AAA79399.1;Note=putative;gbkey=CDS;gene=L2;gene=minor capsid protein L2;protein_id=AAA79399.1										
+gi|1020170|lcl|HPV21REF.1|	Genbank	gene	5929	7485	.	+	.	ID=gene-L1;Name=L1;gbkey=Gene;gene=L1;gene_biotype=protein_coding										
+gi|1020170|lcl|HPV21REF.1|	Genbank	CDS	5929	7485	.	+	0	ID=cds-AAA79400.1;Parent=gene-L1;Dbxref=NCBI_GP:AAA79400.1;Name=AAA79400.1;Note=putative;gbkey=CDS;gene=L1;gene=major capsid protein L1;protein_id=AAA79400.1										
+##sequence-region HPV22REF.1 1 7368																		

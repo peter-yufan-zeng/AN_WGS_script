@@ -1,0 +1,18 @@
+##sequence-region HPV119REF.1 1 7251																		
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=765051																		
+gi|296495828|lcl|HPV119REF.1|	Genbank	region	1	7251	.	+	.	ID=GQ845441.1:1..7251;Dbxref=taxon:765051;Is_circular=true;gbkey=Src;genome=genomic;isolate=CL3647;mol_type=genomic DNA;nat-host=Homo sapiens;type=119										
+gi|296495828|lcl|HPV119REF.1|	Genbank	gene	1	420	.	+	.	ID=gene-E6;Name=E6;gbkey=Gene;gene=E6;gene_biotype=protein_coding										
+gi|296495828|lcl|HPV119REF.1|	Genbank	CDS	1	420	.	+	0	ID=cds-ADH29791.1;Parent=gene-E6;Dbxref=NCBI_GP:ADH29791.1;Name=ADH29791.1;gbkey=CDS;gene=E6;gene=transforming protein E6;protein_id=ADH29791.1										
+gi|296495828|lcl|HPV119REF.1|	Genbank	gene	417	710	.	+	.	ID=gene-E7;Name=E7;gbkey=Gene;gene=E7;gene_biotype=protein_coding										
+gi|296495828|lcl|HPV119REF.1|	Genbank	CDS	417	710	.	+	0	ID=cds-ADH29792.1;Parent=gene-E7;Dbxref=NCBI_GP:ADH29792.1;Name=ADH29792.1;gbkey=CDS;gene=E7;gene=transforming protein E7;protein_id=ADH29792.1										
+gi|296495828|lcl|HPV119REF.1|	Genbank	gene	694	2487	.	+	.	ID=gene-E1;Name=E1;gbkey=Gene;gene=E1;gene_biotype=protein_coding										
+gi|296495828|lcl|HPV119REF.1|	Genbank	CDS	694	2487	.	+	0	ID=cds-ADH29793.1;Parent=gene-E1;Dbxref=NCBI_GP:ADH29793.1;Name=ADH29793.1;gbkey=CDS;gene=E1;gene=replication protein E1;protein_id=ADH29793.1										
+gi|296495828|lcl|HPV119REF.1|	Genbank	gene	2417	3595	.	+	.	ID=gene-E2;Name=E2;gbkey=Gene;gene=E2;gene_biotype=protein_coding										
+gi|296495828|lcl|HPV119REF.1|	Genbank	CDS	2417	3595	.	+	0	ID=cds-ADH29794.1;Parent=gene-E2;Dbxref=NCBI_GP:ADH29794.1;Name=ADH29794.1;gbkey=CDS;gene=E2;gene=regulatory protein E2;protein_id=ADH29794.1										
+gi|296495828|lcl|HPV119REF.1|	Genbank	gene	2976	3377	.	+	.	ID=gene-E4;Name=E4;gbkey=Gene;gene=E4;gene_biotype=protein_coding;partial=true;start_range=.	2976									
+gi|296495828|lcl|HPV119REF.1|	Genbank	CDS	2976	3377	.	+	0	ID=cds-ADH29795.1;Parent=gene-E4;Dbxref=NCBI_GP:ADH29795.1;Name=ADH29795.1;Note=start codon not determined;gbkey=CDS;gene=E4;partial=true;gene=hypothetical protein;protein_id=ADH29795.1;start_range=.	2976									
+gi|296495828|lcl|HPV119REF.1|	Genbank	gene	3597	5180	.	+	.	ID=gene-L2;Name=L2;gbkey=Gene;gene=L2;gene_biotype=protein_coding										
+gi|296495828|lcl|HPV119REF.1|	Genbank	CDS	3597	5180	.	+	0	ID=cds-ADH29796.1;Parent=gene-L2;Dbxref=NCBI_GP:ADH29796.1;Name=ADH29796.1;gbkey=CDS;gene=L2;gene=minor capsid protein L2;protein_id=ADH29796.1										
+gi|296495828|lcl|HPV119REF.1|	Genbank	gene	5193	6776	.	+	.	ID=gene-L1;Name=L1;gbkey=Gene;gene=L1;gene_biotype=protein_coding										
+gi|296495828|lcl|HPV119REF.1|	Genbank	CDS	5193	6776	.	+	0	ID=cds-ADH29797.1;Parent=gene-L1;Dbxref=NCBI_GP:ADH29797.1;Name=ADH29797.1;gbkey=CDS;gene=L1;gene=major capsid protein L1;protein_id=ADH29797.1										
+##sequence-region HPV120REF.1 1 7304																		

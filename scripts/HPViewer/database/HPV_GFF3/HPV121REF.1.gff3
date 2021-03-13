@@ -1,0 +1,18 @@
+##sequence-region HPV121REF.1 1 7342																		
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=915429																		
+gi|297342356|lcl|HPV121REF.1|	RefSeq	region	1	7342	.	+	.	ID=NC_014185.1:1..7342;Dbxref=taxon:915429;Is_circular=true;gbkey=Src;genome=genomic;isolate=NJ3301;mol_type=genomic DNA;nat-host=Homo sapiens;type=121										
+gi|297342356|lcl|HPV121REF.1|	RefSeq	gene	1	432	.	+	.	ID=gene-HPV-121_gp1;Dbxref=GeneID:9231105;Name=E6;gbkey=Gene;gene=E6;gene_biotype=protein_coding;locus_tag=HPV-121_gp1										
+gi|297342356|lcl|HPV121REF.1|	RefSeq	CDS	1	432	.	+	0	ID=cds-YP_003668025.1;Parent=gene-HPV-121_gp1;Dbxref=Genbank:YP_003668025.1	GeneID:9231105;Name=YP_003668025.1;gbkey=CDS;gene=E6;locus_tag=HPV-121_gp1;gene=transforming protein E6;protein_id=YP_003668025.1									
+gi|297342356|lcl|HPV121REF.1|	RefSeq	gene	435	731	.	+	.	ID=gene-HPV-121_gp2;Dbxref=GeneID:9231099;Name=E7;gbkey=Gene;gene=E7;gene_biotype=protein_coding;locus_tag=HPV-121_gp2										
+gi|297342356|lcl|HPV121REF.1|	RefSeq	CDS	435	731	.	+	0	ID=cds-YP_003668026.1;Parent=gene-HPV-121_gp2;Dbxref=Genbank:YP_003668026.1	GeneID:9231099;Name=YP_003668026.1;gbkey=CDS;gene=E7;locus_tag=HPV-121_gp2;gene=transforming protein E7;protein_id=YP_003668026.1									
+gi|297342356|lcl|HPV121REF.1|	RefSeq	gene	718	2547	.	+	.	ID=gene-HPV-121_gp3;Dbxref=GeneID:9231100;Name=E1;gbkey=Gene;gene=E1;gene_biotype=protein_coding;locus_tag=HPV-121_gp3										
+gi|297342356|lcl|HPV121REF.1|	RefSeq	CDS	718	2547	.	+	0	ID=cds-YP_003668027.1;Parent=gene-HPV-121_gp3;Dbxref=Genbank:YP_003668027.1	GeneID:9231100;Name=YP_003668027.1;gbkey=CDS;gene=E1;locus_tag=HPV-121_gp3;gene=replication protein E1;protein_id=YP_003668027.1									
+gi|297342356|lcl|HPV121REF.1|	RefSeq	gene	2489	3661	.	+	.	ID=gene-HPV-121_gp4;Dbxref=GeneID:9231101;Name=E2;gbkey=Gene;gene=E2;gene_biotype=protein_coding;locus_tag=HPV-121_gp4										
+gi|297342356|lcl|HPV121REF.1|	RefSeq	CDS	2489	3661	.	+	0	ID=cds-YP_003668028.1;Parent=gene-HPV-121_gp4;Dbxref=Genbank:YP_003668028.1	GeneID:9231101;Name=YP_003668028.1;gbkey=CDS;gene=E2;locus_tag=HPV-121_gp4;gene=regulatory protein E2;protein_id=YP_003668028.1									
+gi|297342356|lcl|HPV121REF.1|	RefSeq	gene	3054	3431	.	+	.	ID=gene-HPV-121_gp5;Dbxref=GeneID:9231102;Name=E4;gbkey=Gene;gene=E4;gene_biotype=protein_coding;locus_tag=HPV-121_gp5;partial=true;start_range=.	3054									
+gi|297342356|lcl|HPV121REF.1|	RefSeq	CDS	3054	3431	.	+	0	ID=cds-YP_003668029.1;Parent=gene-HPV-121_gp5;Dbxref=Genbank:YP_003668029.1	GeneID:9231102;Name=YP_003668029.1;Note=start codon not determined;gbkey=CDS;gene=E4;locus_tag=HPV-121_gp5;partial=true;gene=hypothetical protein;protein_id=YP_003668029.1;start_range=.	3054								
+gi|297342356|lcl|HPV121REF.1|	RefSeq	gene	3665	5233	.	+	.	ID=gene-HPV-121_gp6;Dbxref=GeneID:9231103;Name=L2;gbkey=Gene;gene=L2;gene_biotype=protein_coding;locus_tag=HPV-121_gp6										
+gi|297342356|lcl|HPV121REF.1|	RefSeq	CDS	3665	5233	.	+	0	ID=cds-YP_003668030.1;Parent=gene-HPV-121_gp6;Dbxref=Genbank:YP_003668030.1	GeneID:9231103;Name=YP_003668030.1;gbkey=CDS;gene=L2;locus_tag=HPV-121_gp6;gene=minor capsid protein L2;protein_id=YP_003668030.1									
+gi|297342356|lcl|HPV121REF.1|	RefSeq	gene	5245	6804	.	+	.	ID=gene-HPV-121_gp7;Dbxref=GeneID:9231104;Name=L1;gbkey=Gene;gene=L1;gene_biotype=protein_coding;locus_tag=HPV-121_gp7										
+gi|297342356|lcl|HPV121REF.1|	RefSeq	CDS	5245	6804	.	+	0	ID=cds-YP_003668031.1;Parent=gene-HPV-121_gp7;Dbxref=Genbank:YP_003668031.1	GeneID:9231104;Name=YP_003668031.1;gbkey=CDS;gene=L1;locus_tag=HPV-121_gp7;gene=major capsid protein L1;protein_id=YP_003668031.1									
+##sequence-region HPV122REF.1 1 7397																		

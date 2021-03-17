@@ -26,10 +26,12 @@ print("***OUTPUT DIRECTORY: " + OUTDIR + "***")
 ### rule all
 rule all:
 	input:
-		expand(OUTDIR + "/results/hpv/polyidus/{sample}_HpvIntegrationInfo.tsv", sample = SAMPLE),
-		expand(OUTDIR + "/results/hpv/polyidus/{sample}_exactHpvIntegrations.tsv", sample = SAMPLE),
-		expand(OUTDIR + "/results/hpv/mpileup/{sample}_HPV.snpEff.vcf", sample = SAMPLE)
-
+#		expand(OUTDIR + "/results/hpv/polyidus/{sample}_HpvIntegrationInfo.tsv", sample = SAMPLE),
+#		expand(OUTDIR + "/results/hpv/polyidus/{sample}_exactHpvIntegrations.tsv", sample = SAMPLE),
+		expand(OUTDIR + "/results/hpv/mpileup/{sample}_HPV.snpEff.vcf", sample = SAMPLE),
+		expand(OUTDIR + "/results/hpviewer/{sample}_HPV_profile.txt", sample = SAMPLE),
+		expand(OUTDIR + "/orphan/polyidus/{sample}/results/exactHpvIntegrations.tsv", sample = SAMPLE),
+		expand(OUTDIR + "/results/hpv/mpileup/{sample}_HPV.for_genotyping.vcf", sample = SAMPLE)
 
 ###
 ### Combine multiple fastqs if samples was separate files
@@ -70,7 +72,8 @@ rule hpvviewer:
 		r1 = OUTDIR + "/orphan/merged_fastq/{sample}.merged.r1.fastq.gz",
 		r2 = OUTDIR + "/orphan/merged_fastq/{sample}.merged.r2.fastq.gz"
 	output:
-		OUTDIR + "/results/hpviewer/{samples}_HPV_profile.txt"
+		o1 = OUTDIR + "/orphan/hpviewer/{sample}/{sample}_HPV_profile.txt",
+		o2 = OUTDIR + "/results/hpviewer/{sample}_HPV_profile.txt"
 	threads: 80
 	group: "hpv"
 	shell:
@@ -79,10 +82,10 @@ rule hpvviewer:
 		module load StdEnv/2020
 		module load scipy-stack/2020a bowtie2 samtools/1.10 bedtools
 		source $SCRATCH/singularity_images/polyidus/bin/activate
-		python $SCRATCH/AN_WGS/AN_WGS_script/scripts/HPViewer.py \
+		python $SCRATCH/AN_WGS/AN_WGS_script/scripts/HPViewer/HPViewer.py \
 		-1 {input.r1} -2 {input.r2} -p {threads} \
-		-o {OUTDIR}/orphan/HPViewer/{wildcards.sample}
-		cp {OUTDIR}/orphan/HPViewer/{wildcards.sample}_HPV_profile.txt {output}
+		-o {OUTDIR}/orphan/hpviewer/{wildcards.sample}
+		cp {output.o1} {output.o2}
 		"""
 
 ###
@@ -94,9 +97,9 @@ rule polyidus:
 		r1 = OUTDIR + "/orphan/merged_fastq/{sample}.merged.r1.fastq.gz",
 		r2 = OUTDIR + "/orphan/merged_fastq/{sample}.merged.r2.fastq.gz"
 	output:
-		o1 = OUTDIR + "/orphan/polyidus/{sample}/results/HpvIntegrationInfo.tsv",
+#		o1 = OUTDIR + "/orphan/polyidus/{sample}/results/HpvIntegrationInfo.tsv",
 		o2 = OUTDIR + "/orphan/polyidus/{sample}/results/exactHpvIntegrations.tsv",
-		virusbam = OUTDIR + "/orphan/polyidus/{sample}/results/viral/virusAligned-final.bam"
+		virusbam = OUTDIR + "/orphan/polyidus/{sample}/viral/virusAligned-final.bam"
 	threads: 80
 	group: "hpv"
 	shell:
@@ -108,12 +111,12 @@ rule polyidus:
 		python $SCRATCH/AN_WGS/AN_WGS_script/scripts/polyidus/polyidus.py $SCRATCH/igenomes_ref/bowtie2_index/Homo_sapiens_assembly38 \
 		$SCRATCH/igenomes_ref/bowtie2_index/HPV16 \
 		--fastq {input.r1} {input.r2} \
-		--outdir /orphan/polyidus/{wildcards.sample}
+		--outdir {OUTDIR}/orphan/polyidus/{wildcards.sample}
 		"""
 
 rule variant_calling:
 	input:
-		OUTDIR + "/orphan/polyidus/{sample}/results/viral/virusAligned-final.bam"
+		OUTDIR + "/orphan/polyidus/{sample}/viral/virusAligned-final.bam"
 	output:
 		OUTDIR + "/results/hpv/mpileup/{sample}_HPV.vcf"
 	group: "hpv"
@@ -122,10 +125,10 @@ rule variant_calling:
 		"""
 		module load CCEnv
 		module load StdEnv/2020
-		module load scipy-stack/2020a bowtie2 samtools/1.10 bedtools
+		module load scipy-stack/2020a bowtie2 samtools/1.10 bedtools bcftools
 		source $SCRATCH/singularity_images/polyidus/bin/activate
-		samtools sort viral/virusAligned-final.bam | \
-		bcftools mpileup -Ou -f $SCRATCH/igenomes_ref/bowtie2_index/HPV16.fasta - | \
+		samtools sort {input} | \
+		bcftools mpileup -Ou -d 10000 -f $SCRATCH/igenomes_ref/bowtie2_index/HPV16REF.1.fa - | \
 		bcftools call -mv -Ov - > {output}
 		"""
 
@@ -138,13 +141,37 @@ rule annotate_snpeff:
 	group: "hpv"
 	shell:
 		"""
+		module load CCEnv
+		module load StdEnv/2020
+		module load scipy-stack/2020a bowtie2 samtools/1.10 bedtools java bcftools
+		source $SCRATCH/singularity_images/polyidus/bin/activate
 		cd {OUTDIR}/results/hpv/mpileup/
-		java jar -Xmx8g $SCRATCH/igenomes_ref/snpEff/snpEff.jar \
+		java -jar -Xmx8g $SCRATCH/igenomes_ref/snpEff/snpEff.jar \
 		HPV16 \
 		-csvStats {wildcards.sample}_hpv16_snpEff.csv \
 		-nodownload \
 		-canon \
 		{input} > {output}
+		"""
+
+rule variant_calling_for_genotyping:
+	input:
+		OUTDIR + "/orphan/polyidus/{sample}/viral/virusAligned-final.bam"
+	output:
+		OUTDIR + "/results/hpv/mpileup/{sample}_HPV.for_genotyping.vcf"
+	threads: 1
+	group: "hpv"
+ 	shell:
+		"""
+		module load CCEnv
+		module load StdEnv/2020
+		module load scipy-stack/2020a bowtie2 samtools/1.10 bedtools bcftools
+		source $SCRATCH/singularity_images/polyidus/bin/activate
+		samtools sort {input} | \
+		bcftools mpileup -Ou -T $SCRATCH/AN_WGS/AN_WGS_script/scripts/HPViewer/hpv16lineage.csv.gz -d 10000 -f $SCRATCH/igenomes_ref/bowtie2_index/HPV16REF.1.fa - | \
+		bcftools call -i -C alleles \
+		-T $SCRATCH/AN_WGS/AN_WGS_script/scripts/HPViewer/hpv16lineage.csv.gz \
+		-m -Ov - > {output}
 		"""
 
 rule copy_files:

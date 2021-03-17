@@ -1,0 +1,31 @@
+### Call HLA from WGS using xHLA
+
+rule get_read_alt_unmap:
+    input:
+        OUTDIR +"/orphan/{sample}/{sample}.merged.bam"
+    output:
+        OUTDIR +"/orphan/{sample}/{sample}.merged.hla.bam"
+    threads: 80
+    group: "hla"
+    shell:
+        """
+        singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS/raw,{OUTDIR} \
+        /scratch/n/nicholsa/zyfniu/singularity_images/xHLA.simg /opt/bin/get-reads-alt-unmap.sh \
+        {input} {output}
+        """
+
+rule xHLA:
+    input:
+        OUTDIR +"/orphan/{sample}/{sample}.merged.hla.bam"
+    output:
+        OUTDIR +"/results/hla/{sample}_hla.json"
+    params:
+        output_path = OUTDIR +"/results/{sample}/"
+    threads: 80
+    group: "hla"
+    shell:
+        """
+        singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS/raw,{OUTDIR} \
+        /scratch/n/nicholsa/zyfniu/singularity_images/xHLA.simg python /opt/bin/run.py \
+        --sample_id {sample} --input {input} --output_path {params.output_path}
+        """

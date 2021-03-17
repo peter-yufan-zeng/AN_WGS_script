@@ -9,6 +9,7 @@
 import pandas as pd
 import os
 
+include: "snakemake_scripts/hla.snk"
 #localrules: all
 
 ###
@@ -86,24 +87,25 @@ rule all:
 		####
 		####VARIANT CALLING OUTPUTS
 		####
-		expand(OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N_snpEff.ann.vcf.gz",zip, patient = [x[:-2] for x in TUMOR],tumor = TUMOR),
-		expand(OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N_snpEff.ann.passOnly.vcf.gz",zip, patient = [x[:-2] for x in TUMOR],tumor = TUMOR),
+		expand(OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N_snpEff.ann.vcf.gz",zip, patient = [x.rsplit('-',1)[0] for x in TUMOR],tumor = TUMOR),
+		expand(OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N_snpEff.ann.passOnly.vcf.gz",zip, patient = [x.rsplit('-',1)[0] for x in TUMOR],tumor = TUMOR),
 		Multi.path.drop_duplicates().tolist(),
 		#### Manta
-		expand(OUTDIR + "/results/Manta/{tumor}_vs_{patient}-N/Manta_snpeff_{tumor}_vs_{patient}-N.candidateSV.ann.vcf.gz",zip, patient = [x[:-2] for x in TUMOR],tumor = TUMOR),
-		expand(OUTDIR + "/results/Manta/{tumor}_vs_{patient}-N/Manta_snpeff_{tumor}_vs_{patient}-N.candidateSmallIndels.ann.vcf.gz",zip, patient = [x[:-2] for x in TUMOR],tumor = TUMOR),
-		expand(OUTDIR + "/results/Manta/{tumor}_vs_{patient}-N/Manta_snpeff_{tumor}_vs_{patient}-N.diploidSV.ann.vcf.gz",zip, patient = [x[:-2] for x in TUMOR],tumor = TUMOR),
-		expand(OUTDIR + "/results/Manta/{tumor}_vs_{patient}-N/Manta_snpeff_{tumor}_vs_{patient}-N.somaticSV.ann.vcf.gz",zip, patient = [x[:-2] for x in TUMOR],tumor = TUMOR),
+		expand(OUTDIR + "/results/Manta/{tumor}_vs_{patient}-N/Manta_snpeff_{tumor}_vs_{patient}-N.candidateSV.ann.vcf.gz",zip, patient = [x.rsplit('-',1)[0] for x in TUMOR],tumor = TUMOR),
+		expand(OUTDIR + "/results/Manta/{tumor}_vs_{patient}-N/Manta_snpeff_{tumor}_vs_{patient}-N.candidateSmallIndels.ann.vcf.gz",zip, patient = [x.rsplit('-',1)[0] for x in TUMOR],tumor = TUMOR),
+		expand(OUTDIR + "/results/Manta/{tumor}_vs_{patient}-N/Manta_snpeff_{tumor}_vs_{patient}-N.diploidSV.ann.vcf.gz",zip, patient = [x.rsplit('-',1)[0] for x in TUMOR],tumor = TUMOR),
+		expand(OUTDIR + "/results/Manta/{tumor}_vs_{patient}-N/Manta_snpeff_{tumor}_vs_{patient}-N.somaticSV.ann.vcf.gz",zip, patient = [x.rsplit('-',1)[0] for x in TUMOR],tumor = TUMOR),
 		#### ASCAT
-		expand(OUTDIR + "/results/ASCAT/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N.tumor.cnvs.txt",zip, tumor = TUMOR, patient = [x[:-2] for x in TUMOR])
+		expand(OUTDIR + "/results/ASCAT/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N.tumor.cnvs.txt",zip, tumor = TUMOR, patient = [x.rsplit('-',1)[0] for x in TUMOR])
 		#### QC
 		#expand("reports/{patient}_multiqc.html",patient = PAT)
 	threads: 80
-	shell:
-		"""
-		singularity exec -B {OUTDIR} $SCRATCH/singularity_images/nfcore-sarek-2.6.img multiqc {OUTDIR} -n {OUTDIR}/reports/multiqc.html
-		rm {OUTDIR}/temp -rf
-		"""
+	run:
+		import time
+		os.system("singularity exec " + OUTDIR + " $SCRATCH/singularity_images/nfcore-sarek-2.6.img multiqc " + OUTDIR + " -n  " + OUTDIR + "/reports/multiqc_" + time.strftime('%Y%m%d') + ".html")
+		os.system("mv multiqc_data* " + OUTDIR + "/QC/")
+		os.system("cp " + config['input'] + " " + OUTDIR +  "/Sample_" + time.strftime('%Y%m%d') + ".tsv")
+		os.system("rm " + OUTDIR + "/temp -rf")
 ###
 ###	Step 1: BWA-MEM Alignment
 ###

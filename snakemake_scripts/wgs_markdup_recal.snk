@@ -1,0 +1,117 @@
+def get_bams_to_merge(wildcards):
+	SAMPLE_LANE = INPUT[INPUT.Sample == wildcards.sample].Sample_Lane
+	return expand(OUTDIR +"/orphan/{sample_lane}/{sample_lane}.bwa.bam", sample_lane = SAMPLE_LANE)
+
+rule merge_bam_mapped_and_index:
+	input:
+		get_bams_to_merge
+	output:
+		temp(OUTDIR +"/orphan/{sample}/{sample}.merged.bam")
+	threads: 10
+	group: "merge_markduplicate"
+	run:
+		if len(input) == 1:
+			shell("mv {input} {output}")
+			shell("singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS/raw,{OUTDIR} /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img samtools index -@ {threads} {output}")
+		elif len(input) > 1:
+			#shell("mv {input} {output}")
+			shell("singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS/raw,{OUTDIR} /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img samtools merge --threads {threads} - {input} | tee {output} | singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS/raw,{OUTDIR} /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img samtools index -@ {threads} - ")
+
+rule markdup:
+	input:
+		OUTDIR +"/orphan/{sample}/{sample}.merged.bam"
+	output:
+		bam = temp(OUTDIR +"/orphan/MD/{sample}.md.bam"),
+		metric = OUTDIR +"/orphan/MD/{sample}.bam.metric"
+	threads: 20
+	group: "merge_markduplicate"
+	shell:
+		"""
+		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,{OUTDIR} /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/gatk-4.1.8.img \
+		gatk --java-options "-Xmx16G" \
+		MarkDuplicates \
+		--MAX_RECORDS_IN_RAM 50000 \
+		--INPUT {input} \
+		--METRICS_FILE {output.metric} \
+		--TMP_DIR {TMP} \
+		--ASSUME_SORT_ORDER coordinate \
+		--CREATE_INDEX true \
+		--OUTPUT {output.bam}
+		"""
+
+rule recalibrator:
+	input:
+		OUTDIR +"/orphan/MD/{sample}.md.bam"
+	output:
+		temp(OUTDIR +"/orphan/{sample}/Recal/{sample}.{chr}.recal.table")
+	threads: 2
+	group: "recalibrator"
+	shell:
+		"""
+		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,{OUTDIR} /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/gatk-4.1.8.img \
+		gatk --java-options "-Xmx8g" \
+		BaseRecalibrator \
+		-I {input} \
+		-O {output} \
+		--tmp-dir /tmp \
+		-R {REF_fasta} \
+		-L {wildcards.chr} \
+		--known-sites {REF_dbsnp} \
+		--known-sites {REF_known_indels} \
+		--verbosity INFO
+		"""
+
+def recal_tbl_to_gather(wildcards):
+	return expand(OUTDIR +"/orphan/" + wildcards.sample + "/Recal/" + wildcards.sample + ".{chr}.recal.table",chr = CHROMOSOMES)
+
+rule gather_recal_tbl:
+	input:
+		recal_tbl_to_gather
+	output:
+		temp(OUTDIR +"/orphan/{sample}/Recal/{sample}.recal.table")
+	threads: 2
+	group: "recalibrator"
+	run:
+		command = 'singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS/raw,{OUTDIR} /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img gatk --java-options \"-Xmx8g\" GatherBQSRReports'
+		for i in input:
+			command = command + " -I " + i
+		command = command + ' -O {output}'
+		shell(command)
+
+rule ApplyBQSR:
+	input:
+		bam = OUTDIR +"/orphan/MD/{sample}.md.bam",
+		recal_table = OUTDIR +"/orphan/{sample}/Recal/{sample}.recal.table"
+	output:
+		temp("orphan/{sample}/Recal/{sample}.recal.{chr}.bam")
+	group: "recalibrator"
+	shell:
+		"""
+		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,{OUTDIR} /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/gatk-4.1.8.img \
+		gatk --java-options "-Xmx8G" \
+		ApplyBQSR \
+		-R {REF_fasta} \
+		--input {input.bam} \
+		--output {output} \
+		-L {wildcards.chr} \
+		--bqsr-recal-file {input.recal_table}
+		"""
+
+def recal_bam_to_gather(wildcards):
+	return expand("orphan/" + wildcards.sample + "/Recal/" + wildcards.sample + ".recal.{chr}.bam",chr = CHROMOSOMES)
+
+rule Merge_Recal_Bam_and_index:
+	input:
+		recal_bam_to_gather
+	output:
+		bam = OUTDIR +"/Recal/{sample}.recal.bam",
+		index = OUTDIR +"/Recal/{sample}.recal.bai"
+	group: "recalibrator"
+	threads: 20
+	shell:
+		"""
+		singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR} /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
+		samtools merge --threads {threads} {output.bam} {input}
+		singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR} /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
+		samtools index {output.bam} {output.index}
+		"""

@@ -1,0 +1,133 @@
+#### USAGE
+#### 1) First load snakemake
+#### module load NiaEnv/2018a
+#### module load python/3.6.4-anaconda5.1.0
+#### source activate snakemake
+#### snakemake -s AN_WGS_script/Snakefile  --cores 1 -j 40 --cluster "sbatch -N 1 -t 20:00:00 --ntasks 80 --output=logs/%x_%j.log" --ri \
+#### --config input=AN_WGS_script/Sample/20200907.tsv.txt outdir=$SCRATCH/AN_WGS_script/20200908_HPV_HNSCC_WGS
+
+import pandas as pd
+import os
+
+include: "snakemake_scripts/hla.snk"
+include: "snakemake_scripts/wgs_align.snk"
+#localrules: all
+
+###
+### LOAD SAMPLES
+###
+SCRATCH = "/gpfs/fs0/scratch/n/nicholsa/zyfniu"
+print("\n***INPUT FILE: " + config['input'] + "***\n")
+INPUT = pd.read_table(config['input'],names = ['Patient','Sex','n_vs_t','Sample','Lane','Fastq1','Fastq2'])
+INPUT['Lane'] = INPUT.Lane.apply(str)
+INPUT['Sample_Lane'] = INPUT.Sample + "_" + INPUT.Lane
+SAMPLE =  INPUT['Sample'].unique()
+TMP = "temp"
+PAT = INPUT.Patient.drop_duplicates()
+TUMOR = INPUT[(INPUT.n_vs_t == 1)].Sample.drop_duplicates()
+SAMPLE_LANE = INPUT.Sample_Lane
+print(INPUT)
+
+### PRINT OUTPUT DIRECTORY
+OUTDIR = config['outdir']
+print("***OUTPUT DIRECTORY: " + OUTDIR + "***")
+
+###
+### GET SAMPLES TO USE MULTI-TUMOUR VARIANT CALLING
+###
+Multi = INPUT[(INPUT.n_vs_t == 1)]
+Multi = Multi[['Patient','Sample']].drop_duplicates()
+Multi.loc[:,'Combined'] = ""
+Multi.loc[:,"num_tumours"] = 1
+for x in Multi['Patient'].drop_duplicates():
+	COMBINED_mutect_samples = ""
+	print(x)
+	n = 1
+	for y in Multi[Multi.Patient == x].Sample.drop_duplicates():
+		print(y)
+		COMBINED_mutect_samples = y + "_" + COMBINED_mutect_samples
+		Multi.loc[(Multi.Patient == x),'num_tumours'] = n
+		n = n + 1
+	COMBINED_mutect_samples = COMBINED_mutect_samples[:-1]
+	Multi.loc[(Multi.Patient == x),'Combined']= COMBINED_mutect_samples
+
+Multi['path'] = OUTDIR + "/results/mutect2/all_"  + Multi.Combined + "_vs_" + Multi.Patient + "-N/" \
++ Multi.Combined + "_vs_" + Multi.Patient + "-N_snpEff.ann.vcf.gz"
+Multi = Multi[Multi.num_tumours > 1]
+#Multi = Multi[['Patient','Combined',"path"]].drop_duplicates()
+
+
+
+###
+###	REFERENCE FILES
+###
+REF_fasta = "$SCRATCH/igenomes_ref/Homo_sapiens_assembly38.fasta"
+REF_dbsnp = "$SCRATCH/igenomes_ref/dbsnp_146.hg38.vcf.gz"
+REF_known_indels = "$SCRATCH/igenomes_ref/Mills_and_1000G_gold_standard.indels.hg38.vcf.gz"
+REF_gnomAD = "$SCRATCH/igenomes_ref/gnomAD.r2.1.1.GRCh38.PASS.AC.AF.only.vcf.gz"
+REF_pon = "$SCRATCH/igenomes_ref/1000g_pon.hg38.vcf.gz"
+REF_exac_common = "/gpfs/fs0/scratch/n/nicholsa/zyfniu/igenomes_ref/somatic-hg38_small_exac_common_3.hg38.vcf.gz"
+CHROMOSOMES = ['chr1', 'chr2', 'chr3', 'chr4', 'chr5', 'chr6', 'chr7', 'chr8', 'chr9', 'chr10',
+			   'chr11', 'chr12', 'chr13', 'chr14', 'chr15', 'chr16', 'chr17', 'chr18', 'chr19',
+			   'chr20', 'chr21', 'chr22', 'chrX', 'chrY']
+
+###
+### Final Results
+###
+rule all:
+	input:
+		###FASTQC + BWA Alignment
+		expand(OUTDIR + "/QC/{sample_lane}/{sample_lane}_R1_fastqc.html", sample_lane = SAMPLE_LANE),
+		expand(OUTDIR + "/Recal/{sample}.recal.bam", sample = SAMPLE),
+		### using zip https://endrebak.gitbooks.io/the-snakemake-book/chapters/expand/expand.html
+		###BAMQC + samtools_stats
+		expand(OUTDIR + "/QC/{sample}/{sample}.samtools.stats.out",sample = SAMPLE),
+		expand(OUTDIR + "/QC/{sample}/bamQC/qualimapReport.html",sample = SAMPLE),
+		####
+		####VARIANT CALLING OUTPUTS
+		####
+		expand(OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N_snpEff.ann.vcf.gz",zip, patient = [x.rsplit('-',1)[0] for x in TUMOR],tumor = TUMOR),
+		expand(OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N_snpEff.ann.passOnly.vcf.gz",zip, patient = [x.rsplit('-',1)[0] for x in TUMOR],tumor = TUMOR),
+		Multi.path.drop_duplicates().tolist(),
+		#### Manta
+		expand(OUTDIR + "/results/Manta/{tumor}_vs_{patient}-N/Manta_snpeff_{tumor}_vs_{patient}-N.candidateSV.ann.vcf.gz",zip, patient = [x.rsplit('-',1)[0] for x in TUMOR],tumor = TUMOR),
+		expand(OUTDIR + "/results/Manta/{tumor}_vs_{patient}-N/Manta_snpeff_{tumor}_vs_{patient}-N.candidateSmallIndels.ann.vcf.gz",zip, patient = [x.rsplit('-',1)[0] for x in TUMOR],tumor = TUMOR),
+		expand(OUTDIR + "/results/Manta/{tumor}_vs_{patient}-N/Manta_snpeff_{tumor}_vs_{patient}-N.diploidSV.ann.vcf.gz",zip, patient = [x.rsplit('-',1)[0] for x in TUMOR],tumor = TUMOR),
+		expand(OUTDIR + "/results/Manta/{tumor}_vs_{patient}-N/Manta_snpeff_{tumor}_vs_{patient}-N.somaticSV.ann.vcf.gz",zip, patient = [x.rsplit('-',1)[0] for x in TUMOR],tumor = TUMOR),
+		#### ASCAT
+		expand(OUTDIR + "/results/ASCAT/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N.tumor.cnvs.txt",zip, tumor = TUMOR, patient = [x.rsplit('-',1)[0] for x in TUMOR])
+		#### QC
+		#expand("reports/{patient}_multiqc.html",patient = PAT)
+	threads: 80
+	run:
+		import time
+		os.system("singularity exec " + OUTDIR + " $SCRATCH/singularity_images/nfcore-sarek-2.6.img multiqc " + OUTDIR + " -n  " + OUTDIR + "/reports/multiqc_" + time.strftime('%Y%m%d') + ".html")
+		os.system("mv multiqc_data* " + OUTDIR + "/QC/")
+		os.system("cp " + config['input'] + " " + OUTDIR +  "/Sample_" + time.strftime('%Y%m%d') + ".tsv")
+		os.system("rm " + OUTDIR + "/temp -rf")
+
+
+###
+### Step by step
+###
+
+###Align
+include: "snakemake_scripts/wgs_align.snk"
+
+###Markdup recal
+include: "snakemake_scripts/wgs_markdup_recal.snk"
+
+###Bam QC
+include: "snakemake_scripts/bam_qc.snk"
+
+### Mutect2 individual
+include: "snakemake_scripts/wgs_mutect2_individual.snk"
+
+### Mutect2 co-variant calling mode
+include: "snakemake_scripts/wgs_mutect2_together.snk"
+
+### Manta
+include: "snakemake_scripts/wgs_manta.snk"
+
+### ASCAT
+include: "snakemake_scripts/wgs_ascat.snk"

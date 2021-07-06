@@ -9,7 +9,7 @@
 import pandas as pd
 import os
 
-include: "snakemake_scripts/hla.snk"
+#include: "snakemake_scripts/hla.snk"
 #localrules: all
 
 ###
@@ -109,7 +109,6 @@ rule all:
 ###
 ###	Step 1: BWA-MEM Alignment
 ###
-
 def bwa_mem_fastq1(wildcards):
 	return expand(INPUT[INPUT.Sample_Lane == wildcards.sample_lane].Fastq1)
 
@@ -175,7 +174,6 @@ rule sort_sam_to_bam:
 		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS/raw,{OUTDIR} /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
 		samtools sort -T {params.temp} --threads {threads} -m 2G {input.sam} > {output}
 		"""
-
 
 def get_bams_to_merge(wildcards):
 	SAMPLE_LANE = INPUT[INPUT.Sample == wildcards.sample].Sample_Lane

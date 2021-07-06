@@ -1,0 +1,41 @@
+###
+### QC On BAM FILES
+###
+rule samtools_stats:
+	input:
+		bam = OUTDIR +"/Recal/{sample}.recal.bam",
+		index = OUTDIR +"/Recal/{sample}.recal.bai"
+	output:
+		stats = OUTDIR + "/QC/{sample}/{sample}.samtools.stats.out"
+	group: "variantCalling"
+	threads: 2
+	shell:
+		"""
+		singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR} \
+			/gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
+		samtools stats {input.bam} > {output}
+		"""
+
+rule bamqc:
+	input:
+		bam = OUTDIR +"/Recal/{sample}.recal.bam",
+		index = OUTDIR +"/Recal/{sample}.recal.bai"
+	output:
+		stats = OUTDIR + "/QC/{sample}/bamQC/qualimapReport.html"
+	group: "variantCalling"
+	threads: 40
+	shell:
+		"""
+		singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR} \
+			/gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
+		qualimap --java-mem-size=100G \
+		bamqc \
+		-bam {input.bam} \
+		--paint-chromosome-limits \
+		--genome-gc-distr HUMAN \
+		-nt {threads} \
+		-skip-duplicated \
+		--skip-dup-mode 0 \
+		-outdir {OUTDIR}/QC/{wildcards.sample}/bamQC/ \
+		-outformat HTML
+		"""

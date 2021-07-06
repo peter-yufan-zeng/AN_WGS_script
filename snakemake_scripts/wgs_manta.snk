@@ -1,0 +1,56 @@
+####
+#### Manta
+####
+rule config_manta:
+	input:
+		normal = OUTDIR + "/Recal/{patient}-N.recal.bam",
+		tumor = OUTDIR + "/Recal/{tumor}.recal.bam"
+	output: OUTDIR + "/temp/Manta/{tumor}_vs_{patient}-N/runWorkflow.py"
+	threads: 2
+	group: "variantCalling"
+	shell:
+		"""
+		singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR} /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
+		configManta.py \
+		--normalBam {input.normal} \
+		--tumorBam  {input.tumor} \
+		--reference {REF_fasta} \
+		--runDir {OUTDIR}/temp/Manta/{wildcards.tumor}_vs_{wildcards.patient}-N
+		"""
+
+rule manta:
+	input:
+		normal = OUTDIR + "/Recal/{patient}-N.recal.bam",
+		tumor = OUTDIR + "/Recal/{tumor}.recal.bam",
+		script = OUTDIR + "/temp/Manta/{tumor}_vs_{patient}-N/runWorkflow.py"
+	output:
+		sv = OUTDIR + "/temp/Manta/{tumor}_vs_{patient}-N/results/variants/candidateSV.vcf.gz",
+		smallindel = OUTDIR + "/temp/Manta/{tumor}_vs_{patient}-N/results/variants/candidateSmallIndels.vcf.gz",
+		diploidSV = OUTDIR + "/temp/Manta/{tumor}_vs_{patient}-N/results/variants/diploidSV.vcf.gz",
+		somaticSV = OUTDIR + "/temp/Manta/{tumor}_vs_{patient}-N/results/variants/somaticSV.vcf.gz",
+		svIndex = OUTDIR + "/temp/Manta/{tumor}_vs_{patient}-N/results/variants/candidateSV.vcf.gz.tbi",
+		smallindelIndex = OUTDIR + "/temp/Manta/{tumor}_vs_{patient}-N/results/variants/candidateSmallIndels.vcf.gz.tbi",
+		diploidSVIndex = OUTDIR + "/temp/Manta/{tumor}_vs_{patient}-N/results/variants/diploidSV.vcf.gz.tbi",
+		somaticSVIndex = OUTDIR + "/temp/Manta/{tumor}_vs_{patient}-N/results/variants/somaticSV.vcf.gz.tbi"
+	group: "manta"
+	threads: 80
+	shell:
+		"""
+		singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR} /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
+		python {input.script} -m local -j {threads} -g 160
+		"""
+
+rule mv_manta_files:
+	input:
+		file = OUTDIR + "/temp/Manta/{tumor}_vs_{patient}-N/results/variants/{structure}.vcf.gz",
+		index = OUTDIR + "/temp/Manta/{tumor}_vs_{patient}-N/results/variants/{structure}.vcf.gz.tbi"
+	output:
+		file = OUTDIR + "/results/Manta/{tumor}_vs_{patient}-N/Manta_{tumor}_vs_{patient}-N.{structure}.vcf.gz",
+		index = OUTDIR + "/results/Manta/{tumor}_vs_{patient}-N/Manta_{tumor}_vs_{patient}-N.{structure}.vcf.gz.tbi"
+	group: "manta"
+	threads: 1
+	shell:
+		"""
+		cp {input.file} {output.file}
+		cp {input.index} {output.index}
+		"""

@@ -55,3 +55,38 @@ rule mv_manta_files:
 		cp {input.file} {output.file}
 		cp {input.index} {output.index}
 		"""
+		
+rule annotate_manta:
+	input:
+		vcf = OUTDIR + "/results/Manta/{tumor}_vs_{patient}-N/Manta_{tumor}_vs_{patient}-N.{structure}.vcf.gz"
+	output:
+		annotatedvcf = temp(OUTDIR + "/results/Manta/{tumor}_vs_{patient}-N/Manta_snpeff_{tumor}_vs_{patient}-N.{structure}.ann.vcf")
+	threads: 2
+	group: "manta"
+	shell:
+		"""
+		cd {OUTDIR}/results/Manta/{wildcards.tumor}_vs_{wildcards.patient}-N
+		singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR} $SCRATCH/singularity_images/nfcore-sareksnpeff-2.6.GRCh38.img \
+		snpEff -Xmx8g \
+		GRCh38.86 \
+		-csvStats {wildcards.tumor}_{wildcards.structure}_snpEff.csv \
+		-nodownload \
+		-canon \
+		{input} \
+		> {output}
+#		mv snpEff_summary.html {wildcards.tumor}_{wildcards.structure}_snpEff.html
+		"""
+
+rule zip_manta:
+	input:
+		annotatedvcf = OUTDIR + "/results/Manta/{tumor}_vs_{patient}-N/Manta_snpeff_{tumor}_vs_{patient}-N.{structure}.ann.vcf"
+	output: annotatedvcf = OUTDIR + "/results/Manta/{tumor}_vs_{patient}-N/Manta_snpeff_{tumor}_vs_{patient}-N.{structure}.ann.vcf.gz"
+	threads: 2
+	group: "manta"
+	shell:
+		"""
+		singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR} \
+			/gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img bgzip < {input} > {output}
+		singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR} \
+			/gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img tabix {output}
+		"""

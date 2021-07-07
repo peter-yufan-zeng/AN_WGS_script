@@ -22,7 +22,7 @@ INPUT = pd.read_table(config['input'],names = ['Patient','Sex','n_vs_t','Sample'
 INPUT['Lane'] = INPUT.Lane.apply(str)
 INPUT['Sample_Lane'] = INPUT.Sample + "_" + INPUT.Lane
 SAMPLE =  INPUT['Sample'].unique()
-TMP = "temp"
+TMP = "/scratch/n/nicholsa/zyfniu/AN_WGS/temp"
 PAT = INPUT.Patient.drop_duplicates()
 TUMOR = INPUT[(INPUT.n_vs_t == 1)].Sample.drop_duplicates()
 SAMPLE_LANE = INPUT.Sample_Lane

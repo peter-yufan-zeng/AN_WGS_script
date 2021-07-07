@@ -80,10 +80,10 @@ rule gather_recal_tbl:
 
 rule ApplyBQSR:
 	input:
-		bam = OUTDIR +"/orphan/MD/{sample}.md.bam",
+		bam = OUTDIR + "/orphan/MD/{sample}.md.bam",
 		recal_table = OUTDIR +"/orphan/{sample}/Recal/{sample}.recal.table"
 	output:
-		temp("orphan/{sample}/Recal/{sample}.recal.{chr}.bam")
+		temp(OUTDIR + "/orphan/{sample}/Recal/{sample}.recal.{chr}.bam")
 	group: "recalibrator"
 	shell:
 		"""
@@ -98,7 +98,7 @@ rule ApplyBQSR:
 		"""
 
 def recal_bam_to_gather(wildcards):
-	return expand("orphan/" + wildcards.sample + "/Recal/" + wildcards.sample + ".recal.{chr}.bam",chr = CHROMOSOMES)
+	return expand(OUTDIR + "/orphan/" + wildcards.sample + "/Recal/" + wildcards.sample + ".recal.{chr}.bam",chr = CHROMOSOMES)
 
 rule Merge_Recal_Bam_and_index:
 	input:

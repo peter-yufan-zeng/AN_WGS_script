@@ -15,10 +15,10 @@ rule mutect2:
 		tumor = OUTDIR +"/Recal/{tumor}.recal.bam"
 	#	recurrence = "{sample}R/Recal/{sample}R.recal.bam"
 	output:
-		vcf = temp(OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N.vcf"),
-		stats = temp(OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N.stats"),
-		f12 = temp(OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N_f12.tar.gz"),
-		index =  temp(OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N.vcf.idx")
+		vcf = OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N.vcf",
+		stats = OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N.stats",
+		f12 = OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N_f12.tar.gz",
+		index =  OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N.vcf.idx"
 	threads: 2
 	group: "variantCalling"
 	shell:
@@ -104,21 +104,6 @@ rule gatk_calcContam_primary:
 		-matched {input.primary} \
 		--tumor-segmentation {output.segment} \
 		-O {output.contamTable}
-		"""
-
-rule index_unfiltered_vcf:
-	input:
-		vcf = OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N.vcf",
-	output:
-		vcf_tbi = OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N.vcf.idx"
-	threads: 2
-	group: "variantCalling"
-	shell:
-		"""
-		singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR} /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/gatk-4.1.8.img \
-		gatk --java-options "-Xmx8g" IndexFeatureFile \
-		-I {input.vcf} \
-		--output {output.vcf_tbi}
 		"""
 
 rule gatk_filterMutect:

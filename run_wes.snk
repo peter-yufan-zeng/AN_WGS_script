@@ -123,7 +123,7 @@ include: "snakemake_scripts/bam_qc.snk"
 include: "snakemake_scripts/wes_mutect2_individual.snk"
 
 ### Mutect2 co-variant calling mode
-#include: "snakemake_scripts/wgs_mutect2_together.snk"
+include: "snakemake_scripts/wes_mutect2_together.snk"
 
 ### Manta
 include: "snakemake_scripts/wes_manta.snk"

@@ -256,7 +256,8 @@ rule zip_snpeff:
 	shell:
 		"""
 		singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR} \
-			/gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img bgzip < {input} > {output}
+			/gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
+		bcftools sort {input} -Oz -o {output}
 		singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR} \
 			/gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img tabix {output}
 		rm /scratch/n/nicholsa/zyfniu/AN_WGS/results/mutect2/{wildcards.tumor}_vs_{wildcards.patient}-N/*.idx -rf

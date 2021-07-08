@@ -26,7 +26,7 @@ rule mutect2_all_tumours:
 		-L {input.interval} \
 		--germline-resource {REF_gnomAD} \
 		--panel-of-normals {REF_pon} --f1r2-tar-gz {output.f12} \
-		-O {output.vcf}"
+		-O {output.vcf} -I {input.normal}"
 		for i in input[2:]: ###only the tumour files
 			command = command + " -I " + i
 		shell(command)

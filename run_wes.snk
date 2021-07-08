@@ -87,7 +87,7 @@ rule all:
 		####
 		expand(OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N_snpEff.ann.vcf.gz",zip, patient = [x.rsplit('-',1)[0] for x in TUMOR],tumor = TUMOR),
 		expand(OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N_snpEff.ann.passOnly.vcf.gz",zip, patient = [x.rsplit('-',1)[0] for x in TUMOR],tumor = TUMOR),
-#		Multi.path.drop_duplicates().tolist(),
+		Multi.path.drop_duplicates().tolist(),
 		#### Manta
 		expand(OUTDIR + "/results/Manta/{tumor}_vs_{patient}-N/Manta_snpeff_{tumor}_vs_{patient}-N.candidateSV.ann.vcf.gz",zip, patient = [x.rsplit('-',1)[0] for x in TUMOR],tumor = TUMOR),
 		expand(OUTDIR + "/results/Manta/{tumor}_vs_{patient}-N/Manta_snpeff_{tumor}_vs_{patient}-N.candidateSmallIndels.ann.vcf.gz",zip, patient = [x.rsplit('-',1)[0] for x in TUMOR],tumor = TUMOR),

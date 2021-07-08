@@ -117,7 +117,7 @@ include: "snakemake_scripts/wgs_align.snk"
 include: "snakemake_scripts/wgs_markdup_recal.snk"
 
 ###Bam QC
-include: "snakemake_scripts/bam_qc.snk"
+include: "snakemake_scripts/wes_bam_qc.snk"
 
 ### Mutect2 individual
 include: "snakemake_scripts/wes_mutect2_individual.snk"

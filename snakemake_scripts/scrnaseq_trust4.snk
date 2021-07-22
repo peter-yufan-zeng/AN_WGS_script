@@ -1,0 +1,17 @@
+rule trust4:
+    input:
+        bam = "{OUTDIR}/{sample}/out/possorted_genome_bam.bam"
+    output:
+        "{OUTDIR}/{wildcards.sample}/trust4/{sample}_barcode_report.tsv"
+    threads: 80
+    shell:
+    """
+    /scratch/n/nicholsa/zyfniu/singularity_images/TRUST4/run-trust4 \
+    -f /scratch/n/nicholsa/zyfniu/singularity_images/TRUST4/hg38_bcrtcr.fa \
+    --ref /scratch/n/nicholsa/zyfniu/singularity_images/TRUST4/human_IMGT+C.fa \
+    -b ../20210511_scrnaseq_hpv/outs/possorted_genome_bam.bam \
+    --barcode CB \
+    -o {wildcards.sample} \
+    --od {OUTDIR}/{wildcards.sample}/trust4/ \
+    -t {threads}
+    """

@@ -1,0 +1,24 @@
+def get_num_cells(wildcards):
+		return expand("{num_cells}",num_cells = INPUT[INPUT.Sample == wildcards.sample].num_cells.drop_duplicates())
+
+rule cellranger:
+	input:
+		r1 = "{OUTDIR}/fastq/{sample}_S1_L001_R1_001.fastq.gz",
+		r2 = "{OUTDIR}/fastq/{sample}_S1_L001_R2_001.fastq.gz"
+	output:
+		"{OUTDIR}/{sample}/out/possorted_genome_bam.bam"
+	params:
+		num_cells = get_num_cells
+	threads: 80
+    shell:
+    """
+    cellranger count --id={wildcards.sample} \
+        --sample={wildcards.sample} \
+        --transcriptome=$SCRATCH/singularity_images/refdata-gex-GRCh38-2020-A \
+        --fastqs=/scratch/n/nicholsa/zyfniu/AN_WGS/raw/20210511_scrna_seq \
+		--include-introns \
+        --expect-cells=2000 \
+        --localcores={threads} \
+        --localmem=160
+	mv -f {wildcards.sample} {OUTDIR}/ 
+    """

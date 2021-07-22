@@ -1,0 +1,56 @@
+#### USAGE
+#### 1) First load snakemake
+#### module load NiaEnv/2018a
+#### module load python/3.6.4-anaconda5.1.0
+#### source activate snakemake
+#### snakemake -s AN_WGS_script/Snakefile  --cores 1 -j 40 --cluster "sbatch -N 1 -t 20:00:00 --ntasks 80 --output=logs/%x_%j.log" --ri \
+#### --config input=AN_WGS_script/Sample/20200907.tsv.txt outdir=$SCRATCH/AN_WGS_script/20200908_HPV_HNSCC_WGS
+
+import pandas as pd
+import os
+
+#localrules: all
+
+###
+### LOAD SAMPLES
+###
+SCRATCH = "/gpfs/fs0/scratch/n/nicholsa/zyfniu"
+print("\n***INPUT FILE: " + config['input'] + "***\n")
+INPUT = pd.read_table(config['input'],names = ['Sample','num_cells','Fastq1','Fastq2'])
+SAMPLE =  INPUT['Sample'].unique()
+TMP = "/scratch/n/nicholsa/zyfniu/AN_WGS/temp"
+print(INPUT)
+
+### PRINT OUTPUT DIRECTORY
+OUTDIR = config['outdir']
+print("***OUTPUT DIRECTORY: " + OUTDIR + "***")
+
+rule all:
+	expand(OUTDIR + "/{sample}/out/possorted_genome_bam.bam", sample = SAMPLE),
+	expand(OUTDIR + "/{sample}/trust4/{sample}_barcode_report.tsv", sample = SAMPLE)
+
+
+def get_fastq1(wildcards):
+	return expand(INPUT[INPUT.Sample == wildcards.sample].Fastq1)
+
+def get_fastq2(wildcards):
+	return expand(INPUT[INPUT.Sample == wildcards.sample].Fastq2)
+
+rule rename_files:
+	input:
+		r1 = get_fastq1,
+		r2 = get_fastq2
+	output:
+		r1 = {OUTDIR}/fastq/{sample}_S1_L001_R1_001.fastq.gz,
+		r2 = {OUTDIR}/fastq/{sample}_S1_L001_R2_001.fastq.gz
+	shell:
+		"""
+		ln -sr {input.r1} {output.r1}
+		ln -sr {input.r2} {output.r2}
+		"""
+
+### Run Cell Ranger
+include: "snakemake_scripts/scrnaseq_cellranger.snk"
+
+### Run TRUST4
+include: "snakemake_scripts/scrnaseq_trust4.snk"

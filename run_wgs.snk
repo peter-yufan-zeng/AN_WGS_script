@@ -9,8 +9,6 @@
 import pandas as pd
 import os
 
-include: "snakemake_scripts/hla.snk"
-include: "snakemake_scripts/wgs_align.snk"
 #localrules: all
 
 ###

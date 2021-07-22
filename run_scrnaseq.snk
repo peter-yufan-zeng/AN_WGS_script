@@ -9,7 +9,7 @@
 import pandas as pd
 import os
 
-#localrules: all
+localrules: rename_files, all
 
 ###
 ### LOAD SAMPLES
@@ -26,8 +26,9 @@ OUTDIR = config['outdir']
 print("***OUTPUT DIRECTORY: " + OUTDIR + "***")
 
 rule all:
-	expand(OUTDIR + "/{sample}/out/possorted_genome_bam.bam", sample = SAMPLE),
-	expand(OUTDIR + "/{sample}/trust4/{sample}_barcode_report.tsv", sample = SAMPLE)
+	input:
+		expand(OUTDIR + "/{sample}/cellranger/possorted_genome_bam.bam", sample = SAMPLE),
+		expand(OUTDIR + "/{sample}/trust4/{sample}_barcode_report.tsv", sample = SAMPLE)
 
 
 def get_fastq1(wildcards):
@@ -41,13 +42,10 @@ rule rename_files:
 		r1 = get_fastq1,
 		r2 = get_fastq2
 	output:
-		r1 = {OUTDIR}/fastq/{sample}_S1_L001_R1_001.fastq.gz,
-		r2 = {OUTDIR}/fastq/{sample}_S1_L001_R2_001.fastq.gz
+		r1 = "{OUTDIR}/fastq/{sample}_S1_L001_R1_001.fastq.gz",
+		r2 = "{OUTDIR}/fastq/{sample}_S1_L001_R2_001.fastq.gz"
 	shell:
-		"""
-		ln -sr {input.r1} {output.r1}
-		ln -sr {input.r2} {output.r2}
-		"""
+	 	"ln -sr {input.r1} {output.r1} && ln -sr {input.r2} {output.r2}"
 
 ### Run Cell Ranger
 include: "snakemake_scripts/scrnaseq_cellranger.snk"

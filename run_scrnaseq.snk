@@ -9,7 +9,7 @@
 import pandas as pd
 import os
 
-localrules: rename_files, all
+localrules: rename_files, copy_final_results, all
 
 ###
 ### LOAD SAMPLES
@@ -28,8 +28,9 @@ print("***OUTPUT DIRECTORY: " + OUTDIR + "***")
 rule all:
 	input:
 		expand(OUTDIR + "/{sample}/cellranger/possorted_genome_bam.bam", sample = SAMPLE),
-		expand(OUTDIR + "/{sample}/trust4/{sample}_barcode_report.tsv", sample = SAMPLE)
-
+		expand(OUTDIR + "/{sample}/trust4/{sample}_barcode_report.tsv", sample = SAMPLE),
+		expand(OUTDIR + "/final_results/cellranger/{sample}/matrix.mtx.gz",sample = SAMPLE),
+		expand(OUTDIR + "/final_results/trust4/{sample}/{sample}_barcode_report.tsv", sample = SAMPLE)
 
 def get_fastq1(wildcards):
 	return expand(INPUT[INPUT.Sample == wildcards.sample].Fastq1)
@@ -52,3 +53,17 @@ include: "snakemake_scripts/scrnaseq_cellranger.snk"
 
 ### Run TRUST4
 include: "snakemake_scripts/scrnaseq_trust4.snk"
+
+rule copy_final_results:
+	input:
+		OUTDIR + "/{sample}/cellranger/possorted_genome_bam.bam",
+		OUTDIR + "/{sample}/trust4/{sample}_barcode_report.tsv"
+	output:
+		OUTDIR + "/final_results/cellranger/{sample}/matrix.mtx.gz",
+		OUTDIR + "/final_results/trust4/{sample}/{sample}_barcode_report.tsv"
+	threads: 1
+	shell:
+		"""
+		cp {OUTDIR}/{wildcards.sample}/cellranger/filtered_feature_bc_matrix/* {OUTDIR}/final_results/cellranger/{wildcards.sample}/
+		cp {OUTDIR}/{wildcards.sample}/trust4/* {OUTDIR}/final_results/trust4/{wildcards.sample}/
+		"""

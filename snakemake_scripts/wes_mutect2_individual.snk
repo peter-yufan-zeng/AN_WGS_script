@@ -210,7 +210,6 @@ rule merge_mutect2_vcf_filtered:
 	shell:
 		"singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR} /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/vcftools.img vcf-concat {input} > {output}"
 
-
 rule index_filtered_vcf:
 	input:
 		vcf = OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/filtered_{tumor}_vs_{patient}-N.vcf"

@@ -1,0 +1,89 @@
+#### USAGE
+#### 1) First load snakemake
+#### module load NiaEnv/2018a
+#### module load python/3.6.4-anaconda5.1.0
+#### source activate snakemake
+#### snakemake -s AN_WGS_script/Snakefile  --cores 1 -j 40 --cluster "sbatch -N 1 -t 20:00:00 --ntasks 80 --output=logs/%x_%j.log" --ri \
+#### --config input=AN_WGS_script/Sample/20200907.tsv.txt outdir=$SCRATCH/AN_WGS_script/20200908_HPV_HNSCC_WGS
+
+import pandas as pd
+import os
+
+localrules: rename_files, copy_final_results, all
+
+###
+### LOAD SAMPLES
+###
+SCRATCH = "/gpfs/fs0/scratch/n/nicholsa/zyfniu"
+print("\n***INPUT FILE: " + config['input'] + "***\n")
+INPUT = pd.read_table(config['input'],names = ['Sample','path_to_csv'])
+SAMPLE =  INPUT['Sample'].unique()
+TMP = "/scratch/n/nicholsa/zyfniu/AN_WGS/temp"
+print(INPUT)
+
+### PRINT OUTPUT DIRECTORY
+OUTDIR = config['outdir']
+print("***OUTPUT DIRECTORY: " + OUTDIR + "***")
+
+rule all:
+	input:
+		expand(OUTDIR + "/{sample}/cellranger/gex_possorted_genome_bam.bam", sample = SAMPLE),
+		expand(OUTDIR + "/{sample}/trust4/{sample}_barcode_report.tsv", sample = SAMPLE),
+		expand(OUTDIR + "/final_results/cellranger/{sample}/filtered_feature_bc_matrix/matrix.mtx.gz",sample = SAMPLE),
+		expand(OUTDIR + "/final_results/trust4/{sample}/{sample}_barcode_report.tsv", sample = SAMPLE)
+
+
+### Run Cell Ranger-ARC
+def get_path_to_csv(wildcards):
+		return expand("{path_to_csv}",path_to_csv = INPUT[INPUT.Sample == wildcards.sample].path_to_csv.drop_duplicates())
+
+rule cellranger-arc:
+	input:
+		path_to_csv = get_path_to_csv
+	output:
+		"{OUTDIR}/{sample}/cellranger/gex_possorted_genome_bam.bam"
+	threads: 80
+	shell:
+		"""
+		cellranger-arc count --id={wildcards.sample} \
+		--reference=$SCRATCH/singularity_images/refdata-cellranger-arc-GRCh38-2020-A-2.0.0 \
+		--libraries={input} \
+		--localcores={threads} \
+		--localmem=160
+		cp -R {wildcards.sample}/outs/* {OUTDIR}/{wildcards.sample}/cellranger ; rm -rf {wildcards.sample}
+		"""
+
+### Run TRUST4
+rule trust4:
+	input:
+		bam = "{OUTDIR}/{sample}/cellranger/gex_possorted_genome_bam.bam"
+	output:
+		"{OUTDIR}/{sample}/trust4/{sample}_barcode_report.tsv"
+	threads: 80
+	shell:
+		"""
+		module load samtools
+		/scratch/n/nicholsa/zyfniu/singularity_images/TRUST4/run-trust4 \
+		-f /scratch/n/nicholsa/zyfniu/singularity_images/TRUST4/hg38_bcrtcr.fa \
+		--ref /scratch/n/nicholsa/zyfniu/singularity_images/TRUST4/human_IMGT+C.fa \
+		-b {input.bam} \
+		--barcode CB \
+		-o {wildcards.sample} \
+		--od {OUTDIR}/{wildcards.sample}/trust4/ \
+		-t {threads}
+		"""
+
+rule copy_final_results:
+	input:
+		OUTDIR + "/{sample}/cellranger/gex_possorted_genome_bam.bam",
+		OUTDIR + "/{sample}/trust4/{sample}_barcode_report.tsv"
+	output:
+		OUTDIR + "/final_results/cellranger/{sample}/filtered_feature_bc_matrix/matrix.mtx.gz",
+		OUTDIR + "/final_results/trust4/{sample}/{sample}_barcode_report.tsv"
+	threads: 1
+	shell:
+		"""
+		cp {OUTDIR}/{wildcards.sample}/cellranger/* {OUTDIR}/final_results/cellranger/{wildcards.sample}/
+		rm {OUTDIR}/final_results/cellranger/{wildcards.sample}/*.bam*
+		cp {OUTDIR}/{wildcards.sample}/trust4/* {OUTDIR}/final_results/trust4/{wildcards.sample}/
+		"""

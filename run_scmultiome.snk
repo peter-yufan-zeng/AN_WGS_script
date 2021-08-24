@@ -83,7 +83,7 @@ rule copy_final_results:
 	threads: 1
 	shell:
 		"""
-		cp {OUTDIR}/{wildcards.sample}/cellranger/* {OUTDIR}/final_results/cellranger/{wildcards.sample}/
+		cp -r {OUTDIR}/{wildcards.sample}/cellranger/* {OUTDIR}/final_results/cellranger/{wildcards.sample}/
 		rm {OUTDIR}/final_results/cellranger/{wildcards.sample}/*.bam*
-		cp {OUTDIR}/{wildcards.sample}/trust4/* {OUTDIR}/final_results/trust4/{wildcards.sample}/
+		cp -r {OUTDIR}/{wildcards.sample}/trust4/* {OUTDIR}/final_results/trust4/{wildcards.sample}/
 		"""

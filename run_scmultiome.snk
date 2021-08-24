@@ -27,7 +27,7 @@ print("***OUTPUT DIRECTORY: " + OUTDIR + "***")
 
 rule all:
 	input:
-		expand(OUTDIR + "/{sample}/cellranger/gex_possorted_genome_bam.bam", sample = SAMPLE),
+		expand(OUTDIR + "/{sample}/cellranger/gex_possorted_bam.bam", sample = SAMPLE),
 		expand(OUTDIR + "/{sample}/trust4/{sample}_barcode_report.tsv", sample = SAMPLE),
 		expand(OUTDIR + "/final_results/cellranger/{sample}/filtered_feature_bc_matrix/matrix.mtx.gz",sample = SAMPLE),
 		expand(OUTDIR + "/final_results/trust4/{sample}/{sample}_barcode_report.tsv", sample = SAMPLE)
@@ -37,11 +37,11 @@ rule all:
 def get_path_to_csv(wildcards):
 		return expand("{path_to_csv}",path_to_csv = INPUT[INPUT.Sample == wildcards.sample].path_to_csv.drop_duplicates())
 
-rule cellranger-arc:
+rule cellranger_arc:
 	input:
 		path_to_csv = get_path_to_csv
 	output:
-		"{OUTDIR}/{sample}/cellranger/gex_possorted_genome_bam.bam"
+		"{OUTDIR}/{sample}/cellranger/gex_possorted_bam.bam"
 	threads: 80
 	shell:
 		"""
@@ -56,7 +56,7 @@ rule cellranger-arc:
 ### Run TRUST4
 rule trust4:
 	input:
-		bam = "{OUTDIR}/{sample}/cellranger/gex_possorted_genome_bam.bam"
+		bam = "{OUTDIR}/{sample}/cellranger/gex_possorted_bam.bam"
 	output:
 		"{OUTDIR}/{sample}/trust4/{sample}_barcode_report.tsv"
 	threads: 80
@@ -75,7 +75,7 @@ rule trust4:
 
 rule copy_final_results:
 	input:
-		OUTDIR + "/{sample}/cellranger/gex_possorted_genome_bam.bam",
+		OUTDIR + "/{sample}/cellranger/gex_possorted_bam.bam",
 		OUTDIR + "/{sample}/trust4/{sample}_barcode_report.tsv"
 	output:
 		OUTDIR + "/final_results/cellranger/{sample}/filtered_feature_bc_matrix/matrix.mtx.gz",

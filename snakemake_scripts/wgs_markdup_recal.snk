@@ -15,19 +15,20 @@ rule merge_bam_mapped_and_index:
 			shell("singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS/raw,{OUTDIR} /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img samtools index -@ {threads} {output}")
 		elif len(input) > 1:
 			#shell("mv {input} {output}")
-			shell("singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS/raw,{OUTDIR} /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img samtools merge --threads {threads} - {input} | tee {output} | singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS/raw,{OUTDIR} /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img samtools index -@ {threads} - ")
+			shell("singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS/raw,{OUTDIR} /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img samtools merge --threads {threads} - {input} > {output} ")
+			shell("singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS/raw,{OUTDIR} /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img samtools index -@ {threads} - {output}")
 
 rule markdup:
 	input:
 		OUTDIR +"/orphan/{sample}/{sample}.merged.bam"
 	output:
-		bam = temp(OUTDIR +"/orphan/MD/{sample}.md.bam"),
+		bam = OUTDIR +"/orphan/MD/{sample}.md.bam",
 		metric = OUTDIR +"/orphan/MD/{sample}.bam.metric"
 	threads: 20
 	group: "merge_markduplicate"
 	shell:
 		"""
-		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,{OUTDIR} /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/gatk-4.1.8.img \
+		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,{OUTDIR},{OUTDIR}/orphan/MD /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/gatk-4.1.8.img \
 		gatk --java-options "-Xmx16G" \
 		MarkDuplicates \
 		--MAX_RECORDS_IN_RAM 50000 \
@@ -68,7 +69,7 @@ rule gather_recal_tbl:
 	input:
 		recal_tbl_to_gather
 	output:
-		temp(OUTDIR +"/orphan/{sample}/Recal/{sample}.recal.table")
+		OUTDIR +"/orphan/{sample}/Recal/{sample}.recal.table"
 	threads: 2
 	group: "recalibrator"
 	run:

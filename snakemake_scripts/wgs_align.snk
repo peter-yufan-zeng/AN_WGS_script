@@ -22,10 +22,10 @@ rule fastqc:
 		"""
 		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS/raw,{OUTDIR} /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
 		fastqc -t {threads} {input} --outdir={OUTDIR}/QC/{wildcards.sample_lane}/
-		mv {OUTDIR}/QC/{wildcards.sample_lane}/*1_fastqc.html {OUTDIR}/QC/{wildcards.sample_lane}/{wildcards.sample_lane}_R1_fastqc.html
-		mv {OUTDIR}/QC/{wildcards.sample_lane}/*2_fastqc.html {OUTDIR}/QC/{wildcards.sample_lane}/{wildcards.sample_lane}_R2_fastqc.html
-		mv {OUTDIR}/QC/{wildcards.sample_lane}/*1_fastqc.zip {OUTDIR}/QC/{wildcards.sample_lane}/{wildcards.sample_lane}_R1_fastqc.zip
-		mv {OUTDIR}/QC/{wildcards.sample_lane}/*2_fastqc.zip {OUTDIR}/QC/{wildcards.sample_lane}/{wildcards.sample_lane}_R2_fastqc.zip
+		mv {OUTDIR}/QC/{wildcards.sample_lane}/*R1*_fastqc.html {OUTDIR}/QC/{wildcards.sample_lane}/{wildcards.sample_lane}_R1_fastqc.html
+		mv {OUTDIR}/QC/{wildcards.sample_lane}/*R2*_fastqc.html {OUTDIR}/QC/{wildcards.sample_lane}/{wildcards.sample_lane}_R2_fastqc.html
+		mv {OUTDIR}/QC/{wildcards.sample_lane}/*R1*_fastqc.zip {OUTDIR}/QC/{wildcards.sample_lane}/{wildcards.sample_lane}_R1_fastqc.zip
+		mv {OUTDIR}/QC/{wildcards.sample_lane}/*R2*_fastqc.zip {OUTDIR}/QC/{wildcards.sample_lane}/{wildcards.sample_lane}_R2_fastqc.zip
 		"""
 
 def createRG(wildcards):

@@ -22,13 +22,13 @@ rule markdup:
 	input:
 		OUTDIR +"/orphan/{sample}/{sample}.merged.bam"
 	output:
-		bam = OUTDIR +"/orphan/MD/{sample}.md.bam",
-		metric = OUTDIR +"/orphan/MD/{sample}.bam.metric"
+		bam = OUTDIR +"/orphan/{sample}.md.bam",
+		metric = OUTDIR +"/orphan/{sample}.bam.metric"
 	threads: 20
 	group: "merge_markduplicate"
 	shell:
 		"""
-		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,{OUTDIR},{OUTDIR}/orphan/MD /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/gatk-4.1.8.img \
+		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,{OUTDIR},{OUTDIR}/orphan /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/gatk-4.1.8.img \
 		gatk --java-options "-Xmx16G" \
 		MarkDuplicates \
 		--MAX_RECORDS_IN_RAM 50000 \
@@ -42,7 +42,7 @@ rule markdup:
 
 rule recalibrator:
 	input:
-		OUTDIR +"/orphan/MD/{sample}.md.bam"
+		OUTDIR +"/orphan/{sample}.md.bam"
 	output:
 		temp(OUTDIR +"/orphan/{sample}/Recal/{sample}.{chr}.recal.table")
 	threads: 2
@@ -81,7 +81,7 @@ rule gather_recal_tbl:
 
 rule ApplyBQSR:
 	input:
-		bam = OUTDIR + "/orphan/MD/{sample}.md.bam",
+		bam = OUTDIR + "/orphan/{sample}.md.bam",
 		recal_table = OUTDIR +"/orphan/{sample}/Recal/{sample}.recal.table"
 	output:
 		temp(OUTDIR + "/orphan/{sample}/Recal/{sample}.recal.{chr}.bam")

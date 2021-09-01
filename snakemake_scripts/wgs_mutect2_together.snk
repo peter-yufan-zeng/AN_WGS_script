@@ -11,7 +11,6 @@ rule mutect2_all_tumours:
 		interval = "/scratch/n/nicholsa/zyfniu/igenomes_ref/interval-files-folder/{num}-scattered.interval_list",
 		normal = OUTDIR +"/Recal/{patient}-N.recal.bam",
 		tumors = get_bams_to_call
-	#	recurrence = "{sample}R/Recal/{sample}R.recal.bam"
 	output:
 		vcf = temp(OUTDIR + "/results/mutect2/all_{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N.{num}.vcf"),
 		stats = temp(OUTDIR + "/results/mutect2/all_{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N.{num}.vcf.stats"),
@@ -23,6 +22,7 @@ rule mutect2_all_tumours:
 		command = "singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR} /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/gatk-4.1.8.img \
 		gatk --java-options \"-Xmx8g\" Mutect2 -R {REF_fasta} \
 		-normal {wildcards.patient}-N \
+		-I {input.normal} \
 		-L {input.interval} \
 		--germline-resource {REF_gnomAD} \
 		--panel-of-normals {REF_pon} --f1r2-tar-gz {output.f12} \

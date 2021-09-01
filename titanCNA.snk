@@ -105,7 +105,7 @@ rule filter_mutect2_passOnly:
 		annotatedvcf = OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N_snpEff.ann.vcf.gz"
 	output: annotatedvcf = OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N_snpEff.ann.passOnly.vcf.gz"
 	threads: 1
-	group: "filter"
+	group: "titan"
 	shell:
 		"""
 		singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR} \
@@ -121,7 +121,7 @@ rule filter_mutect2_to_variants_of_interest:
 		annotatedvcf = OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N_snpEff.ann.passOnly.vcf.gz"
 	output: annotatedvcf = OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N_snpEff.ann.passOnly.inGenes.vcf.gz"
 	threads: 1
-	group: "filter"
+	group: "titan"
 	shell:
 		"""
 		singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR} \
@@ -419,7 +419,7 @@ rule parseCNV:
 	output:
 		OUTDIR + "/results/phyloWGS/input/{tumor}_vs_{patient}-N_cnvs.txt"
 	params:
-		awk_command = "awk 'FNR == 2{{print $1}}' " + OUTDIR + "/results/ASCAT/{tumor}_vs_{patient}-N/{tumor}.purityploidy.txt"
+		awk_command = "awk 'FNR == 2{{print $5}}' " + OUTDIR + "/results/titan/hmm/optimalClusterSolution/{tumor}_vs_{patient}-N/{tumor}*.params.txt"
 	threads: 1
 	group: "phylowgs"
 	run:
@@ -436,9 +436,9 @@ rule fixParsedCNV:
 	output:
 		remove_chr = OUTDIR + "/results/phyloWGS/input/{tumor}_vs_{patient}-N_cnvs.fixed_chr.txt",
         remove_dup = OUTDIR + "/results/phyloWGS/input/{tumor}_vs_{patient}-N_cnvs.fixed_chr_dup.txt"
-    threads: 1
-    group: "phylowgs"
-    shell:
+  threads: 1
+  group: "phylowgs"
+  shell:
         """
     	sed -e 's/chr//g' {input} > {output.remove_chr}
         sed -i -e 's/omosome/chromosome/g' {output.remove_chr}
@@ -478,10 +478,6 @@ def vcf_format(wildcards):
 	print(vcf_format)
 	return vcf_format
 
-
-
-
-
 rule parseSNVfromMutect:
 	input:
 		cnvs = get_parsedCNVs_for_phylowgs_files,
@@ -509,7 +505,6 @@ rule parseSNVfromMutect:
 		{params.vcf_files}
 		"""
 
-	##	--tumor-sample HPV54-R
 rule phyloWGS:
 	input:
 		ssm = OUTDIR + "/results/phyloWGS/parsedSNV_CNV/{tumour}_vs_{patient}-N_ssm_data.txt",

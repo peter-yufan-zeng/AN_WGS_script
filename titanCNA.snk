@@ -419,13 +419,14 @@ rule parseCNV:
 	output:
 		OUTDIR + "/results/phyloWGS/input/{tumor}_vs_{patient}-N_cnvs.txt"
 	params:
-		awk_command = "awk 'FNR == 2{{print $5}}' " + OUTDIR + "/results/titan/hmm/optimalClusterSolution/{tumor}_vs_{patient}-N/{tumor}*.params.txt"
+		awk_command = "awk 'FNR == 1{{print $4}}' " + OUTDIR + "/results/titan/hmm/optimalClusterSolution/{tumor}_vs_{patient}-N/{tumor}*.params.txt"
 	threads: 1
 	group: "phylowgs"
 	run:
 		import subprocess
         	import os.path
 		ploidy = (subprocess.check_output({params.awk_command}, shell = True)).rstrip().decode()
+		ploidy = 1 - int(ploidy)
 		command = "singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR},$SCRATCH/AN_WGS/AN_WGS_script /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/phylowgs.simg python2.7 $SCRATCH/AN_WGS/AN_WGS_script/phylowgs_parser/parse_cnvs.py -f titan -c " + ploidy + " --cnv-output {output} {input.segs}"
 		shell(command)
 
@@ -435,15 +436,15 @@ rule fixParsedCNV:
 		OUTDIR + "/results/phyloWGS/input/{tumor}_vs_{patient}-N_cnvs.txt"
 	output:
 		remove_chr = OUTDIR + "/results/phyloWGS/input/{tumor}_vs_{patient}-N_cnvs.fixed_chr.txt",
-        remove_dup = OUTDIR + "/results/phyloWGS/input/{tumor}_vs_{patient}-N_cnvs.fixed_chr_dup.txt"
-  threads: 1
-  group: "phylowgs"
-  shell:
-        """
-    	sed -e 's/chr//g' {input} > {output.remove_chr}
-        sed -i -e 's/omosome/chromosome/g' {output.remove_chr}
-        awk '$2!=$3' {output.remove_chr} > {output.remove_dup}
-        """
+		remove_dup = OUTDIR + "/results/phyloWGS/input/{tumor}_vs_{patient}-N_cnvs.fixed_chr_dup.txt"
+	threads: 1
+	group: "phylowgs"
+	shell:
+		"""
+		sed -e 's/chr//g' {input} > {output.remove_chr}
+		sed -i -e 's/omosome/chromosome/g' {output.remove_chr}
+		awk '$2!=$3' {output.remove_chr} > {output.remove_dup}
+    """
 
 
 def get_vcfs_for_phylowgs_files(wildcards):

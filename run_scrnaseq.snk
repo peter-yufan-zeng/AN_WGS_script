@@ -16,7 +16,7 @@ localrules: rename_files, copy_final_results, all
 ###
 SCRATCH = "/gpfs/fs0/scratch/n/nicholsa/zyfniu"
 print("\n***INPUT FILE: " + config['input'] + "***\n")
-INPUT = pd.read_table(config['input'],names = ['Sample','num_cells','Fastq1','Fastq2'])
+INPUT = pd.read_table(config['input'],names = ['Sample','num_cells','lanes','Fastq1','Fastq2'])
 SAMPLE =  INPUT['Sample'].unique()
 TMP = "/scratch/n/nicholsa/zyfniu/AN_WGS/temp"
 print(INPUT)
@@ -33,18 +33,18 @@ rule all:
 		expand(OUTDIR + "/final_results/trust4/{sample}/{sample}_barcode_report.tsv", sample = SAMPLE)
 
 def get_fastq1(wildcards):
-	return expand(INPUT[INPUT.Sample == wildcards.sample].Fastq1)
+	return expand(INPUT[(INPUT['Sample'] == wildcards.sample) & (INPUT['lanes'] == wildcards.lanes)].Fastq1)
 
 def get_fastq2(wildcards):
-	return expand(INPUT[INPUT.Sample == wildcards.sample].Fastq2)
+	return expand(INPUT[(INPUT['Sample'] == wildcards.sample) & (INPUT['lanes'] == wildcards.lanes)].Fastq2)
 
 rule rename_files:
 	input:
 		r1 = get_fastq1,
 		r2 = get_fastq2
 	output:
-		r1 = "{OUTDIR}/fastq/{sample}_S1_L001_R1_001.fastq.gz",
-		r2 = "{OUTDIR}/fastq/{sample}_S1_L001_R2_001.fastq.gz"
+		r1 = "{OUTDIR}/fastq/{sample}_S1_{lanes}_R1_001.fastq.gz",
+		r2 = "{OUTDIR}/fastq/{sample}_S1_{lanes}_R2_001.fastq.gz"
 	shell:
 	 	"ln -sr {input.r1} {output.r1} && ln -sr {input.r2} {output.r2}"
 

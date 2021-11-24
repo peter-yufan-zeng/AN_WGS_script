@@ -11,7 +11,7 @@ rule samtools_stats:
 	threads: 40
 	shell:
 		"""
-		singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR} \
+		singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR},$SCRATCH/AN_WGS/AN_WGS_script \
 			/gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
 		samtools stats -@ 39 -t {EXOME_BED} {input.bam} > {output}
 		"""
@@ -26,7 +26,7 @@ rule bamqc:
 	threads: 40
 	shell:
 		"""
-		singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR} \
+		singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR},$SCRATCH/AN_WGS/AN_WGS_script \
 			/gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
 		qualimap --java-mem-size=100G \
 		bamqc \

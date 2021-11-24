@@ -12,7 +12,7 @@ rule scatterIntervals:
 		expand(OUTDIR + "/orphan/intervals/{num}-scattered.interval_list", num = NUMBERS)
 	shell:
 		"""
-		singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR} /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/gatk-4.1.8.img \
+		singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR},$SCRATCH/AN_WGS/AN_WGS_script /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/gatk-4.1.8.img \
 		gatk --java-options "-Xmx8g" SplitIntervals \
 		-R {REF_fasta} \
 		--scatter-count 200 \

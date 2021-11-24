@@ -52,7 +52,7 @@ rule all:
 	input:
 		###FASTQC + BWA Alignment
 		expand(OUTDIR + "/QC/{sample}/{sample}_R1_fastqc.html", sample = SAMPLE),
-		expand(OUTDIR + "/align/{sample}_Aligned.out.sam", sample = SAMPLE),
+		expand(OUTDIR + "/align/{sample}_Aligned.toTranscriptome.out.bam", sample = SAMPLE),
 		expand(OUTDIR + "/rsem/{sample}.genes.results", sample = SAMPLE)
 
 

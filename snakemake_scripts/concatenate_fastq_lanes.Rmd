@@ -29,7 +29,7 @@ rule all:
         expand(OUTDIR + "/fastq/{sample}_R1.fastq.gz", sample = SAMPLE),
         expand(OUTDIR + "/fastq/{sample}_R2.fastq.gz", sample = SAMPLE)
     script:
-        df.to_csv('clindata_merged.tsv', sep = '\t')
+        df.to_csv('clindata_merged.tsv', sep = '\t',index = False,header = False)
 
 
 def get_fastq1_to_merge(wildcards):

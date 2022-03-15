@@ -21,13 +21,13 @@ OUTDIR = config['outdir']
 print("***OUTPUT DIRECTORY: " + OUTDIR + "***")
 
 clindata = pd.DataFrame({'Sample': SAMPLE})
-clindata['Fastq1'] = OUTDIR + '/fastq/' + clindata['Sample'] + '_R1.fastq.gz'
-clindata['Fastq2'] = OUTDIR + '/fastq/' + clindata['Sample'] + '_R2.fastq.gz'
+clindata['Fastq1'] = OUTDIR + '/fastq/merged/' + clindata['Sample'] + '_R1.fastq.gz'
+clindata['Fastq2'] = OUTDIR + '/fastq/merged/' + clindata['Sample'] + '_R2.fastq.gz'
 
 rule all:
     input:
-        expand(OUTDIR + "/fastq/{sample}_R1.fastq.gz", sample = SAMPLE),
-        expand(OUTDIR + "/fastq/{sample}_R2.fastq.gz", sample = SAMPLE)
+        expand(OUTDIR + "/fastq/merged/{sample}_R1.fastq.gz", sample = SAMPLE),
+        expand(OUTDIR + "/fastq/merged/{sample}_R2.fastq.gz", sample = SAMPLE)
     script:
         df.to_csv('clindata_merged.tsv', sep = '\t',index = False,header = False)
 
@@ -43,8 +43,8 @@ rule merge_bam_mapped_and_index:
 		fq1 = get_fastq1_to_merge,
         fq2 = get_fastq2_to_merge
 	output:
-		merged_fq1 = OUTDIR + "/fastq/{sample}_R1.fastq.gz",
-        merged_fq2 = OUTDIR + "/fastq/{sample}_R2.fastq.gz"
+		merged_fq1 = OUTDIR + "/fastq/merged/{sample}_R1.fastq.gz",
+        merged_fq2 = OUTDIR + "/fastq/merged/{sample}_R2.fastq.gz"
 	group: "merge_markduplicate"
     thread: 1
 	shell:

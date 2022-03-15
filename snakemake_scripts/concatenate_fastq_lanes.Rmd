@@ -1,0 +1,54 @@
+### Snakemake script to concatente together fastq.gz files from different lanes.
+
+import pandas as pd
+import os
+
+localrules: all, merge_bam_mapped_and_index
+
+### Input File
+SCRATCH = "/gpfs/fs0/scratch/n/nicholsa/zyfniu"
+print("\n***INPUT FILE: " + config['input'] + "***\n")
+INPUT = pd.read_table(config['input'],names = ['Sample','Lane','Fastq1','Fastq2'])
+INPUT['Lane'] = INPUT.Lane.apply(str)
+INPUT['Sample_Lane'] = INPUT.Sample + "_" + INPUT.Lane
+SAMPLE =  INPUT['Sample'].unique()
+TMP = "/scratch/n/nicholsa/zyfniu/AN_WGS/temp"
+SAMPLE_LANE = INPUT.Sample_Lane
+print(INPUT)
+
+### Print output directory
+OUTDIR = config['outdir']
+print("***OUTPUT DIRECTORY: " + OUTDIR + "***")
+
+clindata = pd.DataFrame({'Sample': SAMPLE})
+clindata['Fastq1'] = OUTDIR + '/fastq/' + clindata['Sample'] + '_R1.fastq.gz'
+clindata['Fastq2'] = OUTDIR + '/fastq/' + clindata['Sample'] + '_R2.fastq.gz'
+
+rule all:
+    input:
+        expand(OUTDIR + "/fastq/{sample}_R1.fastq.gz", sample = SAMPLE),
+        expand(OUTDIR + "/fastq/{sample}_R2.fastq.gz", sample = SAMPLE)
+    script:
+        df.to_csv('clindata_merged.tsv', sep = '\t')
+
+
+def get_fastq1_to_merge(wildcards):
+	return expand(INPUT[INPUT.Sample == wildcards.sample].Fastq1)
+
+def get_fastq2_to_merge(wildcards):
+	return expand(INPUT[INPUT.Sample == wildcards.sample].Fastq2)
+
+rule merge_bam_mapped_and_index:
+	input:
+		fq1 = get_fastq1_to_merge,
+        fq2 = get_fastq2_to_merge
+	output:
+		merged_fq1 = OUTDIR + "/fastq/{sample}_R1.fastq.gz",
+        merged_fq2 = OUTDIR + "/fastq/{sample}_R2.fastq.gz"
+	group: "merge_markduplicate"
+    thread: 1
+	shell:
+        """
+        cat {input.fq1} > merged_fq1
+        cat {input.fq2} > merged_fq2
+        """

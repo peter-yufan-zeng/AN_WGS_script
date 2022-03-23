@@ -9,7 +9,7 @@
 import pandas as pd
 import os
 
-#localrules: all
+localrules: all, rename_files
 
 ###
 ### LOAD SAMPLES
@@ -51,7 +51,7 @@ SGL_NFCORE_CMD = "singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS/raw,
 rule all:
 	input:
 		###FASTQC + BWA Alignment
-		expand(OUTDIR + "/QC/{sample}/{sample}_R1_fastqc.html", sample = SAMPLE),
+		expand(OUTDIR + "/QC/fastqc/{sample}_R1_fastqc.html", sample = SAMPLE),
 		expand(OUTDIR + "/align/{sample}_Aligned.toTranscriptome.out.bam", sample = SAMPLE),
 		expand(OUTDIR + "/rsem/{sample}.genes.results", sample = SAMPLE)
 
@@ -67,34 +67,45 @@ def star_fastq2(wildcards):
 	return expand(INPUT[INPUT.Sample == wildcards.sample].Fastq2)
 
 
-rule fastqc_and_move:
+rule rename_files:
 	input:
 		fastq1 = star_fastq1,
 		fastq2 = star_fastq2
 	output:
-		o1 = OUTDIR + "/QC/{sample}/{sample}_R1_fastqc.html",
-		o2 = OUTDIR + "/QC/{sample}/{sample}_R2_fastqc.html",
-		o3 = OUTDIR + "/QC/{sample}/{sample}_R1_fastqc.zip",
-		o4 = OUTDIR + "/QC/{sample}/{sample}_R2_fastqc.zip",
-		o5 = OUTDIR + "/raw/{sample}_R1.fq.gz",
-		o6 = OUTDIR + "/raw/{sample}_R2.fq.gz"
+		o1 = OUTDIR + "/ln/{sample}_R1.fq.gz",
+		o2 = OUTDIR + "/ln/{sample}_R2.fq.gz"
+	threads: 1
+	shell:
+		"""
+		ln -s {input.fastq1} {output.o1}
+		ln -s {input.fastq2} {output.o2}
+		"""
+
+rule fastqc_and_move:
+	input:
+		i1 = OUTDIR + "/ln/{sample}_R1.fq.gz",
+		i2 = OUTDIR + "/ln/{sample}_R2.fq.gz"
+	output:
+		o1 = OUTDIR + "/QC/fastqc/{sample}_R1_fastqc.html",
+		o2 = OUTDIR + "/QC/fastqc/{sample}_R2_fastqc.html",
+		o3 = OUTDIR + "/QC/fastqc/{sample}_R1_fastqc.zip",
+		o4 = OUTDIR + "/QC/fastqc/{sample}_R2_fastqc.zip"
 	threads: 20
 	group: "rsem"
 	shell:
 		"""
-		cp {input.fastq1} {output.o5}
-		cp {input.fastq2} {output.o6}
+		mkdir -p {OUTDIR}/QC/{wildcards.sample}
 		{SGL_NFCORE_CMD} fastqc -t {threads} {input} --outdir={OUTDIR}/QC/{wildcards.sample}/
-		mv {OUTDIR}/QC/{wildcards.sample}/*R1*fastqc.html {OUTDIR}/QC/{wildcards.sample}/{wildcards.sample}_R1_fastqc.html
-		mv {OUTDIR}/QC/{wildcards.sample}/*R2*fastqc.html {OUTDIR}/QC/{wildcards.sample}/{wildcards.sample}_R2_fastqc.html
-		mv {OUTDIR}/QC/{wildcards.sample}/*R1*fastqc.zip {OUTDIR}/QC/{wildcards.sample}/{wildcards.sample}_R1_fastqc.zip
-		mv {OUTDIR}/QC/{wildcards.sample}/*R2*fastqc.zip {OUTDIR}/QC/{wildcards.sample}/{wildcards.sample}_R2_fastqc.zip
+		mv -n {OUTDIR}/QC/{wildcards.sample}/*R1*fastqc.html {OUTDIR}/QC/fastqc/{wildcards.sample}_R1_fastqc.html
+		mv -n {OUTDIR}/QC/{wildcards.sample}/*R2*fastqc.html {OUTDIR}/QC/fastqc/{wildcards.sample}_R2_fastqc.html
+		mv -n {OUTDIR}/QC/{wildcards.sample}/*R1*fastqc.zip {OUTDIR}/QC/fastqc/{wildcards.sample}_R1_fastqc.zip
+		mv -n {OUTDIR}/QC/{wildcards.sample}/*R2*fastqc.zip {OUTDIR}/QC/fastqc/{wildcards.sample}_R2_fastqc.zip
 		"""
 
 rule trim_galore:
 	input:
-		r1 = OUTDIR + "/raw/{sample}_R1.fq.gz",
-		r2 = OUTDIR + "/raw/{sample}_R2.fq.gz"
+		r1 = OUTDIR + "/ln/{sample}_R1.fq.gz",
+		r2 = OUTDIR + "/ln/{sample}_R2.fq.gz"
 	output:
 		o1 = OUTDIR + "/trimmed/{sample}_R1_val_1.fq.gz",
 		o2 = OUTDIR + "/trimmed/{sample}_R2_val_2.fq.gz"

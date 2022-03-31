@@ -1,0 +1,43 @@
+### This script takes a bam file mapped to genome, get the unmapped reads, and then uses kraken2 to search for reads containing to viruses and bacteria
+
+###
+
+rule kraken:
+    input:
+        i1 = OUTDIR + "/align/{sample}_unmapped_R1.fastq",
+        i2 = OUTDIR + "/align/{sample}_unmapped_R2.fastq"
+    output:
+        out = OUTDIR + "/kraken2/{sample}_kraken2.out",
+        report = OUTDIR + "/kraken2/{sample}_kraken2.report"
+    threads: 80
+    group: "kracken"
+    shell:
+        """
+        singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS/raw,OUTDIR \
+        /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/kraken2.1.2.simg \
+        kraken2 --db /gpfs/fs0/scratch/n/nicholsa/zyfniu/igenomes_ref/kraken2_ref/ \
+        --output {output.out} \
+        --report {output.report} \
+        --paired \
+        --use-names \
+        --threads {threads} \
+        {input}
+        """
+
+rule bracken:
+    input:
+        out = OUTDIR + "/kraken2/{sample}_kraken2.out",
+        report = OUTDIR + "/kraken2/{sample}_kraken2.report"
+    output:
+        out = OUTDIR + "/kraken2/braken/{sample}_braken2.out",
+        report = OUTDIR + "/kraken2/braken/{sample}_braken2.report"
+    group: "kracken"
+    threads: 1
+        """
+        singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS/raw,OUTDIR \
+        /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/braken2.6.2.simg \
+        kraken2 -d /gpfs/fs0/scratch/n/nicholsa/zyfniu/igenomes_ref/kraken2_ref/ \
+        -i {input.report} \
+        -o {output.out} \
+        -w {output.report}
+        """

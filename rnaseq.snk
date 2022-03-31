@@ -39,6 +39,14 @@ CHROMOSOMES = ['chr1', 'chr2', 'chr3', 'chr4', 'chr5', 'chr6', 'chr7', 'chr8', '
 			   'chr11', 'chr12', 'chr13', 'chr14', 'chr15', 'chr16', 'chr17', 'chr18', 'chr19',
 			   'chr20', 'chr21', 'chr22', 'chrX', 'chrY']
 
+kraken_yes_no = config['kraken']
+###Check if kraken list is available
+if kraken_yes_no == 'true':
+	kraken_list = expand(OUTDIR + "/kraken2/braken/{sample}_braken2.report", sample = SAMPLE)
+else:
+	kraken_list = None
+
+
 ### PATH TO singularity imgaes
 SGL_STAR_RSEM_CMD = "singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS/raw,"+ OUTDIR + \
 " /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/rsem.img"
@@ -53,7 +61,8 @@ rule all:
 		###FASTQC + BWA Alignment
 		expand(OUTDIR + "/QC/fastqc/{sample}_R1_fastqc.html", sample = SAMPLE),
 		expand(OUTDIR + "/align/{sample}_Aligned.toTranscriptome.out.bam", sample = SAMPLE),
-		expand(OUTDIR + "/rsem/{sample}.genes.results", sample = SAMPLE)
+		expand(OUTDIR + "/rsem/{sample}.genes.results", sample = SAMPLE),
+		kraken_list
 
 
 
@@ -120,17 +129,20 @@ rule star:
 		r2 = OUTDIR + "/trimmed/{sample}_R2_val_2.fq.gz"
 	output:
 		o1 = OUTDIR + "/align/{sample}_Aligned.toTranscriptome.out.bam",
-		o2 = OUTDIR + "/align/{sample}_Chimeric.out.junction"
+		o2 = OUTDIR + "/align/{sample}_Chimeric.out.junction",
+		temp(OUTDIR + "/align/{sample}_unmapped_R1.fastq"),
+		temp(OUTDIR + "/align/{sample}_unmapped_R2.fastq")
 	threads: 80
 	params:
 		star_path = "$SCRATCH/igenomes_ref/GRCh38_star"
 	group: "rsem"
-    	shell:
-        	"{SGL_STAR_RSEM_CMD} STAR --genomeDir {params.star_path} \
+    shell:
+        """
+		{SGL_STAR_RSEM_CMD} STAR --genomeDir {params.star_path} \
 		--readFilesIn {input.r1} {input.r2} \
 		--outFileNamePrefix {OUTDIR}/align/{wildcards.sample}_ \
 		--runThreadN {threads} \
-		--outReadsUnmapped None \
+		--outReadsUnmapped Fastx \
 		--quantMode TranscriptomeSAM \
 		--twopassMode Basic \
 		--readFilesCommand \"gunzip -c\" \
@@ -149,7 +161,10 @@ rule star:
 		--chimMultimapNmax 20 \
 		--chimNonchimScoreDropMin 10 \
 		--peOverlapNbasesMin 12 \
-		--peOverlapMMp 0.1"
+		--peOverlapMMp 0.1
+		mv {OUTDIR}/align/{wildcards.sample}_Unmapped.out.mate1 {OUTDIR}/align/{wildcards.sample}_unmapped_R1.fq
+		mv {OUTDIR}/align/{wildcards.sample}_Unmapped.out.mate2 {OUTDIR}/align/{wildcards.sample}_unmapped_R2.fq
+		"""
 
 rule rsem:
 	input:
@@ -170,6 +185,5 @@ rule rsem:
          {params.rsem_path} {wildcards.sample}
 		"""
 
-###
-### RNA-seq QC
-###
+### Run TRUST4
+include: "snakemake_scripts/kraken2.snk"

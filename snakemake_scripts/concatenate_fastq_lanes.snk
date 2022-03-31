@@ -51,3 +51,4 @@ rule merge_bam_mapped_and_index:
         	cat {input.fq1} > {output.merged_fq1}
         	cat {input.fq2} > {output.merged_fq2}
         	"""
+    

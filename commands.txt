@@ -1,0 +1,5 @@
+### Bam to fastqs
+snakemake -s AN_WGS_script/snakemake_scripts/bam_to_fastq.snk --cores 1 -j 80 --cluster "sbatch -N 1 -t 6:00:00 --ntasks 80 --output=logs/%x_%j.log" --config input=20220401_axel_ccr/axel_bam_pipeline.tsv outdir=$SCRATCH/AN_WGS/20220401_axel_ccr --ri
+
+### RNA-seq with Kraken
+snakemake -s AN_WGS_script/rnaseq.snk --cores 1 -j 80 --cluster "sbatch -N 1 -t 6:00:00 --ntasks 80 --output=logs/%x_%j.log" --config input=20210904_isgs.tsv outdir=$SCRATCH/AN_WGS/20210904_iSGS_rnaseq kraken=yes --ri

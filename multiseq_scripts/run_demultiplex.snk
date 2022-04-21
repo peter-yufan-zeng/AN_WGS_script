@@ -1,0 +1,51 @@
+import pandas as pd
+import os
+
+SCRATCH = "/gpfs/fs0/scratch/n/nicholsa/zyfniu"
+print("\n***INPUT FILE: " + config['input'] + "***\n")
+INPUT = pd.read_table(config['input'],names = ['Sample','lanes','Fastq1','Fastq2','barcode','cell_vec_id'])
+INPUT['Sample_Lane'] = INPUT.Sample + "_" + INPUT.Lane
+SAMPLE_LANE =  INPUT['Sample_Lane']
+TMP = "/scratch/n/nicholsa/zyfniu/AN_WGS/temp"
+print(INPUT)
+
+
+## PRINT OUTPUT DIRECTORY
+OUTDIR = config['outdir']
+print("***OUTPUT DIRECTORY: " + OUTDIR + "***")
+
+rule all:
+	input:
+		###FASTQC + BWA Alignment
+		expand(OUTDIR + "/demultiplex_output/{sample_lane}_readTable.rds", sample_lane = SAMPLE_LANE),
+		expand(OUTDIR + "/demultiplex_output/{sample_lane}_barTable.rds", sample_lane = SAMPLE_LANE)
+
+def get_fastq1(wildcards):
+	return expand(INPUT[(INPUT['Sample'] == wildcards.sample) & (INPUT['lanes'] == wildcards.lanes)].Fastq1)
+
+def get_fastq2(wildcards):
+	return expand(INPUT[(INPUT['Sample'] == wildcards.sample) & (INPUT['lanes'] == wildcards.lanes)].Fastq2)
+
+def get_barcode(wildcards):
+	return expand(INPUT[(INPUT['Sample'] == wildcards.sample) & (INPUT['lanes'] == wildcards.lanes)].barcode)
+
+def get_cell_vec_id(wildcards):
+	return expand(INPUT[(INPUT['Sample'] == wildcards.sample) & (INPUT['lanes'] == wildcards.lanes)].cell_vec_id)
+
+rule run_demultiplex:
+	input:
+        rscript = "/scratch/n/nicholsa/zyfniu/AN_WGS/AN_WGS_script/multiseq_scripts/demultiplex_helper.r",
+		r1 = get_fastq1,
+		r2 = get_fastq2,
+        barcode = get_barcode,
+        cell_vec_id = get_cell_vec_id
+	output:
+		o1 = "{OUTDIR}/demultiplex_output/{sample}_{lanes}_readTable.rds",
+		o2 = "{OUTDIR}/demultiplex_output/{sample}_{lanes}_barTable.rds"
+    threads: 80
+	shell:
+	 	"""
+        singularity exec -B $SCRATCH/AN_WGS/20220412_asfaha_multiseq,$SCRATCH/AN_WGS/AN_WGS_script \
+        /scratch/n/nicholsa/zyfniu/singularity_images/r_demultiplex.simg Rscript --vanilla \
+        {input.rscript} {input.r1} {input.r2} {input.barcode} {input.cell_vec_id} {OUTDIR}/demultiplex_output/{wildcards.sample}_{lane}
+        """

@@ -8,7 +8,8 @@ args = commandArgs(trailingOnly=TRUE)
 
 # test if there are four arguments: if not, return an error
 if (length(args)!=5) {
-  stop("Four argument must be supplied in this order: ", call.=FALSE)
+  stop("Five argument must be supplied in this order: /scratch/n/nicholsa/zyfniu/AN_WGS/multiseq_scripts/demultiplex_helper.r /path/read_1 /path/to/read_2
+  ### /path/to/barcodes.Rds /path/to/cell.id.vec.Rds /path/to/save/prefix", call.=FALSE)
 }
 bar.ref <- readRDS(args[3])
 cell.id.vec <- readRDS(args[4])

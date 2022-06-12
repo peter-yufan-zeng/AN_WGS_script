@@ -11,7 +11,7 @@
 import pandas as pd
 import os
 
-#localrules: all
+localrules: all, config_manta
 
 ###
 ### LOAD SAMPLES

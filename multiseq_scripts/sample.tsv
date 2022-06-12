@@ -1,12 +1,12 @@
-Control /scratch/n/nicholsa/zyfniu/AN_WGS/20220412_asfaha_multiseq/fastq/Control_S34_L001_R1_001.fastq.gz
-Control /scratch/n/nicholsa/zyfniu/AN_WGS/20220412_asfaha_multiseq/fastq/Control_S34_L004_R1_001.fastq.gz
-Control /scratch/n/nicholsa/zyfniu/AN_WGS/20220412_asfaha_multiseq/fastq/Control_S34_L002_R1_001.fastq.gz
-Control /scratch/n/nicholsa/zyfniu/AN_WGS/20220412_asfaha_multiseq/fastq/Control_S34_L003_R1_001.fastq.gz
-DSS /scratch/n/nicholsa/zyfniu/AN_WGS/20220412_asfaha_multiseq/fastq/DSS_S35_L002_R1_001.fastq.gz
-DSS /scratch/n/nicholsa/zyfniu/AN_WGS/20220412_asfaha_multiseq/fastq/DSS_S35_L003_R1_001.fastq.gz
-DSS /scratch/n/nicholsa/zyfniu/AN_WGS/20220412_asfaha_multiseq/fastq/DSS_S35_L004_R1_001.fastq.gz
-DSS /scratch/n/nicholsa/zyfniu/AN_WGS/20220412_asfaha_multiseq/fastq/DSS_S35_L001_R1_001.fastq.gz
-Oxa /scratch/n/nicholsa/zyfniu/AN_WGS/20220412_asfaha_multiseq/fastq/Oxa_S36_L003_R1_001.fastq.gz
-Oxa /scratch/n/nicholsa/zyfniu/AN_WGS/20220412_asfaha_multiseq/fastq/Oxa_S36_L001_R1_001.fastq.gz
-Oxa /scratch/n/nicholsa/zyfniu/AN_WGS/20220412_asfaha_multiseq/fastq/Oxa_S36_L002_R1_001.fastq.gz
-Oxa /scratch/n/nicholsa/zyfniu/AN_WGS/20220412_asfaha_multiseq/fastq/Oxa_S36_L004_R1_001.fastq.gz
+/scratch/n/nicholsa/zyfniu/AN_WGS/20220412_asfaha_multiseq/fastq/Control_S34_L001_R1_001.fastq.gz
+/scratch/n/nicholsa/zyfniu/AN_WGS/20220412_asfaha_multiseq/fastq/Control_S34_L004_R1_001.fastq.gz
+/scratch/n/nicholsa/zyfniu/AN_WGS/20220412_asfaha_multiseq/fastq/Control_S34_L002_R1_001.fastq.gz
+/scratch/n/nicholsa/zyfniu/AN_WGS/20220412_asfaha_multiseq/fastq/Control_S34_L003_R1_001.fastq.gz
+/scratch/n/nicholsa/zyfniu/AN_WGS/20220412_asfaha_multiseq/fastq/DSS_S35_L002_R1_001.fastq.gz
+/scratch/n/nicholsa/zyfniu/AN_WGS/20220412_asfaha_multiseq/fastq/DSS_S35_L003_R1_001.fastq.gz
+/scratch/n/nicholsa/zyfniu/AN_WGS/20220412_asfaha_multiseq/fastq/DSS_S35_L004_R1_001.fastq.gz
+/scratch/n/nicholsa/zyfniu/AN_WGS/20220412_asfaha_multiseq/fastq/DSS_S35_L001_R1_001.fastq.gz
+/scratch/n/nicholsa/zyfniu/AN_WGS/20220412_asfaha_multiseq/fastq/Oxa_S36_L003_R1_001.fastq.gz
+/scratch/n/nicholsa/zyfniu/AN_WGS/20220412_asfaha_multiseq/fastq/Oxa_S36_L001_R1_001.fastq.gz
+/scratch/n/nicholsa/zyfniu/AN_WGS/20220412_asfaha_multiseq/fastq/Oxa_S36_L002_R1_001.fastq.gz
+/scratch/n/nicholsa/zyfniu/AN_WGS/20220412_asfaha_multiseq/fastq/Oxa_S36_L004_R1_001.fastq.gz

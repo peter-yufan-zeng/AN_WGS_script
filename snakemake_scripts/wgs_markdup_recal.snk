@@ -22,7 +22,7 @@ rule markdup:
 	input:
 		OUTDIR +"/orphan/{sample}/{sample}.merged.bam"
 	output:
-		bam = OUTDIR +"/orphan/{sample}.md.bam",
+		bam = temp(OUTDIR +"/orphan/{sample}.md.bam"),
 		metric = OUTDIR +"/orphan/{sample}.bam.metric"
 	threads: 20
 	group: "merge_markduplicate"
@@ -69,7 +69,7 @@ rule gather_recal_tbl:
 	input:
 		recal_tbl_to_gather
 	output:
-		OUTDIR +"/orphan/{sample}/Recal/{sample}.recal.table"
+		temp(OUTDIR +"/orphan/{sample}/Recal/{sample}.recal.table")
 	threads: 2
 	group: "recalibrator"
 	run:
@@ -101,18 +101,28 @@ rule ApplyBQSR:
 def recal_bam_to_gather(wildcards):
 	return expand(OUTDIR + "/orphan/" + wildcards.sample + "/Recal/" + wildcards.sample + ".recal.{chr}.bam",chr = CHROMOSOMES)
 
-rule Merge_Recal_Bam_and_index:
+rule Merge_Recal_Bam:
 	input:
 		recal_bam_to_gather
 	output:
 		bam = OUTDIR +"/Recal/{sample}.recal.bam",
-		index = OUTDIR +"/Recal/{sample}.recal.bai"
 	group: "recalibrator"
 	threads: 20
 	shell:
 		"""
 		singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR} /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
 		samtools merge --threads {threads} {output.bam} {input}
+		"""
+
+rule index_bam:
+	input:
+		bam = OUTDIR +"/Recal/{sample}.recal.bam"
+	output:
+		index = OUTDIR +"/Recal/{sample}.recal.bai"
+	group: "recalibrator"
+	threads: 20
+	shell:
+		"""
 		singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR} /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
-		samtools index {output.bam} {output.index}
+		samtools index {input.bam} {output.index}
 		"""

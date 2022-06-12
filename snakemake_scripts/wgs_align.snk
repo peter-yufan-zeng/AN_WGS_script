@@ -56,7 +56,7 @@ rule sort_sam_to_bam:
 	input:
 		sam = OUTDIR +"/orphan/{sample_lane}/{sample_lane}.bwa.sam"
 	output:
-		bam = OUTDIR +"/orphan/{sample_lane}/{sample_lane}.bwa.bam"
+		bam = temp(OUTDIR +"/orphan/{sample_lane}/{sample_lane}.bwa.bam")
 	threads: 70
 	params:
 		temp = OUTDIR +"/orphan/{sample_lane}/"

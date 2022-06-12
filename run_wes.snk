@@ -3,8 +3,10 @@
 #### module load NiaEnv/2018a
 #### module load python/3.6.4-anaconda5.1.0
 #### source activate snakemake
-#### snakemake -s AN_WGS_script/Snakefile  --cores 1 -j 40 --cluster "sbatch -N 1 -t 20:00:00 --ntasks 80 --output=logs/%x_%j.log" --ri \
-#### --config input=AN_WGS_script/Sample/20200907.tsv.txt outdir=$SCRATCH/AN_WGS_script/20200908_HPV_HNSCC_WGS
+#### snakemake -s AN_WGS_script/run_wes.snk --cores 1 -j 50 --cluster "sbatch -N 1 -t 1:00:00 --ntasks 80
+#### --output=logs/%x_%j.log" --config input=tcga_wxs_sample_list_fastq.tsv
+#### outdir=$SCRATCH/AN_WGS/20220606_tcga_wxs exome_bed=$SCRATCH/AN_WGS/AN_WGS_script/WES_bedfiles/whole_exome_agilent_1.1_refseq_plus_3_boosters.targetIntervals_GRCh38_liftover.bed --ri
+
 
 import pandas as pd
 import os
@@ -40,10 +42,10 @@ Multi.loc[:,'Combined'] = ""
 Multi.loc[:,"num_tumours"] = 1
 for x in Multi['Patient'].drop_duplicates():
 	COMBINED_mutect_samples = ""
-	print(x)
+	#print(x)
 	n = 1
 	for y in Multi[Multi.Patient == x].Sample.drop_duplicates():
-		print(y)
+		#print(y)
 		COMBINED_mutect_samples = y + "_" + COMBINED_mutect_samples
 		Multi.loc[(Multi.Patient == x),'num_tumours'] = n
 		n = n + 1
@@ -80,7 +82,7 @@ rule all:
 		expand(OUTDIR + "/Recal/{sample}.recal.bam", sample = SAMPLE),
 		### using zip https://endrebak.gitbooks.io/the-snakemake-book/chapters/expand/expand.html
 		###BAMQC + samtools_stats
-		expand(OUTDIR + "/QC/{sample}/{sample}.samtools.stats.out",sample = SAMPLE),
+		#expand(OUTDIR + "/QC/{sample}/{sample}.samtools.stats.out",sample = SAMPLE),
 		expand(OUTDIR + "/QC/{sample}/bamQC/qualimapReport.html",sample = SAMPLE),
 		####
 		####VARIANT CALLING OUTPUTS

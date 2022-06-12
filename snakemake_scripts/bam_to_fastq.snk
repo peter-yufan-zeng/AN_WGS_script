@@ -34,7 +34,7 @@ rule sort_bam:
 	input:
 		get_bam
 	output:
-		OUTDIR + "/sorted.bam/{sample}.sorted.bam"
+		temp(OUTDIR + "/sorted.bam/{sample}.sorted.bam")
 	threads: 80
 	group: "bam_to_fastq"
 	shell:

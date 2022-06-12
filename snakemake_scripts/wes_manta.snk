@@ -4,8 +4,10 @@
 rule config_manta:
 	input:
 		normal = OUTDIR + "/Recal/{patient}-N.recal.bam",
-		tumor = OUTDIR + "/Recal/{tumor}.recal.bam"
-	output: OUTDIR + "/temp/Manta/{tumor}_vs_{patient}-N/runWorkflow.py"
+		tumor = OUTDIR + "/Recal/{tumor}.recal.bam",
+		OUTDIR + "/Recal/{tumor}.recal.bai",
+		OUTDIR + "/Recal/{patient}-N.recal.bai"
+	output: temp(OUTDIR + "/temp/Manta/{tumor}_vs_{patient}-N/runWorkflow.py")
 	threads: 2
 	group: "variantCalling"
 	shell:
@@ -23,7 +25,9 @@ rule manta:
 	input:
 		normal = OUTDIR + "/Recal/{patient}-N.recal.bam",
 		tumor = OUTDIR + "/Recal/{tumor}.recal.bam",
-		script = OUTDIR + "/temp/Manta/{tumor}_vs_{patient}-N/runWorkflow.py"
+		script = OUTDIR + "/temp/Manta/{tumor}_vs_{patient}-N/runWorkflow.py",
+		OUTDIR + "/Recal/{tumor}.recal.bai",
+		OUTDIR + "/Recal/{patient}-N.recal.bai"
 	output:
 		sv = OUTDIR + "/temp/Manta/{tumor}_vs_{patient}-N/results/variants/candidateSV.vcf.gz",
 		smallindel = OUTDIR + "/temp/Manta/{tumor}_vs_{patient}-N/results/variants/candidateSmallIndels.vcf.gz",
@@ -55,7 +59,7 @@ rule mv_manta_files:
 		cp {input.file} {output.file}
 		cp {input.index} {output.index}
 		"""
-		
+
 rule annotate_manta:
 	input:
 		vcf = OUTDIR + "/results/Manta/{tumor}_vs_{patient}-N/Manta_{tumor}_vs_{patient}-N.{structure}.vcf.gz"

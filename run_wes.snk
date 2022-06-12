@@ -11,7 +11,7 @@
 import pandas as pd
 import os
 
-localrules: all, config_manta
+localrules: all, config_manta, tabix_bedfile
 
 ###
 ### LOAD SAMPLES

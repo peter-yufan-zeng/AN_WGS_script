@@ -1,12 +1,31 @@
 ####
 #### Manta
 ####
+
+rule tabix_bedfile:
+	input:
+		BED = EXOME_BED
+	output:
+		bed_gz = OUTDIR + "/temp/exome_region.bed.gz",
+		bed_tbi = OUTDIR + "/temp/exome_region.bed.gz.tbi"
+	threads: 1
+	shell:
+		"""
+		cp {EXOME_BED} {OUTDIR}/temp/exome_region.bed
+		singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR} /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
+			bgzip -c {OUTDIR}/temp/exome_region.bed > {output.bed_gz}
+		singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR} /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
+				tabix -p bed {output.bed_gz}
+		"""
+
 rule config_manta:
 	input:
 		normal = OUTDIR + "/Recal/{patient}-N.recal.bam",
 		tumor = OUTDIR + "/Recal/{tumor}.recal.bam",
 		index_t = OUTDIR + "/Recal/{tumor}.recal.bai",
-		index_n = OUTDIR + "/Recal/{patient}-N.recal.bai"
+		index_n = OUTDIR + "/Recal/{patient}-N.recal.bai",
+		bed_gz = OUTDIR + "/temp/exome_region.bed.gz",
+		bed_tbi = OUTDIR + "/temp/exome_region.bed.gz.tbi"
 	output: temp(OUTDIR + "/temp/Manta/{tumor}_vs_{patient}-N/runWorkflow.py")
 	threads: 2
 	shell:
@@ -16,7 +35,7 @@ rule config_manta:
 		--normalBam {input.normal} \
 		--tumorBam  {input.tumor} \
 		--reference {REF_fasta} \
-		--callRegions {EXOME_BED} \
+		--callRegions {input.bed_gz} \
 		--exome \
 		--runDir {OUTDIR}/temp/Manta/{wildcards.tumor}_vs_{wildcards.patient}-N
 		"""

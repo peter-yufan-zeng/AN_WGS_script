@@ -24,9 +24,9 @@ rule mutect2:
 	input:
 		normal = OUTDIR +"/Recal/{patient}-N.recal.bam",
 		tumor = OUTDIR +"/Recal/{tumor}.recal.bam",
-		interval = OUTDIR + "/orphan/intervals/{num}-scattered.interval_list"
-		OUTDIR + "/Recal/{tumor}.recal.bai",
-		OUTDIR + "/Recal/{patient}-N.recal.bai"
+		interval = OUTDIR + "/orphan/intervals/{num}-scattered.interval_list",
+		index_t = OUTDIR + "/Recal/{tumor}.recal.bai",
+		index_n = OUTDIR + "/Recal/{patient}-N.recal.bai"
 	output:
 		vcf = temp(OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N.{num}.vcf"),
 		stats = temp(OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N.{num}.vcf.stats"),

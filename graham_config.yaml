@@ -1,0 +1,24 @@
+singularity:
+  gatk: $NXF_SINGULARITY_CACHEDIR/broadinstitute-gatk-4.2.6.1.img
+  bcftools: $NXF_SINGULARITY_CACHEDIR/depot.galaxyproject.org-singularity-bcftools-1.16--hfe4b78e_1.img
+  bwa: $NXF_SINGULARITY_CACHEDIR/depot.galaxyproject.org-singularity-bwa-0.7.17--hed695b0_7.img
+  bwa-mem2: $NXF_SINGULARITY_CACHEDIR/depot.galaxyproject.org-singularity-bwa-mem2-2.2.1--he513fc3_0.img
+  cnvkit: $NXF_SINGULARITY_CACHEDIR/depot.galaxyproject.org-singularity-cnvkit-0.9.9--pyhdfd78af_0.img
+  control-freec: $NXF_SINGULARITY_CACHEDIR/depot.galaxyproject.org-singularity-control-freec-11.6--h1b792b2_1.img
+  vep: $NXF_SINGULARITY_CACHEDIR/depot.galaxyproject.org-singularity-ensembl-vep-106.1--pl5321h4a94de4_0.img
+  fastp: $NXF_SINGULARITY_CACHEDIR/depot.galaxyproject.org-singularity-fastp-0.23.2--h79da9fb_0.img
+  fastqc: $NXF_SINGULARITY_CACHEDIR/depot.galaxyproject.org-singularity-fastqc-0.11.9--0.img
+  fgbio: $NXF_SINGULARITY_CACHEDIR/depot.galaxyproject.org-singularity-fgbio-2.0.2--hdfd78af_0.img
+  freebayes:  $NXF_SINGULARITY_CACHEDIR/depot.galaxyproject.org-singularity-freebayes-1.3.6--hbfe0e7f_2.img
+  gawk: $NXF_SINGULARITY_CACHEDIR/depot.galaxyproject.org-singularity-gawk-5.1.0.img
+  manta: $NXF_SINGULARITY_CACHEDIR/depot.galaxyproject.org-singularity-manta-1.6.0--h9ee0642_1.img
+  mosdepth: $NXF_SINGULARITY_CACHEDIR/depot.galaxyproject.org-singularity-mosdepth-0.3.3--hdfd78af_1.img
+  msisensor: $NXF_SINGULARITY_CACHEDIR/depot.galaxyproject.org-singularity-msisensor-pro-1.2.0--hfc31af2_0.img
+  multiqc: $NXF_SINGULARITY_CACHEDIR/depot.galaxyproject.org-singularity-multiqc-1.13a--pyhdfd78af_1.img
+  samtools: $NXF_SINGULARITY_CACHEDIR/depot.galaxyproject.org-singularity-samtools-1.16.1--h6899075_1.img
+  strelka: $NXF_SINGULARITY_CACHEDIR/depot.galaxyproject.org-singularity-strelka-2.9.10--h9ee0642_1.img
+  tabix: $NXF_SINGULARITY_CACHEDIR/depot.galaxyproject.org-singularity-tabix-1.11--hdfd78af_0.img
+  tiddit: $NXF_SINGULARITY_CACHEDIR/depot.galaxyproject.org-singularity-tiddit-3.1.0--py39h59fae87_1.img
+  tiddit: $NXF_SINGULARITY_CACHEDIR/depot.galaxyproject.org-singularity-tiddit-3.3.2--py310hc2b7f4b_0.img
+  vcftools: $NXF_SINGULARITY_CACHEDIR/depot.galaxyproject.org-singularity-vcftools-0.1.16--he513fc3_4.img
+  snpeff: $NXF_SINGULARITY_CACHEDIR/nfcore-snpeff-5.1.GRCh38.img

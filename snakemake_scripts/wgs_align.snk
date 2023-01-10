@@ -16,8 +16,10 @@ rule fastqc:
 		o2 = OUTDIR + "/QC/{sample_lane}/{sample_lane}_R2_fastqc.html",
 		o3 = OUTDIR + "/QC/{sample_lane}/{sample_lane}_R1_fastqc.zip",
 		o4 = OUTDIR + "/QC/{sample_lane}/{sample_lane}_R2_fastqc.zip"
-	threads: 10
-	group: "align"
+	threads: 4
+	resources:
+		time = "4h",
+		mem = 12000
 	shell:
 		"""
 		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS/raw,{OUTDIR} /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
@@ -41,7 +43,10 @@ rule bwa_mem:
 		#fastq2= INPUT[INPUT.Sample_Lane == {sample_lane}].Fastq2
 	output:
 		temp(OUTDIR +"/orphan/{sample_lane}/{sample_lane}.bwa.sam")
-	threads: 70
+	threads: 16
+	resources:
+		time = "4h",
+		mem = 12000
 	group: "align"
 	params:
 		readGroup = createRG
@@ -57,7 +62,7 @@ rule sort_sam_to_bam:
 		sam = OUTDIR +"/orphan/{sample_lane}/{sample_lane}.bwa.sam"
 	output:
 		bam = temp(OUTDIR +"/orphan/{sample_lane}/{sample_lane}.bwa.bam")
-	threads: 70
+	threads: 2
 	params:
 		temp = OUTDIR +"/orphan/{sample_lane}/"
 	group: "align"

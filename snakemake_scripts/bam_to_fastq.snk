@@ -2,10 +2,11 @@
 import pandas as pd
 import os
 
+configfile: "graham_config.yml"
 ###
-SCRATCH = "/gpfs/fs0/scratch/n/nicholsa/zyfniu"
+SCRATCH = "/scratch/zyfniu"
 print("\n***INPUT FILE: " + config['input'] + "***\n")
-INPUT = pd.read_table(config['input'],names = ['Patient','Sex','n_vs_t','Sample','Lane','bam'])
+INPUT = pd.read_csv(config['input'],names = ['Patient','Sex','n_vs_t','Sample','Lane','bam'],header = 0)
 INPUT['Lane'] = INPUT.Lane.apply(str)
 INPUT['Sample_Lane'] = INPUT.Sample + "_" + INPUT.Lane
 SAMPLE =  INPUT['Sample'].unique()
@@ -16,16 +17,18 @@ SAMPLE_LANE = INPUT.Sample_Lane
 print(INPUT)
 
 OUTDIR = config['outdir']
-###
-SGL_SAREK_CMD = "singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS/raw,"+ OUTDIR + \
-" $SCRATCH/singularity_images/nfcore-sarek-2.6.img"
 
+###
+###SGL_SAREK_CMD = "singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS/raw,"+ OUTDIR + \
+#" $SCRATCH/singularity_images/nfcore-sarek-2.6.img"
+#SGL_SAREK_CMD = "module purge; module load samtools; "
 
 rule all:
 	input:
 		### filtered bam
 		expand(OUTDIR + "/fastq/{samples}_R1.fastq.gz", samples=SAMPLE),
-		expand(OUTDIR + "/fastq/{samples}_R2.fastq.gz", samples=SAMPLE)
+		expand(OUTDIR + "/fastq/{samples}_R2.fastq.gz", samples=SAMPLE):
+	script
 
 def get_bam(wildcards):
 	return expand(INPUT[INPUT.Sample == wildcards.sample].bam)
@@ -35,11 +38,16 @@ rule sort_bam:
 		get_bam
 	output:
 		temp(OUTDIR + "/sorted.bam/{sample}.sorted.bam")
-	threads: 80
+	threads: 4
+	resources:
+		time = "36h",
+		mem_mb = 16000
 	group: "bam_to_fastq"
+	container:
+		config["singularity"]["samtools"]
 	shell:
 		"""
-		{SGL_SAREK_CMD} samtools sort -n -m 2G \
+		samtools sort -n -m 16G \
 		-o {output} -@ {threads} {input}
 		"""
 
@@ -49,11 +57,15 @@ rule bam_to_fastq:
 	output:
 		r1 = OUTDIR + "/fastq/{sample}_R1.fastq.gz",
 		r2 = OUTDIR + "/fastq/{sample}_R2.fastq.gz"
-	threads: 80
-	group: "bam_to_fastq"
+	threads: 4
+	resources:
+		time = "8h",
+		mem_mb = 16000
+	container:
+		config["singularity"]["samtools"]
 	shell:
 		"""
-		{SGL_SAREK_CMD} samtools fastq -1 {output.r1} -2 {output.r2} \
+		samtools fastq -1 {output.r1} -2 {output.r2} \
 		-0 /dev/null -s /dev/null \
 		-O -t --threads {threads} {input}
 		"""

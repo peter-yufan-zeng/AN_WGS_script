@@ -26,12 +26,13 @@ singularity:
   snpeff: $NXF_SINGULARITY_CACHEDIR/nfcore-snpeff-5.1.GRCh38.img
 
 reference:
-  fasta: "$SCRATCH/gdc_reference/Homo_sapiens_assembly38.fasta"
-  dbsnp: "$SCRATCH/gdc_reference/dbsnp_146.hg38.vcf.gz"
-  known_indels: "$SCRATCH/gdc_reference/Mills_and_1000G_gold_standard.indels.hg38.vcf.gz"
-  gnomAD: "$SCRATCH/gdc_reference/gnomAD.r2.1.1.GRCh38.PASS.AC.AF.only.vcf.gz"
-  pon: "$SCRATCH/gdc_reference/1000g_pon.hg38.vcf.gz"
-  ascat_acloci: "$SCRATCH/gdc_reference/1000G_phase3_GRCh38_maf0.3.loci"
-  ascat_acloci_gc: "$SCRATCH/gdc_reference/1000G_phase3_GRCh38_maf0.3.loci.gc"
-  exac_common: "$SCRATCH/gdc_reference/somatic-hg38_small_exac_common_3.hg38.vcf.gz"
+  directory: "/scratch/zyfniu/gdc_reference/"
+  fasta: "Homo_sapiens_assembly38.fasta"
+  dbsnp: "dbsnp_146.hg38.vcf.gz"
+  known_indels: "Mills_and_1000G_gold_standard.indels.hg38.vcf.gz"
+  gnomAD: "gnomAD.r2.1.1.GRCh38.PASS.AC.AF.only.vcf.gz"
+  pon: "1000g_pon.hg38.vcf.gz"
+  ascat_acloci: "1000G_phase3_GRCh38_maf0.3.loci"
+  ascat_acloci_gc: "1000G_phase3_GRCh38_maf0.3.loci.gc"
+  exac_common: "somatic-hg38_small_exac_common_3.hg38.vcf.gz"
   number_of_intervals: 100

@@ -5,7 +5,7 @@ rule alleleCount:
 	input:
 		bam = OUTDIR + "/Recal/{sample}.recal.bam",
 		index = OUTDIR + "/Recal/{sample}.recal.bai",
-		acloci = igenomes_ref + "/1000G_phase3_GRCh38_maf0.3.loci",
+		acloci = config["reference"]["ascat_acloci"],
 		ref_fasta = REF_fasta
 	output: OUTDIR + "/results/ASCAT/alleleCount/{sample}.alleleCount"
 	threads: 2
@@ -31,7 +31,7 @@ rule ConvertAlleleCounts:
 	input:
 		normal = OUTDIR + "/results/ASCAT/alleleCount/{patient}-N.alleleCount",
 		tumor = OUTDIR + "/results/ASCAT/alleleCount/{tumor}.alleleCount",
-		script = "~/AN_WGS_script/convertAlleleCounts.r"
+		script = "AN_WGS_script/convertAlleleCounts.r"
 	output:
 		normalBaf = OUTDIR + "/results/ASCAT/{tumor}_vs_{patient}-N/{patient}-N.BAF",
 		tumorBaf = OUTDIR + "/results/ASCAT/{tumor}_vs_{patient}-N/{tumor}.BAF",
@@ -59,7 +59,7 @@ rule ascat:
 		tumorBaf = OUTDIR + "/results/ASCAT/{tumor}_vs_{patient}-N/{tumor}.BAF",
 		normalLogr = OUTDIR + "/results/ASCAT/{tumor}_vs_{patient}-N/{patient}-N.LogR",
 		tumorLogr = OUTDIR + "/results/ASCAT/{tumor}_vs_{patient}-N/{tumor}.LogR",
-		acLociGC = igenomes_ref + "/1000G_phase3_GRCh38_maf0.3.loci.gc"
+		acLociGC = config["reference"]["ascat_acloci_gc"]
 	output:
 		results = OUTDIR + "/results/ASCAT/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N.tumor.cnvs.txt"
 	params:

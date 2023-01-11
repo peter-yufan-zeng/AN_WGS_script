@@ -20,7 +20,7 @@ localrules: all
 ### LOAD SAMPLES
 ###
 
-configfile: "/home/zyfniu/AN_WGS_script/graham_config.yaml"
+configfile: "AN_WGS_script/graham_config.yaml"
 
 print("\n***INPUT FILE: " + config['input'] + "***\n")
 INPUT = pd.read_csv(config['input'],names = ['Patient','Sex','n_vs_t','Sample','Lane','Fastq1','Fastq2'],header=0)
@@ -80,7 +80,6 @@ CHROMOSOMES = ['chr1', 'chr2', 'chr3', 'chr4', 'chr5', 'chr6', 'chr7', 'chr8', '
 ###
 rule all:
 	input:
-		input_csv = config['input'],
 		###FASTQC + BWA Alignment
 		expand(OUTDIR + "/QC/{sample_lane}/{sample_lane}_R1_fastqc.html", sample_lane = SAMPLE_LANE),
 		expand(OUTDIR + "/Recal/{sample}.recal.bam", sample = SAMPLE),
@@ -112,7 +111,7 @@ rule all:
 		"""
 		multiqc {OUTDIR} -n {OUTDIR}/pipeline_info/reports/multiqc_{params.time}.html
 		mv multiqc_data* OUTDIR/pipeline_info/report/
-		cp {input.input_csv} {OUTDIR}/Sample_{param.time}.csv
+		cp config['input'] {OUTDIR}/Sample_{param.time}.csv
 		"""
 
 

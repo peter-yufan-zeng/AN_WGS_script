@@ -6,14 +6,15 @@ def get_bams_to_call(wildcards):
 	samples = Multi[Multi.Patient == wildcards.patient].Sample
 	return expand(OUTDIR +"/Recal/{tumor}.recal.bam", tumor = samples)
 
+
 rule mutect2_all_tumours:
 	input:
 		interval = OUTDIR + "/pipeline_info/intervals/{num}-scattered.interval_list",
 		normal = OUTDIR +"/Recal/{patient}-N.recal.bam",
 		ref_fasta = REF_fasta,
 		ref_gnomAD = REF_gnomAD,
-		ref_pon = REF_pon
-		tumors = get_bams_to_call,
+		ref_pon = REF_pon,
+		tumors = get_bams_to_call
 	output:
 		vcf = temp(OUTDIR + "/results/mutect2/all_{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N.{num}.vcf"),
 		stats = temp(OUTDIR + "/results/mutect2/all_{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N.{num}.vcf.stats"),
@@ -25,21 +26,20 @@ rule mutect2_all_tumours:
 		mem = 8500
 	container:
 		config["singularity"]["gatk"]
-	run:
-		command = "
+	params:
+		input_list = lambda wildcards, input: ' -I '.join(input.tumors)
+	shell:
+		"""
 		gatk --java-options \"-Xmx8g\" Mutect2 -R {input.ref_fasta} \
 		-normal {wildcards.patient}-N \
 		-I {input.normal} \
+		{params.input_list} \
 		-L {input.interval} \
 		--germline-resource {input.ref_gnomAD} \
 		--panel-of-normals {input.ref_pon} \
 		--f1r2-tar-gz {output.f12} \
-		-O {output.vcf}"
-		for i in input[6:]: ###only the tumour files
-			command = command + " -I " + i
-		shell(command)
-
-
+		-O {output.vcf}
+		"""
 
 def concat_vcf_all_tumour(wildcards):
 	return expand(OUTDIR + "/results/mutect2/all_" + wildcards.tumor + "_vs_" + wildcards.patient + "-N" + "/unfiltered_" + wildcards.tumor + "_vs_" + wildcards.patient + "-N.{num}.vcf", num = NUMBERS)
@@ -66,7 +66,7 @@ def concat_vcf_stats_all_tumour(wildcards):
 
 rule merge_stats_all_tumour:
 	input:
-		concat_vcf_stats_all_tumour
+		stats = concat_vcf_stats_all_tumour
 	output:
 		temp(OUTDIR + "/results/mutect2/all_{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N_merged.stats")
 	threads: 2
@@ -75,21 +75,20 @@ rule merge_stats_all_tumour:
 		mem = 8000
 	container:
 		config["singularity"]["gatk"]
+	params:
+		input_list = lambda wildcards, input: ' --stats '.join(input.stats)
 	group: "mutect2_all_post_call"
-	run:
-		import os, glob
-		cmd = "gatk MergeMutectStats "
-		for input_file in input:
-			cmd = cmd + " --stats " + input_file
-		cmd = cmd + " -O {output}"
-		shell(cmd)
+	shell:
+		"""
+		gatk MergeMutectStats {params.input_list} -O {output}
+		"""
 
 def concat_vcf_f12_all_tumour(wildcards):
 	return expand(OUTDIR + "/results/mutect2/all_" + wildcards.tumor + "_vs_" + wildcards.patient + "-N" + "/unfiltered_" + wildcards.tumor + "_vs_" + wildcards.patient + "-N_f12.{num}.tar.gz", num = NUMBERS)
 
 rule gatk_LearnOrientationModel_all_tumour:
 	input:
-		concat_vcf_f12_all_tumour
+		vcf = concat_vcf_f12_all_tumour
 	output:
 		model = OUTDIR + "/results/mutect2/all_{tumor}_vs_{patient}-N/unfiltered_{tumor}_read_orientation_model.tar.gz"
 	threads: 2
@@ -98,14 +97,13 @@ rule gatk_LearnOrientationModel_all_tumour:
 		mem = 8000
 	container:
 		config["singularity"]["gatk"]
+	params:
+		input_list = lambda wildcards, input: ' --stats '.join(input.vcf)
 	group: "mutect2_all_post_call"
-	run:
-		import os, glob
-		cmd = "gatk LearnReadOrientationModel "
-		for input_file in input:
-			cmd = cmd + " -I " + input_file
-		cmd = cmd + " -O {output}"
-		shell(cmd)
+	shell:
+		"""
+		gatk LearnReadOrientationModel {params.input_list} -O {output}"
+		"""
 
 
 rule index_unfiltered_vcf_all_tumour:
@@ -212,7 +210,7 @@ rule annotate_mutect2_all_tumour:
 		"""
 		cd {OUTDIR}/results/mutect2/all_{wildcards.tumor}_vs_{wildcards.patient}-N
 		snpEff -Xmx8g \
-		GRCh38.99 \
+		GRCh38.105 \
 		-csvStats {wildcards.tumor}_snpEff.csv \
 		-nodownload \
 		-canon \

@@ -13,15 +13,11 @@ rule merge_bam_mapped_and_index:
 		mem = 10000
 	container:
 		config["singularity"]["samtools"]
-	run:
-		if len(input) == 1:
-			shell("mv {input} {output}")
-			shell("samtools index -@ {threads} {output}")
-		elif len(input) > 1:
-			#shell("mv {input} {output}")
-			shell("samtools merge --threads {threads} -m 2G - {input} > {output} ")
-			shell("samtools index -@ {threads} -m 2G {output}")
-
+	shell:
+		"""
+		samtools merge --threads {threads} -m 2G - {input} > {output}
+		samtools index -@ {threads} -m 2G {output}
+		"""
 rule markdup:
 	input:
 		OUTDIR +"/orphan/{sample}/{sample}.merged.bam"
@@ -80,9 +76,11 @@ rule recalibrator:
 def recal_tbl_to_gather(wildcards):
 	return expand(OUTDIR +"/orphan/" + wildcards.sample + "/Recal/" + wildcards.sample + ".{num}.recal.table",chr = NUMBERS)
 
+
+
 rule gather_recal_tbl:
 	input:
-		recal_tbl_to_gather
+		recal_tbl = recal_tbl_to_gather
 	output:
 		temp(OUTDIR +"/orphan/{sample}/Recal/{sample}.recal.table")
 	threads: 1
@@ -92,12 +90,14 @@ rule gather_recal_tbl:
 	container:
 		config["singularity"]["gatk"]
 	group: "recalibrator"
-	run:
-		command = 'gatk --java-options \"-Xmx4g\" GatherBQSRReports'
-		for i in input:
-			command = command + " -I " + i
-		command = command + ' -O {output}'
-		shell(command)
+	params:
+		input_list = lambda wildcards, input: ' -I '.join(input.recal_tbl)
+	shell:
+		"""
+		gatk --java-options "-Xmx4g" GatherBQSRReports \
+		{params.input_list} \
+		-O {output}
+		"""
 
 rule ApplyBQSR:
 	input:

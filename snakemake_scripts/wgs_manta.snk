@@ -82,7 +82,7 @@ rule annotate_manta:
 		"""
 		cd {OUTDIR}/results/Manta/{wildcards.tumor}_vs_{wildcards.patient}-N
 		snpEff -Xmx8g \
-		GRCh38.99 \
+		GRCh38.105 \
 		-csvStats {wildcards.tumor}_{wildcards.structure}_snpEff.csv \
 		-nodownload \
 		-canon \

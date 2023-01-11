@@ -70,13 +70,12 @@ rule merge_stats:
 	container:
 		config["singularity"]["gatk"]
 	group: "mutect2_post_call"
-	run:
-		import os, glob
-		cmd = "gatk MergeMutectStats "
-		for input_file in input:
-			cmd = cmd + " --stats " + input_file
-		cmd = cmd + " -O {output}"
-		shell(cmd)
+	params:
+		input_list = lambda wildcards, input: ' --stats '.join(input.stats)
+	shell:
+		"""
+		gatk MergeMutectStats {params.input_list} -O {output}
+		"""
 
 def concat_vcf_f12(wildcards):
 	return expand(OUTDIR + "/results/mutect2/" + wildcards.tumor + "_vs_" + wildcards.patient + "-N" + "/unfiltered_" + wildcards.tumor + "_vs_" + wildcards.patient + "-N_f12.{num}.tar.gz", num = NUMBERS)
@@ -93,13 +92,13 @@ rule gatk_LearnOrientationModel:
 	container:
 		config["singularity"]["gatk"]
 	group: "mutect2_post_call"
-	run:
-		import os, glob
-		cmd = "gatk LearnReadOrientationModel "
-		for input_file in input:
-			cmd = cmd + " -I " + input_file
-		cmd = cmd + " -O {output}"
-		shell(cmd)
+	params:
+		input_list = lambda wildcards, input: ' --stats '.join(input.vcf)
+	group: "mutect2_all_post_call"
+	shell:
+		"""
+		gatk LearnReadOrientationModel {params.input_list} -O {output}"
+		"""
 
 rule gatk_get_pileupsummaries_normal:
 	input:
@@ -272,7 +271,7 @@ rule annotate_mutect2:
 		"""
 		cd {OUTDIR}/results/mutect2/{wildcards.tumor}_vs_{wildcards.patient}-N
 		snpEff -Xmx8g \
-		GRCh38.99 \
+		GRCh38.105 \
 		-csvStats {wildcards.tumor}_snpEff.csv \
 		-nodownload \
 		-canon \

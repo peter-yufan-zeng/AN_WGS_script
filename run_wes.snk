@@ -7,6 +7,10 @@
 #### --output=logs/%x_%j.log" --config input=tcga_wxs_sample_list_fastq.tsv
 #### outdir=$SCRATCH/AN_WGS/20220606_tcga_wxs exome_bed=$SCRATCH/AN_WGS/AN_WGS_script/WES_bedfiles/whole_exome_agilent_1.1_refseq_plus_3_boosters.targetIntervals_GRCh38_liftover.bed --ri
 
+# initial settings
+SCRATCH = "/scratch/zyfniu"
+TMP = "/scratch/zyfniu/temp"
+
 
 import pandas as pd
 import os
@@ -16,13 +20,13 @@ localrules: all, config_manta, tabix_bedfile
 ###
 ### LOAD SAMPLES
 ###
-SCRATCH = "/gpfs/fs0/scratch/n/nicholsa/zyfniu"
+
+
 print("\n***INPUT FILE: " + config['input'] + "***\n")
 INPUT = pd.read_table(config['input'],names = ['Patient','Sex','n_vs_t','Sample','Lane','Fastq1','Fastq2'])
 INPUT['Lane'] = INPUT.Lane.apply(str)
 INPUT['Sample_Lane'] = INPUT.Sample + "_" + INPUT.Lane
 SAMPLE =  INPUT['Sample'].unique()
-TMP = "/scratch/n/nicholsa/zyfniu/AN_WGS/temp"
 PAT = INPUT.Patient.drop_duplicates()
 TUMOR = INPUT[(INPUT.n_vs_t == 1)].Sample.drop_duplicates()
 SAMPLE_LANE = INPUT.Sample_Lane

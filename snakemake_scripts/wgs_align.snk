@@ -19,10 +19,11 @@ rule fastqc:
 	threads: 4
 	resources:
 		time = "4h",
-		mem = 12000
+		mem = 8500
+	container:
+		config["singularity"]["fastqc"]
 	shell:
 		"""
-		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS/raw,{OUTDIR} /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
 		fastqc -t {threads} {input} --outdir={OUTDIR}/QC/{wildcards.sample_lane}/
 		mv {OUTDIR}/QC/{wildcards.sample_lane}/*R1*_fastqc.html {OUTDIR}/QC/{wildcards.sample_lane}/{wildcards.sample_lane}_R1_fastqc.html
 		mv {OUTDIR}/QC/{wildcards.sample_lane}/*R2*_fastqc.html {OUTDIR}/QC/{wildcards.sample_lane}/{wildcards.sample_lane}_R2_fastqc.html
@@ -38,21 +39,23 @@ def createRG(wildcards):
 rule bwa_mem:
 	input:
 		fastq1 = bwa_mem_fastq1,
-		fastq2 = bwa_mem_fastq2
+		fastq2 = bwa_mem_fastq2,
+		ref_fasta = REF_fasta
 		#fastq1= INPUT[INPUT.Sample_Lane == {sample_lane}].Fastq1,
 		#fastq2= INPUT[INPUT.Sample_Lane == {sample_lane}].Fastq2
 	output:
 		temp(OUTDIR +"/orphan/{sample_lane}/{sample_lane}.bwa.sam")
-	threads: 16
+	threads: 24
 	resources:
-		time = "4h",
-		mem = 12000
+		time = "24h",
+		mem = 32000
+	container:
+		config["singularity"]["bwa"]
 	group: "align"
 	params:
 		readGroup = createRG
 	shell:
 		"""
-		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS/raw,{OUTDIR} /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
 		bwa mem -K 100000000 -R \"{params.readGroup}\" -B 3 -t {threads} -M {REF_fasta} \
 			{input.fastq1} {input.fastq2} > {output}
 		"""
@@ -63,11 +66,14 @@ rule sort_sam_to_bam:
 	output:
 		bam = temp(OUTDIR +"/orphan/{sample_lane}/{sample_lane}.bwa.bam")
 	threads: 2
+	resources:
+		time = "12h",
+		mem = 8000
+	container:
+		config["singularity"]["samtools"]
 	params:
 		temp = OUTDIR +"/orphan/{sample_lane}/"
-	group: "align"
 	shell:
 		"""
-		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS/raw,{OUTDIR} /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
 		samtools sort -T {params.temp} --threads {threads} -m 2G {input.sam} > {output}
 		"""

@@ -7,16 +7,20 @@ rule merge_bam_mapped_and_index:
 		get_bams_to_merge
 	output:
 		temp(OUTDIR +"/orphan/{sample}/{sample}.merged.bam")
-	threads: 10
-	group: "merge_markduplicate"
+	threads: 4
+	resources:
+		time = "12h",
+		mem = 10000
+	container:
+		config["singularity"]["samtools"]
 	run:
 		if len(input) == 1:
 			shell("mv {input} {output}")
-			shell("singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS/raw,{OUTDIR} /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img samtools index -@ {threads} {output}")
+			shell("samtools index -@ {threads} {output}")
 		elif len(input) > 1:
 			#shell("mv {input} {output}")
-			shell("singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS/raw,{OUTDIR} /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img samtools merge --threads {threads} - {input} > {output} ")
-			shell("singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS/raw,{OUTDIR} /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img samtools index -@ {threads} {output}")
+			shell("samtools merge --threads {threads} -m 2G - {input} > {output} ")
+			shell("samtools index -@ {threads} -m 2G {output}")
 
 rule markdup:
 	input:
@@ -24,12 +28,15 @@ rule markdup:
 	output:
 		bam = temp(OUTDIR +"/orphan/{sample}.md.bam"),
 		metric = OUTDIR +"/orphan/{sample}.bam.metric"
-	threads: 20
-	group: "merge_markduplicate"
+	threads: 6
+	resources:
+		time = "24h",
+		mem = 30000
+	container:
+		config["singularity"]["gatk"]
 	shell:
 		"""
-		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,{OUTDIR},{OUTDIR}/orphan /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/gatk-4.1.8.img \
-		gatk --java-options "-Xmx16G" \
+		gatk --java-options "-Xmx28G" \
 		MarkDuplicates \
 		--MAX_RECORDS_IN_RAM 50000 \
 		--INPUT {input} \
@@ -42,38 +49,51 @@ rule markdup:
 
 rule recalibrator:
 	input:
-		OUTDIR +"/orphan/{sample}.md.bam"
+		bam = OUTDIR +"/orphan/{sample}.md.bam",
+		interval = OUTDIR + "/pipeline_info/intervals/{num}-scattered.interval_list",
+		ref_fasta = REF_fasta,
+		ref_dbsnp = REF_dbsnp,
+		ref_known_indels = REF_known_indels
 	output:
-		temp(OUTDIR +"/orphan/{sample}/Recal/{sample}.{chr}.recal.table")
+		temp(OUTDIR +"/orphan/{sample}/Recal/{sample}.{num}.recal.table")
 	threads: 2
+	resources:
+		time = "1h",
+		mem = 4500
+	container:
+		config["singularity"]["gatk"]
 	group: "recalibrator"
 	shell:
 		"""
-		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,{OUTDIR} /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/gatk-4.1.8.img \
-		gatk --java-options "-Xmx8g" \
+		gatk --java-options "-Xmx4g" \
 		BaseRecalibrator \
-		-I {input} \
+		-I {input.bamQC} \
 		-O {output} \
 		--tmp-dir /tmp \
-		-R {REF_fasta} \
+		-R {input.ref_fasta} \
 		-L {wildcards.chr} \
-		--known-sites {REF_dbsnp} \
+		--known-sites {input.ref_dbsnp} \
 		--known-sites {REF_known_indels} \
 		--verbosity INFO
 		"""
 
 def recal_tbl_to_gather(wildcards):
-	return expand(OUTDIR +"/orphan/" + wildcards.sample + "/Recal/" + wildcards.sample + ".{chr}.recal.table",chr = CHROMOSOMES)
+	return expand(OUTDIR +"/orphan/" + wildcards.sample + "/Recal/" + wildcards.sample + ".{num}.recal.table",chr = NUMBERS)
 
 rule gather_recal_tbl:
 	input:
 		recal_tbl_to_gather
 	output:
 		temp(OUTDIR +"/orphan/{sample}/Recal/{sample}.recal.table")
-	threads: 2
+	threads: 1
+	resources:
+		time = "30m",
+		mem = 4500
+	container:
+		config["singularity"]["gatk"]
 	group: "recalibrator"
 	run:
-		command = 'singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS/raw,{OUTDIR} /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img gatk --java-options \"-Xmx8g\" GatherBQSRReports'
+		command = 'gatk --java-options \"-Xmx4g\" GatherBQSRReports'
 		for i in input:
 			command = command + " -I " + i
 		command = command + ' -O {output}'
@@ -84,12 +104,17 @@ rule ApplyBQSR:
 		bam = OUTDIR + "/orphan/{sample}.md.bam",
 		recal_table = OUTDIR +"/orphan/{sample}/Recal/{sample}.recal.table"
 	output:
-		temp(OUTDIR + "/orphan/{sample}/Recal/{sample}.recal.{chr}.bam")
+		temp(OUTDIR + "/orphan/{sample}/Recal/{sample}.recal.{num}.bam")
 	group: "recalibrator"
+	threads: 1
+	resources:
+		time = "4h",
+		mem = 4500
+	container:
+		config["singularity"]["gatk"]
 	shell:
 		"""
-		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,{OUTDIR} /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/gatk-4.1.8.img \
-		gatk --java-options "-Xmx8G" \
+		gatk --java-options "-Xmx4G" \
 		ApplyBQSR \
 		-R {REF_fasta} \
 		--input {input.bam} \
@@ -99,30 +124,22 @@ rule ApplyBQSR:
 		"""
 
 def recal_bam_to_gather(wildcards):
-	return expand(OUTDIR + "/orphan/" + wildcards.sample + "/Recal/" + wildcards.sample + ".recal.{chr}.bam",chr = CHROMOSOMES)
+	return expand(OUTDIR + "/orphan/" + wildcards.sample + "/Recal/" + wildcards.sample + ".recal.{num}.bam",num = NUMBERS)
 
 rule Merge_Recal_Bam:
 	input:
 		recal_bam_to_gather
 	output:
 		bam = OUTDIR +"/Recal/{sample}.recal.bam",
-	group: "recalibrator"
-	threads: 20
-	shell:
-		"""
-		singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR} /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
-		samtools merge --threads {threads} {output.bam} {input}
-		"""
-
-rule index_bam:
-	input:
-		bam = OUTDIR +"/Recal/{sample}.recal.bam"
-	output:
 		index = OUTDIR +"/Recal/{sample}.recal.bai"
-	group: "recalibrator"
-	threads: 20
+	threads: 2
+	resources:
+		time = "12h",
+		mem = 8000
+	container:
+		config["singularity"]["samtools"]
 	shell:
 		"""
-		singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR} /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
-		samtools index {input.bam} {output.index}
+		samtools merge --threads {threads} {output.bam} {input}
+		samtools index {output.bam} {output.index}
 		"""

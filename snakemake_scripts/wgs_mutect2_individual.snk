@@ -1,35 +1,39 @@
 ###
 ### VARIANT CALLING FOR EACH TUMOUR INDIVIDUALLY
 ###
-
 rule mutect2:
 	input:
 		normal = OUTDIR +"/Recal/{patient}-N.recal.bam",
 		tumor = OUTDIR +"/Recal/{tumor}.recal.bam",
-		interval = "/scratch/n/nicholsa/zyfniu/igenomes_ref/interval-files-folder/{num}-scattered.interval_list"
-	#	recurrence = "{sample}R/Recal/{sample}R.recal.bam"
+		interval = interval_directory + "/{num}-scattered.interval_list",
+		ref_fasta = REF_fasta,
+		ref_gnomAD = REF_gnomAD,
+		ref_pon = REF_pon
 	output:
 		vcf = temp(OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N.{num}.vcf"),
 		stats = temp(OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N.{num}.vcf.stats"),
 		f12 = temp(OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N_f12.{num}.tar.gz"),
 		index =  temp(OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N.{num}.vcf.idx")
 	threads: 2
-	group: "variantCalling"
+	resources:
+		time = "12h",
+		mem = 8500
+	container:
+		config["singularity"]["gatk"]
 	shell:
 		"""
-		singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR} /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/gatk-4.1.8.img \
-		gatk --java-options "-Xmx8g" Mutect2 -R {REF_fasta} \
+		gatk --java-options "-Xmx8g" Mutect2 \
 		-I {input.normal}  \
 		-I {input.tumor} \
 		-normal {wildcards.patient}-N \
 		-L {input.interval} \
-		--germline-resource {REF_gnomAD} \
-		--panel-of-normals {REF_pon} --f1r2-tar-gz {output.f12} \
+		-R {input.ref_fasta} \
+		--germline-resource {input.ref_gnomAD} \
+		--panel-of-normals {input.ref_pon} \
+		--f1r2-tar-gz {output.f12} \
 		-O {output.vcf}
 		"""
-##SET NUMBERS FROM 0000 to 01999
 
-NUMBERS = [str(a)+str(b)+str(c)+str(d) for a in range(0,1) for b in range(0,2) for c in range(0,10) for d in range(0,10)]
 
 def concat_vcf(wildcards):
 	return expand(OUTDIR + "/results/mutect2/" + wildcards.tumor + "_vs_" + wildcards.patient + "-N" + "/unfiltered_" + wildcards.tumor + "_vs_" + wildcards.patient + "-N.{num}.vcf", num = NUMBERS)
@@ -40,10 +44,14 @@ rule merge_mutect2_vcf:
 	output:
 		temp(OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N.vcf")
 	threads: 1
-	group: "variantCalling"
+	resources:
+		time = "30m",
+		mem = 4500
+	container:
+		config["singularity"]["vcftools"]
+	group: "mutect2_post_call"
 	shell:
 		"""
-		singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR} /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/vcftools.img \
 		vcf-concat {input} > {output}
 		"""
 
@@ -55,11 +63,16 @@ rule merge_stats:
 		concat_vcf_stats
 	output:
 		temp(OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N_merged.stats")
-	threads: 2
-	group: "variantCalling"
+	threads: 1
+	resources:
+		time = "30m",
+		mem = 4500
+	container:
+		config["singularity"]["gatk"]
+	group: "mutect2_post_call"
 	run:
 		import os, glob
-		cmd = "singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR} /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/gatk-4.1.8.img gatk MergeMutectStats "
+		cmd = "gatk MergeMutectStats "
 		for input_file in input:
 			cmd = cmd + " --stats " + input_file
 		cmd = cmd + " -O {output}"
@@ -73,11 +86,16 @@ rule gatk_LearnOrientationModel:
 		concat_vcf_f12
 	output:
 		model = OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/unfiltered_{tumor}_read_orientation_model.tar.gz"
-	group: "variantCalling"
-	threads: 2
+	threads: 1
+	resources:
+		time = "30m",
+		mem = 4500
+	container:
+		config["singularity"]["gatk"]
+	group: "mutect2_post_call"
 	run:
 		import os, glob
-		cmd = "singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR} /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/gatk-4.1.8.img gatk LearnReadOrientationModel "
+		cmd = "gatk LearnReadOrientationModel "
 		for input_file in input:
 			cmd = cmd + " -I " + input_file
 		cmd = cmd + " -O {output}"
@@ -90,12 +108,16 @@ rule gatk_get_pileupsummaries_normal:
 		normal = OUTDIR + "/orphan/{patient}-N/Recal/{patient}-N.recal.bam"
 	output:
 		summary = OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/{patient}-N_pileupsummaries.table"
-	threads: 2
-	group: "variantCalling"
+	threads: 1
+	resources:
+		time = "30m",
+		mem = 4500
+	container:
+		config["singularity"]["gatk"]
+	group: "mutect2_post_call"
 	shell:
 		"""
-		singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR} /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/gatk-4.1.8.img \
-		gatk --java-options "-Xmx8g" GetPileupSummaries \
+		gatk --java-options "-Xmx4g" GetPileupSummaries \
 		-I {input.normal} \
 		-V {input.common_biallelic_vcf} \
 		-L {input.common_biallelic_vcf} \
@@ -109,11 +131,15 @@ rule gatk_get_pileupsummaries_tumor:
 		primary = OUTDIR + "/orphan/{tumor}/Recal/{tumor}.recal.bam"
 	output:
 		summary = OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/{tumor}_pileupsummaries.table"
-	threads: 2
-	group: "variantCalling"
+	threads: 1
+	resources:
+		time = "30m",
+		mem = 8500
+	container:
+		config["singularity"]["gatk"]
+	group: "mutect2_post_call"
 	shell:
 		"""
-		singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR} /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/gatk-4.1.8.img \
 		gatk --java-options "-Xmx8g" GetPileupSummaries \
 		-I {input.primary} \
 		-V {input.common_biallelic_vcf} \
@@ -128,12 +154,16 @@ rule gatk_calcContam_primary:
 	output:
 		contamTable = temp(OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/{tumor}_calContam.table"),
 		segment = temp(OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/{tumor}_tumor.segment")
-	threads: 2
-	group: "variantCalling"
+	threads: 1
+	resources:
+		time = "30m",
+		mem = 4500
+	container:
+		config["singularity"]["gatk"]
+	group: "mutect2_post_call"
 	shell:
 		"""
-		singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR} /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/gatk-4.1.8.img \
-		gatk --java-options "-Xmx8g" CalculateContamination \
+		gatk --java-options "-Xmx4g" CalculateContamination \
 		-I {input.normal} \
 		-matched {input.primary} \
 		--tumor-segmentation {output.segment} \
@@ -145,12 +175,16 @@ rule index_unfiltered_vcf:
 		vcf = OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N.vcf",
 	output:
 		vcf_tbi = OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N.vcf.idx"
-	threads: 2
-	group: "variantCalling"
+	threads: 1
+	resources:
+		time = "30m",
+		mem = 4500
+	container:
+		config["singularity"]["gatk"]
+	group: "mutect2_post_call"
 	shell:
 		"""
-		singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR} /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/gatk-4.1.8.img \
-		gatk --java-options "-Xmx8g" IndexFeatureFile \
+		gatk --java-options "-Xmx4g" IndexFeatureFile \
 		-I {input.vcf} \
 		--output {output.vcf_tbi}
 		"""
@@ -161,21 +195,25 @@ rule gatk_filterMutect:
 		vcf = OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N.vcf",
 		model = OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/unfiltered_{tumor}_read_orientation_model.tar.gz",
 		stats = OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N_merged.stats",
-		interval = "/scratch/n/nicholsa/zyfniu/igenomes_ref/interval-files-folder/{num}-scattered.interval_list"
+		interval = interval_directory + "/{num}-scattered.interval_list",
+		ref_fasta = REF_fasta
 	output:
 		filter_vcf = temp(OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/filtered_{tumor}_vs_{patient}-N.{num}.vcf"),
 		filter_vcf_index = temp(OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/filtered_{tumor}_vs_{patient}-N.{num}.vcf.idx"),
 		filter_vcf_stats = temp(OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/filtered_{tumor}_vs_{patient}-N.{num}.vcf.filteringStats.tsv")
-	threads: 2
-	group: "variantCalling"
+	threads: 1
+	resources:
+		time = "30m",
+		mem = 4500
+	container:
+		config["singularity"]["gatk"]
+	group: "mutect2_post_call"
 	shell:
 		"""
-		singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR} \
-			/gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/gatk-4.1.8.img \
-		gatk --java-options "-Xmx8g" FilterMutectCalls \
+		gatk --java-options "-Xmx4g" FilterMutectCalls \
 		--ob-priors {input.model} \
 		-stats {input.stats} \
-		-R {REF_fasta} \
+		-R {input.ref_fasta} \
 		-V {input.vcf} \
 		-L {input.interval} \
 		--output {output.filter_vcf}
@@ -189,10 +227,15 @@ rule merge_mutect2_vcf_filtered:
 		concat_vcf_filtered
 	output:
 		temp(OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/filtered_{tumor}_vs_{patient}-N.vcf")
-	threads: 2
-	group: "variantCalling"
+	threads: 1
+	resources:
+		time = "30m",
+		mem = 4500
+	group: "mutect2_post_call"
+	container:
+		config["singularity"]["vcftools"]
 	shell:
-		"singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR} /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/vcftools.img vcf-concat {input} > {output}"
+		"vcf-concat {input} > {output}"
 
 
 rule index_filtered_vcf:
@@ -200,12 +243,15 @@ rule index_filtered_vcf:
 		vcf = OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/filtered_{tumor}_vs_{patient}-N.vcf"
 	output:
 		vcf_tbi = OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/filtered_{tumor}_vs_{patient}-N.vcf.idx"
-	threads: 2
-	group: "variantCalling"
+	resources:
+		time = "15m",
+		mem = 4500
+	container:
+		config["singularity"]["gatk"]
+	group: "mutect2_post_call"
 	shell:
 		"""
-		singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR} /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/gatk-4.1.8.img \
-		gatk --java-options "-Xmx8g" IndexFeatureFile \
+		gatk --java-options "-Xmx4g" IndexFeatureFile \
 		-I {input.vcf} \
 		--output {output.vcf_tbi}
 		"""
@@ -216,33 +262,38 @@ rule annotate_mutect2:
 	output:
 		annotatedvcf = temp(OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N_snpEff.ann.vcf")
 	threads: 2
-	group: "variantCalling"
+	resources:
+		time = "30m",
+		mem = 8500
+	container:
+		config["singularity"]["snpeff"]
+	group: "mutect2_post_call"
 	shell:
 		"""
 		cd {OUTDIR}/results/mutect2/{wildcards.tumor}_vs_{wildcards.patient}-N
-		singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR} $SCRATCH/singularity_images/nfcore-sareksnpeff-2.6.GRCh38.img \
 		snpEff -Xmx8g \
-		GRCh38.86 \
+		GRCh38.99 \
 		-csvStats {wildcards.tumor}_snpEff.csv \
 		-nodownload \
 		-canon \
 		{input} \
 		> {output}
-#		mv snpEff_summary.html {wildcards.tumor}_snpEff.html
 		"""
 
 rule zip_snpeff:
 	input:
 		annotatedvcf = OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N_snpEff.ann.vcf"
 	output: annotatedvcf = OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N_snpEff.ann.vcf.gz"
-	threads: 2
-	group: "variantCalling"
+	resources:
+		time = "30m",
+		mem = 4500
+	group: "mutect2_post_call"
+	container:
+		config["singularity"]["tabix"]
 	shell:
 		"""
-		singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR} \
-			/gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img bgzip < {input} > {output}
-		singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR} \
-			/gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img tabix {output}
+		bgzip < {input} > {output}
+		tabix {output}
 		rm /scratch/n/nicholsa/zyfniu/AN_WGS/results/mutect2/{wildcards.tumor}_vs_{wildcards.patient}-N/*.idx -rf
 		rm /scratch/n/nicholsa/zyfniu/AN_WGS/results/mutect2/{wildcards.tumor}_vs_{wildcards.patient}-N/*.filteringStats.tsv -rf
 		"""
@@ -251,14 +302,14 @@ rule filter_mutect2_passOnly:
 	input:
 		annotatedvcf = OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N_snpEff.ann.vcf.gz"
 	output: annotatedvcf = OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N_snpEff.ann.passOnly.vcf.gz"
-	threads: 2
-	group: "variantCalling"
+	resources:
+		time = "30m",
+		mem = 4500
+	group: "mutect2_post_call"
+	container:
+		config["singularity"]["tabix"]
 	shell:
 		"""
-		singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR} \
-			/gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img bcftools view -f "PASS" {input} |\
-		singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR} \
-		/gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img bgzip > {output}
-		singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR} \
-		/gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img tabix -p vcf {output}
+		bcftools view -f "PASS" {input} | bgzip > {output}
+		tabix -p vcf {output}
 		"""

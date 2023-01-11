@@ -10,10 +10,10 @@ import pandas as pd
 import os
 
 # initial settings
-SCRATCH = "/scratch/zyfniu"
-TMP = "/scratch/zyfniu/temp"
+SCRATCH = "$SCRATCH"
+TMP = "$SCRATCH/temp"
 
-#localrules: all
+localrules: all
 
 ###
 ### LOAD SAMPLES
@@ -22,7 +22,7 @@ TMP = "/scratch/zyfniu/temp"
 configfile: "graham_config.yml"
 
 print("\n***INPUT FILE: " + config['input'] + "***\n")
-INPUT = pd.read_table(config['input'],names = ['Patient','Sex','n_vs_t','Sample','Lane','Fastq1','Fastq2'])
+INPUT = pd.read_csv(config['input'],names = ['Patient','Sex','n_vs_t','Sample','Lane','Fastq1','Fastq2'],header=0)
 INPUT['Lane'] = INPUT.Lane.apply(str)
 INPUT['Sample_Lane'] = INPUT.Sample + "_" + INPUT.Lane
 SAMPLE =  INPUT['Sample'].unique()
@@ -64,12 +64,13 @@ Multi = Multi[Multi.num_tumours > 1]
 ###
 ###	REFERENCE FILES
 ###
-REF_fasta = "$SCRATCH/igenomes_ref/Homo_sapiens_assembly38.fasta"
-REF_dbsnp = "$SCRATCH/igenomes_ref/dbsnp_146.hg38.vcf.gz"
-REF_known_indels = "$SCRATCH/igenomes_ref/Mills_and_1000G_gold_standard.indels.hg38.vcf.gz"
-REF_gnomAD = "$SCRATCH/igenomes_ref/gnomAD.r2.1.1.GRCh38.PASS.AC.AF.only.vcf.gz"
-REF_pon = "$SCRATCH/igenomes_ref/1000g_pon.hg38.vcf.gz"
-REF_exac_common = "/gpfs/fs0/scratch/n/nicholsa/zyfniu/igenomes_ref/somatic-hg38_small_exac_common_3.hg38.vcf.gz"
+REF_fasta = config["reference"]["fasta"]
+REF_dbsnp = config["reference"]["dbsnp"]
+REF_known_indels = config["reference"]["known_indels"]
+REF_gnomAD = config["reference"]["gnomAD"]
+REF_pon = config["reference"]["pon"]
+REF_exac_common = config["reference"]["exac_common"]
+interval_directory = config["reference"]["interval_directory"]
 CHROMOSOMES = ['chr1', 'chr2', 'chr3', 'chr4', 'chr5', 'chr6', 'chr7', 'chr8', 'chr9', 'chr10',
 			   'chr11', 'chr12', 'chr13', 'chr14', 'chr15', 'chr16', 'chr17', 'chr18', 'chr19',
 			   'chr20', 'chr21', 'chr22', 'chrX', 'chrY']
@@ -101,10 +102,12 @@ rule all:
 		expand(OUTDIR + "/results/ASCAT/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N.tumor.cnvs.txt",zip, tumor = TUMOR, patient = [x.rsplit('-',1)[0] for x in TUMOR])
 		#### QC
 		#expand("reports/{patient}_multiqc.html",patient = PAT)
-	threads: 80
+	threads: 1
+	container:
+		config["singularity"]["multiqc"]
 	run:
 		import time
-		os.system("singularity exec " + OUTDIR + " $SCRATCH/singularity_images/nfcore-sarek-2.6.img multiqc " + OUTDIR + " -n  " + OUTDIR + "/reports/multiqc_" + time.strftime('%Y%m%d') + ".html")
+		os.system("multiqc " + OUTDIR + " -n  " + OUTDIR + "/pipeline_info/reports/multiqc_" + time.strftime('%Y%m%d') + ".html")
 		os.system("mv multiqc_data* " + OUTDIR + "/QC/")
 		os.system("cp " + config['input'] + " " + OUTDIR +  "/Sample_" + time.strftime('%Y%m%d') + ".tsv")
 		os.system("rm " + OUTDIR + "/temp -rf")
@@ -122,6 +125,28 @@ include: "snakemake_scripts/wgs_markdup_recal.snk"
 
 ###Bam QC
 include: "snakemake_scripts/bam_qc.snk"
+
+##SET NUMBERS FROM 0000 to 0099
+NUMBERS = [str(a)+str(b)+str(c)+str(d) for a in range(0,1) for b in range(0,1) for c in range(0,10) for d in range(0,10)]
+
+rule generate_intervals:
+	input:
+		ref_fasta = REF_fasta
+	output:
+		expand(OUTDIR + "/pipeline_info/intervals/{num}-scattered.interval_list", num = NUMBERS)
+	threads: 1
+	resources:
+		time = "1h",
+		mem = 2500
+	container:
+		config["singularity"]["gatk"]
+	shell:
+		"""
+		gatk --java-options "-Xmx2g" SplitIntervals \
+		-R {input.fasta} \
+		--scatter-count 100 \
+		-O {OUTDIR}/pipeline_info/intervals
+		"""
 
 ### Mutect2 individual
 include: "snakemake_scripts/wgs_mutect2_individual.snk"

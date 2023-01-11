@@ -27,8 +27,7 @@ rule all:
 	input:
 		### filtered bam
 		expand(OUTDIR + "/fastq/{samples}_R1.fastq.gz", samples=SAMPLE),
-		expand(OUTDIR + "/fastq/{samples}_R2.fastq.gz", samples=SAMPLE):
-	script
+		expand(OUTDIR + "/fastq/{samples}_R2.fastq.gz", samples=SAMPLE)
 
 def get_bam(wildcards):
 	return expand(INPUT[INPUT.Sample == wildcards.sample].bam)
@@ -47,7 +46,7 @@ rule sort_bam:
 		config["singularity"]["samtools"]
 	shell:
 		"""
-		samtools sort -n -m 16G \
+		samtools sort -n -m 3G \
 		-o {output} -@ {threads} {input}
 		"""
 
@@ -57,10 +56,10 @@ rule bam_to_fastq:
 	output:
 		r1 = OUTDIR + "/fastq/{sample}_R1.fastq.gz",
 		r2 = OUTDIR + "/fastq/{sample}_R2.fastq.gz"
-	threads: 4
+	threads: 2
 	resources:
 		time = "8h",
-		mem_mb = 16000
+		mem_mb = 8000
 	container:
 		config["singularity"]["samtools"]
 	shell:

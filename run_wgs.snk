@@ -14,7 +14,7 @@ import time
 
 #TMP = "$SCRATCH/temp"
 
-localrules: all, symlink_reffiles
+localrules: all, symlink_reffiles, generate_intervals
 
 ###
 ### LOAD SAMPLES

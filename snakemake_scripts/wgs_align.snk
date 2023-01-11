@@ -40,7 +40,7 @@ rule bwa_mem:
 	input:
 		fastq1 = bwa_mem_fastq1,
 		fastq2 = bwa_mem_fastq2,
-		ref_fasta = REF_fasta
+		ref_fasta = OUTDIR + "/reference/" + config["reference"]["fasta"]
 		#fastq1= INPUT[INPUT.Sample_Lane == {sample_lane}].Fastq1,
 		#fastq2= INPUT[INPUT.Sample_Lane == {sample_lane}].Fastq2
 	output:

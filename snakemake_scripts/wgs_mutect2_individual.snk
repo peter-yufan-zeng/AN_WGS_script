@@ -6,9 +6,9 @@ rule mutect2:
 		normal = OUTDIR +"/Recal/{patient}-N.recal.bam",
 		tumor = OUTDIR +"/Recal/{tumor}.recal.bam",
 		interval = OUTDIR + "/pipeline_info/intervals/{num}-scattered.interval_list",
-		ref_fasta = REF_fasta,
-		ref_gnomAD = REF_gnomAD,
-		ref_pon = REF_pon
+		ref_fasta = OUTDIR + "/reference/" + config["reference"]["fasta"],
+		ref_gnomAD = OUTDIR + "/reference/" + config["reference"]["gnomAD"],
+		ref_pon = OUTDIR + "/reference/" + config["reference"]["pon"]
 	output:
 		vcf = temp(OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N.{num}.vcf"),
 		stats = temp(OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N.{num}.vcf.stats"),
@@ -103,7 +103,7 @@ rule gatk_LearnOrientationModel:
 rule gatk_get_pileupsummaries_normal:
 	input:
 		##Downloaded from https://console.cloud.google.com/storage/browser/_details/gatk-best-practices/somatic-hg38/
-		common_biallelic_vcf =  REF_exac_common,
+		common_biallelic_vcf = OUTDIR + "/reference/" + config["reference"]["exac_common"],
 		normal = OUTDIR + "/orphan/{patient}-N/Recal/{patient}-N.recal.bam"
 	output:
 		summary = OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/{patient}-N_pileupsummaries.table"
@@ -126,7 +126,7 @@ rule gatk_get_pileupsummaries_normal:
 rule gatk_get_pileupsummaries_tumor:
 	input:
 		##Downloaded from https://console.cloud.google.com/storage/browser/_details/gatk-best-practices/somatic-hg38/
-		common_biallelic_vcf =  REF_exac_common,
+		common_biallelic_vcf = OUTDIR + "/reference/" + config["reference"]["exac_common"],
 		primary = OUTDIR + "/orphan/{tumor}/Recal/{tumor}.recal.bam"
 	output:
 		summary = OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/{tumor}_pileupsummaries.table"
@@ -195,7 +195,7 @@ rule gatk_filterMutect:
 		model = OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/unfiltered_{tumor}_read_orientation_model.tar.gz",
 		stats = OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N_merged.stats",
 		interval = OUTDIR + "/pipeline_info/intervals/{num}-scattered.interval_list",
-		ref_fasta = REF_fasta
+		ref_fasta = OUTDIR + "/reference/" + config["reference"]["fasta"]
 	output:
 		filter_vcf = temp(OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/filtered_{tumor}_vs_{patient}-N.{num}.vcf"),
 		filter_vcf_index = temp(OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/filtered_{tumor}_vs_{patient}-N.{num}.vcf.idx"),

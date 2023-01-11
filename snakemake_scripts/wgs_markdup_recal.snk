@@ -47,9 +47,9 @@ rule recalibrator:
 	input:
 		bam = OUTDIR +"/orphan/{sample}.md.bam",
 		interval = OUTDIR + "/pipeline_info/intervals/{num}-scattered.interval_list",
-		ref_fasta = REF_fasta,
-		ref_dbsnp = REF_dbsnp,
-		ref_known_indels = REF_known_indels
+		ref_fasta = OUTDIR + "/reference/" + config["reference"]["fasta"],
+		ref_dbsnp = OUTDIR + "/reference/" + config["reference"]["dbsnp"],
+		ref_known_indels = OUTDIR + "/reference/" + config["reference"]["known_indels"]
 	output:
 		temp(OUTDIR +"/orphan/{sample}/Recal/{sample}.{num}.recal.table")
 	threads: 2

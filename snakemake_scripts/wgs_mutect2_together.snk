@@ -11,9 +11,9 @@ rule mutect2_all_tumours:
 	input:
 		interval = OUTDIR + "/pipeline_info/intervals/{num}-scattered.interval_list",
 		normal = OUTDIR +"/Recal/{patient}-N.recal.bam",
-		ref_fasta = REF_fasta,
-		ref_gnomAD = REF_gnomAD,
-		ref_pon = REF_pon,
+		ref_fasta = OUTDIR + "/reference/" + config["reference"]["fasta"],
+		ref_gnomAD = OUTDIR + "/reference/" + config["reference"]["gnomAD"],
+		ref_pon = OUTDIR + "/reference/" + config["reference"]["pon"],
 		tumors = get_bams_to_call
 	output:
 		vcf = temp(OUTDIR + "/results/mutect2/all_{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N.{num}.vcf"),
@@ -132,7 +132,7 @@ rule gatk_filterMutect_all_tumour:
 		model = OUTDIR + "/results/mutect2/all_{tumor}_vs_{patient}-N/unfiltered_{tumor}_read_orientation_model.tar.gz",
 		stats = OUTDIR + "/results/mutect2/all_{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N_merged.stats",
 		interval = OUTDIR + "/pipeline_info/intervals/{num}-scattered.interval_list",
-		ref_fasta = REF_fasta
+		ref_fasta = OUTDIR + "/reference/" + config["reference"]["fasta"]
 	output:
 		filter_vcf = temp(OUTDIR + "/results/mutect2/all_{tumor}_vs_{patient}-N/filtered_{tumor}_vs_{patient}-N.{num}.vcf"),
 		filter_vcf_index = temp(OUTDIR + "/results/mutect2/all_{tumor}_vs_{patient}-N/filtered_{tumor}_vs_{patient}-N.{num}.vcf.idx"),

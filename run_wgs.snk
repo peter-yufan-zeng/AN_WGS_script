@@ -14,7 +14,7 @@ import time
 
 #TMP = "$SCRATCH/temp"
 
-localrules: all
+localrules: all, symlink_reffiles
 
 ###
 ### LOAD SAMPLES
@@ -59,6 +59,37 @@ Multi['path'] = OUTDIR + "/results/mutect2/all_"  + Multi.Combined + "_vs_" + Mu
 + Multi.Combined + "_vs_" + Multi.Patient + "-N_snpEff.ann.vcf.gz"
 Multi = Multi[Multi.num_tumours > 1]
 #Multi = Multi[['Patient','Combined',"path"]].drop_duplicates()
+
+### Symlink all reference files to make singularity easier
+rule symlink_reffiles:
+	input:
+		config["reference"]["directory"] + config["reference"]["fasta"],
+		config["reference"]["directory"] + config["reference"]["dbsnp"],
+		config["reference"]["directory"] + config["reference"]["known_indels"],
+		config["reference"]["directory"] + config["reference"]["gnomAD"],
+		config["reference"]["directory"] + config["reference"]["pon"],
+		config["reference"]["directory"] + config["reference"]["exac_common"],
+		config["reference"]["directory"] + config["reference"]["ascat_acloci"],
+		config["reference"]["directory"] + config["reference"]["ascat_acloci_gc"]
+	output:
+		OUTDIR + "/reference/" + config["reference"]["fasta"],
+		OUTDIR + "/reference/" + config["reference"]["dbsnp"],
+		OUTDIR + "/reference/" + config["reference"]["known_indels"],
+		OUTDIR + "/reference/" + config["reference"]["gnomAD"],
+		OUTDIR + "/reference/" + config["reference"]["pon"],
+		OUTDIR + "/reference/" + config["reference"]["exac_common"],
+		OUTDIR + "/reference/" + config["reference"]["ascat_acloci"],
+		OUTDIR + "/reference/" + config["reference"]["ascat_acloci_gc"]
+	threads: 1
+	params:
+		original_ref_dir = config["reference"]["directory"],
+		target_ref_dir = OUTDIR + "/reference/"
+	shell:
+		"""
+		ln -s {params.original_ref_dir}* {params.target_ref_dir}/*
+		"""
+
+
 
 
 
@@ -122,12 +153,14 @@ rule all:
 ###Align
 include: "snakemake_scripts/wgs_align.snk"
 
+
+
 ##SET NUMBERS FROM 0000 to 0099
 NUMBERS = [str(a)+str(b)+str(c)+str(d) for a in range(0,1) for b in range(0,1) for c in range(0,10) for d in range(0,10)]
 
 rule generate_intervals:
 	input:
-		ref_fasta = REF_fasta
+		ref_fasta = OUTDIR + "/reference/" + config["reference"]["fasta"]
 	output:
 		expand(OUTDIR + "/pipeline_info/intervals/{num}-scattered.interval_list", num = NUMBERS)
 	threads: 1

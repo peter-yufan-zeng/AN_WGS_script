@@ -10,7 +10,7 @@ rule samtools_stats:
 	threads: 2
 	resources:
 		time = "8h",
-		mem = 8000
+		mem_mb = 8000
 	container:
 		config["singularity"]["samtools"]
 	shell:
@@ -27,7 +27,7 @@ rule bamqc:
 	threads: 2
 	resources:
 		time = "8h",
-		mem = 8000
+		mem_mb = 8000
 	shell:
 		"""
 		export MUGQIC_INSTALL_HOME=/cvmfs/soft.mugqic/CentOS6

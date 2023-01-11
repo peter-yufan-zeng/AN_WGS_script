@@ -11,10 +11,7 @@ import os
 import time
 
 # initial settings
-envvars:
-	"SCRATCH"
 
-SCRATCH = os.environ("SCRATCH")
 #TMP = "$SCRATCH/temp"
 
 localrules: all
@@ -136,13 +133,13 @@ rule generate_intervals:
 	threads: 1
 	resources:
 		time = "1h",
-		mem = 2500
+		mem_mb = 2500
 	container:
 		config["singularity"]["gatk"]
 	shell:
 		"""
 		gatk --java-options "-Xmx2g" SplitIntervals \
-		-R {input.fasta} \
+		-R {input.ref_fasta} \
 		--scatter-count 100 \
 		-O {OUTDIR}/pipeline_info/intervals
 		"""

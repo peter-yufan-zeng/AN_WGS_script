@@ -10,7 +10,7 @@ rule config_manta:
 	threads: 10
 	resources:
 		time = "1h",
-		mem = 9000
+		mem_mb = 9000
 	container:
 		config["singularity"]["manta"]
 	group: "manta_call"
@@ -40,7 +40,7 @@ rule manta:
 	threads: 10
 	resources:
 		time = "8h",
-		mem = 9000
+		mem_mb = 9000
 	container:
 		config["singularity"]["manta"]
 	group: "manta_call"
@@ -60,7 +60,7 @@ rule mv_manta_files:
 	threads: 1
 	resources:
 		time = "30m",
-		mem = 4000
+		mem_mb = 4000
 	shell:
 		"""
 		cp {input.file} {output.file}
@@ -74,7 +74,7 @@ rule annotate_manta:
 		annotatedvcf = temp(OUTDIR + "/results/Manta/{tumor}_vs_{patient}-N/Manta_snpeff_{tumor}_vs_{patient}-N.{structure}.ann.vcf")
 	resources:
 		time = "1h",
-		mem = 8500
+		mem_mb = 8500
 	container:
 		config["singularity"]["snpeff"]
 	group: "manta_annotate"
@@ -97,7 +97,7 @@ rule zip_manta:
 	threads: 2
 	resources:
 		time = "1h",
-		mem = 4500
+		mem_mb = 4500
 	container:
 		config["singularity"]["tabix"]
 	group: "manta_annotate"

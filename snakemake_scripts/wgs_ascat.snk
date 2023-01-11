@@ -11,7 +11,7 @@ rule alleleCount:
 	threads: 2
 	resources:
 		time = "20h",
-		mem = 8500
+		mem_mb = 8500
 	container:
 		config["singularity"]["ascat"]
 	shell:
@@ -41,7 +41,7 @@ rule ConvertAlleleCounts:
 	params: gender = getGender
 	resources:
 		time = "8h",
-		mem = 8500
+		mem_mb = 8500
 	container:
 		config["singularity"]["ascat"]
 	shell:
@@ -67,7 +67,7 @@ rule ascat:
 	threads: 2
 	resources:
 		time = "8h",
-		mem = 8500
+		mem_mb = 8500
 	container:
 		config["singularity"]["ascat"]
 	group: "ASCAT"

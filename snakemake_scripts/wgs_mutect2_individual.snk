@@ -17,7 +17,7 @@ rule mutect2:
 	threads: 2
 	resources:
 		time = "12h",
-		mem = 8500
+		mem_mb = 8500
 	container:
 		config["singularity"]["gatk"]
 	shell:
@@ -46,7 +46,7 @@ rule merge_mutect2_vcf:
 	threads: 1
 	resources:
 		time = "30m",
-		mem = 4500
+		mem_mb = 4500
 	container:
 		config["singularity"]["vcftools"]
 	group: "mutect2_post_call"
@@ -60,13 +60,13 @@ def concat_vcf_stats(wildcards):
 
 rule merge_stats:
 	input:
-		concat_vcf_stats
+		stats = concat_vcf_stats
 	output:
 		temp(OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N_merged.stats")
 	threads: 1
 	resources:
 		time = "30m",
-		mem = 4500
+		mem_mb = 4500
 	container:
 		config["singularity"]["gatk"]
 	group: "mutect2_post_call"
@@ -82,13 +82,13 @@ def concat_vcf_f12(wildcards):
 
 rule gatk_LearnOrientationModel:
 	input:
-		concat_vcf_f12
+		vcf = concat_vcf_f12
 	output:
 		model = OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/unfiltered_{tumor}_read_orientation_model.tar.gz"
 	threads: 1
 	resources:
 		time = "30m",
-		mem = 4500
+		mem_mb = 4500
 	container:
 		config["singularity"]["gatk"]
 	group: "mutect2_post_call"
@@ -110,7 +110,7 @@ rule gatk_get_pileupsummaries_normal:
 	threads: 1
 	resources:
 		time = "30m",
-		mem = 4500
+		mem_mb = 4500
 	container:
 		config["singularity"]["gatk"]
 	group: "mutect2_post_call"
@@ -133,7 +133,7 @@ rule gatk_get_pileupsummaries_tumor:
 	threads: 1
 	resources:
 		time = "30m",
-		mem = 8500
+		mem_mb = 8500
 	container:
 		config["singularity"]["gatk"]
 	group: "mutect2_post_call"
@@ -156,7 +156,7 @@ rule gatk_calcContam_primary:
 	threads: 1
 	resources:
 		time = "30m",
-		mem = 4500
+		mem_mb = 4500
 	container:
 		config["singularity"]["gatk"]
 	group: "mutect2_post_call"
@@ -177,7 +177,7 @@ rule index_unfiltered_vcf:
 	threads: 1
 	resources:
 		time = "30m",
-		mem = 4500
+		mem_mb = 4500
 	container:
 		config["singularity"]["gatk"]
 	group: "mutect2_post_call"
@@ -203,7 +203,7 @@ rule gatk_filterMutect:
 	threads: 1
 	resources:
 		time = "30m",
-		mem = 4500
+		mem_mb = 4500
 	container:
 		config["singularity"]["gatk"]
 	group: "mutect2_post_call"
@@ -229,7 +229,7 @@ rule merge_mutect2_vcf_filtered:
 	threads: 1
 	resources:
 		time = "30m",
-		mem = 4500
+		mem_mb = 4500
 	group: "mutect2_post_call"
 	container:
 		config["singularity"]["vcftools"]
@@ -244,7 +244,7 @@ rule index_filtered_vcf:
 		vcf_tbi = OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/filtered_{tumor}_vs_{patient}-N.vcf.idx"
 	resources:
 		time = "15m",
-		mem = 4500
+		mem_mb = 4500
 	container:
 		config["singularity"]["gatk"]
 	group: "mutect2_post_call"
@@ -263,7 +263,7 @@ rule annotate_mutect2:
 	threads: 2
 	resources:
 		time = "30m",
-		mem = 8500
+		mem_mb = 8500
 	container:
 		config["singularity"]["snpeff"]
 	group: "mutect2_post_call"
@@ -285,7 +285,7 @@ rule zip_snpeff:
 	output: annotatedvcf = OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N_snpEff.ann.vcf.gz"
 	resources:
 		time = "30m",
-		mem = 4500
+		mem_mb = 4500
 	group: "mutect2_post_call"
 	container:
 		config["singularity"]["tabix"]
@@ -303,7 +303,7 @@ rule filter_mutect2_passOnly:
 	output: annotatedvcf = OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N_snpEff.ann.passOnly.vcf.gz"
 	resources:
 		time = "30m",
-		mem = 4500
+		mem_mb = 4500
 	group: "mutect2_post_call"
 	container:
 		config["singularity"]["tabix"]

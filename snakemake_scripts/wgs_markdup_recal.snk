@@ -10,7 +10,7 @@ rule merge_bam_mapped_and_index:
 	threads: 4
 	resources:
 		time = "12h",
-		mem = 10000
+		mem_mb = 10000
 	container:
 		config["singularity"]["samtools"]
 	shell:
@@ -27,7 +27,7 @@ rule markdup:
 	threads: 6
 	resources:
 		time = "24h",
-		mem = 30000
+		mem_mb = 30000
 	container:
 		config["singularity"]["gatk"]
 	shell:
@@ -55,7 +55,7 @@ rule recalibrator:
 	threads: 2
 	resources:
 		time = "1h",
-		mem = 4500
+		mem_mb = 4500
 	container:
 		config["singularity"]["gatk"]
 	group: "recalibrator"
@@ -74,7 +74,7 @@ rule recalibrator:
 		"""
 
 def recal_tbl_to_gather(wildcards):
-	return expand(OUTDIR +"/orphan/" + wildcards.sample + "/Recal/" + wildcards.sample + ".{num}.recal.table",chr = NUMBERS)
+	return expand(OUTDIR +"/orphan/" + wildcards.sample + "/Recal/" + wildcards.sample + ".{num}.recal.table",num = NUMBERS)
 
 
 
@@ -86,7 +86,7 @@ rule gather_recal_tbl:
 	threads: 1
 	resources:
 		time = "30m",
-		mem = 4500
+		mem_mb = 4500
 	container:
 		config["singularity"]["gatk"]
 	group: "recalibrator"
@@ -109,7 +109,7 @@ rule ApplyBQSR:
 	threads: 1
 	resources:
 		time = "4h",
-		mem = 4500
+		mem_mb = 4500
 	container:
 		config["singularity"]["gatk"]
 	shell:
@@ -135,7 +135,7 @@ rule Merge_Recal_Bam:
 	threads: 2
 	resources:
 		time = "12h",
-		mem = 8000
+		mem_mb = 8000
 	container:
 		config["singularity"]["samtools"]
 	shell:

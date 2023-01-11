@@ -5,7 +5,7 @@ rule mutect2:
 	input:
 		normal = OUTDIR +"/Recal/{patient}-N.recal.bam",
 		tumor = OUTDIR +"/Recal/{tumor}.recal.bam",
-		interval = interval_directory + "/{num}-scattered.interval_list",
+		interval = OUTDIR + "/pipeline_info/intervals/{num}-scattered.interval_list",
 		ref_fasta = REF_fasta,
 		ref_gnomAD = REF_gnomAD,
 		ref_pon = REF_pon
@@ -195,7 +195,7 @@ rule gatk_filterMutect:
 		vcf = OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N.vcf",
 		model = OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/unfiltered_{tumor}_read_orientation_model.tar.gz",
 		stats = OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N_merged.stats",
-		interval = interval_directory + "/{num}-scattered.interval_list",
+		interval = OUTDIR + "/pipeline_info/intervals/{num}-scattered.interval_list",
 		ref_fasta = REF_fasta
 	output:
 		filter_vcf = temp(OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/filtered_{tumor}_vs_{patient}-N.{num}.vcf"),

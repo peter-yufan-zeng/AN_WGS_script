@@ -120,12 +120,6 @@ rule all:
 ###Align
 include: "snakemake_scripts/wgs_align.snk"
 
-###Markdup recal
-include: "snakemake_scripts/wgs_markdup_recal.snk"
-
-###Bam QC
-include: "snakemake_scripts/bam_qc.snk"
-
 ##SET NUMBERS FROM 0000 to 0099
 NUMBERS = [str(a)+str(b)+str(c)+str(d) for a in range(0,1) for b in range(0,1) for c in range(0,10) for d in range(0,10)]
 
@@ -147,6 +141,12 @@ rule generate_intervals:
 		--scatter-count 100 \
 		-O {OUTDIR}/pipeline_info/intervals
 		"""
+
+###Markdup recal
+include: "snakemake_scripts/wgs_markdup_recal.snk"
+
+###Bam QC
+include: "snakemake_scripts/bam_qc.snk"
 
 ### Mutect2 individual
 include: "snakemake_scripts/wgs_mutect2_individual.snk"

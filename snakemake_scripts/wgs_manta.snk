@@ -59,7 +59,7 @@ rule mv_manta_files:
 	group: "manta_annotate"
 	threads: 1
 	resources:
-		time = "30m",
+		time = 30,
 		mem_mb = 4000
 	shell:
 		"""

@@ -114,7 +114,7 @@ rule all:
 		"""
 		multiqc {OUTDIR} -n {OUTDIR}/pipeline_info/reports/multiqc_{params.time}.html
 		mv multiqc_data* OUTDIR/pipeline_info/report/
-		cp config['input'] {OUTDIR}/Sample_{param.time}.csv
+		cp config['input'] {OUTDIR}/Sample_{params.time}.csv
 		"""
 
 

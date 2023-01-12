@@ -22,7 +22,7 @@ rule mutect2_all_tumours:
 		index =  temp(OUTDIR + "/results/mutect2/all_{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N.{num}.vcf.idx")
 	threads: 2
 	resources:
-		time = "12h",
+		time = 12*60,
 		mem = 8500
 	container:
 		config["singularity"]["gatk"]
@@ -51,7 +51,7 @@ rule merge_mutect2_vcf_all_tumour:
 		temp(OUTDIR + "/results/mutect2/all_{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N.vcf")
 	threads: 1
 	resources:
-		time = "30m",
+		time = 30,
 		mem = 4500
 	container:
 		config["singularity"]["vcftools"]
@@ -71,7 +71,7 @@ rule merge_stats_all_tumour:
 		temp(OUTDIR + "/results/mutect2/all_{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N_merged.stats")
 	threads: 2
 	resources:
-		time = "30m",
+		time = 30,
 		mem = 8000
 	container:
 		config["singularity"]["gatk"]
@@ -93,7 +93,7 @@ rule gatk_LearnOrientationModel_all_tumour:
 		model = OUTDIR + "/results/mutect2/all_{tumor}_vs_{patient}-N/unfiltered_{tumor}_read_orientation_model.tar.gz"
 	threads: 2
 	resources:
-		time = "30m",
+		time = 30,
 		mem = 8000
 	container:
 		config["singularity"]["gatk"]
@@ -113,7 +113,7 @@ rule index_unfiltered_vcf_all_tumour:
 		vcf_tbi = OUTDIR + "/results/mutect2/all_{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N.vcf.idx"
 	threads: 2
 	resources:
-		time = "30m",
+		time = 30,
 		mem = 8000
 	container:
 		config["singularity"]["gatk"]
@@ -139,7 +139,7 @@ rule gatk_filterMutect_all_tumour:
 		filter_vcf_stats = temp(OUTDIR + "/results/mutect2/all_{tumor}_vs_{patient}-N/filtered_{tumor}_vs_{patient}-N.{num}.vcf.filteringStats.tsv")
 	threads: 2
 	resources:
-		time = "30m",
+		time = 30,
 		mem = 8500
 	container:
 		config["singularity"]["gatk"]
@@ -165,7 +165,7 @@ rule merge_mutect2_vcf_filtered_all_tumour:
 		temp(OUTDIR + "/results/mutect2/all_{tumor}_vs_{patient}-N/filtered_{tumor}_vs_{patient}-N.vcf")
 	threads: 2
 	resources:
-		time = "30m",
+		time = 30,
 		mem = 8000
 	container:
 		config["singularity"]["vcftools"]
@@ -181,7 +181,7 @@ rule index_filtered_vcf_all_tumour:
 		vcf_tbi = OUTDIR + "/results/mutect2/all_{tumor}_vs_{patient}-N/filtered_{tumor}_vs_{patient}-N.vcf.idx"
 	threads: 2
 	resources:
-		time = "1h",
+		time = 60,
 		mem = 8000
 	container:
 		config["singularity"]["gatk"]
@@ -201,7 +201,7 @@ rule annotate_mutect2_all_tumour:
 		annotatedvcf = temp(OUTDIR + "/results/mutect2/all_{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N_snpEff.ann.vcf")
 	threads: 2
 	resources:
-		time = "1h",
+		time = 60,
 		mem = 8500
 	container:
 		config["singularity"]["snpeff"]
@@ -224,7 +224,7 @@ rule zip_snpeff_all_tumour:
 	output: annotatedvcf = OUTDIR + "/results/mutect2/all_{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N_snpEff.ann.vcf.gz"
 	threads: 2
 	resources:
-		time = "1h",
+		time = 60,
 		mem = 8000
 	container:
 		config["singularity"]["tabix"]
@@ -243,7 +243,7 @@ rule filter_mutect2_passOnly_all_tumour:
 	output: annotatedvcf = OUTDIR + "/results/mutect2/all_{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N_snpEff.ann.passOnly.vcf.gz"
 	threads: 2
 	resources:
-		time = "30m",
+		time = 30,
 		mem = 8000
 	container:
 		config["singularity"]["tabix"]

@@ -10,7 +10,7 @@ rule alleleCount:
 	output: OUTDIR + "/results/ASCAT/alleleCount/{sample}.alleleCount"
 	threads: 2
 	resources:
-		time = "20h",
+		time = 20*60,
 		mem_mb = 8500
 	container:
 		config["singularity"]["ascat"]
@@ -40,7 +40,7 @@ rule ConvertAlleleCounts:
 	threads: 2
 	params: gender = getGender
 	resources:
-		time = "8h",
+		time = 8*60,
 		mem_mb = 8500
 	container:
 		config["singularity"]["ascat"]
@@ -66,7 +66,7 @@ rule ascat:
 		gender = getGender
 	threads: 2
 	resources:
-		time = "8h",
+		time = 8*60,
 		mem_mb = 8500
 	container:
 		config["singularity"]["ascat"]

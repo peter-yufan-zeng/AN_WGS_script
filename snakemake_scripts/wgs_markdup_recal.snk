@@ -9,7 +9,7 @@ rule merge_bam_mapped_and_index:
 		temp(OUTDIR +"/orphan/{sample}/{sample}.merged.bam")
 	threads: 4
 	resources:
-		time = "12h",
+		time = 12*60,
 		mem_mb = 10000
 	container:
 		config["singularity"]["samtools"]
@@ -26,7 +26,7 @@ rule markdup:
 		metric = OUTDIR +"/orphan/{sample}.bam.metric"
 	threads: 6
 	resources:
-		time = "24h",
+		time = 18*60,
 		mem_mb = 30000
 	container:
 		config["singularity"]["gatk"]
@@ -37,7 +37,6 @@ rule markdup:
 		--MAX_RECORDS_IN_RAM 50000 \
 		--INPUT {input} \
 		--METRICS_FILE {output.metric} \
-		--TMP_DIR {TMP} \
 		--ASSUME_SORT_ORDER coordinate \
 		--CREATE_INDEX true \
 		--OUTPUT {output.bam}
@@ -54,7 +53,7 @@ rule recalibrator:
 		temp(OUTDIR +"/orphan/{sample}/Recal/{sample}.{num}.recal.table")
 	threads: 2
 	resources:
-		time = "1h",
+		time = 60,
 		mem_mb = 4500
 	container:
 		config["singularity"]["gatk"]
@@ -63,11 +62,11 @@ rule recalibrator:
 		"""
 		gatk --java-options "-Xmx4g" \
 		BaseRecalibrator \
-		-I {input.bamQC} \
+		-I {input.bam} \
 		-O {output} \
 		--tmp-dir /tmp \
 		-R {input.ref_fasta} \
-		-L {wildcards.chr} \
+		-L {input.interval} \
 		--known-sites {input.ref_dbsnp} \
 		--known-sites {REF_known_indels} \
 		--verbosity INFO
@@ -76,8 +75,6 @@ rule recalibrator:
 def recal_tbl_to_gather(wildcards):
 	return expand(OUTDIR +"/orphan/" + wildcards.sample + "/Recal/" + wildcards.sample + ".{num}.recal.table",num = NUMBERS)
 
-
-
 rule gather_recal_tbl:
 	input:
 		recal_tbl = recal_tbl_to_gather
@@ -85,7 +82,7 @@ rule gather_recal_tbl:
 		temp(OUTDIR +"/orphan/{sample}/Recal/{sample}.recal.table")
 	threads: 1
 	resources:
-		time = "30m",
+		time = 30,
 		mem_mb = 4500
 	container:
 		config["singularity"]["gatk"]
@@ -102,13 +99,15 @@ rule gather_recal_tbl:
 rule ApplyBQSR:
 	input:
 		bam = OUTDIR + "/orphan/{sample}.md.bam",
-		recal_table = OUTDIR +"/orphan/{sample}/Recal/{sample}.recal.table"
+		recal_table = OUTDIR +"/orphan/{sample}/Recal/{sample}.recal.table",
+		ref_fasta = OUTDIR + "/reference/" + config["reference"]["fasta"],
+		interval = OUTDIR + "/pipeline_info/intervals/{num}-scattered.interval_list"
 	output:
 		temp(OUTDIR + "/orphan/{sample}/Recal/{sample}.recal.{num}.bam")
 	group: "recalibrator"
 	threads: 1
 	resources:
-		time = "4h",
+		time = 4*60,
 		mem_mb = 4500
 	container:
 		config["singularity"]["gatk"]
@@ -116,10 +115,10 @@ rule ApplyBQSR:
 		"""
 		gatk --java-options "-Xmx4G" \
 		ApplyBQSR \
-		-R {REF_fasta} \
+		-R {input.ref_fasta} \
 		--input {input.bam} \
 		--output {output} \
-		-L {wildcards.chr} \
+		-L {input.interval} \
 		--bqsr-recal-file {input.recal_table}
 		"""
 
@@ -134,7 +133,7 @@ rule Merge_Recal_Bam:
 		index = OUTDIR +"/Recal/{sample}.recal.bai"
 	threads: 2
 	resources:
-		time = "12h",
+		time = 12*60,
 		mem_mb = 8000
 	container:
 		config["singularity"]["samtools"]

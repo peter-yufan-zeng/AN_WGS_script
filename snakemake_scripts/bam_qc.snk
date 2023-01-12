@@ -9,7 +9,7 @@ rule samtools_stats:
 		stats = OUTDIR + "/QC/{sample}/{sample}.samtools.stats.out"
 	threads: 2
 	resources:
-		time = "8h",
+		time = 8*60,
 		mem_mb = 8000
 	container:
 		config["singularity"]["samtools"]
@@ -26,7 +26,7 @@ rule bamqc:
 		stats = OUTDIR + "/QC/{sample}/bamQC/qualimapReport.html"
 	threads: 2
 	resources:
-		time = "8h",
+		time = 8*60,
 		mem_mb = 8000
 	shell:
 		"""

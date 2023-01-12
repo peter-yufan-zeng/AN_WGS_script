@@ -9,7 +9,7 @@ rule config_manta:
 	output: OUTDIR + "/temp/Manta/{tumor}_vs_{patient}-N/runWorkflow.py"
 	threads: 10
 	resources:
-		time = "1h",
+		time = 60,
 		mem_mb = 9000
 	container:
 		config["singularity"]["manta"]
@@ -39,8 +39,8 @@ rule manta:
 		somaticSVIndex = OUTDIR + "/temp/Manta/{tumor}_vs_{patient}-N/results/variants/somaticSV.vcf.gz.tbi"
 	threads: 10
 	resources:
-		time = "8h",
-		mem_mb = 9000
+		time = 8*60,
+		mem_mb = 10000
 	container:
 		config["singularity"]["manta"]
 	group: "manta_call"
@@ -73,7 +73,7 @@ rule annotate_manta:
 	output:
 		annotatedvcf = temp(OUTDIR + "/results/Manta/{tumor}_vs_{patient}-N/Manta_snpeff_{tumor}_vs_{patient}-N.{structure}.ann.vcf")
 	resources:
-		time = "1h",
+		time = 30,
 		mem_mb = 8500
 	container:
 		config["singularity"]["snpeff"]
@@ -96,7 +96,7 @@ rule zip_manta:
 	output: annotatedvcf = OUTDIR + "/results/Manta/{tumor}_vs_{patient}-N/Manta_snpeff_{tumor}_vs_{patient}-N.{structure}.ann.vcf.gz"
 	threads: 2
 	resources:
-		time = "1h",
+		time = 30,
 		mem_mb = 4500
 	container:
 		config["singularity"]["tabix"]

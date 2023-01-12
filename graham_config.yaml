@@ -34,5 +34,5 @@ reference:
   pon: "1000g_pon.hg38.vcf.gz"
   ascat_acloci: "1000G_phase3_GRCh38_maf0.3.loci"
   ascat_acloci_gc: "1000G_phase3_GRCh38_maf0.3.loci.gc"
-  exac_common: "somatic-hg38_small_exac_common_3.hg38.vcf.gz"
+  exac_common: "small_exac_common_3.hg38.vcf.gz"
   number_of_intervals: 100

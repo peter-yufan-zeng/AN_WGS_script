@@ -60,34 +60,6 @@ Multi['path'] = OUTDIR + "/results/mutect2/all_"  + Multi.Combined + "_vs_" + Mu
 Multi = Multi[Multi.num_tumours > 1]
 #Multi = Multi[['Patient','Combined',"path"]].drop_duplicates()
 
-### Symlink all reference files to make singularity easier
-rule symlink_reffiles:
-	input:
-		config["reference"]["directory"] + config["reference"]["fasta"],
-		config["reference"]["directory"] + config["reference"]["dbsnp"],
-		config["reference"]["directory"] + config["reference"]["known_indels"],
-		config["reference"]["directory"] + config["reference"]["gnomAD"],
-		config["reference"]["directory"] + config["reference"]["pon"],
-		config["reference"]["directory"] + config["reference"]["exac_common"],
-		config["reference"]["directory"] + config["reference"]["ascat_acloci"],
-		config["reference"]["directory"] + config["reference"]["ascat_acloci_gc"]
-	output:
-		OUTDIR + "/reference/" + config["reference"]["fasta"],
-		OUTDIR + "/reference/" + config["reference"]["dbsnp"],
-		OUTDIR + "/reference/" + config["reference"]["known_indels"],
-		OUTDIR + "/reference/" + config["reference"]["gnomAD"],
-		OUTDIR + "/reference/" + config["reference"]["pon"],
-		OUTDIR + "/reference/" + config["reference"]["exac_common"],
-		OUTDIR + "/reference/" + config["reference"]["ascat_acloci"],
-		OUTDIR + "/reference/" + config["reference"]["ascat_acloci_gc"]
-	threads: 1
-	params:
-		original_ref_dir = config["reference"]["directory"],
-		target_ref_dir = OUTDIR + "/reference/"
-	shell:
-		"""
-		ln -s {params.original_ref_dir}* {params.target_ref_dir}/*
-		"""
 
 
 
@@ -150,10 +122,35 @@ rule all:
 ### Step by step
 ###
 
-###Align
-include: "snakemake_scripts/wgs_align.snk"
 
-
+### Symlink all reference files to make singularity easier
+rule symlink_reffiles:
+	input:
+		config["reference"]["directory"] + config["reference"]["fasta"],
+		config["reference"]["directory"] + config["reference"]["dbsnp"],
+		config["reference"]["directory"] + config["reference"]["known_indels"],
+		config["reference"]["directory"] + config["reference"]["gnomAD"],
+		config["reference"]["directory"] + config["reference"]["pon"],
+		config["reference"]["directory"] + config["reference"]["exac_common"],
+		config["reference"]["directory"] + config["reference"]["ascat_acloci"],
+		config["reference"]["directory"] + config["reference"]["ascat_acloci_gc"]
+	output:
+		OUTDIR + "/reference/" + config["reference"]["fasta"],
+		OUTDIR + "/reference/" + config["reference"]["dbsnp"],
+		OUTDIR + "/reference/" + config["reference"]["known_indels"],
+		OUTDIR + "/reference/" + config["reference"]["gnomAD"],
+		OUTDIR + "/reference/" + config["reference"]["pon"],
+		OUTDIR + "/reference/" + config["reference"]["exac_common"],
+		OUTDIR + "/reference/" + config["reference"]["ascat_acloci"],
+		OUTDIR + "/reference/" + config["reference"]["ascat_acloci_gc"]
+	threads: 1
+	params:
+		original_ref_dir = config["reference"]["directory"],
+		target_ref_dir = OUTDIR + "/reference/"
+	shell:
+		"""
+		ln -s {params.original_ref_dir}* {params.target_ref_dir}
+		"""
 
 ##SET NUMBERS FROM 0000 to 0099
 NUMBERS = [str(a)+str(b)+str(c)+str(d) for a in range(0,1) for b in range(0,1) for c in range(0,10) for d in range(0,10)]
@@ -176,6 +173,10 @@ rule generate_intervals:
 		--scatter-count 100 \
 		-O {OUTDIR}/pipeline_info/intervals
 		"""
+
+
+###Align
+include: "snakemake_scripts/wgs_align.snk"
 
 ###Markdup recal
 include: "snakemake_scripts/wgs_markdup_recal.snk"

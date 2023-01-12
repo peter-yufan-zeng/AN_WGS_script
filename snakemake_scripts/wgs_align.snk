@@ -18,7 +18,7 @@ rule fastqc:
 		o4 = OUTDIR + "/QC/{sample_lane}/{sample_lane}_R2_fastqc.zip"
 	threads: 4
 	resources:
-		time = "4h",
+		time = "6h",
 		mem_mb = 8500
 	container:
 		config["singularity"]["fastqc"]
@@ -65,15 +65,15 @@ rule sort_sam_to_bam:
 		sam = OUTDIR +"/orphan/{sample_lane}/{sample_lane}.bwa.sam"
 	output:
 		bam = temp(OUTDIR +"/orphan/{sample_lane}/{sample_lane}.bwa.bam")
-	threads: 2
+	threads: 8
 	resources:
 		time = "12h",
-		mem_mb = 8000
+		mem_mb = 28000
 	container:
 		config["singularity"]["samtools"]
 	params:
 		temp = OUTDIR +"/orphan/{sample_lane}/"
 	shell:
 		"""
-		samtools sort -T {params.temp} --threads {threads} -m 2G {input.sam} > {output}
+		samtools sort -T {params.temp} --threads {threads} -m 3G {input.sam} > {output}
 		"""

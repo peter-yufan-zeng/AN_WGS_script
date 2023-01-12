@@ -46,9 +46,9 @@ rule bwa_mem:
 		#fastq2= INPUT[INPUT.Sample_Lane == {sample_lane}].Fastq2
 	output:
 		temp(OUTDIR +"/orphan/{sample_lane}/{sample_lane}.bwa.sam")
-	threads: 24
+	threads: 32
 	resources:
-		time = 16*60,
+		time = 24*60,
 		mem_mb = 32000
 	container:
 		config["singularity"]["bwa"]
@@ -68,7 +68,7 @@ rule sort_sam_to_bam:
 	threads: 8
 	resources:
 		time = 16*60,
-		mem_mb = 25000
+		mem_mb = 28000
 	container:
 		config["singularity"]["samtools"]
 	group: "sort_sam_to_bam"

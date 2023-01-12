@@ -72,7 +72,7 @@ rule ascat:
 		mem_mb = 8500
 	container:
 		config["singularity"]["ascat"]
-	group = "ascat"
+	group: "ascat"
 	shell:
 		"""
 		for f in {OUTDIR}/results/ASCAT/{wildcards.tumor}_vs_{wildcards.patient}-N/*BAF \

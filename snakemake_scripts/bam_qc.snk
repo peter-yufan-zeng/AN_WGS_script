@@ -13,6 +13,7 @@ rule samtools_stats:
 		mem_mb = 8000
 	container:
 		config["singularity"]["samtools"]
+	group: "qc_samtools_stats"
 	shell:
 		"""
 		samtools stats {input.bam} > {output}
@@ -28,11 +29,11 @@ rule bamqc:
 	resources:
 		time = 8*60,
 		mem_mb = 8000
+	group: "qc_bamqc"
+	container:
+		config["singularity"]["qualimap"]
 	shell:
 		"""
-		export MUGQIC_INSTALL_HOME=/cvmfs/soft.mugqic/CentOS6
-		module use $MUGQIC_INSTALL_HOME/modulefiles
-		module add mugqic/qualimap/2.2.1
 		qualimap --java-mem-size=8G \
 		bamqc \
 		-bam {input.bam} \

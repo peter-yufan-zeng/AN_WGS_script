@@ -10,10 +10,11 @@ rule alleleCount:
 	output: OUTDIR + "/results/ASCAT/alleleCount/{sample}.alleleCount"
 	threads: 2
 	resources:
-		time = 20*60,
+		time = 16*60,
 		mem_mb = 8500
 	container:
 		config["singularity"]["ascat"]
+	group:"allelecount"
 	shell:
 		"""
 		alleleCounter \
@@ -40,10 +41,11 @@ rule ConvertAlleleCounts:
 	threads: 2
 	params: gender = getGender
 	resources:
-		time = 8*60,
+		time = 4*60,
 		mem_mb = 8500
 	container:
 		config["singularity"]["ascat"]
+	group:"allelecount"
 	shell:
 		"""
 		cd {OUTDIR}/results/ASCAT/{wildcards.tumor}_vs_{wildcards.patient}-N
@@ -70,7 +72,7 @@ rule ascat:
 		mem_mb = 8500
 	container:
 		config["singularity"]["ascat"]
-	group: "ASCAT"
+	group = "ascat"
 	shell:
 		"""
 		for f in {OUTDIR}/results/ASCAT/{wildcards.tumor}_vs_{wildcards.patient}-N/*BAF \

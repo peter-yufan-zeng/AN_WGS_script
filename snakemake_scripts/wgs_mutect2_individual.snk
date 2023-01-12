@@ -20,6 +20,7 @@ rule mutect2:
 		mem_mb = 8500
 	container:
 		config["singularity"]["gatk"]
+	group: "mutect_single_variant_call"
 	shell:
 		"""
 		gatk --java-options "-Xmx8g" Mutect2 \
@@ -94,7 +95,6 @@ rule gatk_LearnOrientationModel:
 	group: "mutect2_post_call"
 	params:
 		input_list = lambda wildcards, input: ' --stats '.join(input.vcf)
-	group: "mutect2_all_post_call"
 	shell:
 		"""
 		gatk LearnReadOrientationModel {params.input_list} -O {output}"

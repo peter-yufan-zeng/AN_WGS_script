@@ -27,7 +27,7 @@ singularity:
   snpeff: $NXF_SINGULARITY_CACHEDIR/nfcore-snpeff-5.1.GRCh38.img
 
 reference:
-  directory: "/scratch/pez/gdc_reference/"
+  directory: "/scratch/n/nicholsa/zyfniu/gdc_reference/"
   fasta: "GRCh38.d1.vd1.fa" ### downloaded from GDC
   dbsnp: "dbsnp_146.hg38.vcf.gz"
   known_indels: "Mills_and_1000G_gold_standard.indels.hg38.vcf.gz"

@@ -9,14 +9,14 @@ rule merge_bam_mapped_and_index:
 		temp(OUTDIR +"/orphan/{sample}/{sample}.merged.bam")
 	threads: 4
 	resources:
-		time = 12*60,
-		mem_mb = 10000
+		time = 8*60,
+		mem_mb = 16800
 	container:
 		config["singularity"]["samtools"]
+	group: "merge_bam_mapped_and_index"
 	shell:
 		"""
-		samtools merge --threads {threads} -m 2G - {input} > {output}
-		samtools index -@ {threads} -m 2G {output}
+		samtools merge --write-index --threads {threads} {output} {input}
 		"""
 rule markdup:
 	input:
@@ -30,6 +30,7 @@ rule markdup:
 		mem_mb = 30000
 	container:
 		config["singularity"]["gatk"]
+	group: "markdup"
 	shell:
 		"""
 		gatk --java-options "-Xmx28G" \
@@ -131,10 +132,11 @@ rule Merge_Recal_Bam:
 	output:
 		bam = OUTDIR +"/Recal/{sample}.recal.bam",
 		index = OUTDIR +"/Recal/{sample}.recal.bai"
-	threads: 2
+	threads: 4
 	resources:
 		time = 12*60,
-		mem_mb = 8000
+		mem_mb = 16000
+	group: "Merge_Recal_Bam"
 	container:
 		config["singularity"]["samtools"]
 	shell:

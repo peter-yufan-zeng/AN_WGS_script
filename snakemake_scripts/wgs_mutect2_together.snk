@@ -28,6 +28,7 @@ rule mutect2_all_tumours:
 		config["singularity"]["gatk"]
 	params:
 		input_list = lambda wildcards, input: ' -I '.join(input.tumors)
+	group: "mutect_together_variant_call"
 	shell:
 		"""
 		gatk --java-options \"-Xmx8g\" Mutect2 -R {input.ref_fasta} \

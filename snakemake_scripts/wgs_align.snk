@@ -22,6 +22,7 @@ rule fastqc:
 		mem_mb = 8500
 	container:
 		config["singularity"]["fastqc"]
+	group: "fastqc"
 	shell:
 		"""
 		fastqc -t {threads} {input} --outdir={OUTDIR}/QC/{wildcards.sample_lane}/
@@ -66,10 +67,11 @@ rule sort_sam_to_bam:
 		bam = temp(OUTDIR +"/orphan/{sample_lane}/{sample_lane}.bwa.bam")
 	threads: 8
 	resources:
-		time = 12*60,
-		mem_mb = 28000
+		time = 16*60,
+		mem_mb = 25000
 	container:
 		config["singularity"]["samtools"]
+	group: "sort_sam_to_bam"
 	params:
 		temp = OUTDIR +"/orphan/{sample_lane}/"
 	shell:

@@ -55,14 +55,14 @@ for x in Multi['Patient'].drop_duplicates():
 	COMBINED_mutect_samples = COMBINED_mutect_samples[:-1]
 	Multi.loc[(Multi.Patient == x),'Combined']= COMBINED_mutect_samples
 
-Multi['path'] = OUTDIR + "/results/mutect2/all_"  + Multi.Combined + "_vs_" + Multi.Patient + "-N/" \
+Multi['path'] = OUTDIR + "/results/mutect2_multi/"  + Multi.Combined + "_vs_" + Multi.Patient + "-N/" \
 + Multi.Combined + "_vs_" + Multi.Patient + "-N_snpEff.ann.vcf.gz"
+if config['run_phylowgs'] is not None:
+	Multi['phylowgs_path'] = OUTDIR + "/results/phyloWGS/" + Multi.Combined + "_vs_" + Multi.Patient + "-N/trees.zip"
+	Multi['phylowgs_tree_json_path'] = OUTDIR + "/results/phyloWGS/" + Multi.Combined + "_vs_" + Multi.Patient + "-N/tree_likelihoods.txt"
+	phylowgs_output_list = 	Multi.phylowgs_path.drop_duplicates().tolist(),
+	phylowgs_tree_output_list = Multi.phylowgs_tree_json_path.drop_duplicates().tolist()
 Multi = Multi[Multi.num_tumours > 1]
-#Multi = Multi[['Patient','Combined',"path"]].drop_duplicates()
-
-
-
-
 
 
 ###
@@ -74,9 +74,10 @@ REF_known_indels = config["reference"]["directory"] + config["reference"]["known
 REF_gnomAD = config["reference"]["directory"] + config["reference"]["gnomAD"]
 REF_pon = config["reference"]["directory"] + config["reference"]["pon"]
 REF_exac_common = config["reference"]["directory"] + config["reference"]["exac_common"]
-CHROMOSOMES = ['chr1', 'chr2', 'chr3', 'chr4', 'chr5', 'chr6', 'chr7', 'chr8', 'chr9', 'chr10',
-			   'chr11', 'chr12', 'chr13', 'chr14', 'chr15', 'chr16', 'chr17', 'chr18', 'chr19',
-			   'chr20', 'chr21', 'chr22', 'chrX', 'chrY']
+### Some settings for TITAN
+CLUST = {1:[1], 2:[1,2], 3:[1,2,3], 4:[1,2,3,4], 5:[1,2,3,4,5], 6:[1,2,3,4,5,6], 7:[1,2,3,4,5,6,7], 8:[1,2,3,4,5,6,7,8], 9:[1,2,3,4,5,6,7,8,9], 10:[1,2,3,4,5,6,7,8,9,10]}
+PLOIDY = {2:[2], 3:[2,3], 4:[2,3,4]}
+CHRS = ['chr1','chr2','chr3','chr4','chr5','chr6','chr7','chr8','chr9','chr10','chr11','chr12','chr13','chr14','chr15','chr16','chr17','chr18','chr19','chr20','chr21','chr22','chrX']
 
 ###
 ### Final Results
@@ -101,6 +102,20 @@ rule all:
 		expand(OUTDIR + "/results/Manta/{tumor}_vs_{patient}-N/Manta_snpeff_{tumor}_vs_{patient}-N.candidateSmallIndels.ann.vcf.gz",zip, patient = [x.rsplit('-',1)[0] for x in TUMOR],tumor = TUMOR),
 		expand(OUTDIR + "/results/Manta/{tumor}_vs_{patient}-N/Manta_snpeff_{tumor}_vs_{patient}-N.diploidSV.ann.vcf.gz",zip, patient = [x.rsplit('-',1)[0] for x in TUMOR],tumor = TUMOR),
 		expand(OUTDIR + "/results/Manta/{tumor}_vs_{patient}-N/Manta_snpeff_{tumor}_vs_{patient}-N.somaticSV.ann.vcf.gz",zip, patient = [x.rsplit('-',1)[0] for x in TUMOR],tumor = TUMOR),
+		###TitanCNA
+		#expand(OUTDIR + "/filtered/{samples}.filtered.bam", samples=SAMPLE),
+		#expand(OUTDIR + "/results/titan/hetPosns/{tumor}/{tumor}.{chr}.vcf",tumor = TUMOR,chr=CHRS),
+		#expand(OUTDIR + "/results/titan/tumCounts/{tumor}/{tumor}.tumCounts.{chr}.txt",tumor = TUMOR,chr=CHRS),
+		#expand(OUTDIR + "/results/readDepth/{samples}.bin{binSize}.wig",samples=SAMPLE,binSize=str(config["binSize"])),
+		#expand(OUTDIR + "/results/titan/hmm/titanCNA_ploidy{ploidy}/{tumor}_vs_{patient}-N_cluster{clustNum}.titan.txt",patient = [x.rsplit('-',1)[0] for x in TUMOR],tumor = TUMOR,clustNum=CLUST[config["TitanCNA_maxNumClonalClusters"]], ploidy=PLOIDY[config["TitanCNA_maxPloidy"]]),
+		#expand(OUTDIR + "/results/titan/hmm/titanCNA_ploidy{ploidy}/{tumor}_vs_{patient}-N_cluster{clustNum}.params.txt",patient = [x.rsplit('-',1)[0] for x in TUMOR],tumor = TUMOR,clustNum=CLUST[config["TitanCNA_maxNumClonalClusters"]], ploidy=PLOIDY[config["TitanCNA_maxPloidy"]]),
+		#expand(OUTDIR + "/results/titan/hmm/titanCNA_ploidy{ploidy}/{tumor}_vs_{patient}-N_cluster{clustNum}.segs.txt",patient = [x.rsplit('-',1)[0] for x in TUMOR],tumor = TUMOR,clustNum=CLUST[config["TitanCNA_maxNumClonalClusters"]], ploidy=PLOIDY[config["TitanCNA_maxPloidy"]]),
+		#expand(OUTDIR + "/results/titan/hmm/titanCNA_ploidy{ploidy}/{tumor}_vs_{patient}-N_cluster{clustNum}.seg",patient = [x.rsplit('-',1)[0] for x in TUMOR],tumor = TUMOR,clustNum=CLUST[config["TitanCNA_maxNumClonalClusters"]], ploidy=PLOIDY[config["TitanCNA_maxPloidy"]]),
+		#expand(OUTDIR + "/results/titan/hmm/{tumor}_vs_{patient}-N_optimalClusterSolution.txt",patient = [x.rsplit('-',1)[0] for x in TUMOR],tumor = TUMOR),
+		#expand(OUTDIR+ "/results/titan/hmm/optimalClusterSolution/{tumor}_vs_{patient}-N/",patient = [x.rsplit('-',1)[0] for x in TUMOR],tumor = TUMOR),
+		### phylowgs output
+		phylowgs_output_list,
+		phylowgs_tree_output_list, 
 		#### ASCAT
 		expand(OUTDIR + "/results/ASCAT/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N.tumor.cnvs.txt",zip, tumor = TUMOR, patient = [x.rsplit('-',1)[0] for x in TUMOR])
 		#### QC

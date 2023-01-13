@@ -293,14 +293,30 @@ rule zip_snpeff:
 		"""
 		bgzip < {input} > {output}
 		tabix {output}
-		rm /scratch/n/nicholsa/zyfniu/AN_WGS/results/mutect2/{wildcards.tumor}_vs_{wildcards.patient}-N/*.idx -rf
-		rm /scratch/n/nicholsa/zyfniu/AN_WGS/results/mutect2/{wildcards.tumor}_vs_{wildcards.patient}-N/*.filteringStats.tsv -rf
 		"""
 
 rule filter_mutect2_passOnly:
 	input:
 		annotatedvcf = OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N_snpEff.ann.vcf.gz"
-	output: annotatedvcf = OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N_snpEff.ann.passOnly.vcf.gz"
+	output:
+		annotatedvcf = temp(OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N_snpEff.ann.passOnly.vcf")
+	threads: 1
+	resources:
+		time = 30,
+		mem_mb = 4500
+	group: "mutect2_post_call"
+	container:
+		config["singularity"]["bcftools"]
+	shell:
+		"""
+		bcftools view -f "PASS" {input}
+		"""
+
+rule zip_snpeff:
+	input:
+		annotatedvcf = OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N_snpEff.ann.passOnly.vcf"
+	output:
+		annotatedvcf = OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N_snpEff.ann.passOnly.vcf.gz"
 	threads: 1
 	resources:
 		time = 30,
@@ -310,6 +326,6 @@ rule filter_mutect2_passOnly:
 		config["singularity"]["tabix"]
 	shell:
 		"""
-		bcftools view -f "PASS" {input} | bgzip > {output}
-		tabix -p vcf {output}
+		bgzip < {input} > {output}
+		tabix {output}
 		"""

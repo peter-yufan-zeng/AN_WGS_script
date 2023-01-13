@@ -16,10 +16,10 @@ rule mutect2_all_tumours:
 		ref_pon = OUTDIR + "/reference/" + config["reference"]["pon"],
 		tumors = get_bams_to_call
 	output:
-		vcf = temp(OUTDIR + "/results/mutect2/all_{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N.{num}.vcf"),
-		stats = temp(OUTDIR + "/results/mutect2/all_{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N.{num}.vcf.stats"),
-		f12 = temp(OUTDIR + "/results/mutect2/all_{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N_f12.{num}.tar.gz"),
-		index =  temp(OUTDIR + "/results/mutect2/all_{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N.{num}.vcf.idx")
+		vcf = temp(OUTDIR + "/results/mutect2_multi/{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N.{num}.vcf"),
+		stats = temp(OUTDIR + "/results/mutect2_multi/{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N.{num}.vcf.stats"),
+		f12 = temp(OUTDIR + "/results/mutect2_multi/{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N_f12.{num}.tar.gz"),
+		index =  temp(OUTDIR + "/results/mutect2_multi/{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N.{num}.vcf.idx")
 	threads: 2
 	resources:
 		time = 12*60,
@@ -42,13 +42,13 @@ rule mutect2_all_tumours:
 		"""
 
 def concat_vcf_all_tumour(wildcards):
-	return expand(OUTDIR + "/results/mutect2/all_" + wildcards.tumor + "_vs_" + wildcards.patient + "-N" + "/unfiltered_" + wildcards.tumor + "_vs_" + wildcards.patient + "-N.{num}.vcf", num = NUMBERS)
+	return expand(OUTDIR + "/results/mutect2_multi/" + wildcards.tumor + "_vs_" + wildcards.patient + "-N" + "/unfiltered_" + wildcards.tumor + "_vs_" + wildcards.patient + "-N.{num}.vcf", num = NUMBERS)
 
 rule merge_mutect2_vcf_all_tumour:
 	input:
 		concat_vcf_all_tumour
 	output:
-		temp(OUTDIR + "/results/mutect2/all_{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N.vcf")
+		temp(OUTDIR + "/results/mutect2_multi/{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N.vcf")
 	threads: 1
 	resources:
 		time = 30,
@@ -62,13 +62,13 @@ rule merge_mutect2_vcf_all_tumour:
 		"""
 
 def concat_vcf_stats_all_tumour(wildcards):
-	return expand(OUTDIR + "/results/mutect2/all_" + wildcards.tumor + "_vs_" + wildcards.patient + "-N" + "/unfiltered_" + wildcards.tumor + "_vs_" + wildcards.patient + "-N.{num}.vcf.stats", num = NUMBERS)
+	return expand(OUTDIR + "/results/mutect2_multi/" + wildcards.tumor + "_vs_" + wildcards.patient + "-N" + "/unfiltered_" + wildcards.tumor + "_vs_" + wildcards.patient + "-N.{num}.vcf.stats", num = NUMBERS)
 
 rule merge_stats_all_tumour:
 	input:
 		stats = concat_vcf_stats_all_tumour
 	output:
-		temp(OUTDIR + "/results/mutect2/all_{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N_merged.stats")
+		temp(OUTDIR + "/results/mutect2_multi/{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N_merged.stats")
 	threads: 2
 	resources:
 		time = 30,
@@ -84,13 +84,13 @@ rule merge_stats_all_tumour:
 		"""
 
 def concat_vcf_f12_all_tumour(wildcards):
-	return expand(OUTDIR + "/results/mutect2/all_" + wildcards.tumor + "_vs_" + wildcards.patient + "-N" + "/unfiltered_" + wildcards.tumor + "_vs_" + wildcards.patient + "-N_f12.{num}.tar.gz", num = NUMBERS)
+	return expand(OUTDIR + "/results/mutect2_multi/" + wildcards.tumor + "_vs_" + wildcards.patient + "-N" + "/unfiltered_" + wildcards.tumor + "_vs_" + wildcards.patient + "-N_f12.{num}.tar.gz", num = NUMBERS)
 
 rule gatk_LearnOrientationModel_all_tumour:
 	input:
 		vcf = concat_vcf_f12_all_tumour
 	output:
-		model = OUTDIR + "/results/mutect2/all_{tumor}_vs_{patient}-N/unfiltered_{tumor}_read_orientation_model.tar.gz"
+		model = OUTDIR + "/results/mutect2_multi/{tumor}_vs_{patient}-N/unfiltered_{tumor}_read_orientation_model.tar.gz"
 	threads: 2
 	resources:
 		time = 30,
@@ -108,9 +108,9 @@ rule gatk_LearnOrientationModel_all_tumour:
 
 rule index_unfiltered_vcf_all_tumour:
 	input:
-		vcf = OUTDIR + "/results/mutect2/all_{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N.vcf",
+		vcf = OUTDIR + "/results/mutect2_multi/{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N.vcf",
 	output:
-		vcf_tbi = OUTDIR + "/results/mutect2/all_{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N.vcf.idx"
+		vcf_tbi = OUTDIR + "/results/mutect2_multi/{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N.vcf.idx"
 	threads: 2
 	resources:
 		time = 30,
@@ -127,16 +127,16 @@ rule index_unfiltered_vcf_all_tumour:
 
 rule gatk_filterMutect_all_tumour:
 	input:
-		vcf_tbi = OUTDIR + "/results/mutect2/all_{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N.vcf.idx",
-		vcf = OUTDIR + "/results/mutect2/all_{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N.vcf",
-		model = OUTDIR + "/results/mutect2/all_{tumor}_vs_{patient}-N/unfiltered_{tumor}_read_orientation_model.tar.gz",
-		stats = OUTDIR + "/results/mutect2/all_{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N_merged.stats",
+		vcf_tbi = OUTDIR + "/results/mutect2_multi/{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N.vcf.idx",
+		vcf = OUTDIR + "/results/mutect2_multi/{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N.vcf",
+		model = OUTDIR + "/results/mutect2_multi/{tumor}_vs_{patient}-N/unfiltered_{tumor}_read_orientation_model.tar.gz",
+		stats = OUTDIR + "/results/mutect2_multi/{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N_merged.stats",
 		interval = OUTDIR + "/pipeline_info/intervals/{num}-scattered.interval_list",
 		ref_fasta = OUTDIR + "/reference/" + config["reference"]["fasta"]
 	output:
-		filter_vcf = temp(OUTDIR + "/results/mutect2/all_{tumor}_vs_{patient}-N/filtered_{tumor}_vs_{patient}-N.{num}.vcf"),
-		filter_vcf_index = temp(OUTDIR + "/results/mutect2/all_{tumor}_vs_{patient}-N/filtered_{tumor}_vs_{patient}-N.{num}.vcf.idx"),
-		filter_vcf_stats = temp(OUTDIR + "/results/mutect2/all_{tumor}_vs_{patient}-N/filtered_{tumor}_vs_{patient}-N.{num}.vcf.filteringStats.tsv")
+		filter_vcf = temp(OUTDIR + "/results/mutect2_multi/{tumor}_vs_{patient}-N/filtered_{tumor}_vs_{patient}-N.{num}.vcf"),
+		filter_vcf_index = temp(OUTDIR + "/results/mutect2_multi/{tumor}_vs_{patient}-N/filtered_{tumor}_vs_{patient}-N.{num}.vcf.idx"),
+		filter_vcf_stats = temp(OUTDIR + "/results/mutect2_multi/{tumor}_vs_{patient}-N/filtered_{tumor}_vs_{patient}-N.{num}.vcf.filteringStats.tsv")
 	threads: 2
 	resources:
 		time = 30,
@@ -156,13 +156,13 @@ rule gatk_filterMutect_all_tumour:
 		"""
 
 def concat_vcf_filtered_all_tumour(wildcards):
-	return	expand(OUTDIR + "/results/mutect2/all_" + wildcards.tumor + "_vs_" + wildcards.patient + "-N" + "/filtered_" + wildcards.tumor + "_vs_" + wildcards.patient + "-N.{num}.vcf", num = NUMBERS)
+	return	expand(OUTDIR + "/results/mutect2_multi/" + wildcards.tumor + "_vs_" + wildcards.patient + "-N" + "/filtered_" + wildcards.tumor + "_vs_" + wildcards.patient + "-N.{num}.vcf", num = NUMBERS)
 
 rule merge_mutect2_vcf_filtered_all_tumour:
 	input:
 		concat_vcf_filtered_all_tumour
 	output:
-		temp(OUTDIR + "/results/mutect2/all_{tumor}_vs_{patient}-N/filtered_{tumor}_vs_{patient}-N.vcf")
+		temp(OUTDIR + "/results/mutect2_multi/{tumor}_vs_{patient}-N/filtered_{tumor}_vs_{patient}-N.vcf")
 	threads: 2
 	resources:
 		time = 30,
@@ -176,9 +176,9 @@ rule merge_mutect2_vcf_filtered_all_tumour:
 
 rule index_filtered_vcf_all_tumour:
 	input:
-		vcf = OUTDIR + "/results/mutect2/all_{tumor}_vs_{patient}-N/filtered_{tumor}_vs_{patient}-N.vcf"
+		vcf = OUTDIR + "/results/mutect2_multi/{tumor}_vs_{patient}-N/filtered_{tumor}_vs_{patient}-N.vcf"
 	output:
-		vcf_tbi = OUTDIR + "/results/mutect2/all_{tumor}_vs_{patient}-N/filtered_{tumor}_vs_{patient}-N.vcf.idx"
+		vcf_tbi = OUTDIR + "/results/mutect2_multi/{tumor}_vs_{patient}-N/filtered_{tumor}_vs_{patient}-N.vcf.idx"
 	threads: 2
 	resources:
 		time = 60,
@@ -196,9 +196,9 @@ rule index_filtered_vcf_all_tumour:
 
 rule annotate_mutect2_all_tumour:
 	input:
-		vcf = OUTDIR + "/results/mutect2/all_{tumor}_vs_{patient}-N/filtered_{tumor}_vs_{patient}-N.vcf"
+		vcf = OUTDIR + "/results/mutect2_multi/{tumor}_vs_{patient}-N/filtered_{tumor}_vs_{patient}-N.vcf"
 	output:
-		annotatedvcf = temp(OUTDIR + "/results/mutect2/all_{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N_snpEff.ann.vcf")
+		annotatedvcf = temp(OUTDIR + "/results/mutect2_multi/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N_snpEff.ann.vcf")
 	threads: 2
 	resources:
 		time = 60,
@@ -208,7 +208,7 @@ rule annotate_mutect2_all_tumour:
 	group: "mutect2_all_post_call"
 	shell:
 		"""
-		cd {OUTDIR}/results/mutect2/all_{wildcards.tumor}_vs_{wildcards.patient}-N
+		cd {OUTDIR}/results/mutect2_multi/{wildcards.tumor}_vs_{wildcards.patient}-N
 		snpEff -Xmx8g \
 		GRCh38.105 \
 		-csvStats {wildcards.tumor}_snpEff.csv \
@@ -220,8 +220,8 @@ rule annotate_mutect2_all_tumour:
 
 rule zip_snpeff_all_tumour:
 	input:
-		annotatedvcf = OUTDIR + "/results/mutect2/all_{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N_snpEff.ann.vcf"
-	output: annotatedvcf = OUTDIR + "/results/mutect2/all_{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N_snpEff.ann.vcf.gz"
+		annotatedvcf = OUTDIR + "/results/mutect2_multi/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N_snpEff.ann.vcf"
+	output: annotatedvcf = OUTDIR + "/results/mutect2_multi/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N_snpEff.ann.vcf.gz"
 	threads: 2
 	resources:
 		time = 60,
@@ -233,14 +233,14 @@ rule zip_snpeff_all_tumour:
 		"""
 		bgzip < {input} > {output}
 		tabix {output}
-		rm /scratch/n/nicholsa/zyfniu/AN_WGS/results/mutect2/all_{wildcards.tumor}_vs_{wildcards.patient}-N/*.idx -rf
-		rm /scratch/n/nicholsa/zyfniu/AN_WGS/results/mutect2/all_{wildcards.tumor}_vs_{wildcards.patient}-N/*.filteringStats.tsv -rf
+		rm /scratch/n/nicholsa/zyfniu/AN_WGS/results/mutect2_multi/{wildcards.tumor}_vs_{wildcards.patient}-N/*.idx -rf
+		rm /scratch/n/nicholsa/zyfniu/AN_WGS/results/mutect2_multi/{wildcards.tumor}_vs_{wildcards.patient}-N/*.filteringStats.tsv -rf
 		"""
 
 rule filter_mutect2_passOnly_all_tumour:
 	input:
-		annotatedvcf = OUTDIR + "/results/mutect2/all_{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N_snpEff.ann.vcf.gz"
-	output: annotatedvcf = OUTDIR + "/results/mutect2/all_{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N_snpEff.ann.passOnly.vcf.gz"
+		annotatedvcf = OUTDIR + "/results/mutect2_multi/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N_snpEff.ann.vcf.gz"
+	output: annotatedvcf = OUTDIR + "/results/mutect2_multi/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N_snpEff.ann.passOnly.vcf.gz"
 	threads: 2
 	resources:
 		time = 30,
@@ -252,4 +252,40 @@ rule filter_mutect2_passOnly_all_tumour:
 		"""
 		bcftools view -f "PASS" {input} | bgzip > {output}
 		tabix -p vcf {output}
+		"""
+
+
+rule filter_mutect2_passOnly:
+	input:
+		annotatedvcf = OUTDIR + "/results/mutect2_multi/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N_snpEff.ann.vcf.gz"
+	output:
+		annotatedvcf = temp(OUTDIR + "/results/mutect2_multi/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N_snpEff.ann.passOnly.vcf")
+	threads: 1
+	resources:
+		time = 30,
+		mem_mb = 4500
+	group: "mutect2_post_call"
+	container:
+		config["singularity"]["bcftools"]
+	shell:
+		"""
+		bcftools view -f "PASS" {input}
+		"""
+
+rule zip_snpeff:
+	input:
+		annotatedvcf = OUTDIR + "/results/mutect2_multi/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N_snpEff.ann.passOnly.vcf"
+	output:
+		annotatedvcf = OUTDIR + "/results/mutect2_multi/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N_snpEff.ann.passOnly.vcf.gz"
+	threads: 1
+	resources:
+		time = 30,
+		mem_mb = 4500
+	group: "mutect2_post_call"
+	container:
+		config["singularity"]["tabix"]
+	shell:
+		"""
+		bgzip < {input} > {output}
+		tabix {output}
 		"""

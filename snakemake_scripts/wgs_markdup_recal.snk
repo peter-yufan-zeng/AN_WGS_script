@@ -9,7 +9,7 @@ rule merge_bam_mapped_and_index:
 		temp(OUTDIR +"/orphan/{sample}/{sample}.merged.bam")
 	threads: 4
 	resources:
-		time = 8*60,
+		time = 6*60,
 		mem_mb = 16800
 	container:
 		config["singularity"]["samtools"]

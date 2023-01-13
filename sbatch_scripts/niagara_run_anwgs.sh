@@ -5,6 +5,7 @@
 
 snakemake  --profile nichols_niagara \
  -s AN_WGS_script/run_wgs.snk \
+ --configfile AN_WGS_script/niagara_config.yaml \
  --config input=$SCRATCH/20221219_gillison/20230112.csv outdir=$SCRATCH/20221219_gillison \
  --singularity-args " -B /scratch/n/nicholsa/zyfniu,/scratch/n/nicholsa/zyfniu/gdc_reference,/scratch/n/nicholsa/zyfniu/20221219_gillison/reference " \
  --groups \
@@ -25,4 +26,5 @@ snakemake  --profile nichols_niagara \
  manta_call=8 manta_annotate=2 \
  --max-threads 80 \
  --resources mem_mb=160000 time=1440 threads=80 \
+ --rerun-triggers input \
  --ri

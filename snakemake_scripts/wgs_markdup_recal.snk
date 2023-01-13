@@ -13,7 +13,6 @@ rule merge_bam_mapped_and_index:
 		mem_mb = 16800
 	container:
 		config["singularity"]["samtools"]
-	group: "merge_bam_mapped_and_index"
 	shell:
 		"""
 		samtools merge --write-index --threads {threads} {output} {input}
@@ -26,11 +25,10 @@ rule markdup:
 		metric = OUTDIR +"/orphan/{sample}.bam.metric"
 	threads: 6
 	resources:
-		time = 18*60,
+		time = 24*60,
 		mem_mb = 30000
 	container:
 		config["singularity"]["gatk"]
-	group: "markdup"
 	shell:
 		"""
 		gatk --java-options "-Xmx28G" \
@@ -54,11 +52,10 @@ rule recalibrator:
 		temp(OUTDIR +"/orphan/{sample}/Recal/{sample}.{num}.recal.table")
 	threads: 2
 	resources:
-		time = 60,
+		time = 4*60,
 		mem_mb = 4500
 	container:
 		config["singularity"]["gatk"]
-	group: "recalibrator"
 	shell:
 		"""
 		gatk --java-options "-Xmx4g" \
@@ -87,7 +84,6 @@ rule gather_recal_tbl:
 		mem_mb = 4500
 	container:
 		config["singularity"]["gatk"]
-	group: "recalibrator"
 	params:
 		input_list = lambda wildcards, input: ' -I '.join(input.recal_tbl)
 	shell:
@@ -105,10 +101,9 @@ rule ApplyBQSR:
 		interval = OUTDIR + "/pipeline_info/intervals/{num}-scattered.interval_list"
 	output:
 		temp(OUTDIR + "/orphan/{sample}/Recal/{sample}.recal.{num}.bam")
-	group: "recalibrator"
 	threads: 1
 	resources:
-		time = 4*60,
+		time = 6*60,
 		mem_mb = 4500
 	container:
 		config["singularity"]["gatk"]
@@ -136,7 +131,6 @@ rule Merge_Recal_Bam:
 	resources:
 		time = 12*60,
 		mem_mb = 16000
-	group: "Merge_Recal_Bam"
 	container:
 		config["singularity"]["samtools"]
 	shell:

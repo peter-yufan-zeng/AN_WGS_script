@@ -162,7 +162,7 @@ rule generate_intervals:
 		expand(OUTDIR + "/pipeline_info/intervals/{num}-scattered.interval_list", num = NUMBERS)
 	threads: 1
 	resources:
-		time = "1h",
+		time = 60,
 		mem_mb = 2500
 	container:
 		config["singularity"]["gatk"]

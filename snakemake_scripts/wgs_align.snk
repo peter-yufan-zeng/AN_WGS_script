@@ -71,7 +71,6 @@ rule sort_sam_to_bam:
 		mem_mb = 28000
 	container:
 		config["singularity"]["samtools"]
-	group: "sort_sam_to_bam"
 	params:
 		temp = OUTDIR +"/orphan/{sample_lane}/"
 	shell:

@@ -25,15 +25,16 @@ rule markdup:
 		metric = OUTDIR +"/orphan/{sample}.bam.metric"
 	threads: 6
 	resources:
-		time = 24*60,
-		mem_mb = 30000
+		time = 18*60,
+		mem_mb = 40000
 	container:
 		config["singularity"]["gatk"]
 	shell:
 		"""
-		gatk --java-options "-Xmx28G" \
+		gatk --java-options " -Xms20G -Xmx28G " \
 		MarkDuplicates \
-		--MAX_RECORDS_IN_RAM 50000 \
+		--MAX_RECORDS_IN_RAM 500000 \
+		--TMP_DIR {OUTDIR}/orphan/{wildcards.sample} \
 		--INPUT {input} \
 		--METRICS_FILE {output.metric} \
 		--ASSUME_SORT_ORDER coordinate \
@@ -53,7 +54,7 @@ rule recalibrator:
 	threads: 2
 	resources:
 		time = 4*60,
-		mem_mb = 4500
+		mem_mb = 8000
 	container:
 		config["singularity"]["gatk"]
 	shell:

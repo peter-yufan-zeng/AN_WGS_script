@@ -6,7 +6,7 @@
 snakemake  --profile nichols_niagara \
  -s AN_WGS_script/run_wgs.snk \
  --configfile AN_WGS_script/niagara_config.yaml \
- --config input=$SCRATCH/20221219_gillison/20230112.csv outdir=$SCRATCH/20221219_gillison \
+ --config input=$SCRATCH/20221219_gillison/20230112.csv outdir=$SCRATCH/20221219_gillison run_phylowgs=False \
  --singularity-args " -B /scratch/n/nicholsa/zyfniu,/scratch/n/nicholsa/zyfniu/gdc_reference,/scratch/n/nicholsa/zyfniu/20221219_gillison/reference " \
  --groups \
  sort_sam_to_bam=sort_sam_to_bam \

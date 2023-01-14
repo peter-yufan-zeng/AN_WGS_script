@@ -74,7 +74,7 @@ rule merge_stats:
 		input_list = lambda wildcards, input: ' --stats '.join(input.stats)
 	shell:
 		"""
-		gatk MergeMutectStats {params.input_list} -O {output}
+		gatk MergeMutectStats --stats {params.input_list} -O {output}
 		"""
 
 def concat_vcf_f12(wildcards):
@@ -96,7 +96,7 @@ rule gatk_LearnOrientationModel:
 		input_list = lambda wildcards, input: ' --stats '.join(input.vcf)
 	shell:
 		"""
-		gatk LearnReadOrientationModel {params.input_list} -O {output}"
+		gatk LearnReadOrientationModel --stats {params.input_list} -O {output}"
 		"""
 
 rule gatk_get_pileupsummaries_normal:
@@ -312,7 +312,7 @@ rule filter_mutect2_passOnly:
 		bcftools view -f "PASS" {input}
 		"""
 
-rule zip_snpeff:
+rule zip_snpeff_passOnly:
 	input:
 		annotatedvcf = OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N_snpEff.ann.passOnly.vcf"
 	output:

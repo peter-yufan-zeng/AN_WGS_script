@@ -26,7 +26,7 @@ rule markdup:
 	threads: 6
 	resources:
 		time = 18*60,
-		mem_mb = 40000
+		mem_mb = 60000
 	container:
 		config["singularity"]["gatk"]
 	shell:
@@ -90,7 +90,7 @@ rule gather_recal_tbl:
 	shell:
 		"""
 		gatk --java-options "-Xmx4g" GatherBQSRReports \
-		{params.input_list} \
+		-I {params.input_list} \
 		-O {output}
 		"""
 

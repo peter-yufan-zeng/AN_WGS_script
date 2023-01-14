@@ -57,7 +57,7 @@ for x in Multi['Patient'].drop_duplicates():
 
 Multi['path'] = OUTDIR + "/results/mutect2_multi/"  + Multi.Combined + "_vs_" + Multi.Patient + "-N/" \
 + Multi.Combined + "_vs_" + Multi.Patient + "-N_snpEff.ann.vcf.gz"
-if config['run_phylowgs'] is not None:
+if config['run_phylowgs'] == "True":
 	Multi['phylowgs_path'] = OUTDIR + "/results/phyloWGS/" + Multi.Combined + "_vs_" + Multi.Patient + "-N/trees.zip"
 	Multi['phylowgs_tree_json_path'] = OUTDIR + "/results/phyloWGS/" + Multi.Combined + "_vs_" + Multi.Patient + "-N/tree_likelihoods.txt"
 	phylowgs_output_list = 	Multi.phylowgs_path.drop_duplicates().tolist(),
@@ -114,8 +114,8 @@ rule all:
 		#expand(OUTDIR + "/results/titan/hmm/{tumor}_vs_{patient}-N_optimalClusterSolution.txt",patient = [x.rsplit('-',1)[0] for x in TUMOR],tumor = TUMOR),
 		#expand(OUTDIR+ "/results/titan/hmm/optimalClusterSolution/{tumor}_vs_{patient}-N/",patient = [x.rsplit('-',1)[0] for x in TUMOR],tumor = TUMOR),
 		### phylowgs output
-		phylowgs_output_list,
-		phylowgs_tree_output_list, 
+		#phylowgs_output_list,
+		#phylowgs_tree_output_list,
 		#### ASCAT
 		expand(OUTDIR + "/results/ASCAT/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N.tumor.cnvs.txt",zip, tumor = TUMOR, patient = [x.rsplit('-',1)[0] for x in TUMOR])
 		#### QC

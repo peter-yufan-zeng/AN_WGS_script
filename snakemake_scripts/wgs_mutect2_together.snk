@@ -33,7 +33,7 @@ rule mutect2_all_tumours:
 		gatk --java-options \"-Xmx8g\" Mutect2 -R {input.ref_fasta} \
 		-normal {wildcards.patient}-N \
 		-I {input.normal} \
-		{params.input_list} \
+		-I {params.input_list} \
 		-L {input.interval} \
 		--germline-resource {input.ref_gnomAD} \
 		--panel-of-normals {input.ref_pon} \
@@ -80,7 +80,7 @@ rule merge_stats_all_tumour:
 	group: "mutect2_all_post_call"
 	shell:
 		"""
-		gatk MergeMutectStats {params.input_list} -O {output}
+		gatk MergeMutectStats --stats {params.input_list} -O {output}
 		"""
 
 def concat_vcf_f12_all_tumour(wildcards):
@@ -102,7 +102,7 @@ rule gatk_LearnOrientationModel_all_tumour:
 	group: "mutect2_all_post_call"
 	shell:
 		"""
-		gatk LearnReadOrientationModel {params.input_list} -O {output}"
+		gatk LearnReadOrientationModel --stats {params.input_list} -O {output}"
 		"""
 
 
@@ -255,7 +255,7 @@ rule filter_mutect2_passOnly_all_tumour:
 		"""
 
 
-rule filter_mutect2_passOnly:
+rule filter_mutect2_passOnly_mutect_together:
 	input:
 		annotatedvcf = OUTDIR + "/results/mutect2_multi/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N_snpEff.ann.vcf.gz"
 	output:
@@ -264,7 +264,7 @@ rule filter_mutect2_passOnly:
 	resources:
 		time = 30,
 		mem_mb = 4500
-	group: "mutect2_post_call"
+	group: "mutect2_all_post_call"
 	container:
 		config["singularity"]["bcftools"]
 	shell:
@@ -272,7 +272,7 @@ rule filter_mutect2_passOnly:
 		bcftools view -f "PASS" {input}
 		"""
 
-rule zip_snpeff:
+rule zip_snpeff_mutect_together:
 	input:
 		annotatedvcf = OUTDIR + "/results/mutect2_multi/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N_snpEff.ann.passOnly.vcf"
 	output:
@@ -281,7 +281,7 @@ rule zip_snpeff:
 	resources:
 		time = 30,
 		mem_mb = 4500
-	group: "mutect2_post_call"
+	group: "mutect2_all_post_call"
 	container:
 		config["singularity"]["tabix"]
 	shell:

@@ -24,7 +24,7 @@ snakemake  --profile nichols_niagara \
  mutect_together_variant_call=20 mutect2_all_post_call=34 \
  allelecount=10 ascat=10 \
  manta_call=8 manta_annotate=2 \
- --max-threads 80 \
+ --cores 80 \
  --resources mem_mb=160000 time=1440 threads=80 \
  --rerun-triggers input \
  --ri

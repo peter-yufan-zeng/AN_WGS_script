@@ -2,12 +2,12 @@ def get_bams_to_merge(wildcards):
 	SAMPLE_LANE = INPUT[INPUT.Sample == wildcards.sample].Sample_Lane
 	return expand(OUTDIR +"/orphan/{sample_lane}/{sample_lane}.bwa.bam", sample_lane = SAMPLE_LANE)
 
-def get_samtools_command_to_run(wildcards, input):
+def get_samtools_command_to_run(wildcards, input, output, threads):
 		if len(input) == 1:
-			command = "cp -s {input} {output}; samtools index -@ {threads} {output}"
+			command = "cp -s " + input + " "  + output + "; samtools index -@ " + threads + " " + output
 		elif len(input) > 1:
 			#shell("mv {input} {output}")
-			command = "samtools merge --threads {threads} - {input} > {output} ; samtools index -@ {threads} {output}"
+			command = "samtools merge --threads {threads} -" + " ".join(input)+ " > {output} ; samtools index -@ " + threads + " " + output
 		return(command)
 
 rule merge_bam_mapped_and_index:

@@ -28,7 +28,7 @@ rule bamqc:
 	threads: 2
 	resources:
 		time = 8*60,
-		mem_mb = 8000
+		mem_mb = 12000
 	group: "qc_bamqc"
 	container:
 		config["singularity"]["qualimap"]

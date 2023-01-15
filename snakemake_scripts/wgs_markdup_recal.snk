@@ -4,9 +4,9 @@ def get_bams_to_merge(wildcards):
 
 def get_samtools_command_to_run(wildcards, input, output, threads):
 		if len(input) == 1:
-			command = "cp -s " + " ".join(input) + " " + " ".join(output) + "; samtools index -@ " + threads + " " + " ".join(output)
+			command = "cp " + " ".join(input) + " " + " ".join(output)
 		elif len(input) > 1:
-			command = "samtools merge --threads " +threads + " - " + " ".join(input) + " > " + " ".join(output) + "; samtools index -@ " + threads + " " + " ".join(output)
+			command = "samtools merge --threads " + str(threads) + " - " + " ".join(input) + " > " + " ".join(output)
 		return(command)
 
 rule merge_bam_mapped_and_index:
@@ -25,6 +25,7 @@ rule merge_bam_mapped_and_index:
 	shell:
 		"""
 		{params.command}
+		samtools index -@ {threads} {output}
 		"""
 
 rule markdup:

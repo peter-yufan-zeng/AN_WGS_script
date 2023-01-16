@@ -1,25 +1,25 @@
 ## path to tools
-samTools:  singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/singularity_images $SCRATCH/singularity_images/nfcore-sarek-2.6.img samtools
-bcfTools:  singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/singularity_images $SCRATCH/singularity_images/nfcore-sarek-2.6.img bcftools
+samTools:  samtools
+bcfTools:  bcftools
 
 ## path to scripts ##
 #readCounterScript:  singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images /gpfs/fs0$SCRATCH/singularity_images/ichorcna_pz.simg readCounter
-ichorCNA_rscript:  $SCRATCH/singularity_images/ichorCNA/scripts/runIchorCNA.R
-ichorCNA_libdir:  $SCRATCH/singularity_images/ichorCNA/
-pyCountScript:  $SCRATCH/AN_WGS/AN_WGS_script/TitanCNA/scripts/snakemake/code/countPysam.py
-TitanCNA_rscript: $SCRATCH/AN_WGS/AN_WGS_script/TitanCNA/scripts/R_scripts/titanCNA.R
-TitanCNA_combineTitanIchorCNA:  $SCRATCH/AN_WGS/AN_WGS_script/TitanCNA/scripts/snakemake/code/combineTITAN-ichor.R
-TitanCNA_selectSolutionRscript: $SCRATCH/AN_WGS/AN_WGS_script/TitanCNA/scripts/R_scripts/selectSolution.R
-TitanCNA_libdir:  $SCRATCH/AN_WGS/AN_WGS_script/TitanCNA
+ichorCNA_rscript:  ichorCNA/scripts/runIchorCNA.R
+ichorCNA_libdir: ichorCNA/
+pyCountScript:  TitanCNA/scripts/snakemake/code/countPysam.py
+TitanCNA_rscript: TitanCNA/scripts/R_scripts/titanCNA.R
+TitanCNA_combineTitanIchorCNA:  TitanCNA/scripts/snakemake/code/combineTITAN-ichor.R
+TitanCNA_selectSolutionRscript: TitanCNA/scripts/R_scripts/selectSolution.R
+TitanCNA_libdir: TitanCNA
 
 ## reference settings and paths to reference files ##
 genomeBuild: hg38
 genomeStyle:  UCSC
-refFasta:  $SCRATCH/igenomes_ref/Homo_sapiens_assembly38.fasta
-snpVCF:  $SCRATCH/igenomes_ref/hapmap_3.3.hg38.vcf.gz
-ichorCNA_exons: NULL
-cytobandFile:  $SCRATCH/igenomes_ref/cytoBand_hg38.txt # only need if hg38
-centromere:  $SCRATCH/igenomes_ref/GRCh38.GCA_000001405.2_centromere_acen.txt
+#refFasta:  $SCRATCH/igenomes_ref/Homo_sapiens_assembly38.fasta  <- not used as we are gonna use the same refFasta
+#snpVCF:  $SCRATCH/igenomes_ref/hapmap_3.3.hg38.vcf.gz
+#ichorCNA_exons: NULL
+#cytobandFile:  $SCRATCH/igenomes_ref/cytoBand_hg38.txt # only need if hg38
+#centromere:  $SCRATCH/igenomes_ref/GRCh38.GCA_000001405.2_centromere_acen.txt
 sex:  None   # use None if both females and males are in sample set
 
 ## params for each step ##
@@ -32,8 +32,8 @@ chrs: chr1,chr2,chr3,chr4,chr5,chr6,chr7,chr8,chr9,chr10,chr11,chr12,chr13,chr14
 binSize:  10000
 
 ## ichorCNA params ##
-ichorCNA_gcWig: $SCRATCH/igenomes_ref/gc_hg38_10kb.wig
-ichorCNA_mapWig:  $SCRATCH/igenomes_ref/map_hg38_10kb.wig
+#ichorCNA_gcWig: $SCRATCH/igenomes_ref/gc_hg38_10kb.wig
+#ichorCNA_mapWig:  $SCRATCH/igenomes_ref/map_hg38_10kb.wig
 ichorCNA_chrs:  c(1:22, \"X\")
 ichorCNA_normal:  c(0.5)
 ichorCNA_ploidy:  c(2,3)

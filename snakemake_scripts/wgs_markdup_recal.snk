@@ -139,10 +139,10 @@ rule Merge_Recal_Bam:
 	output:
 		bam = OUTDIR +"/Recal/{sample}.recal.bam",
 		index = OUTDIR +"/Recal/{sample}.recal.bai"
-	threads: 4
+	threads: 12
 	resources:
-		time = 12*60,
-		mem_mb = 16000
+		time = 16*60,
+		mem_mb = 30000
 	container:
 		config["singularity"]["samtools"]
 	shell:

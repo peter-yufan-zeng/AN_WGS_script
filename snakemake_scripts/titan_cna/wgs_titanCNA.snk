@@ -5,7 +5,7 @@
 OUTDIR = config['outdir']
 print("***OUTPUT DIRECTORY: " + OUTDIR + "***")
 ### Config file
-configfile: "titanCNA_config_niagara.yaml"
+#configfile: "titanCNA_config_niagara.yaml"
 
 ###
 ###
@@ -79,10 +79,8 @@ rule getHETsites_mpileup:
 	output:
 		OUTDIR + "/results/titan/hetPosns/{tumor}/{tumor}.{chr}.mpileup"
 	params:
-		refFasta=config["refFasta"],
-		snpDB=config["snpVCF"]
-		samtoolsCmd=config["samTools"],
-		bcftoolsCmd=config["bcfTools"]
+		refFasta=REF_fasta,
+		snpDB=config["titan"]["snpVCF"]
 	group: "getHETsites"
 	threads: 2
 	resources:
@@ -104,8 +102,8 @@ rule getHETsites_mpileup:
 	output:
 		OUTDIR + "/results/titan/hetPosns/{tumor}/{tumor}.{chr}.vcf"
 	params:
-		refFasta=config["refFasta"],
-		snpDB=config["snpVCF"]
+		refFasta=REF_fasta,
+		snpDB=config["titan"]["snpVCF"]
 	group: "getHETsites"
 	threads: 2
 	resources:
@@ -129,12 +127,12 @@ rule getAlleleCountsByChr:
 	output:
 		OUTDIR + "/results/titan/tumCounts/{tumor}/{tumor}.tumCounts.{chr}.txt"
 	params:
-		countScript=config["pyCountScript"],
+		countScript=config["titan"]["pyCountScript"],
 		#pyEnv=config["pyEnv"],
 		#refFasta=config["refFasta"],
-		mapQ=config["map_quality"],
-		baseQ=config["base_quality"],
-		vcfQ=config["vcf_quality"]
+		mapQ=config["titan"]["map_quality"],
+		baseQ=config["titan"]["base_quality"],
+		vcfQ=config["titan"]["vcf_quality"]
 	group: "getHETsites"
 	threads: 2
 	resources:
@@ -177,9 +175,9 @@ rule read_counter:
 	output:
 		OUTDIR + "/results/readDepth/{samples}.bin{binSize}.wig"
 	params:
-		binSize=config["binSize"],
+		binSize=config["titan"]["binSize"],
 		qual="20",
-		chrs=config["chrs"]
+		chrs=config["titan"]["chrs"]
 	threads: 2
 	resources:
 		time = 480,
@@ -214,29 +212,29 @@ rule ichorCNA:
 		config["singularity"]["ichorcna"]
 	params:
 		outDir=OUTDIR + "/results/ichorCNA/{tumor}_vs_{patient}-N/",
-		rscript=config["ichorCNA_rscript"],
-		libdir=config["ichorCNA_libdir"],
+		rscript=config["titan"]["ichorCNA_rscript"],
+		libdir=config["titan"]["ichorCNA_libdir"],
 		id="{tumor}_vs_{patient}-N",
-		ploidy=config["ichorCNA_ploidy"],
-		normal=config["ichorCNA_normal"],
-		genomeStyle=config["genomeStyle"],
-		gcwig=config["ichorCNA_gcWig"],
-		mapwig=config["ichorCNA_mapWig"],
-		estimateNormal=config["ichorCNA_estimateNormal"],
-		estimatePloidy=config["ichorCNA_estimatePloidy"],
-		estimateClonality=config["ichorCNA_estimateClonality"],
-		scStates=config["ichorCNA_scStates"],
-		maxCN=config["ichorCNA_maxCN"],
-		includeHOMD=config["ichorCNA_includeHOMD"],
-		chrs=config["ichorCNA_chrs"],
-		#chrTrain=config["ichorCNA_chrTrain"],
-		centromere=config["centromere"],
-		exons=config["ichorCNA_exons"],
-		txnE=config["ichorCNA_txnE"],
-		txnStrength=config["ichorCNA_txnStrength"],
+		ploidy=config["titan"]["ichorCNA_ploidy"],
+		normal=config["titan"]["ichorCNA_normal"],
+		genomeStyle=config["titan"]["genomeStyle"],
+		gcwig=config["titan"]["ichorCNA_gcWig"],
+		mapwig=config["titan"]["ichorCNA_mapWig"],
+		estimateNormal=config["titan"]["ichorCNA_estimateNormal"],
+		estimatePloidy=config["titan"]["ichorCNA_estimatePloidy"],
+		estimateClonality=config["titan"]["ichorCNA_estimateClonality"],
+		scStates=config["titan"]["ichorCNA_scStates"],
+		maxCN=config["titan"]["ichorCNA_maxCN"],
+		includeHOMD=config["titan"]["ichorCNA_includeHOMD"],
+		chrs=config["titan"]["ichorCNA_chrs"],
+		#chrTrain=config["titan"]["ichorCNA_chrTrain"],
+		centromere=config["titan"]["centromere"],
+		exons=config["titan"]["ichorCNA_exons"],
+		txnE=config["titan"]["ichorCNA_txnE"],
+		txnStrength=config["titan"]["ichorCNA_txnStrength"],
 		fracReadsChrYMale="0.001",
-		plotFileType=config["ichorCNA_plotFileType"],
-		plotYlim=config["ichorCNA_plotYlim"]
+		plotFileType=config["titan"]["ichorCNA_plotFileType"],
+		plotYlim=config["titan"]["ichorCNA_plotYlim"]
 	resources:
 		mem=4
 	group:	"ichorcna"
@@ -265,24 +263,24 @@ rule runTitanCNA:
 		seg=OUTDIR + "/results/titan/hmm/titanCNA_ploidy{ploidy}/{tumor}_vs_{patient}-N_cluster{clustNum}.seg"
 	params:
 		outRoot=OUTDIR + "/results/titan/hmm/titanCNA_ploidy{ploidy}/{tumor}_vs_{patient}-N_cluster{clustNum}/",
-		titanRscript=config["TitanCNA_rscript"],
-		libdir=config["TitanCNA_libdir"],
-		numCores=config["TitanCNA_numCores"],
-		normal=config["TitanCNA_normalInit"],
-		chrs=config["TitanCNA_chrs"],
-		sex=config["sex"],
-		genomeStyle=config["genomeStyle"],
-		genomeBuild=config["genomeBuild"],
-		cytobandFile=config["cytobandFile"],
-		estimatePloidy=config["TitanCNA_estimatePloidy"],
-		estimateClonality=config["TitanCNA_estimateClonality"],
-		estimateNormal=config["TitanCNA_estimateNormal"],
-		centromere=config["centromere"],
-		alphaK=config["TitanCNA_alphaK"],
-		#alphaR=config["TitanCNA_alphaR"],
-		#alleleModel=config["TitanCNA_alleleModel"],
-		txnExpLen=config["TitanCNA_txnExpLen"],
-		plotYlim=config["TitanCNA_plotYlim"]
+		titanRscript=config["titan"]["TitanCNA_rscript"],
+		libdir=config["titan"]["TitanCNA_libdir"],
+		numCores=config["titan"]["TitanCNA_numCores"],
+		normal=config["titan"]["TitanCNA_normalInit"],
+		chrs=config["titan"]["TitanCNA_chrs"],
+		sex=config["titan"]["sex"],
+		genomeStyle=config["titan"]["genomeStyle"],
+		genomeBuild=config["titan"]["genomeBuild"],
+		cytobandFile=config["titan"]["cytobandFile"],
+		estimatePloidy=config["titan"]["TitanCNA_estimatePloidy"],
+		estimateClonality=config["titan"]["TitanCNA_estimateClonality"],
+		estimateNormal=config["titan"]["TitanCNA_estimateNormal"],
+		centromere=config["titan"]["centromere"],
+		alphaK=config["titan"]["TitanCNA_alphaK"],
+		#alphaR=config["titan"]["TitanCNA_alphaR"],
+		#alleleModel=config["titan"]["TitanCNA_alleleModel"],
+		txnExpLen=config["titan"]["TitanCNA_txnExpLen"],
+		plotYlim=config["titan"]["TitanCNA_plotYlim"]
 	group:	"titan"
 	threads: 2
 	resources:
@@ -315,11 +313,11 @@ rule combineTitanAndIchorCNA:
 		segFile=OUTDIR + "/results/titan/hmm/titanCNA_ploidy{ploidy}/{tumor}_vs_{patient}-N_cluster{clustNum}.titan.ichor.seg.txt",
 		binFile=OUTDIR + "/results/titan/hmm/titanCNA_ploidy{ploidy}/{tumor}_vs_{patient}-N_cluster{clustNum}.titan.ichor.cna.txt",
 	params:
-		combineScript=config["TitanCNA_combineTitanIchorCNA"],
-		libdir=config["TitanCNA_libdir"],
-		centromere=config["centromere"],
-		sex=config["sex"],
-		mergeIchorHOMD=config["mergeIchorHOMD"]
+		combineScript=config["titan"]["TitanCNA_combineTitanIchorCNA"],
+		libdir=config["titan"]["TitanCNA_libdir"],
+		centromere=config["titan"]["centromere"],
+		sex=config["titan"]["sex"],
+		mergeIchorHOMD=config["titan"]["mergeIchorHOMD"]
 	group:	"titan"
 	threads: 2
 	resources:
@@ -339,7 +337,7 @@ rule combineTitanAndIchorCNA:
 
 def get_solutions(wildcards):
 	samples = INPUT[INPUT.Patient == wildcards.patient].Sample
-	return expand(OUTDIR +"/results/titan/hmm/titanCNA_ploidy{ploidy}/{tumor}_vs_{patient}-N_cluster{clustNum}.titan.txt", tumor = wildcards.tumor, patient=wildcards.patient, clustNum=CLUST[config["TitanCNA_maxNumClonalClusters"]],ploidy=PLOIDY[config["TitanCNA_maxPloidy"]])
+	return expand(OUTDIR +"/results/titan/hmm/titanCNA_ploidy{ploidy}/{tumor}_vs_{patient}-N_cluster{clustNum}.titan.txt", tumor = wildcards.tumor, patient=wildcards.patient, clustNum=CLUST[config["titan"]["TitanCNA_maxNumClonalClusters"]],ploidy=PLOIDY[config["titan"]["TitanCNA_maxPloidy"]])
 
 rule selectSolution:
 	input:
@@ -349,8 +347,8 @@ rule selectSolution:
 	output:
 		OUTDIR + "/results/titan/hmm/{tumor}_vs_{patient}-N_optimalClusterSolution.txt"
 	params:
-		solutionRscript=config["TitanCNA_selectSolutionRscript"],
-		threshold=config["TitanCNA_solutionThreshold"],
+		solutionRscript=config["titan"]["TitanCNA_selectSolutionRscript"],
+		threshold=config["titan"]["TitanCNA_solutionThreshold"],
 		ploidy2 = OUTDIR + "/results/titan/hmm/titanCNA_ploidy2",
 		ploidy3 = OUTDIR + "/results/titan/hmm/titanCNA_ploidy3",
 		ploidy4 = OUTDIR + "/results/titan/hmm/titanCNA_ploidy4"

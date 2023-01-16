@@ -42,7 +42,7 @@ reference:
   number_of_intervals: 100
 
 ###
-CONFIGs for TITAN
+### CONFIGs for TITAN
 ###
 titan:
   snpVCF:  $REF_DIR/titan/hapmap_3.3.hg38.vcf.gz

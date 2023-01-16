@@ -17,7 +17,7 @@ rule filter_bam:
 	output:
 		OUTDIR + "/filtered/{samples}.filtered.bam"
 	params:
-		chrs=config["chrs"]
+		chrs=config["titan"]["chrs"]
 	group:	"preprocess_files_for_titan"
 	threads: 8
 	resources:
@@ -96,7 +96,7 @@ rule getHETsites_mpileup:
 		-l {params.snpDB} {input} > {output}
 		"""
 
-rule getHETsites_mpileup:
+rule getHETsites:
 	input:
 		OUTDIR + "/results/titan/hetPosns/{tumor}/{tumor}.{chr}.mpileup"
 	output:
@@ -195,8 +195,8 @@ rule read_counter:
 
 rule ichorCNA:
 	input:
-		tum=OUTDIR + "/results/readDepth/{tumor}.bin" + str(config["binSize"]) + ".wig",
-		norm=OUTDIR + "/results/readDepth/{patient}-N.bin" + str(config["binSize"]) + ".wig",
+		tum=OUTDIR + "/results/readDepth/{tumor}.bin" + str(config["titan"]["binSize"]) + ".wig",
+		norm=OUTDIR + "/results/readDepth/{patient}-N.bin" + str(config["titan"]["binSize"]) + ".wig",
 	output:
 		corrDepth=OUTDIR + "/results/ichorCNA/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N.correctedDepth.txt",
 		param=OUTDIR + "/results/ichorCNA/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N.params.txt",

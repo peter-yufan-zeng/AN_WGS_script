@@ -20,11 +20,10 @@ snakemake  --profile nichols_niagara \
  merge_bam_mapped_and_index=6 markdup=3 \
  recalibrator=34 Merge_Recal_Bam=6 \
  qc_samtools_stats=20 qc_bamqc=20 \
- mutect_single_variant_call=20 mutect2_post_call=34 \
+ mutect_single_variant_call=34 mutect2_post_call=34 \
  mutect_together_variant_call=20 mutect2_all_post_call=34 \
  allelecount=10 ascat=10 \
  manta_call=8 manta_annotate=2 \
- --cores 80 \
  --resources mem_mb=160000 time=1440 threads=80 \
  --rerun-triggers input \
  --ri

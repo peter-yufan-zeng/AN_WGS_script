@@ -59,11 +59,11 @@ titan:
   #readCounterScript:  singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images /gpfs/fs0$SCRATCH/singularity_images/ichorcna_pz.simg readCounter
   ichorCNA_rscript:  $REF_DIR/ichorCNA/scripts/runIchorCNA.R
   ichorCNA_libdir: $REF_DIR/ichorCNA/
-  pyCountScript:  TitanCNA/scripts/snakemake/code/countPysam.py
-  TitanCNA_rscript: TitanCNA/scripts/R_scripts/titanCNA.R
-  TitanCNA_combineTitanIchorCNA:  TitanCNA/scripts/snakemake/code/combineTITAN-ichor.R
-  TitanCNA_selectSolutionRscript: TitanCNA/scripts/R_scripts/selectSolution.R
-  TitanCNA_libdir: TitanCNA
+  pyCountScript:  $REF_DIR/TitanCNA/scripts/snakemake/code/countPysam.py
+  TitanCNA_rscript: $REF_DIR/TitanCNA/scripts/R_scripts/titanCNA.R
+  TitanCNA_combineTitanIchorCNA:  $REF_DIR/TitanCNA/scripts/snakemake/code/combineTITAN-ichor.R
+  TitanCNA_selectSolutionRscript: $REF_DIR/TitanCNA/scripts/R_scripts/selectSolution.R
+  TitanCNA_libdir: $REF_DIR/TitanCNA
 
   ## reference settings and paths to reference files ##
   genomeBuild: hg38

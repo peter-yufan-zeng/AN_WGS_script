@@ -153,13 +153,11 @@ rule Merge_Recal_Bam:
 
 rule filter_bam:
 	input:
-		bam = OUTDIR +"/Recal/{samples}.recal.bam",
+		bam = OUTDIR +"/Recal/{sample}.recal.bam",
 		hg38bed = config["reference"]["directory"] + config["reference"]["hg38bed"]
 	output:
-		bam = OUTDIR + "/filtered/{samples}.filtered.bam",
+		bam = OUTDIR + "/filtered/{sample}.filtered.bam",
 		index = OUTDIR + "/filtered/{sample}.filtered.bam.bai"
-	params:
-		chrs=config["titan"]["chrs"]
 	threads: 8
 	resources:
 		time = 8*60,

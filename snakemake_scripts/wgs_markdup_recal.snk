@@ -153,9 +153,11 @@ rule Merge_Recal_Bam:
 
 rule filter_bam:
 	input:
-		OUTDIR +"/Recal/{samples}.recal.bam",
+		bam = OUTDIR +"/Recal/{samples}.recal.bam",
+		hg38bed = config["reference"]["directory"] + config["reference"]["hg38bed"]
 	output:
-		OUTDIR + "/filtered/{samples}.filtered.bam"
+		bam = OUTDIR + "/filtered/{samples}.filtered.bam",
+		index = OUTDIR + "/filtered/{sample}.filtered.bai"
 	params:
 		chrs=config["titan"]["chrs"]
 	threads: 8
@@ -165,9 +167,9 @@ rule filter_bam:
 	container:
 		config["singularity"]["samtools"]
 	params:
-		hg38bed = config["reference"]["directory"] + config["reference"]["hg38bed"]
+
 	shell:
 		"""
-		samtools view -L {params.hg38bed} -@ {threads} -o {output} {input}
-		samtools index {output}
+		samtools view -L {input.hg38bed} -@ {threads} -o {output.bam} {input.bam}
+		samtools index {output.bam}
 		"""

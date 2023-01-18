@@ -157,7 +157,7 @@ rule filter_bam:
 		hg38bed = config["reference"]["directory"] + config["reference"]["hg38bed"]
 	output:
 		bam = OUTDIR + "/filtered/{samples}.filtered.bam",
-		index = OUTDIR + "/filtered/{sample}.filtered.bai"
+		index = OUTDIR + "/filtered/{sample}.filtered.bam.bai"
 	params:
 		chrs=config["titan"]["chrs"]
 	threads: 8
@@ -166,8 +166,6 @@ rule filter_bam:
 		mem_mb = 28000
 	container:
 		config["singularity"]["samtools"]
-	params:
-
 	shell:
 		"""
 		samtools view -L {input.hg38bed} -@ {threads} -o {output.bam} {input.bam}

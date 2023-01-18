@@ -38,6 +38,7 @@ reference:
   ascat_acloci: "1000G_phase3_GRCh38_maf0.3.loci"
   ascat_acloci_gc: "1000G_phase3_GRCh38_maf0.3.loci.gc"
   exac_common: "small_exac_common_3.hg38.vcf.gz"
+  hg38bed: "hg38.chrom.bed"
   number_of_intervals: 100
 
 

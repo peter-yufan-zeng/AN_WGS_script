@@ -115,7 +115,7 @@ rule ApplyBQSR:
 		temp(OUTDIR + "/orphan/{sample}/Recal/{sample}.recal.{num}.bam")
 	threads: 1
 	resources:
-		time = 6*60,
+		time = 4*60,
 		mem_mb = 4500
 	container:
 		config["singularity"]["gatk"]
@@ -149,4 +149,25 @@ rule Merge_Recal_Bam:
 		"""
 		samtools merge --threads {threads} {output.bam} {input}
 		samtools index {output.bam} {output.index}
+		"""
+
+rule filter_bam:
+	input:
+		OUTDIR +"/Recal/{samples}.recal.bam",
+	output:
+		OUTDIR + "/filtered/{samples}.filtered.bam"
+	params:
+		chrs=config["titan"]["chrs"]
+	threads: 8
+	resources:
+		time = 8*60,
+		mem_mb = 28000
+	container:
+		config["singularity"]["samtools"]
+	params:
+		hg38bed = config["reference"]["directory"] + config["reference"]["hg38bed"]
+	shell:
+		"""
+		samtools view -L {params.hg38bed} -@ {threads} -o {output} {input}
+		samtools index {output}
 		"""

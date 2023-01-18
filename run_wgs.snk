@@ -164,7 +164,7 @@ rule symlink_reffiles:
 		target_ref_dir = OUTDIR + "/reference/"
 	shell:
 		"""
-		ln -s {params.original_ref_dir}* {params.target_ref_dir}
+		ln -sf {params.original_ref_dir}* {params.target_ref_dir}
 		"""
 
 ##SET NUMBERS FROM 0000 to 0099

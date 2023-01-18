@@ -14,9 +14,9 @@ rule mutect2:
 		stats = temp(OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N.{num}.vcf.stats"),
 		f12 = temp(OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N_f12.{num}.tar.gz"),
 		index =  temp(OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N.{num}.vcf.idx")
-	threads: 2
+	threads: 4
 	resources:
-		time = 4*60,
+		time = 3*60,
 		mem_mb = 8500
 	container:
 		config["singularity"]["gatk"]

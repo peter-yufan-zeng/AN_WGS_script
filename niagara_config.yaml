@@ -18,6 +18,7 @@ singularity:
   mosdepth: $NXF_SINGULARITY_CACHEDIR/depot.galaxyproject.org-singularity-mosdepth-0.3.3--hdfd78af_1.img
   msisensor: $NXF_SINGULARITY_CACHEDIR/depot.galaxyproject.org-singularity-msisensor-pro-1.2.0--hfc31af2_0.img
   multiqc: $NXF_SINGULARITY_CACHEDIR/depot.galaxyproject.org-singularity-multiqc-1.13a--pyhdfd78af_1.img
+  phylowgs: $NXF_SINGULARITY_CACHEDIR/phylowgs.simg
   pysam: $NXF_SINGULARITY_CACHEDIR/python3-pysam.sif
   qualimap: $NXF_SINGULARITY_CACHEDIR/qualimap-2.2.1.img
   samtools: $NXF_SINGULARITY_CACHEDIR/depot.galaxyproject.org-singularity-samtools-1.16.1--h6899075_1.img
@@ -39,6 +40,7 @@ reference:
   ascat_acloci: "1000G_phase3_GRCh38_maf0.3.loci"
   ascat_acloci_gc: "1000G_phase3_GRCh38_maf0.3.loci.gc"
   exac_common: "small_exac_common_3.hg38.vcf.gz"
+  hg38bed: "hg38.chrom.bed"
   number_of_intervals: 100
 
 ###

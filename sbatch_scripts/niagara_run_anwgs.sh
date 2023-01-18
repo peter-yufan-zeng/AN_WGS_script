@@ -18,10 +18,9 @@ snakemake  --profile nichols_niagara \
  --group-components \
  fastqc=12 sort_sam_to_bam=6 \
  merge_bam_mapped_and_index=6 markdup=3 \
- recalibrator=34 Merge_Recal_Bam=6 \
- qc_samtools_stats=20 qc_bamqc=20 \
+ recalibrator=5 Merge_Recal_Bam=5 \
+ qc_samtools_stats=10 qc_bamqc=10 \
  mutect_single_variant_call=34 mutect2_post_call=34 \
- mutect_together_variant_call=20 mutect2_all_post_call=34 \
  allelecount=10 ascat=10 \
  manta_call=8 manta_annotate=2 \
  --resources mem_mb=160000 time=1440 threads=80 \

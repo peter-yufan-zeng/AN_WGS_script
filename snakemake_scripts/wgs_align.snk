@@ -48,7 +48,7 @@ rule bwa_mem:
 		temp(OUTDIR +"/orphan/{sample_lane}/{sample_lane}.bwa.sam")
 	threads: 32
 	resources:
-		time = 24*60,
+		time = 12*60,
 		mem_mb = 32000
 	container:
 		config["singularity"]["bwa"]

@@ -5,21 +5,25 @@
 rule parseCNV:
 	input:
 		segs = OUTDIR + "/results/titan/hmm/optimalClusterSolution/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N.segs.txt",
-		ploidy = OUTDIR + "/results/ASCAT/{tumor}_vs_{patient}-N/{tumor}.purityploidy.txt"
+		# ploidy = OUTDIR + "/results/ASCAT/{tumor}_vs_{patient}-N/{tumor}.purityploidy.txt"
+		titan_optimal_params = OUTDIR + "/results/titan/hmm/optimalClusterSolution/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N.params.txt"
 	output:
 		OUTDIR + "/results/phyloWGS/input/{tumor}_vs_{patient}-N_cnvs.txt"
-	params:
-		awk_command = "awk 'FNR == 1{{print $4}}' " + OUTDIR + "/results/titan/hmm/optimalClusterSolution/{tumor}_vs_{patient}-N/{tumor}*.params.txt"
+	#params:
+#		awk_command = "awk 'FNR == 1{{print $4}}' " + OUTDIR + "/results/titan/hmm/optimalClusterSolution/{tumor}_vs_{patient}-N/{tumor}*.params.txt"
 	threads: 1
-	group: "phylowgs"
-	run:
-		import subprocess
-        	import os.path
-		ploidy = (subprocess.check_output({params.awk_command}, shell = True)).rstrip().decode()
-		ploidy = 1 - float(ploidy)
-		ploidy = str(ploidy)
-		command = "singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR},$SCRATCH/AN_WGS/AN_WGS_script /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/phylowgs.simg python2.7 $SCRATCH/AN_WGS/AN_WGS_script/phylowgs_parser/parse_cnvs.py -f titan -c " + ploidy + " --cnv-output {output} {input.segs}"
-		shell(command)
+	group: "prep_phylowgs"
+	container:
+		config["singularity"]["phylowgs"]
+	resources:
+		time = 30,
+		mem_mb = 8500
+	shell:
+		"""
+		prop_normal=$(awk 'FNR == 1{{print $4}}' {input.titan_optimal_params})
+		cellularity=$( echo "1-$prop_normal" | bc)
+		python2.7 phylowgs_parser/parse_cnvs.py -f titan -c $cellularity --cnv-output {output} {input.segs}
+		"""
 
 ### replace chr1...23 with 1...23 before using phylowgs parser and then remove duplicate rows
 rule fixParsedCNV:
@@ -29,7 +33,12 @@ rule fixParsedCNV:
 		remove_chr = OUTDIR + "/results/phyloWGS/input/{tumor}_vs_{patient}-N_cnvs.fixed_chr.txt",
 		remove_dup = OUTDIR + "/results/phyloWGS/input/{tumor}_vs_{patient}-N_cnvs.fixed_chr_dup.txt"
 	threads: 1
-	group: "phylowgs"
+	group: "prep_phylowgs"
+	resources:
+		time = 30,
+		mem_mb = 8500
+	container:
+		config["singularity"]["phylowgs"]
 	shell:
 		"""
 		sed -e 's/chr//g' {input} > {output.remove_chr}
@@ -83,12 +92,16 @@ rule parseSNVfromMutect:
 		vcf_files = vcf_files,
 		vcf_format = vcf_format
 	threads: 1
-	group: "phylowgs"
+	group: "prep_phylowgs"
+	resources:
+		time = 30,
+		mem_mb = 8500
+	container:
+		config["singularity"]["phylowgs"]
 	shell:
 		"""
-		singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR},$SCRATCH/AN_WGS/AN_WGS_script \
-		/gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/phylowgs.simg python2.7 \
-		$SCRATCH/AN_WGS/AN_WGS_script/phylowgs_parser/create_phylowgs_inputs.py \
+		python2.7 \
+		phylowgs_parser/create_phylowgs_inputs.py \
 		{params.vcf_format} --regions normal_and_abnormal_cn \
 		{params.cnv_files} \
 		--output-cnvs {output.cnv} \
@@ -104,16 +117,20 @@ rule phyloWGS:
 		params = OUTDIR + "/results/phyloWGS/parsedSNV_CNV/{tumour}_vs_{patient}-N_params.json"
 	output:
 		OUTDIR + "/results/phyloWGS/{tumour}_vs_{patient}-N/trees.zip"
-	threads: 80
+	threads: 32
+	resources:
+		time = 1440,
+		mem_mb = 12000
 	group: "phylowgs"
 	params:
 		output_dir = OUTDIR + "/results/phyloWGS/{tumour}_vs_{patient}-N/",
 		temp_dir = OUTDIR + "/results/phyloWGS/{tumour}_vs_{patient}-N/chains"
+	container:
+		config["singularity"]["phylowgs"]
 	shell:
 		"""
 		mkdir -p {params.temp_dir}
-		singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR},$SCRATCH/singularity_images \
-		/gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/phylowgs.simg python2.7 /opt/phylowgs/multievolve.py \
+		python2.7 /opt/phylowgs/multievolve.py \
 		--num-chains {threads} --ssms {input.ssm} --cnvs {input.cnv} --params {input.params} \
 		-O {params.output_dir} -t {params.temp_dir}/
 		"""
@@ -125,12 +142,16 @@ rule output_phyloWGS_results:
 		tree_summary_output = OUTDIR + "/results/phyloWGS/{tumour}_vs_{patient}-N/{tumour}_vs_{patient}-N.summ.json.gz",
         mutlist_output = OUTDIR + "/results/phyloWGS/{tumour}_vs_{patient}-N/{tumour}_vs_{patient}-N.muts.json.gz",
 		mutass_output = OUTDIR + "/results/phyloWGS/{tumour}_vs_{patient}-N/{tumour}_vs_{patient}-N.mutass.zip"
-	group: "phylowgs"
 	threads: 2
+	resources:
+		time = 5,
+		mem_mb = 8000
+	group: "phylowgs"
+	container:
+		config["singularity"]["phylowgs"]
 	shell:
 		"""
-		singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR},$SCRATCH/singularity_images \
-		/gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/phylowgs.simg python2.7 /opt/phylowgs/write_results.py \
+		python2.7 /opt/phylowgs/write_results.py \
 		--max-multiprimary 0.99 {wildcards.tumour}_vs_{wildcards.patient}-N {input} {output.tree_summary_output} {output.mutlist_output} {output.mutass_output}
 		"""
 ### script from https://raw.githubusercontent.com/aleighbrown/pwgs_snakemake/master/parse_pwgs_output.py
@@ -140,19 +161,23 @@ rule parse_phyloWGS_top_trees_into_csv:
 		mutass_output = OUTDIR + "/results/phyloWGS/{tumour}_vs_{patient}-N/{tumour}_vs_{patient}-N.mutass.zip",
 		ssm = OUTDIR + "/results/phyloWGS/parsedSNV_CNV/{tumour}_vs_{patient}-N_ssm_data.txt",
 		cnv = OUTDIR + "/results/phyloWGS/parsedSNV_CNV/{tumour}_vs_{patient}-N_cnv_data.txt",
-		parser_script = "/gpfs/fs0/scratch/n/nicholsa/zyfniu/AN_WGS/AN_WGS_script/phylowgs_parser/parse_pwgs_output.py"
+		parser_script = "phylowgs_parser/parse_pwgs_output.py"
 	output:
 		OUTDIR + "/results/phyloWGS/{tumour}_vs_{patient}-N/tree_likelihoods.txt"
 	params:
 		output_dir = OUTDIR + "/results/phyloWGS/{tumour}_vs_{patient}-N/",
 		unzipped_summary = OUTDIR + "/results/phyloWGS/{tumour}_vs_{patient}-N/{tumour}_vs_{patient}-N.summ.json"
-	group: "phylowgs"
 	threads: 2
+	resources:
+		time = 15,
+		mem_mb = 8000
+	group: "phylowgs"
+	container:
+		config["singularity"]["phylowgs"]
 	shell:
 		"""
 		gunzip {input.tree_summary_output}
-		singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR},$SCRATCH/AN_WGS/AN_WGS_script \
-		/gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/phylowgs.simg python2.7 {input.parser_script} \
+		python2.7 {input.parser_script} \
 		--cnv_input {input.cnv} --ssm_input {input.ssm} \
 		--summary_file {params.unzipped_summary}  --mutasgn_path {input.mutass_output} \
 		--output_folder {params.output_dir} --k 5

@@ -16,6 +16,7 @@ rule config_manta:
 	group: "manta_call"
 	shell:
 		"""
+		rm -rf {OUTDIR}/temp/Manta/{wildcards.tumor}_vs_{wildcards.patient}-N/*
 		configManta.py \
 		--normalBam {input.normal} \
 		--tumorBam  {input.tumor} \

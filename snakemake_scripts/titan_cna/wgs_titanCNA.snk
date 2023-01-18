@@ -11,32 +11,12 @@ print("***OUTPUT DIRECTORY: " + OUTDIR + "***")
 ###
 ###
 
-rule filter_bam:
-	input:
-		OUTDIR +"/Recal/{samples}.recal.bam",
-	output:
-		OUTDIR + "/filtered/{samples}.filtered.bam"
-	params:
-		chrs=config["titan"]["chrs"]
-	group:	"preprocess_files_for_titan"
-	threads: 8
-	resources:
-		time = 8*60,
-		mem_mb = 28000
-	container:
-		config["singularity"]["samtools"]
-	shell:
-		"""
-		samtools view -L /scratch/n/nicholsa/zyfniu/igenomes_ref/hg38.chrom.bed -@ {threads} -o {output} {input}
-		samtools index {output}
-		"""
-
 rule filter_mutect2_to_variants_of_interest:
 	input:
 		annotatedvcf = OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N_snpEff.ann.passOnly.vcf.gz"
 	output: annotatedvcf = OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N_snpEff.ann.passOnly.inGenes.vcf.gz"
 	threads: 1
-	group: "preprocess_files_for_titan"
+	group: "getHETsites"
 	resources:
 		time = 15,
 		mem_mb = 4500
@@ -47,9 +27,6 @@ rule filter_mutect2_to_variants_of_interest:
 		bcftools filter {input} \
 			--exclude \'INFO/ANN ~ \"intron\" | INFO/ANN ~ \"intergenic_region\" | INFO/ANN ~ \"upstream_gene_variant\" | INFO/ANN ~ \"downstream_gene_variant\" | INFO/ANN ~ \"intragenic_variant\"\' \
 			-O z > {output}
-
-		singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR} \
-		/gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img tabix -p vcf {output}
 		"""
 
 rule tabix_mutect2_to_variants_of_interest:
@@ -58,7 +35,7 @@ rule tabix_mutect2_to_variants_of_interest:
 	output:
 		OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N_snpEff.ann.passOnly.inGenes.vcf.gz.tbi"
 	threads: 1
-	group: "preprocess_files_for_titan"
+	group: "getHETsites"
 	resources:
 		time = 15,
 		mem_mb = 4500
@@ -143,8 +120,7 @@ rule getAlleleCountsByChr:
 	log:
 		OUTDIR + "/logs/titan/tumCounts/{tumor}/{tumor}.{chr}.log"
 	shell:
-		"singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS/AN_WGS_script,$SCRATCH/singularity_images,{OUTDIR} \
-		/gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img python \
+		"python \
 		{params.countScript} {wildcards.chr} {input.hetSites} {input.tumBam} {params.baseQ} \
 		{params.mapQ} {params.vcfQ} > {output} 2> {log}"
 

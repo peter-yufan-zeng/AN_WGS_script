@@ -4,7 +4,7 @@
 rule alleleCount:
 	input:
 		bam = OUTDIR + "/filtered/{sample}.filtered.bam",
-		index = OUTDIR + "/filtered/{sample}.filtered.bai",
+		index = OUTDIR + "/filtered/{sample}.filtered.bam.bai",
 		acloci = OUTDIR + "/reference/" + config["reference"]["ascat_acloci"],
 		ref_fasta = OUTDIR + "/reference/" + config["reference"]["fasta"]
 	output: OUTDIR + "/results/ASCAT/alleleCount/{sample}.alleleCount"

@@ -70,9 +70,9 @@ rule getHETsites_mpileup:
 	shell:
 		"""
 		bcftools mpileup -Ou -I -f {params.refFasta} -r {wildcards.chr} \
-		-l {params.snpDB} {input} | \
+		-T {params.snpDB} {input} | \
 		bcftools call -v -c | \
-		grep -e '0/1' -e '#' > {output} 2> {log}"
+		grep -e '0/1' -e '#' > {output} 2> {log}
 		"""
 
 

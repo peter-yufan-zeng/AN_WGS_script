@@ -25,16 +25,16 @@ rule bamqc:
 		index = OUTDIR +"/Recal/{sample}.recal.bai"
 	output:
 		stats = OUTDIR + "/QC/{sample}/bamQC/qualimapReport.html"
-	threads: 2
+	threads: 12
 	resources:
-		time = 8*60,
-		mem_mb = 12000
+		time = 12*60,
+		mem_mb = 24000
 	group: "qc_bamqc"
 	container:
 		config["singularity"]["qualimap"]
 	shell:
 		"""
-		qualimap --java-mem-size=8G \
+		qualimap --java-mem-size=16G \
 		bamqc \
 		-bam {input.bam} \
 		--paint-chromosome-limits \

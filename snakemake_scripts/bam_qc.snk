@@ -27,14 +27,14 @@ rule bamqc:
 		stats = OUTDIR + "/QC/{sample}/bamQC/qualimapReport.html"
 	threads: 12
 	resources:
-		time = 12*60,
-		mem_mb = 24000
+		time = 8*60,
+		mem_mb = 60000
 	group: "qc_bamqc"
 	container:
 		config["singularity"]["qualimap"]
 	shell:
 		"""
-		qualimap --java-mem-size=16G \
+		qualimap --java-mem-size=50G \
 		bamqc \
 		-bam {input.bam} \
 		--paint-chromosome-limits \

@@ -67,7 +67,7 @@ rule sort_sam_to_bam:
 		bam = temp(OUTDIR +"/orphan/{sample_lane}/{sample_lane}.bwa.bam")
 	threads: 8
 	resources:
-		time = 8*60,
+		time = 12*60,
 		mem_mb = 28000
 	container:
 		config["singularity"]["samtools"]

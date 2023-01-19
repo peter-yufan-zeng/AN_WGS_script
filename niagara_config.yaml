@@ -47,25 +47,25 @@ reference:
 ### CONFIGs for TITAN
 ###
 titan:
-  snpVCF:  $REF_DIR/titan/hapmap_3.3.hg38.vcf.gz
+  snpVCF:  /scratch/n/nicholsa/zyfniu/gdc_reference/titan/hapmap_3.3.hg38.vcf.gz
   ichorCNA_exons: NULL
-  cytobandFile:  $REF_DIR/titan/cytoBand_hg38.txt # only need if hg38
-  centromere:  $REF_DIR/titan/GRCh38.GCA_000001405.2_centromere_acen.txt
-  ichorCNA_gcWig: $REF_DIR/titan/gc_hg38_10kb.wig
-  ichorCNA_mapWig:  $REF_DIR/titan/map_hg38_10kb.wig
+  cytobandFile:  /scratch/n/nicholsa/zyfniu/gdc_reference/titan/cytoBand_hg38.txt # only need if hg38
+  centromere:  /scratch/n/nicholsa/zyfniu/gdc_reference/titan/GRCh38.GCA_000001405.2_centromere_acen.txt
+  ichorCNA_gcWig: /scratch/n/nicholsa/zyfniu/gdc_reference/titan/gc_hg38_10kb.wig
+  ichorCNA_mapWig:  /scratch/n/nicholsa/zyfniu/gdc_reference/titan/map_hg38_10kb.wig
   ## path to tools
   samTools:  samtools
   bcfTools:  bcftools
 
   ## path to scripts ##
   #readCounterScript:  singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images /gpfs/fs0$SCRATCH/singularity_images/ichorcna_pz.simg readCounter
-  ichorCNA_rscript:  $REF_DIR/ichorCNA/scripts/runIchorCNA.R
-  ichorCNA_libdir: $REF_DIR/ichorCNA/
-  pyCountScript:  $REF_DIR/TitanCNA/scripts/snakemake/code/countPysam.py
-  TitanCNA_rscript: $REF_DIR/TitanCNA/scripts/R_scripts/titanCNA.R
-  TitanCNA_combineTitanIchorCNA:  $REF_DIR/TitanCNA/scripts/snakemake/code/combineTITAN-ichor.R
-  TitanCNA_selectSolutionRscript: $REF_DIR/TitanCNA/scripts/R_scripts/selectSolution.R
-  TitanCNA_libdir: $REF_DIR/TitanCNA
+  ichorCNA_rscript:  /scratch/n/nicholsa/zyfniu/gdc_reference/ichorCNA/scripts/runIchorCNA.R
+  ichorCNA_libdir: /scratch/n/nicholsa/zyfniu/gdc_reference/ichorCNA/
+  pyCountScript:  /scratch/n/nicholsa/zyfniu/gdc_reference/TitanCNA/scripts/snakemake/code/countPysam.py
+  TitanCNA_rscript: /scratch/n/nicholsa/zyfniu/gdc_reference/TitanCNA/scripts/R_scripts/titanCNA.R
+  TitanCNA_combineTitanIchorCNA:  /scratch/n/nicholsa/zyfniu/gdc_reference/TitanCNA/scripts/snakemake/code/combineTITAN-ichor.R
+  TitanCNA_selectSolutionRscript: /scratch/n/nicholsa/zyfniu/gdc_reference/TitanCNA/scripts/R_scripts/selectSolution.R
+  TitanCNA_libdir: /scratch/n/nicholsa/zyfniu/gdc_reference/TitanCNA
 
   ## reference settings and paths to reference files ##
   genomeBuild: hg38

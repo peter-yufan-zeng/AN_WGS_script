@@ -99,9 +99,11 @@ rule getAlleleCountsByChr:
 	log:
 		OUTDIR + "/logs/titan/tumCounts/{tumor}/{tumor}.{chr}.log"
 	shell:
-		"python \
+		"""
+		python3 \
 		{params.countScript} {wildcards.chr} {input.hetSites} {input.tumBam} {params.baseQ} \
-		{params.mapQ} {params.vcfQ} > {output} 2> {log}"
+		{params.mapQ} {params.vcfQ} > {output} 2> {log}
+		"""
 
 
 def get_alleleCounts(wildcards):

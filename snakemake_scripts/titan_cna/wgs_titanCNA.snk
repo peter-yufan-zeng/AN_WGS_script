@@ -54,29 +54,6 @@ rule getHETsites_mpileup:
 	input:
 		OUTDIR + "/filtered/{tumor}.filtered.bam"
 	output:
-		OUTDIR + "/results/titan/hetPosns/{tumor}/{tumor}.{chr}.mpileup"
-	params:
-		refFasta=REF_fasta,
-		snpDB=config["titan"]["snpVCF"]
-	group: "getHETsites"
-	threads: 2
-	resources:
-		time = 15,
-		mem_mb = 4500
-	container:
-		config["singularity"]["samtools"]
-	log:
-		OUTDIR + "/logs/titan/hetPosns/{tumor}/{tumor}.{chr}.mpileup.log"
-	shell:
-		"""
-		samtools mpileup -uv -I -f {params.refFasta} -r {wildcards.chr} \
-		-l {params.snpDB} {input} > {output}
-		"""
-
-rule getHETsites:
-	input:
-		OUTDIR + "/results/titan/hetPosns/{tumor}/{tumor}.{chr}.mpileup"
-	output:
 		OUTDIR + "/results/titan/hetPosns/{tumor}/{tumor}.{chr}.vcf"
 	params:
 		refFasta=REF_fasta,
@@ -89,12 +66,14 @@ rule getHETsites:
 	container:
 		config["singularity"]["bcftools"]
 	log:
-		OUTDIR + "/logs/titan/hetPosns/{tumor}/{tumor}.{chr}.bcftools.log"
+		OUTDIR + "/logs/titan/hetPosns/{tumor}/{tumor}.{chr}.mpileup.log"
 	shell:
 		"""
-		bcftools call -v -c {input} | grep -e '0/1' -e '#' > {output} 2> {log}"
+		bcftools mpileup -Ou -I -f {params.refFasta} -r {wildcards.chr} \
+		-l {params.snpDB} {input} | \
+		bcftools call -v -c | \
+		grep -e '0/1' -e '#' > {output} 2> {log}"
 		"""
-
 
 
 rule getAlleleCountsByChr:

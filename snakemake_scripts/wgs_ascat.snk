@@ -1,3 +1,22 @@
+### Remove chromosomes with _ in loci file
+
+rule make_loci_files_for_ascat:
+	input:
+		acloci = OUTDIR + "/reference/" + config["reference"]["ascat_acloci"],
+		acLociGC = OUTDIR + "/reference/" + config["reference"]["ascat_acloci_gc"]
+	output:
+		acloci = OUTDIR + "/results/ASCAT/1000G_phase3_GRCh38_maf0.3.cleaned.loci",
+		acloci_gc = OUTDIR + "/results/ASCAT/1000G_phase3_GRCh38_maf0.3.cleaned.loci.gc",
+	threads: 1
+	resources:
+		time = 15,
+		mem_mb = 8500
+	shell:
+		"""
+		sed '/_/d' {input.acloci} > {output.acloci}
+		sed '/_/d' {input.acloci_gc} > {output.acloci_gc}
+		"""
+
 ###
 ### COPY NUMBER USING ASCAT
 ###
@@ -5,7 +24,7 @@ rule alleleCount:
 	input:
 		bam = OUTDIR + "/filtered/{sample}.filtered.bam",
 		index = OUTDIR + "/filtered/{sample}.filtered.bam.bai",
-		acloci = OUTDIR + "/reference/" + config["reference"]["ascat_acloci"],
+		acloci = OUTDIR + "/results/ASCAT/1000G_phase3_GRCh38_maf0.3.cleaned.loci",
 		ref_fasta = OUTDIR + "/reference/" + config["reference"]["fasta"]
 	output: OUTDIR + "/results/ASCAT/alleleCount/{sample}.alleleCount"
 	threads: 2
@@ -61,7 +80,7 @@ rule ascat:
 		tumorBaf = OUTDIR + "/results/ASCAT/{tumor}_vs_{patient}-N/{tumor}.BAF",
 		normalLogr = OUTDIR + "/results/ASCAT/{tumor}_vs_{patient}-N/{patient}-N.LogR",
 		tumorLogr = OUTDIR + "/results/ASCAT/{tumor}_vs_{patient}-N/{tumor}.LogR",
-		acLociGC = OUTDIR + "/reference/" + config["reference"]["ascat_acloci_gc"]
+		acLociGC = OUTDIR + "/results/ASCAT/1000G_phase3_GRCh38_maf0.3.cleaned.loci.gc"
 	output:
 		results = OUTDIR + "/results/ASCAT/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N.tumor.cnvs.txt"
 	params:

@@ -65,7 +65,7 @@ rule sort_sam_to_bam:
 		sam = OUTDIR +"/orphan/{sample_lane}/{sample_lane}.bwa.sam"
 	output:
 		bam = temp(OUTDIR +"/orphan/{sample_lane}/{sample_lane}.bwa.bam")
-	threads: 12
+	threads: 10
 	resources:
 		time = 12*60,
 		mem_mb = 40000

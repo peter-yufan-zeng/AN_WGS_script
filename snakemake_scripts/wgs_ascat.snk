@@ -3,7 +3,7 @@
 rule make_loci_files_for_ascat:
 	input:
 		acloci = OUTDIR + "/reference/" + config["reference"]["ascat_acloci"],
-		acLociGC = OUTDIR + "/reference/" + config["reference"]["ascat_acloci_gc"]
+		acloci_gc = OUTDIR + "/reference/" + config["reference"]["ascat_acloci_gc"]
 	output:
 		acloci = OUTDIR + "/results/ASCAT/1000G_phase3_GRCh38_maf0.3.cleaned.loci",
 		acloci_gc = OUTDIR + "/results/ASCAT/1000G_phase3_GRCh38_maf0.3.cleaned.loci.gc",

@@ -14,7 +14,7 @@ import time
 
 #TMP = "$SCRATCH/temp"
 
-localrules: all, symlink_reffiles, generate_intervals
+localrules: all, symlink_reffiles, generate_intervals, make_loci_files_for_ascat
 
 ###
 ### LOAD SAMPLES

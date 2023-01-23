@@ -184,5 +184,5 @@ rule rsem:
          {params.rsem_path} {wildcards.sample}
 		"""
 
-### Run TRUST4
+### Run TRUST4 and Kraken2
 include: "snakemake_scripts/kraken2.snk"

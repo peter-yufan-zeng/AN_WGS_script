@@ -64,11 +64,11 @@ rule ConvertAlleleCounts:
 		mem_mb = 8500
 	container:
 		config["singularity"]["ascat"]
-	group:"allelecount"
+	group:"ascat"
 	shell:
 		"""
 		cd {OUTDIR}/results/ASCAT/{wildcards.tumor}_vs_{wildcards.patient}-N
-		{OUTDIR}/AN_WGS_script/convertAlleleCounts.r \
+		../../../AN_WGS_script/convertAlleleCounts.r \
 		{wildcards.tumor} {input.tumor} \
 		{wildcards.patient}-N {input.normal} \
 		{params.gender}
@@ -86,6 +86,7 @@ rule ascat:
 	params:
 		gender = getGender
 	threads: 2
+	group:"ascat"
 	resources:
 		time = 8*60,
 		mem_mb = 8500
@@ -98,7 +99,7 @@ rule ascat:
 		do sed \'s/chr//g\' $f > {OUTDIR}/results/ASCAT/{wildcards.tumor}_vs_{wildcards.patient}-N/tmpFile; \
 		mv {OUTDIR}/results/ASCAT/{wildcards.tumor}_vs_{wildcards.patient}-N/tmpFile $f;done
 		cd {OUTDIR}/results/ASCAT/{wildcards.tumor}_vs_{wildcards.patient}-N
-		Rscript {OUTDIR}/AN_WGS_script/run_ascat.r \
+		Rscript ../../../AN_WGS_script/run_ascat.r \
         --tumorbaf {input.tumorBaf} \
         --tumorlogr {input.tumorLogr} \
         --normalbaf {input.normalBaf} \

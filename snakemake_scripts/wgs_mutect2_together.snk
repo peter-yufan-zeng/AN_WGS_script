@@ -22,7 +22,7 @@ rule mutect2_all_tumours:
 		index =  temp(OUTDIR + "/results/mutect2_multi/{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N.{num}.vcf.idx")
 	threads: 2
 	resources:
-		time = 12*60,
+		time = 8*60,
 		mem = 8500
 	container:
 		config["singularity"]["gatk"]

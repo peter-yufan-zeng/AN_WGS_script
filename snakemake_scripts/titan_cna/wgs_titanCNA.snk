@@ -92,7 +92,7 @@ rule getAlleleCountsByChr:
 	group: "getHETsites"
 	threads: 2
 	resources:
-		time = 120,
+		time = 60,
 		mem_mb = 4500
 	container:
 		config["singularity"]["pysam"]

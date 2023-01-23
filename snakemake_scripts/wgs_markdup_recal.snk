@@ -160,7 +160,7 @@ rule filter_bam:
 		index = OUTDIR + "/filtered/{sample}.filtered.bam.bai"
 	threads: 8
 	resources:
-		time = 8*60,
+		time = 16*60,
 		mem_mb = 28000
 	container:
 		config["singularity"]["samtools"]

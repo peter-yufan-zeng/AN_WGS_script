@@ -68,7 +68,7 @@ rule ConvertAlleleCounts:
 	shell:
 		"""
 		cd {OUTDIR}/results/ASCAT/{wildcards.tumor}_vs_{wildcards.patient}-N
-		/scratch/n/nicholsa/zyfniu/AN_WGS/AN_WGS_script/convertAlleleCounts.r \
+		{OUTDIR}/AN_WGS_script/convertAlleleCounts.r \
 		{wildcards.tumor} {input.tumor} \
 		{wildcards.patient}-N {input.normal} \
 		{params.gender}
@@ -98,7 +98,7 @@ rule ascat:
 		do sed \'s/chr//g\' $f > {OUTDIR}/results/ASCAT/{wildcards.tumor}_vs_{wildcards.patient}-N/tmpFile; \
 		mv {OUTDIR}/results/ASCAT/{wildcards.tumor}_vs_{wildcards.patient}-N/tmpFile $f;done
 		cd {OUTDIR}/results/ASCAT/{wildcards.tumor}_vs_{wildcards.patient}-N
-		Rscript /scratch/n/nicholsa/zyfniu/AN_WGS/AN_WGS_script/run_ascat.r \
+		Rscript {OUTDIR}/AN_WGS_script/run_ascat.r \
         --tumorbaf {input.tumorBaf} \
         --tumorlogr {input.tumorLogr} \
         --normalbaf {input.normalBaf} \

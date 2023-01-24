@@ -96,7 +96,7 @@ rule gatk_LearnOrientationModel:
 		input_list = lambda wildcards, input: ' --stats '.join(input.vcf)
 	shell:
 		"""
-		gatk LearnReadOrientationModel --stats {params.input_list} -O {output}"
+		gatk LearnReadOrientationModel --stats {params.input_list} -O {output}
 		"""
 
 rule gatk_get_pileupsummaries_normal:

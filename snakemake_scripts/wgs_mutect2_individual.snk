@@ -309,7 +309,7 @@ rule filter_mutect2_passOnly:
 		config["singularity"]["bcftools"]
 	shell:
 		"""
-		bcftools view -f "PASS" {input}
+		bcftools view -Ov -f "PASS" {input} > {output}
 		"""
 
 rule zip_snpeff_passOnly:

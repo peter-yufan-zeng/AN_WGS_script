@@ -17,7 +17,7 @@ rule mutect2:
 	threads: 4
 	resources:
 		time = 6*60,
-		mem_mb = 8500
+		mem_mb = 10500
 	container:
 		config["singularity"]["gatk"]
 	shell:

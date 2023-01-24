@@ -22,8 +22,8 @@ rule mutect2_all_tumours:
 		index =  temp(OUTDIR + "/results/mutect2_multi/{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N.{num}.vcf.idx")
 	threads: 2
 	resources:
-		time = 8*60,
-		mem = 8500
+		time = 6*60,
+		mem = 10500
 	container:
 		config["singularity"]["gatk"]
 	params:
@@ -54,11 +54,11 @@ rule merge_mutect2_vcf_all_tumour:
 		time = 30,
 		mem = 4500
 	container:
-		config["singularity"]["vcftools"]
+		config["singularity"]["bcftools"]
 	group: "mutect2_all_post_call"
 	shell:
 		"""
-		vcf-concat {input} > {output}
+		bcftools concat -Ov {input} > {output}
 		"""
 
 def concat_vcf_stats_all_tumour(wildcards):
@@ -71,7 +71,7 @@ rule merge_stats_all_tumour:
 		temp(OUTDIR + "/results/mutect2_multi/{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N_merged.stats")
 	threads: 2
 	resources:
-		time = 30,
+		time = 15,
 		mem = 8000
 	container:
 		config["singularity"]["gatk"]
@@ -93,7 +93,7 @@ rule gatk_LearnOrientationModel_all_tumour:
 		model = OUTDIR + "/results/mutect2_multi/{tumor}_vs_{patient}-N/unfiltered_{tumor}_read_orientation_model.tar.gz"
 	threads: 2
 	resources:
-		time = 30,
+		time = 15,
 		mem = 8000
 	container:
 		config["singularity"]["gatk"]
@@ -102,7 +102,7 @@ rule gatk_LearnOrientationModel_all_tumour:
 	group: "mutect2_all_post_call"
 	shell:
 		"""
-		gatk LearnReadOrientationModel --stats {params.input_list} -O {output}"
+		gatk LearnReadOrientationModel --stats {params.input_list} -O {output}
 		"""
 
 
@@ -113,7 +113,7 @@ rule index_unfiltered_vcf_all_tumour:
 		vcf_tbi = OUTDIR + "/results/mutect2_multi/{tumor}_vs_{patient}-N/unfiltered_{tumor}_vs_{patient}-N.vcf.idx"
 	threads: 2
 	resources:
-		time = 30,
+		time = 15,
 		mem = 8000
 	container:
 		config["singularity"]["gatk"]
@@ -139,7 +139,7 @@ rule gatk_filterMutect_all_tumour:
 		filter_vcf_stats = temp(OUTDIR + "/results/mutect2_multi/{tumor}_vs_{patient}-N/filtered_{tumor}_vs_{patient}-N.{num}.vcf.filteringStats.tsv")
 	threads: 2
 	resources:
-		time = 30,
+		time = 15,
 		mem = 8500
 	container:
 		config["singularity"]["gatk"]
@@ -165,13 +165,13 @@ rule merge_mutect2_vcf_filtered_all_tumour:
 		temp(OUTDIR + "/results/mutect2_multi/{tumor}_vs_{patient}-N/filtered_{tumor}_vs_{patient}-N.vcf")
 	threads: 2
 	resources:
-		time = 30,
-		mem = 8000
+		time = 15,
+		mem = 8800
 	container:
-		config["singularity"]["vcftools"]
+		config["singularity"]["bcftools"]
 	group: "mutect2_all_post_call"
 	shell:
-		"vcf-concat {input} > {output}"
+		"bcftools concat -Ov {input} > {output}"
 
 
 rule index_filtered_vcf_all_tumour:
@@ -181,8 +181,8 @@ rule index_filtered_vcf_all_tumour:
 		vcf_tbi = OUTDIR + "/results/mutect2_multi/{tumor}_vs_{patient}-N/filtered_{tumor}_vs_{patient}-N.vcf.idx"
 	threads: 2
 	resources:
-		time = 60,
-		mem = 8000
+		time = 15,
+		mem = 8800
 	container:
 		config["singularity"]["gatk"]
 	group: "mutect2_all_post_call"
@@ -201,8 +201,8 @@ rule annotate_mutect2_all_tumour:
 		annotatedvcf = temp(OUTDIR + "/results/mutect2_multi/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N_snpEff.ann.vcf")
 	threads: 2
 	resources:
-		time = 60,
-		mem = 8500
+		time = 15,
+		mem = 8800
 	container:
 		config["singularity"]["snpeff"]
 	group: "mutect2_all_post_call"
@@ -224,7 +224,7 @@ rule zip_snpeff_all_tumour:
 	output: annotatedvcf = OUTDIR + "/results/mutect2_multi/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N_snpEff.ann.vcf.gz"
 	threads: 2
 	resources:
-		time = 60,
+		time = 5,
 		mem = 8000
 	container:
 		config["singularity"]["tabix"]
@@ -243,7 +243,7 @@ rule filter_mutect2_passOnly_all_tumour:
 	output: annotatedvcf = OUTDIR + "/results/mutect2_multi/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N_snpEff.ann.passOnly.vcf.gz"
 	threads: 2
 	resources:
-		time = 30,
+		time = 5,
 		mem = 8000
 	container:
 		config["singularity"]["tabix"]
@@ -262,14 +262,14 @@ rule filter_mutect2_passOnly_mutect_together:
 		annotatedvcf = temp(OUTDIR + "/results/mutect2_multi/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N_snpEff.ann.passOnly.vcf")
 	threads: 1
 	resources:
-		time = 30,
+		time = 5,
 		mem_mb = 4500
 	group: "mutect2_all_post_call"
 	container:
 		config["singularity"]["bcftools"]
 	shell:
 		"""
-		bcftools view -f "PASS" {input}
+		bcftools view -Ov -f "PASS" {input} > {output}
 		"""
 
 rule zip_snpeff_mutect_together:
@@ -279,7 +279,7 @@ rule zip_snpeff_mutect_together:
 		annotatedvcf = OUTDIR + "/results/mutect2_multi/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N_snpEff.ann.passOnly.vcf.gz"
 	threads: 1
 	resources:
-		time = 30,
+		time = 5,
 		mem_mb = 4500
 	group: "mutect2_all_post_call"
 	container:

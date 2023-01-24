@@ -161,7 +161,7 @@ rule ichorCNA:
 		#rdata="results/ichorCNA/{tumor}/{tumor}.RData",
 	threads: 2
 	resources:
-		time = 480,
+		time = 240,
 		mem_mb = 8500
 	container:
 		config["singularity"]["ichorcna"]

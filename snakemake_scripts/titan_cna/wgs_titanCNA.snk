@@ -58,7 +58,6 @@ rule getHETsites_mpileup:
 	params:
 		refFasta=REF_fasta,
 		snpDB=config["titan"]["snpVCF"]
-	group: "getHETsites"
 	threads: 2
 	resources:
 		time = 15,
@@ -89,7 +88,6 @@ rule getAlleleCountsByChr:
 		mapQ=config["titan"]["map_quality"],
 		baseQ=config["titan"]["base_quality"],
 		vcfQ=config["titan"]["vcf_quality"]
-	group: "getHETsites"
 	threads: 2
 	resources:
 		time = 60,
@@ -238,7 +236,6 @@ rule runTitanCNA:
 		#alleleModel=config["titan"]["TitanCNA_alleleModel"],
 		txnExpLen=config["titan"]["TitanCNA_txnExpLen"],
 		plotYlim=config["titan"]["TitanCNA_plotYlim"]
-	group:	"titan"
 	threads: 2
 	resources:
 		time = 480,
@@ -275,7 +272,6 @@ rule combineTitanAndIchorCNA:
 		centromere=config["titan"]["centromere"],
 		sex=config["titan"]["sex"],
 		mergeIchorHOMD=config["titan"]["mergeIchorHOMD"]
-	group:	"titan"
 	threads: 2
 	resources:
 		time = 60,

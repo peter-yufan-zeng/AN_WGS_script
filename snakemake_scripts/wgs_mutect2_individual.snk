@@ -93,10 +93,10 @@ rule gatk_LearnOrientationModel:
 		config["singularity"]["gatk"]
 	group: "mutect2_post_call"
 	params:
-		input_list = lambda wildcards, input: ' --stats '.join(input.vcf)
+		input_list = lambda wildcards, input: ' -I '.join(input.vcf)
 	shell:
 		"""
-		gatk LearnReadOrientationModel --stats {params.input_list} -O {output}
+		gatk LearnReadOrientationModel -I {params.input_list} -O {output}
 		"""
 
 rule gatk_get_pileupsummaries_normal:

@@ -305,7 +305,6 @@ rule selectSolution:
 		ploidy2 = OUTDIR + "/results/titan/hmm/titanCNA_ploidy2",
 		ploidy3 = OUTDIR + "/results/titan/hmm/titanCNA_ploidy3",
 		ploidy4 = OUTDIR + "/results/titan/hmm/titanCNA_ploidy4"
-	group:	"titan"
 	threads: 2
 	log:
 		OUTDIR + "/logs/titan/selectSolution_{tumor}_vs_{patient}-N.log"

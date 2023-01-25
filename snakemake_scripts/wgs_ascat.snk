@@ -98,7 +98,6 @@ rule ascat:
 		do sed \'s/chr//g\' $f > {OUTDIR}/results/ASCAT/{wildcards.tumor}_vs_{wildcards.patient}-N/tmpFile; \
 		mv {OUTDIR}/results/ASCAT/{wildcards.tumor}_vs_{wildcards.patient}-N/tmpFile $f;done
 		cd {OUTDIR}/results/ASCAT/{wildcards.tumor}_vs_{wildcards.patient}-N
-		source ~/.bashrc
 		Rscript {OUTDIR}/AN_WGS_script/run_ascat.r \
         --tumorbaf {input.tumorBaf} \
         --tumorlogr {input.tumorLogr} \

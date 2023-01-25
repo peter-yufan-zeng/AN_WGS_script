@@ -99,14 +99,14 @@ rule ascat:
 		mv {OUTDIR}/results/ASCAT/{wildcards.tumor}_vs_{wildcards.patient}-N/tmpFile $f;done
 		cd {OUTDIR}/results/ASCAT/{wildcards.tumor}_vs_{wildcards.patient}-N
 		Rscript {OUTDIR}/AN_WGS_script/run_ascat.r \
-        --tumorbaf {input.tumorBaf} \
-        --tumorlogr {input.tumorLogr} \
-        --normalbaf {input.normalBaf} \
-        --normallogr {input.normalLogr} \
-        --tumorname {wildcards.tumor} \
-        --basedir {OUTDIR}/results/ASCAT/{wildcards.tumor}_vs_{wildcards.patient}-N \
-        --gcfile {input.acLociGC} \
-        --gender {params.gender}
+         {input.tumorBaf} \
+         {input.tumorLogr} \
+         {input.normalBaf} \
+         {input.normalLogr} \
+         {wildcards.tumor} \
+         {OUTDIR}/results/ASCAT/{wildcards.tumor}_vs_{wildcards.patient}-N \
+         {input.acLociGC} \
+         {params.gender}
 		cd ../../../
 		mv {OUTDIR}/results/ASCAT/{wildcards.tumor}_vs_{wildcards.patient}-N/{wildcards.tumor}.cnvs.txt {output.results}
 		"""

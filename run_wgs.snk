@@ -124,12 +124,13 @@ rule all:
 	container:
 		config["singularity"]["multiqc"]
 	params:
-		time = time.strftime('%Y%m%d')
+		time = time.strftime('%Y%m%d'),
+		input_csv = config['input']
 	shell:
 		"""
 		multiqc {OUTDIR} -n {OUTDIR}/pipeline_info/reports/multiqc_{params.time}.html
 		mv multiqc_data* OUTDIR/pipeline_info/report/
-		cp config['input'] {OUTDIR}/Sample_{params.time}.csv
+		cp {params.input_csv} {OUTDIR}/Sample_{params.time}.csv
 		"""
 
 

@@ -1,5 +1,5 @@
 singularity:
-  ascat: $NXF_SINGULARITY_CACHEDIR/depot.galaxyproject.org-singularity-mulled-v2-c278c7398beb73294d78639a864352abef2931ce-dfe5aaa885de434adb2b490b68972c5840c6d761-0.img
+  ascat: $NXF_SINGULARITY_CACHEDIR/ascat-2.5.2.img
   gatk: $NXF_SINGULARITY_CACHEDIR/broadinstitute-gatk-4.2.6.1.img
   bcftools: $NXF_SINGULARITY_CACHEDIR/depot.galaxyproject.org-singularity-bcftools-1.16--hfe4b78e_1.img
   bwa: $NXF_SINGULARITY_CACHEDIR/depot.galaxyproject.org-singularity-bwa-0.7.17--hed695b0_7.img

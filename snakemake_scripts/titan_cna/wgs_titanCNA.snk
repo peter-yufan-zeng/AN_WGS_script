@@ -139,7 +139,6 @@ rule read_counter:
 		mem_mb = 8500
 	container:
 		config["singularity"]["ichorcna"]
-	group:"ichorcna"
 	log:
 		OUTDIR + "/logs/readDepth/{samples}.bin{binSize}.log"
 	shell:
@@ -190,9 +189,6 @@ rule ichorCNA:
 		fracReadsChrYMale="0.001",
 		plotFileType=config["titan"]["ichorCNA_plotFileType"],
 		plotYlim=config["titan"]["ichorCNA_plotYlim"]
-	resources:
-		mem=4
-	group:	"ichorcna"
 	log:
 		OUTDIR + "/logs/ichorCNA/{tumor}_vs_{patient}-N.log"
 	shell:
@@ -278,6 +274,7 @@ rule combineTitanAndIchorCNA:
 		mem_mb = 8500
 	container:
 		config["singularity"]["ichorcna"]
+	group:	"titan"
 	log:
 		OUTDIR + "/logs/titan/hmm/titanCNA_ploidy{ploidy}/{tumor}_vs_{patient}-N_cluster{clustNum}.combineTitanIchorCNA.log"
 	shell:
@@ -311,6 +308,7 @@ rule selectSolution:
 	resources:
 		time = 30,
 		mem_mb = 8500
+	group:	"titan"
 	container:
 		config["singularity"]["ichorcna"]
 	shell:

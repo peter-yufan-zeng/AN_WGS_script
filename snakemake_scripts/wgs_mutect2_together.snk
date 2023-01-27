@@ -23,14 +23,14 @@ rule mutect2_all_tumours:
 	threads: 2
 	resources:
 		time = 6*60,
-		mem = 10500
+		mem_mb = 10500
 	container:
 		config["singularity"]["gatk"]
 	params:
 		input_list = lambda wildcards, input: ' -I '.join(input.tumors)
 	shell:
 		"""
-		gatk --java-options \"-Xmx8g\" Mutect2 -R {input.ref_fasta} \
+		gatk --java-options "-Xmx8g" Mutect2 -R {input.ref_fasta} \
 		-normal {wildcards.patient}-N \
 		-I {input.normal} \
 		-I {params.input_list} \
@@ -52,7 +52,7 @@ rule merge_mutect2_vcf_all_tumour:
 	threads: 1
 	resources:
 		time = 30,
-		mem = 4500
+		mem_mb = 4500
 	container:
 		config["singularity"]["bcftools"]
 	group: "mutect2_all_post_call"
@@ -72,7 +72,7 @@ rule merge_stats_all_tumour:
 	threads: 2
 	resources:
 		time = 15,
-		mem = 8000
+		mem_mb = 8000
 	container:
 		config["singularity"]["gatk"]
 	params:
@@ -140,7 +140,7 @@ rule gatk_filterMutect_all_tumour:
 	threads: 2
 	resources:
 		time = 15,
-		mem = 8500
+		mem_mb = 8500
 	container:
 		config["singularity"]["gatk"]
 	group: "mutect2_all_post_call"
@@ -166,7 +166,7 @@ rule merge_mutect2_vcf_filtered_all_tumour:
 	threads: 2
 	resources:
 		time = 15,
-		mem = 8800
+		mem_mb = 8800
 	container:
 		config["singularity"]["bcftools"]
 	group: "mutect2_all_post_call"
@@ -182,7 +182,7 @@ rule index_filtered_vcf_all_tumour:
 	threads: 2
 	resources:
 		time = 15,
-		mem = 8800
+		mem_mb = 8800
 	container:
 		config["singularity"]["gatk"]
 	group: "mutect2_all_post_call"
@@ -202,7 +202,7 @@ rule annotate_mutect2_all_tumour:
 	threads: 2
 	resources:
 		time = 15,
-		mem = 8800
+		mem_mb = 8800
 	container:
 		config["singularity"]["snpeff"]
 	group: "mutect2_all_post_call"
@@ -225,7 +225,7 @@ rule zip_snpeff_all_tumour:
 	threads: 2
 	resources:
 		time = 5,
-		mem = 8000
+		mem_mb = 8000
 	container:
 		config["singularity"]["tabix"]
 	group: "mutect2_all_post_call"
@@ -244,7 +244,7 @@ rule filter_mutect2_passOnly_all_tumour:
 	threads: 2
 	resources:
 		time = 5,
-		mem = 8000
+		mem_mb = 8000
 	container:
 		config["singularity"]["tabix"]
 	group: "mutect2_all_post_call"

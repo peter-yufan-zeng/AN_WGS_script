@@ -65,15 +65,15 @@ rule sort_sam_to_bam:
 		sam = OUTDIR +"/orphan/{sample_lane}/{sample_lane}.bwa.sam"
 	output:
 		bam = temp(OUTDIR +"/orphan/{sample_lane}/{sample_lane}.bwa.bam")
-	threads: 20
+	threads: 10
 	resources:
 		time = 12*60,
-		mem_mb = 28000
+		mem_mb = 36000
 	container:
 		config["singularity"]["samtools"]
 	params:
 		temp = OUTDIR +"/orphan/{sample_lane}/"
 	shell:
 		"""
-		samtools sort -T {params.temp} --threads {threads} -m 1G {input.sam} > {output}
+		samtools sort -T {params.temp} --threads {threads} -m 3G {input.sam} > {output}
 		"""

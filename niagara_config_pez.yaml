@@ -1,11 +1,9 @@
 singularity:
   ascat: $NXF_SINGULARITY_CACHEDIR/ascat-2.5.2.img
-  battenberg: $NXF_SINGULARITY_CACHEDIR/battenberg-2.2.9.sif
   gatk: $NXF_SINGULARITY_CACHEDIR/broadinstitute-gatk-4.2.6.1.img
   bcftools: $NXF_SINGULARITY_CACHEDIR/depot.galaxyproject.org-singularity-bcftools-1.16--hfe4b78e_1.img
   bwa: $NXF_SINGULARITY_CACHEDIR/depot.galaxyproject.org-singularity-bwa-0.7.17--hed695b0_7.img
   bwa-mem2: $NXF_SINGULARITY_CACHEDIR/depot.galaxyproject.org-singularity-bwa-mem2-2.2.1--he513fc3_0.img
-  bracken2: $NXF_SINGULARITY_CACHEDIR/bracken2.simg
   bgzip_tabix: $NXF_SINGULARITY_CACHEDIR/depot.galaxyproject.org-singularity-mulled-v2-780d630a9bb6a0ff2e7b6f730906fd703e40e98f-3bdd798e4b9aed6d3e1aaa1596c913a3eeb865cb-0.img
   cnvkit: $NXF_SINGULARITY_CACHEDIR/depot.galaxyproject.org-singularity-cnvkit-0.9.9--pyhdfd78af_0.img
   control-freec: $NXF_SINGULARITY_CACHEDIR/depot.galaxyproject.org-singularity-control-freec-11.6--h1b792b2_1.img
@@ -16,18 +14,18 @@ singularity:
   freebayes:  $NXF_SINGULARITY_CACHEDIR/depot.galaxyproject.org-singularity-freebayes-1.3.6--hbfe0e7f_2.img
   gawk: $NXF_SINGULARITY_CACHEDIR/depot.galaxyproject.org-singularity-gawk-5.1.0.img
   ichorcna: $NXF_SINGULARITY_CACHEDIR/ichorcna_pz.simg
+  kracken2: $NXF_SINGULARITY_CACHEDIR/kraken2.1.2.simg
   manta: $NXF_SINGULARITY_CACHEDIR/depot.galaxyproject.org-singularity-manta-1.6.0--h9ee0642_1.img
   mosdepth: $NXF_SINGULARITY_CACHEDIR/depot.galaxyproject.org-singularity-mosdepth-0.3.3--hdfd78af_1.img
   msisensor: $NXF_SINGULARITY_CACHEDIR/depot.galaxyproject.org-singularity-msisensor-pro-1.2.0--hfc31af2_0.img
   multiqc: $NXF_SINGULARITY_CACHEDIR/depot.galaxyproject.org-singularity-multiqc-1.13a--pyhdfd78af_1.img
-  kracken2: $NXF_SINGULARITY_CACHEDIR/kraken2.1.2.simg
   phylowgs: $NXF_SINGULARITY_CACHEDIR/phylowgs.simg
   pysam: $NXF_SINGULARITY_CACHEDIR/python3-pysam.sif
-  qualimap: $NXF_SINGULARITY_CACHEDIR/qualimap-2.2.1.img
+  qualimap: $NXF_SINGULARITY_CACHEDIR/qualimap-2.2.1.img\
   rnaseq: $NXF_SINGULARITY_CACHEDIR/nfcore-rnaseq-1.4.2.img
   samtools: $NXF_SINGULARITY_CACHEDIR/depot.galaxyproject.org-singularity-samtools-1.16.1--h6899075_1.img
   strelka: $NXF_SINGULARITY_CACHEDIR/depot.galaxyproject.org-singularity-strelka-2.9.10--h9ee0642_1.img
-  rsem: $NXF_SINGULARITY_CACHEDIR/rsem.img
+  star: $NXF_SINGULARITY_CACHEDIR/rsem.img
   tabix: $NXF_SINGULARITY_CACHEDIR/depot.galaxyproject.org-singularity-tabix-1.11--hdfd78af_0.img
   tiddit: $NXF_SINGULARITY_CACHEDIR/depot.galaxyproject.org-singularity-tiddit-3.1.0--py39h59fae87_1.img
   tiddit: $NXF_SINGULARITY_CACHEDIR/depot.galaxyproject.org-singularity-tiddit-3.3.2--py310hc2b7f4b_0.img
@@ -36,7 +34,7 @@ singularity:
 
 
 reference:
-  directory: "/scratch/n/nicholsa/zyfniu/gdc_reference/"
+  directory: "/scratch/j/jmymryk/pez/gdc_reference/"
   fasta: "GRCh38.d1.vd1.fa" ### downloaded from GDC
   dbsnp: "dbsnp_146.hg38.vcf.gz"
   known_indels: "Mills_and_1000G_gold_standard.indels.hg38.vcf.gz"
@@ -47,7 +45,7 @@ reference:
   exac_common: "small_exac_common_3.hg38.vcf.gz"
   hg38bed: "hg38.chrom.bed"
   number_of_intervals: 100
-  battenberg_ref: "/scratch/n/nicholsa/zyfniu/gdc_reference/battenberg"
+  battenberg_ref: "/scratch/j/jmymryk/pez/gdc_reference/battenberg"
   ### files for RNA-seq
   rsem_path: "GRCh38_star/GRCh38"
   star_path: "GRCh38_star"
@@ -57,25 +55,25 @@ reference:
 ### CONFIGs for TITAN
 ###
 titan:
-  snpVCF:  /scratch/n/nicholsa/zyfniu/gdc_reference/titan/hapmap_3.3.hg38.vcf.gz
+  snpVCF:  /scratch/j/jmymryk/pez/gdc_reference/titan/hapmap_3.3.hg38.vcf.gz
   ichorCNA_exons: NULL
-  cytobandFile:  /scratch/n/nicholsa/zyfniu/gdc_reference/titan/cytoBand_hg38.txt # only need if hg38
-  centromere:  /scratch/n/nicholsa/zyfniu/gdc_reference/titan/GRCh38.GCA_000001405.2_centromere_acen.txt
-  ichorCNA_gcWig: /scratch/n/nicholsa/zyfniu/gdc_reference/titan/gc_hg38_10kb.wig
-  ichorCNA_mapWig:  /scratch/n/nicholsa/zyfniu/gdc_reference/titan/map_hg38_10kb.wig
+  cytobandFile:  /scratch/j/jmymryk/pez/gdc_reference/titan/cytoBand_hg38.txt # only need if hg38
+  centromere:  /scratch/j/jmymryk/pez/gdc_reference/titan/GRCh38.GCA_000001405.2_centromere_acen.txt
+  ichorCNA_gcWig: /scratch/j/jmymryk/pez/gdc_reference/titan/gc_hg38_10kb.wig
+  ichorCNA_mapWig:  /scratch/j/jmymryk/pez/gdc_reference/titan/map_hg38_10kb.wig
   ## path to tools
   samTools:  samtools
   bcfTools:  bcftools
 
   ## path to scripts ##
   #readCounterScript:  singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images /gpfs/fs0$SCRATCH/singularity_images/ichorcna_pz.simg readCounter
-  ichorCNA_rscript:  /scratch/n/nicholsa/zyfniu/gdc_reference/ichorCNA/scripts/runIchorCNA.R
-  ichorCNA_libdir: /scratch/n/nicholsa/zyfniu/gdc_reference/ichorCNA/
-  pyCountScript:  /scratch/n/nicholsa/zyfniu/gdc_reference/TitanCNA/scripts/snakemake/code/countPysam.py
-  TitanCNA_rscript: /scratch/n/nicholsa/zyfniu/gdc_reference/TitanCNA/scripts/R_scripts/titanCNA.R
-  TitanCNA_combineTitanIchorCNA:  /scratch/n/nicholsa/zyfniu/gdc_reference/TitanCNA/scripts/snakemake/code/combineTITAN-ichor.R
-  TitanCNA_selectSolutionRscript: /scratch/n/nicholsa/zyfniu/gdc_reference/TitanCNA/scripts/R_scripts/selectSolution.R
-  TitanCNA_libdir: /scratch/n/nicholsa/zyfniu/gdc_reference/TitanCNA
+  ichorCNA_rscript:  /scratch/j/jmymryk/pez/gdc_reference/ichorCNA/scripts/runIchorCNA.R
+  ichorCNA_libdir: /scratch/j/jmymryk/pez/gdc_reference/ichorCNA/
+  pyCountScript:  /scratch/j/jmymryk/pez/gdc_reference/TitanCNA/scripts/snakemake/code/countPysam.py
+  TitanCNA_rscript: /scratch/j/jmymryk/pez/gdc_reference/TitanCNA/scripts/R_scripts/titanCNA.R
+  TitanCNA_combineTitanIchorCNA:  /scratch/j/jmymryk/pez/gdc_reference/TitanCNA/scripts/snakemake/code/combineTITAN-ichor.R
+  TitanCNA_selectSolutionRscript: /scratch/j/jmymryk/pez/gdc_reference/TitanCNA/scripts/R_scripts/selectSolution.R
+  TitanCNA_libdir: /scratch/j/jmymryk/pez/gdc_reference/TitanCNA
 
   ## reference settings and paths to reference files ##
   genomeBuild: hg38

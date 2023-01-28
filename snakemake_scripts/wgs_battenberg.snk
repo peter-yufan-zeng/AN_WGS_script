@@ -1,0 +1,32 @@
+def battenberg_is_male(wildcards):
+		if INPUT[INPUT.Patient == wildcards.patient].Sex.drop_duplicates() == "XY"
+			return "TRUE"
+		else:
+			return "FALSE"
+
+
+###
+### COPY NUMBER USING battenberg
+###
+rule battenberg:
+	input:
+		normal = OUTDIR + "/Recal/{patient}-N.recal.bam",
+		tumor = OUTDIR + "/Recal/{tumor}.recal.bam"
+	output:
+		{OUTDIR} + "/results/battenberg/{wildcards.tumor}_vs_{wildcards.patient}-N.battenberg.Rout"
+	threads: 20
+	resources:
+		time = 12*60,
+		mem_mb = 8500
+	container:
+		config["singularity"]["battenberg"]
+	params:
+		battenberg_ref = config["reference"],
+		is_male = battenberg_is_male
+	group: "battenberg"
+	shell:
+		"""
+		R CMD BATCH \
+		'--no-restore-data --no-save --args --ref {params.battenberg_ref} -t {wildcards.tumor} -n {wildcards.normal}-N  --nb {input.normal} --tb {input.tumor} --cpu {threads} --sex {params.is_male} -o {OUTDIR}/results/battenberg/{wildcards.tumor}' \
+		/usr/local/bin/battenberg_wgs.R {OUTDIR}/results/battenberg/{wildcards.tumor}_vs_{wildcards.patient}-N.battenberg.Rout
+		"""

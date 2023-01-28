@@ -16,7 +16,7 @@ localrules: all, rename_files
 ###
 SCRATCH = "/gpfs/fs0/scratch/n/nicholsa/zyfniu"
 print("\n***INPUT FILE: " + config['input'] + "***\n")
-INPUT = pd.read_table(config['input'],names = ['Sample','Fastq1','Fastq2'])
+INPUT = pd.read_csv(config['input'],names = ['Sample','Fastq1','Fastq2'],header=0)
 SAMPLE =  INPUT['Sample'].unique()
 print(INPUT)
 
@@ -29,15 +29,6 @@ print("***OUTPUT DIRECTORY: " + OUTDIR + "***")
 ###
 ###	REFERENCE FILES
 ###
-REF_fasta = "$SCRATCH/igenomes_ref/Homo_sapiens_assembly38.fasta"
-REF_dbsnp = "$SCRATCH/igenomes_ref/dbsnp_146.hg38.vcf.gz"
-REF_known_indels = "$SCRATCH/igenomes_ref/Mills_and_1000G_gold_standard.indels.hg38.vcf.gz"
-REF_gnomAD = "$SCRATCH/igenomes_ref/gnomAD.r2.1.1.GRCh38.PASS.AC.AF.only.vcf.gz"
-REF_pon = "$SCRATCH/igenomes_ref/1000g_pon.hg38.vcf.gz"
-REF_exac_common = "/gpfs/fs0/scratch/n/nicholsa/zyfniu/igenomes_ref/somatic-hg38_small_exac_common_3.hg38.vcf.gz"
-CHROMOSOMES = ['chr1', 'chr2', 'chr3', 'chr4', 'chr5', 'chr6', 'chr7', 'chr8', 'chr9', 'chr10',
-			   'chr11', 'chr12', 'chr13', 'chr14', 'chr15', 'chr16', 'chr17', 'chr18', 'chr19',
-			   'chr20', 'chr21', 'chr22', 'chrX', 'chrY']
 print(config['kraken'] == "yes")
 ###Check if kraken is needed to run
 if config['kraken'] == "yes":
@@ -47,10 +38,8 @@ else:
 
 
 ### PATH TO singularity imgaes
-SGL_STAR_RSEM_CMD = "singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS/raw,"+ OUTDIR + \
-" /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/rsem.img"
-SGL_NFCORE_CMD = "singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS/raw," + OUTDIR + \
-" /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-rnaseq-1.4.2.img"
+SGL_STAR_RSEM_CMD = "singularity exec -B $SCRATCH /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/rsem.img"
+SGL_NFCORE_CMD = "singularity exec -B $SCRATCH /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-rnaseq-1.4.2.img"
 
 ###
 ### Final Results
@@ -98,12 +87,17 @@ rule fastqc_and_move:
 		o2 = OUTDIR + "/QC/fastqc/{sample}_R2_fastqc.html",
 		o3 = OUTDIR + "/QC/fastqc/{sample}_R1_fastqc.zip",
 		o4 = OUTDIR + "/QC/fastqc/{sample}_R2_fastqc.zip"
-	threads: 20
-	group: "rsem"
+	threads: 6
+	group: "fastqc"
+	resources:
+		time = 240,
+		mem_mb = 16000
+	container:
+		config["singularity"]["rnaseq"]
 	shell:
 		"""
 		mkdir -p {OUTDIR}/QC/{wildcards.sample}
-		{SGL_NFCORE_CMD} fastqc -t {threads} {input} --outdir={OUTDIR}/QC/{wildcards.sample}/
+		fastqc -t {threads} {input} --outdir={OUTDIR}/QC/{wildcards.sample}/
 		mv -n {OUTDIR}/QC/{wildcards.sample}/*R1*fastqc.html {OUTDIR}/QC/fastqc/{wildcards.sample}_R1_fastqc.html
 		mv -n {OUTDIR}/QC/{wildcards.sample}/*R2*fastqc.html {OUTDIR}/QC/fastqc/{wildcards.sample}_R2_fastqc.html
 		mv -n {OUTDIR}/QC/{wildcards.sample}/*R1*fastqc.zip {OUTDIR}/QC/fastqc/{wildcards.sample}_R1_fastqc.zip
@@ -117,10 +111,15 @@ rule trim_galore:
 	output:
 		o1 = OUTDIR + "/trimmed/{sample}_R1_val_1.fq.gz",
 		o2 = OUTDIR + "/trimmed/{sample}_R2_val_2.fq.gz"
-	threads: 20
-	group: "rsem"
+	threads: 10
+	group: "trim_galore"
+	resources:
+		time = 720,
+		mem_mb = 16000
+	container:
+		config["singularity"]["rnaseq"]
 	shell:
-		"{SGL_NFCORE_CMD} trim_galore --paired {input.r1} {input.r2} -o {OUTDIR}/trimmed -j {threads}"
+		"trim_galore --paired {input.r1} {input.r2} -o {OUTDIR}/trimmed -j {threads}"
 
 rule star:
 	input:
@@ -131,13 +130,18 @@ rule star:
 		o2 = OUTDIR + "/align/{sample}_Chimeric.out.junction",
 		o3 = temp(OUTDIR + "/align/{sample}_unmapped_R1.fq"),
 		o4 = temp(OUTDIR + "/align/{sample}_unmapped_R2.fq")
-	threads: 80
+	threads: 20
 	params:
-		star_path = "$SCRATCH/igenomes_ref/GRCh38_star"
-	group: "rsem"
+		star_path = config["reference"]["directory"] + config["reference"]["star_path"]
+	group: "star"
+	resources:
+		time = 720,
+		mem_mb = 16000
+	container:
+		config["singularity"]["star"]
 	shell:
 		"""
-		{SGL_STAR_RSEM_CMD} STAR --genomeDir {params.star_path} \
+		STAR --genomeDir {params.star_path} \
 		--readFilesIn {input.r1} {input.r2} \
 		--outFileNamePrefix {OUTDIR}/align/{wildcards.sample}_ \
 		--runThreadN {threads} \
@@ -171,13 +175,18 @@ rule rsem:
 	output:
 		rsem_results = OUTDIR + "/rsem/{sample}.genes.results"
 	params:
-		rsem_path = "$SCRATCH/igenomes_ref/GRCh38_star/GRCh38"
-	threads: 80
-	group: "rsem"
+		rsem_path = config["reference"]["directory"] + config["reference"]["rsem_path"]
+	threads: 20
+	group: "star"
+	resources:
+		time = 720,
+		mem_mb = 16000
+	container:
+		config["singularity"]["rsem"]
 	shell:
 		"""
 		cd {OUTDIR}/rsem/
-		{SGL_STAR_RSEM_CMD} rsem-calculate-expression --time \
+		rsem-calculate-expression --time \
 		--output-genome-bam -p {threads} \
 		--alignments \
 		--paired-end {input.sam} \

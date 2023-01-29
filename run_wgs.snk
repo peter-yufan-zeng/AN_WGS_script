@@ -62,6 +62,9 @@ if config['run_phylowgs'] == "True":
 	Multi['phylowgs_tree_json_path'] = OUTDIR + "/results/phyloWGS/" + Multi.Combined + "_vs_" + Multi.Patient + "-N/tree_likelihoods.txt"
 	phylowgs_output_list = 	Multi.phylowgs_path.drop_duplicates().tolist(),
 	phylowgs_tree_output_list = Multi.phylowgs_tree_json_path.drop_duplicates().tolist()
+else:
+	phylowgs_output_list = None
+	phylowgs_tree_output_list = None
 Multi = Multi[Multi.num_tumours > 1]
 
 
@@ -113,11 +116,12 @@ rule all:
 		expand(OUTDIR + "/results/titan/hmm/titanCNA_ploidy{ploidy}/{tumor}_vs_{patient}-N_cluster{clustNum}.seg",patient = [x.rsplit('-',1)[0] for x in TUMOR],tumor = TUMOR,clustNum=CLUST[config["titan"]["TitanCNA_maxNumClonalClusters"]], ploidy=PLOIDY[config["titan"]["TitanCNA_maxPloidy"]]),
 		expand(OUTDIR + "/results/titan/hmm/{tumor}_vs_{patient}-N_optimalClusterSolution.txt",patient = [x.rsplit('-',1)[0] for x in TUMOR],tumor = TUMOR),
 		expand(OUTDIR+ "/results/titan/hmm/optimalClusterSolution/{tumor}_vs_{patient}-N/",patient = [x.rsplit('-',1)[0] for x in TUMOR],tumor = TUMOR),
-		### phylowgs output
-		#phylowgs_output_list,
-		#phylowgs_tree_output_list,
+
 		#### ASCAT
-		expand(OUTDIR + "/results/ASCAT/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N.tumor.cnvs.txt",zip, tumor = TUMOR, patient = [x.rsplit('-',1)[0] for x in TUMOR])
+		expand(OUTDIR + "/results/ASCAT/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N.tumor.cnvs.txt",zip, tumor = TUMOR, patient = [x.rsplit('-',1)[0] for x in TUMOR]),
+		### phylowgs output
+		phylowgs_output_list,
+		phylowgs_tree_output_list
 		#### QC
 		#expand("reports/{patient}_multiqc.html",patient = PAT)
 	threads: 1

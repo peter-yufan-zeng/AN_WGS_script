@@ -16,7 +16,7 @@ rule parseCNV:
 	container:
 		config["singularity"]["phylowgs"]
 	resources:
-		time = 30,
+		time = 15,
 		mem_mb = 8500
 	shell:
 		"""
@@ -35,7 +35,7 @@ rule fixParsedCNV:
 	threads: 1
 	group: "prep_phylowgs"
 	resources:
-		time = 30,
+		time = 15,
 		mem_mb = 8500
 	container:
 		config["singularity"]["phylowgs"]
@@ -94,7 +94,7 @@ rule parseSNVfromMutect:
 	threads: 1
 	group: "prep_phylowgs"
 	resources:
-		time = 30,
+		time = 15,
 		mem_mb = 8500
 	container:
 		config["singularity"]["phylowgs"]
@@ -117,9 +117,9 @@ rule phyloWGS:
 		params = OUTDIR + "/results/phyloWGS/parsedSNV_CNV/{tumour}_vs_{patient}-N_params.json"
 	output:
 		OUTDIR + "/results/phyloWGS/{tumour}_vs_{patient}-N/trees.zip"
-	threads: 32
+	threads: 20
 	resources:
-		time = 1440,
+		time = 1430,
 		mem_mb = 12000
 	group: "phylowgs"
 	params:
@@ -169,7 +169,7 @@ rule parse_phyloWGS_top_trees_into_csv:
 		unzipped_summary = OUTDIR + "/results/phyloWGS/{tumour}_vs_{patient}-N/{tumour}_vs_{patient}-N.summ.json"
 	threads: 2
 	resources:
-		time = 15,
+		time = 5,
 		mem_mb = 8000
 	group: "phylowgs"
 	container:

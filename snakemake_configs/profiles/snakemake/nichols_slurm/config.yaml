@@ -1,5 +1,5 @@
 cluster: "~/.config/snakemake/nichols_slurm/slurm-submit.py "
-#cluster-status: "~/.config/snakemake/{{cookiecutter.profile_name}}/slurm-status.py"  #not fully tested yet.. better to rely on filesystem checks..
+#cluster-status: "~/.config/snakemake/{{cookiecutter.profile_name}}/slurm-status.py"  #not fully tested yet.. better to rely on filesystem checks..  
 jobscript: "slurm-jobscript.sh"
 jobs: 500
 use-singularity: True
@@ -15,3 +15,9 @@ show-failed-logs: True
 
 set-resources:
 #   - high_memory_rule:mem_mb=12000
+   - bwa_mem:runtime=1440
+   - sort_sam_to_bam:runtime=1080
+   - filter_bam:runtime=1440
+   - mutect2:runtime=480
+   - getHETsites_mpileup:runtime=60
+   - getAlleleCountsByChr:runtime=240

@@ -29,12 +29,12 @@ else:
 
 #get values and set defaults
 if 'time' in job_properties["resources"].keys():
-    time = min(job_properties["resources"]["time"],1440)
+    time = min(job_properties["resources"]["time"],2880)
 else:
     time = {{cookiecutter.default_time}}
 
 if 'mem_mb' in job_properties["resources"].keys():
-    mem_mb = min(job_properties["resources"]["mem_mb"],150000)
+    mem_mb = min(job_properties["resources"]["mem_mb"],120000)
 else:
     mem_mb = {{cookiecutter.default_mem_mb}}
 
@@ -43,7 +43,7 @@ if 'gpus' in job_properties["resources"].keys():
 else:
     gpus = 0
 
-threads = min(job_properties["threads"],80)
+threads = min(job_properties["threads"],32)
 
 
 log = os.path.realpath(os.path.join('logs','slurm',f'slurm_%j_{job_name}.out'))
@@ -64,7 +64,7 @@ else:
     gpu_arg = ''
 
 # set all the slurm submit options as before
-slurm_args = f" --parsable --nodes=1 --time={time} --cpus-per-task={threads} --output={log} "
+slurm_args = f" --parsable --time={time} --mem={mem_mb} --cpus-per-task={threads} --output={log} "
 
 cmdline.append(slurm_args)
 

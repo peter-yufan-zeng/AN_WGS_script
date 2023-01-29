@@ -10,7 +10,7 @@ rule kraken:
 		out = OUTDIR + "/kraken2/{sample}_kraken2.out",
 		report = OUTDIR + "/kraken2/{sample}_kraken2.report"
 	threads: 20
-	group: "kracken"
+	group: "kraken"
 	container:
 		config["singularity"]["kraken2"]
 	params:
@@ -36,7 +36,7 @@ rule bracken:
 	output:
 		out = OUTDIR + "/kraken2/bracken/{sample}_bracken2.out",
 		report = OUTDIR + "/kraken2/bracken/{sample}_bracken2.report"
-	group: "kracken"
+	group: "kraken"
 	threads: 1
 	resources:
 		time = 10,

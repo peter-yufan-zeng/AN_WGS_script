@@ -114,11 +114,11 @@ rule trim_galore:
 	output:
 		o1 = OUTDIR + "/trimmed/{sample}_R1_val_1.fq.gz",
 		o2 = OUTDIR + "/trimmed/{sample}_R2_val_2.fq.gz"
-	threads: 10
+	threads: 6
 	group: "trim_galore"
 	resources:
 		time = 720,
-		mem_mb = 16000
+		mem_mb = 10000
 	container:
 		config["singularity"]["rnaseq"]
 	shell:
@@ -179,10 +179,10 @@ rule rsem:
 		rsem_results = OUTDIR + "/rsem/{sample}.genes.results"
 	params:
 		rsem_path = config["reference"]["directory"] + config["reference"]["rsem_path"]
-	threads: 20
+	threads: 10
 	group: "star"
 	resources:
-		time = 720,
+		time = 360,
 		mem_mb = 16000
 	container:
 		config["singularity"]["rsem"]

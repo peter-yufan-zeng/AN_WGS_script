@@ -1,4 +1,4 @@
-cluster: "~/.config/snakemake/nichols_slurm/slurm-submit.py "
+cluster: "~/.config/snakemake/nichols_niagara/slurm-submit.py "
 #cluster-status: "~/.config/snakemake/{{cookiecutter.profile_name}}/slurm-status.py"  #not fully tested yet.. better to rely on filesystem checks..
 jobscript: "slurm-jobscript.sh"
 jobs: 500

@@ -121,10 +121,10 @@ rule all:
 		expand(OUTDIR+ "/results/titan/hmm/optimalClusterSolution/{tumor}_vs_{patient}-N/",patient = [x.rsplit('-',1)[0] for x in TUMOR],tumor = TUMOR),
 
 		#### ASCAT
-		expand(OUTDIR + "/results/ASCAT/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N.tumor.cnvs.txt",zip, tumor = TUMOR, patient = [x.rsplit('-',1)[0] for x in TUMOR]),
+		expand(OUTDIR + "/results/ASCAT/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N.tumor.cnvs.txt",zip, tumor = TUMOR, patient = [x.rsplit('-',1)[0] for x in TUMOR])
 		### phylowgs output
-		phylowgs_output_list,
-		phylowgs_tree_output_list
+#		phylowgs_output_list,
+#		phylowgs_tree_output_list
 		#### QC
 		#expand("reports/{patient}_multiqc.html",patient = PAT)
 	threads: 1

@@ -65,6 +65,9 @@ if config['run_phylowgs'] == "True":
 else:
 	phylowgs_output_list = None
 	phylowgs_tree_output_list = None
+##
+print(phylowgs_output_list)
+print(phylowgs_tree_output_list)
 Multi = Multi[Multi.num_tumours > 1]
 
 

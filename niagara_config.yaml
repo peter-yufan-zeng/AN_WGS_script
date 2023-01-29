@@ -20,7 +20,7 @@ singularity:
   mosdepth: $NXF_SINGULARITY_CACHEDIR/depot.galaxyproject.org-singularity-mosdepth-0.3.3--hdfd78af_1.img
   msisensor: $NXF_SINGULARITY_CACHEDIR/depot.galaxyproject.org-singularity-msisensor-pro-1.2.0--hfc31af2_0.img
   multiqc: $NXF_SINGULARITY_CACHEDIR/depot.galaxyproject.org-singularity-multiqc-1.13a--pyhdfd78af_1.img
-  kracken2: $NXF_SINGULARITY_CACHEDIR/kraken2.1.2.simg
+  kraken2: $NXF_SINGULARITY_CACHEDIR/kraken2.1.2.simg
   phylowgs: $NXF_SINGULARITY_CACHEDIR/phylowgs.simg
   pysam: $NXF_SINGULARITY_CACHEDIR/python3-pysam.sif
   qualimap: $NXF_SINGULARITY_CACHEDIR/qualimap-2.2.1.img

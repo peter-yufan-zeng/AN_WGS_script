@@ -36,8 +36,8 @@ rule markdup:
 		metric = OUTDIR +"/orphan/{sample}.bam.metric"
 	threads: 6
 	resources:
-		time = 18*60,
-		mem_mb = 60000
+		time = 24*60,
+		mem_mb = 50000
 	container:
 		config["singularity"]["gatk"]
 	shell:

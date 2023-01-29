@@ -37,12 +37,12 @@ rule markdup:
 	threads: 6
 	resources:
 		time = 24*60,
-		mem_mb = 50000
+		mem_mb = 36000
 	container:
 		config["singularity"]["gatk"]
 	shell:
 		"""
-		gatk --java-options " -Xms20G -Xmx28G " \
+		gatk --java-options " -Xmx20G -Xmx28G " \
 		MarkDuplicates \
 		--MAX_RECORDS_IN_RAM 500000 \
 		--TMP_DIR {OUTDIR}/orphan/{wildcards.sample} \

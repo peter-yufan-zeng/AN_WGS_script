@@ -17,7 +17,7 @@ rule kraken:
 		kraken2_ref = config["reference"]["directory"] + config["reference"]["kraken2_ref"]
 	resources:
 		time = 240,
-		mem_mb = 40000
+		mem_mb = 30000
 	shell:
 		"""
 		kraken2 --db /scratch/n/nicholsa/zyfniu/igenomes_ref/kraken2_ref/ \

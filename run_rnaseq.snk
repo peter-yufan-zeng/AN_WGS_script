@@ -72,6 +72,9 @@ rule rename_files:
 		o1 = OUTDIR + "/ln/{sample}_R1.fq.gz",
 		o2 = OUTDIR + "/ln/{sample}_R2.fq.gz"
 	threads: 1
+	resources:
+		time = 1,
+		mem_mb = 1000
 	shell:
 		"""
 		ln -s {input.fastq1} {output.o1}
@@ -138,7 +141,7 @@ rule star:
 		time = 720,
 		mem_mb = 16000
 	container:
-		config["singularity"]["star"]
+		config["singularity"]["rsem"]
 	shell:
 		"""
 		STAR --genomeDir {params.star_path} \

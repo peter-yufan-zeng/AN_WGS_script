@@ -232,7 +232,7 @@ rule runTitanCNA:
 		#alleleModel=config["titan"]["TitanCNA_alleleModel"],
 		txnExpLen=config["titan"]["TitanCNA_txnExpLen"],
 		plotYlim=config["titan"]["TitanCNA_plotYlim"]
-	threads: 2
+	threads: 4
 	resources:
 		time = 120,
 		mem_mb = 8500

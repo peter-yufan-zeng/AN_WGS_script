@@ -114,7 +114,7 @@ rule parseCNV:
 	#params:
 #		awk_command = "awk 'FNR == 1{{print $4}}' " + OUTDIR + "/results/titan/hmm/optimalClusterSolution/{tumor}_vs_{patient}-N/{tumor}*.params.txt"
 	params:
-		script = OUTDIR + "/AN_WGS_script/phylowgs_parser/parse_cnvs.py"
+		script = OUTDIR + "/AN_WGS_script/phylowgs_parser/parse_cnvs.py",
 		cellularity = get_titan_cellularity
 	threads: 1
 	group: "prep_phylowgs"
@@ -225,7 +225,7 @@ rule parseSNVfromMutect:
 		cnv_files = cnvs_param,
 		vcf_files = vcf_files,
 		vcf_format = vcf_format,
-		script = OUTDIR + "/AN_WGS_script/phylowgs_parser/parse_cnvs.py"
+		script = OUTDIR + "/AN_WGS_script/phylowgs_parser/create_phylowgs_inputs.py"
 	threads: 1
 	group: "prep_phylowgs"
 	resources:

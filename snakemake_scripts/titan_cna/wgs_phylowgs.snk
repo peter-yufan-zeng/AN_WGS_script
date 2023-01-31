@@ -74,7 +74,8 @@ rule copyOptSolution:
 		OUTDIR + "/results/titan/hmm/{tumor}_vs_{patient}-N_optimalClusterSolution.txt"
 	output:
 		dir = directory(OUTDIR + "/results/titan/hmm/optimalClusterSolution/{tumor}_vs_{patient}-N/"),
-		segs = OUTDIR + "/results/titan/hmm/optimalClusterSolution/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N.segs.txt"
+		segs = OUTDIR + "/results/titan/hmm/optimalClusterSolution/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N.segs.txt",
+		titan_optimal_params = OUTDIR + "/results/titan/hmm/optimalClusterSolution/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N.params.txt"
 	log:
 		OUTDIR + "/logs/titan/hmm/optSolution/copyOptSolution_{tumor}_vs_{patient}-N.log"
 	threads: 1
@@ -86,6 +87,7 @@ rule copyOptSolution:
 			echo -e "Copying ${{i}} to {output.dir}"
 			cp -r ${{i}}* {output.dir}
 			cp -r ${{i}}.segs.txt {output.segs}
+			cp -r ${{i}}.params.txt {output.titan_optimal_params}
 		done
 		"""
 
@@ -286,7 +288,7 @@ rule parse_phyloWGS_top_trees_into_csv:
 		mutass_output = OUTDIR + "/results/phyloWGS/{tumour}_vs_{patient}-N/{tumour}_vs_{patient}-N.mutass.zip",
 		ssm = OUTDIR + "/results/phyloWGS/parsedSNV_CNV/{tumour}_vs_{patient}-N_ssm_data.txt",
 		cnv = OUTDIR + "/results/phyloWGS/parsedSNV_CNV/{tumour}_vs_{patient}-N_cnv_data.txt",
-		parser_script = "phylowgs_parser/parse_pwgs_output.py"
+		parser_script = OUTDIR + "/AN_WGS_script/phylowgs_parser/parse_pwgs_output.py"
 	output:
 		OUTDIR + "/results/phyloWGS/{tumour}_vs_{patient}-N/tree_likelihoods.txt"
 	params:

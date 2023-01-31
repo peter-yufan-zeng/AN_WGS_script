@@ -32,7 +32,7 @@ rule alleleCount:
 		time = 16*60,
 		mem_mb = 8500
 	container:
-		config["singularity"]["ascat"]
+		config["singularity"]["battenberg"]
 	group:"allelecount"
 	shell:
 		"""

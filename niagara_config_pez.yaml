@@ -22,7 +22,7 @@ singularity:
   multiqc: $NXF_SINGULARITY_CACHEDIR/depot.galaxyproject.org-singularity-multiqc-1.13a--pyhdfd78af_1.img
   phylowgs: $NXF_SINGULARITY_CACHEDIR/phylowgs.simg
   pysam: $NXF_SINGULARITY_CACHEDIR/python3-pysam.sif
-  qualimap: $NXF_SINGULARITY_CACHEDIR/qualimap-2.2.1.img\
+  qualimap: $NXF_SINGULARITY_CACHEDIR/qualimap-2.2.1.img
   rnaseq: $NXF_SINGULARITY_CACHEDIR/nfcore-rnaseq-1.4.2.img
   samtools: $NXF_SINGULARITY_CACHEDIR/depot.galaxyproject.org-singularity-samtools-1.16.1--h6899075_1.img
   strelka: $NXF_SINGULARITY_CACHEDIR/depot.galaxyproject.org-singularity-strelka-2.9.10--h9ee0642_1.img

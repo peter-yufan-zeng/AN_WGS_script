@@ -20,7 +20,7 @@ rule kraken:
 		mem_mb = 30000
 	shell:
 		"""
-		kraken2 --db /scratch/n/nicholsa/zyfniu/igenomes_ref/kraken2_ref/ \
+		kraken2 --db {params.kraken2_ref} \
 		--output {output.out} \
 		--report {output.report} \
 		--paired \
@@ -45,7 +45,7 @@ rule bracken:
 		config["singularity"]["bracken2"]
 	shell:
 		"""
-		bracken -d /scratch/n/nicholsa/zyfniu/igenomes_ref/kraken2_ref/ \
+		bracken -d {params.kraken2_ref} \
 		-i {input.report} \
 		-o {output.out} \
 		-w {output.report}

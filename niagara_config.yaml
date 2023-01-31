@@ -1,12 +1,11 @@
 singularity:
   ascat: $NXF_SINGULARITY_CACHEDIR/ascat-2.5.2.img
-  battenberg: $NXF_SINGULARITY_CACHEDIR/battenberg-2.2.9.sif
   gatk: $NXF_SINGULARITY_CACHEDIR/broadinstitute-gatk-4.2.6.1.img
   bcftools: $NXF_SINGULARITY_CACHEDIR/depot.galaxyproject.org-singularity-bcftools-1.16--hfe4b78e_1.img
   bwa: $NXF_SINGULARITY_CACHEDIR/depot.galaxyproject.org-singularity-bwa-0.7.17--hed695b0_7.img
   bwa-mem2: $NXF_SINGULARITY_CACHEDIR/depot.galaxyproject.org-singularity-bwa-mem2-2.2.1--he513fc3_0.img
-  bracken2: $NXF_SINGULARITY_CACHEDIR/bracken2.simg
   bgzip_tabix: $NXF_SINGULARITY_CACHEDIR/depot.galaxyproject.org-singularity-mulled-v2-780d630a9bb6a0ff2e7b6f730906fd703e40e98f-3bdd798e4b9aed6d3e1aaa1596c913a3eeb865cb-0.img
+  bracken2: $NXF_SINGULARITY_CACHEDIR/bracken2.simg
   cnvkit: $NXF_SINGULARITY_CACHEDIR/depot.galaxyproject.org-singularity-cnvkit-0.9.9--pyhdfd78af_0.img
   control-freec: $NXF_SINGULARITY_CACHEDIR/depot.galaxyproject.org-singularity-control-freec-11.6--h1b792b2_1.img
   vep: $NXF_SINGULARITY_CACHEDIR/depot.galaxyproject.org-singularity-ensembl-vep-106.1--pl5321h4a94de4_0.img
@@ -16,11 +15,11 @@ singularity:
   freebayes:  $NXF_SINGULARITY_CACHEDIR/depot.galaxyproject.org-singularity-freebayes-1.3.6--hbfe0e7f_2.img
   gawk: $NXF_SINGULARITY_CACHEDIR/depot.galaxyproject.org-singularity-gawk-5.1.0.img
   ichorcna: $NXF_SINGULARITY_CACHEDIR/ichorcna_pz.simg
+  kraken2: $NXF_SINGULARITY_CACHEDIR/kraken2.1.2.simg
   manta: $NXF_SINGULARITY_CACHEDIR/depot.galaxyproject.org-singularity-manta-1.6.0--h9ee0642_1.img
   mosdepth: $NXF_SINGULARITY_CACHEDIR/depot.galaxyproject.org-singularity-mosdepth-0.3.3--hdfd78af_1.img
   msisensor: $NXF_SINGULARITY_CACHEDIR/depot.galaxyproject.org-singularity-msisensor-pro-1.2.0--hfc31af2_0.img
   multiqc: $NXF_SINGULARITY_CACHEDIR/depot.galaxyproject.org-singularity-multiqc-1.13a--pyhdfd78af_1.img
-  kraken2: $NXF_SINGULARITY_CACHEDIR/kraken2.1.2.simg
   phylowgs: $NXF_SINGULARITY_CACHEDIR/phylowgs.simg
   pysam: $NXF_SINGULARITY_CACHEDIR/python3-pysam.sif
   qualimap: $NXF_SINGULARITY_CACHEDIR/qualimap-2.2.1.img
@@ -133,7 +132,7 @@ titan:
   TitanCNA_txnExpLen: 1e15
   TitanCNA_plotYlim:  c(-2,4)
   TitanCNA_solutionThreshold: 0.05
-  TitanCNA_numCores: 32
+  TitanCNA_numCores: 16
 
   ## Combine TitanCNA & ichorCNA
   mergeIchorHOMD: FALSE  # consider setting to TRUE when working with pure tumor

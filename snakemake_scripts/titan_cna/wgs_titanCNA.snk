@@ -234,7 +234,7 @@ rule runTitanCNA:
 		plotYlim=config["titan"]["TitanCNA_plotYlim"]
 	threads: 2
 	resources:
-		time = 480,
+		time = 120,
 		mem_mb = 8500
 	container:
 		config["singularity"]["ichorcna"]
@@ -245,7 +245,7 @@ rule runTitanCNA:
 		Rscript {params.titanRscript} \
 		--hetFile {input.alleleCounts} --cnFile {input.corrDepth} --outFile {output.titan} --outSeg {output.segTxt} \
 		--outParam {output.param} --outIGV {output.seg} --outPlotDir {params.outRoot} --libdir {params.libdir} --id {wildcards.tumor}_vs_{wildcards.patient}-N \
-		--numClusters {wildcards.clustNum} --numCores {params.numCores} --normal_0 {params.normal} --ploidy_0 {wildcards.ploidy} \
+		--numClusters {wildcards.clustNum} --numCores {threads} --normal_0 {params.normal} --ploidy_0 {wildcards.ploidy} \
 		--genomeStyle {params.genomeStyle} --genomeBuild {params.genomeBuild} --cytobandFile {params.cytobandFile} --chrs \"{params.chrs}\" \
 		--gender {params.sex} --estimateNormal {params.estimateNormal} --estimatePloidy {params.estimatePloidy} --estimateClonality {params.estimateClonality}  \
 		--centromere {params.centromere} --alphaK {params.alphaK} --txnExpLen {params.txnExpLen} --plotYlim \"{params.plotYlim}\" > {log} 2> {log}

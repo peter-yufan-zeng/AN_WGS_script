@@ -96,6 +96,11 @@ rule copyOptSolution:
 ###	phyloWGS
 ###
 
+def get_titan_cellularity(input):
+	prop_normal = pd.read_table(input.titan_optimal_params,names = ["name","value"]).iloc[0][1]
+	cellularity = 1 - float(prop_normal)
+	return cellularity
+
 rule parseCNV:
 	input:
 		segs = OUTDIR + "/results/titan/hmm/optimalClusterSolution/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N.segs.txt",
@@ -105,6 +110,8 @@ rule parseCNV:
 		OUTDIR + "/results/phyloWGS/input/{tumor}_vs_{patient}-N_cnvs.txt"
 	#params:
 #		awk_command = "awk 'FNR == 1{{print $4}}' " + OUTDIR + "/results/titan/hmm/optimalClusterSolution/{tumor}_vs_{patient}-N/{tumor}*.params.txt"
+	params:
+		cellularity = get_titan_cellularity
 	threads: 1
 	group: "prep_phylowgs"
 	container:
@@ -114,9 +121,7 @@ rule parseCNV:
 		mem_mb = 8500
 	shell:
 		"""
-		prop_normal=$(awk 'FNR == 1{{print $4}}' {input.titan_optimal_params})
-		cellularity=$( echo "1-$prop_normal" | bc)
-		python2.7 phylowgs_parser/parse_cnvs.py -f titan -c $cellularity --cnv-output {output} {input.segs}
+		python2.7 phylowgs_parser/parse_cnvs.py -f titan -c {params.cellularity} --cnv-output {output} {input.segs}
 		"""
 
 ### replace chr1...23 with 1...23 before using phylowgs parser and then remove duplicate rows
@@ -131,8 +136,6 @@ rule fixParsedCNV:
 	resources:
 		time = 15,
 		mem_mb = 8500
-	container:
-		config["singularity"]["phylowgs"]
 	shell:
 		"""
 		sed -e 's/chr//g' {input} > {output.remove_chr}

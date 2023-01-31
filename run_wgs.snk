@@ -68,7 +68,7 @@ else:
 ##
 print(phylowgs_output_list)
 print(phylowgs_tree_output_list)
-Multi = Multi[Multi.num_tumours >= 1]
+Multi = Multi[Multi.num_tumours > 1]
 
 
 ###

@@ -14,7 +14,7 @@ import time
 
 #TMP = "$SCRATCH/temp"
 
-localrules: all#, symlink_reffiles, generate_intervals, make_loci_files_for_ascat
+localrules: all, copyOptSolution#, symlink_reffiles, generate_intervals, make_loci_files_for_ascat
 
 ###
 ### LOAD SAMPLES
@@ -32,6 +32,9 @@ TUMOR = INPUT[(INPUT.n_vs_t == 1)].Sample.drop_duplicates()
 SAMPLE_LANE = INPUT.Sample_Lane
 print(INPUT)
 
+### PRINT OUTPUT DIRECTORY
+OUTDIR = config['outdir']
+print("***OUTPUT DIRECTORY: " + OUTDIR + "***")
 
 ###
 ###
@@ -64,6 +67,27 @@ rule all:
 		Multi.phylowgs_tree_json_path.drop_duplicates().tolist()
 
 
+### copy optimal titan solution
+
+rule copyOptSolution:
+	input:
+		OUTDIR + "/results/titan/hmm/{tumor}_vs_{patient}-N_optimalClusterSolution.txt"
+	output:
+		dir = directory(OUTDIR + "/results/titan/hmm/optimalClusterSolution/{tumor}_vs_{patient}-N/"),
+		segs = OUTDIR + "/results/titan/hmm/optimalClusterSolution/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N.segs.txt"
+	log:
+		OUTDIR + "/logs/titan/hmm/optSolution/copyOptSolution_{tumor}_vs_{patient}-N.log"
+	threads: 1
+	shell:
+		"""
+		curDir=`pwd`
+		for i in `cut -f11 {input} | grep -v "path"`;
+		do
+			echo -e "Copying ${{i}} to {output.dir}"
+			cp -r ${{i}}* {output.dir}
+			cp -r ${{i}}.segs.txt {output.segs}
+		done
+		"""
 
 
 ###

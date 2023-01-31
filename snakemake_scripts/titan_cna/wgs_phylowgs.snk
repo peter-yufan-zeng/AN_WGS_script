@@ -1,3 +1,71 @@
+#### USAGE
+#### 1) First load snakemake
+#### module load NiaEnv/2018a
+#### module load python/3.6.4-anaconda5.1.0
+#### source activate snakemake
+#### snakemake -s AN_WGS_script/Snakefile  --cores 1 -j 40 --cluster "sbatch -N 1 -t 20:00:00 --ntasks 80 --output=logs/%x_%j.log" --ri \
+#### --config input=AN_WGS_script/Sample/20200907.tsv.txt outdir=$SCRATCH/AN_WGS_script/20200908_HPV_HNSCC_WGS
+
+import pandas as pd
+import os
+import time
+
+# initial settings
+
+#TMP = "$SCRATCH/temp"
+
+localrules: all#, symlink_reffiles, generate_intervals, make_loci_files_for_ascat
+
+###
+### LOAD SAMPLES
+###
+
+configfile: "AN_WGS_script/graham_config.yaml"
+
+print("\n***INPUT FILE: " + config['input'] + "***\n")
+INPUT = pd.read_csv(config['input'],names = ['Patient','Sex','n_vs_t','Sample','Lane','Fastq1','Fastq2'],header=0)
+INPUT['Lane'] = INPUT.Lane.apply(str)
+INPUT['Sample_Lane'] = INPUT.Sample + "_" + INPUT.Lane
+SAMPLE =  INPUT['Sample'].unique()
+PAT = INPUT.Patient.drop_duplicates()
+TUMOR = INPUT[(INPUT.n_vs_t == 1)].Sample.drop_duplicates()
+SAMPLE_LANE = INPUT.Sample_Lane
+print(INPUT)
+
+
+###
+###
+Multi = INPUT[(INPUT.n_vs_t == 1)]
+Multi = Multi[['Patient','Sample']].drop_duplicates()
+Multi.loc[:,'Combined'] = ""
+Multi.loc[:,"num_tumours"] = 1
+for x in Multi['Patient'].drop_duplicates():
+	COMBINED_mutect_samples = ""
+	print(x)
+	n = 1
+	for y in Multi[Multi.Patient == x].Sample.drop_duplicates():
+		print(y)
+		COMBINED_mutect_samples = y + "_" + COMBINED_mutect_samples
+		Multi.loc[(Multi.Patient == x),'num_tumours'] = n
+		n = n + 1
+	COMBINED_mutect_samples = COMBINED_mutect_samples[:-1]
+	Multi.loc[(Multi.Patient == x),'Combined']= COMBINED_mutect_samples
+
+Multi['path'] = OUTDIR + "/results/mutect2/all_"  + Multi.Combined + "_vs_" + Multi.Patient + "-N/" \
++ Multi.Combined + "_vs_" + Multi.Patient + "-N_snpEff.ann.vcf.gz"
+Multi['phylowgs_path'] = OUTDIR + "/results/phyloWGS/" + Multi.Combined + "_vs_" + Multi.Patient + "-N/trees.zip"
+Multi['phylowgs_tree_json_path'] = OUTDIR + "/results/phyloWGS/" + Multi.Combined + "_vs_" + Multi.Patient + "-N/tree_likelihoods.txt"
+Multi = Multi[Multi.num_tumours >= 1]
+
+
+rule all:
+	input:
+		Multi.phylowgs_path.drop_duplicates().tolist(),
+		Multi.phylowgs_tree_json_path.drop_duplicates().tolist()
+
+
+
+
 ###
 ###	phyloWGS
 ###
@@ -46,6 +114,39 @@ rule fixParsedCNV:
 		awk '$2!=$3' {output.remove_chr} > {output.remove_dup}
     	"""
 
+rule filter_mutect2_to_variants_of_interest:
+	input:
+		annotatedvcf = OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N_snpEff.ann.passOnly.vcf.gz"
+	output:
+		annotatedvcf = OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N_snpEff.ann.passOnly.inGenes.vcf.gz"
+	threads: 1
+	resources:
+		time = 15,
+		mem_mb = 8500
+	group: "prep_phylowgs"
+	container:
+		config["singularity"]["bcftools"]
+	shell:
+		"""
+		bcftools filter \
+		{input} --exclude \'INFO/ANN ~ \"intron\" | INFO/ANN ~ \"intergenic_region\" | INFO/ANN ~ \"upstream_gene_variant\" | INFO/ANN ~ \"downstream_gene_variant\" | INFO/ANN ~ \"intragenic_variant\"\' -O z> {output}
+		"""
+
+rule tabix:
+	input:
+		OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N_snpEff.ann.passOnly.inGenes.vcf.gz"
+	output:
+		OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N_snpEff.ann.passOnly.inGenes.vcf.tbi"
+	container:
+		config["singularity"]["tabix"]
+	resources:
+		time = 15,
+		mem_mb = 8500
+	group: "prep_phylowgs"
+	shell:
+		"""
+		tabix -p vcf {input}
+		"""
 
 def get_vcfs_for_phylowgs_files(wildcards):
 	samples = Multi[Multi.Patient == wildcards.patient].Sample
@@ -119,8 +220,8 @@ rule phyloWGS:
 		OUTDIR + "/results/phyloWGS/{tumour}_vs_{patient}-N/trees.zip"
 	threads: 20
 	resources:
-		time = 1430,
-		mem_mb = 12000
+		time = 60*72,
+		mem_mb = 10000
 	group: "phylowgs"
 	params:
 		output_dir = OUTDIR + "/results/phyloWGS/{tumour}_vs_{patient}-N/",

@@ -89,19 +89,19 @@ CHRS = ['chr1','chr2','chr3','chr4','chr5','chr6','chr7','chr8','chr9','chr10','
 ###get titan FILES
 titan_output_files = []
 for tumor in TUMOR:
-    tumor_titan_output = expand(OUTDIR + "/results/titan/hmm/titanCNA_ploidy{ploidy}/{tumor}_vs_{patient}-N_cluster{clustNum}.titan.txt",patient = [x.rsplit('-',1)[0] for x in tumor],tumor = tumor,clustNum=CLUST[config["titan"]["TitanCNA_maxNumClonalClusters"]],ploidy=PLOIDY[config["titan"]["TitanCNA_maxPloidy"]])
-    titan_output_files.extend(tumor_titan_output)
-    tumor_titan_output = expand(OUTDIR + "/results/titan/hmm/titanCNA_ploidy{ploidy}/{tumor}_vs_{patient}-N_cluster{clustNum}.params.txt",patient = [x.rsplit('-',1)[0] for x in tumor],tumor = tumor,clustNum=CLUST[config["titan"]["TitanCNA_maxNumClonalClusters"]],ploidy=PLOIDY[config["titan"]["TitanCNA_maxPloidy"]])
-    titan_output_files.extend(tumor_titan_output)
-    tumor_titan_output = expand(OUTDIR + "/results/titan/hmm/titanCNA_ploidy{ploidy}/{tumor}_vs_{patient}-N_cluster{clustNum}.segs.txt",patient = [x.rsplit('-',1)[0] for x in tumor],tumor = tumor,clustNum=CLUST[config["titan"]["TitanCNA_maxNumClonalClusters"]],ploidy=PLOIDY[config["titan"]["TitanCNA_maxPloidy"]])
-    titan_output_files.extend(tumor_titan_output)
-    tumor_titan_output = expand(OUTDIR + "/results/titan/hmm/titanCNA_ploidy{ploidy}/{tumor}_vs_{patient}-N_cluster{clustNum}.seg",patient = [x.rsplit('-',1)[0] for x in tumor],tumor = tumor,clustNum=CLUST[config["titan"]["TitanCNA_maxNumClonalClusters"]],ploidy=PLOIDY[config["titan"]["TitanCNA_maxPloidy"]])
-    titan_output_files.extend(tumor_titan_output)
-    tumor_titan_output = expand(OUTDIR + "/results/titan/hmm/titanCNA_ploidy{ploidy}/{tumor}_vs_{patient}-N_cluster{clustNum}.seg",patient = [x.rsplit('-',1)[0] for x in tumor],tumor = tumor,clustNum=CLUST[config["titan"]["TitanCNA_maxNumClonalClusters"]],ploidy=PLOIDY[config["titan"]["TitanCNA_maxPloidy"]])
-    titan_output_files.extend(tumor_titan_output)
-	tumor_titan_output = expand(OUTDIR + "/results/titan/hmm/{tumor}_vs_{patient}-N_optimalClusterSolution.txt",patient = [x.rsplit('-',1)[0] for x in tumor],tumor = tumor)
+	tumor_titan_output = expand(OUTDIR + "/results/titan/hmm/titanCNA_ploidy{ploidy}/{tumor}_vs_{patient}-N_cluster{clustNum}.titan.txt",patient = tumor.rsplit('-',1)[0],tumor = tumor,clustNum=CLUST[config["titan"]["TitanCNA_maxNumClonalClusters"]],ploidy=PLOIDY[config["titan"]["TitanCNA_maxPloidy"]])
 	titan_output_files.extend(tumor_titan_output)
-	tumor_titan_output = expand(OUTDIR+ "/results/titan/hmm/optimalClusterSolution/{tumor}_vs_{patient}-N/",patient = [x.rsplit('-',1)[0] for x in tumor],tumor = tumor)
+	tumor_titan_output = expand(OUTDIR + "/results/titan/hmm/titanCNA_ploidy{ploidy}/{tumor}_vs_{patient}-N_cluster{clustNum}.params.txt",patient = tumor.rsplit('-',1)[0],tumor = tumor,clustNum=CLUST[config["titan"]["TitanCNA_maxNumClonalClusters"]],ploidy=PLOIDY[config["titan"]["TitanCNA_maxPloidy"]])
+	titan_output_files.extend(tumor_titan_output)
+	tumor_titan_output = expand(OUTDIR + "/results/titan/hmm/titanCNA_ploidy{ploidy}/{tumor}_vs_{patient}-N_cluster{clustNum}.segs.txt",patient = tumor.rsplit('-',1)[0],tumor = tumor,clustNum=CLUST[config["titan"]["TitanCNA_maxNumClonalClusters"]],ploidy=PLOIDY[config["titan"]["TitanCNA_maxPloidy"]])
+	titan_output_files.extend(tumor_titan_output)
+	tumor_titan_output = expand(OUTDIR + "/results/titan/hmm/titanCNA_ploidy{ploidy}/{tumor}_vs_{patient}-N_cluster{clustNum}.seg",patient = tumor.rsplit('-',1)[0],tumor = tumor,clustNum=CLUST[config["titan"]["TitanCNA_maxNumClonalClusters"]],ploidy=PLOIDY[config["titan"]["TitanCNA_maxPloidy"]])
+	titan_output_files.extend(tumor_titan_output)
+	tumor_titan_output = expand(OUTDIR + "/results/titan/hmm/titanCNA_ploidy{ploidy}/{tumor}_vs_{patient}-N_cluster{clustNum}.seg",patient = tumor.rsplit('-',1)[0],tumor = tumor,clustNum=CLUST[config["titan"]["TitanCNA_maxNumClonalClusters"]],ploidy=PLOIDY[config["titan"]["TitanCNA_maxPloidy"]])
+	titan_output_files.extend(tumor_titan_output)
+	tumor_titan_output = expand(OUTDIR + "/results/titan/hmm/{tumor}_vs_{patient}-N_optimalClusterSolution.txt",patient = tumor.rsplit('-',1)[0],tumor = tumor)
+	titan_output_files.extend(tumor_titan_output)
+	tumor_titan_output = expand(OUTDIR+ "/results/titan/hmm/optimalClusterSolution/{tumor}_vs_{patient}-N/",patient = tumor.rsplit('-',1)[0],tumor = tumor)
 	titan_output_files.extend(tumor_titan_output)
 
 ###

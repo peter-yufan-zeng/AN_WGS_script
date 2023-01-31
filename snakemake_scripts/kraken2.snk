@@ -16,7 +16,7 @@ rule kraken:
 	params:
 		kraken2_ref = config["reference"]["directory"] + config["reference"]["kraken2_ref"]
 	resources:
-		time = 240,
+		time = 15,
 		mem_mb = 30000
 	shell:
 		"""
@@ -43,6 +43,8 @@ rule bracken:
 		mem_mb = 12000
 	container:
 		config["singularity"]["bracken2"]
+	params:
+		kraken2_ref = config["reference"]["directory"] + config["reference"]["kraken2_ref"]
 	shell:
 		"""
 		bracken -d {params.kraken2_ref} \

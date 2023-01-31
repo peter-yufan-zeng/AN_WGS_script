@@ -14,7 +14,7 @@ import time
 
 #TMP = "$SCRATCH/temp"
 
-localrules: all, copyOptSolution, parseCNV,fixParsedCNV,filter_mutect2_to_variants_of_interest,tabix,parseSNVfromMutect,parse_phyloWGS_top_trees_into_csv
+localrules: all, copyOptSolution, parseCNV,fixParsedCNV,filter_mutect2_to_variants_of_interest,tabix,parseSNVfromMutect,parse_phyloWGS_top_trees_into_csv, prep_phylowgs
 
 ###
 ### LOAD SAMPLES
@@ -107,12 +107,14 @@ rule parseCNV:
 	input:
 		segs = OUTDIR + "/results/titan/hmm/optimalClusterSolution/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N.segs.txt",
 		# ploidy = OUTDIR + "/results/ASCAT/{tumor}_vs_{patient}-N/{tumor}.purityploidy.txt"
-		titan_optimal_params = OUTDIR + "/results/phyloWGS/input/{tumor}_vs_{patient}-N.params.txt"
+		titan_optimal_params = OUTDIR + "/results/phyloWGS/input/{tumor}_vs_{patient}-N.params.txt",
+
 	output:
 		OUTDIR + "/results/phyloWGS/input/{tumor}_vs_{patient}-N_cnvs.txt"
 	#params:
 #		awk_command = "awk 'FNR == 1{{print $4}}' " + OUTDIR + "/results/titan/hmm/optimalClusterSolution/{tumor}_vs_{patient}-N/{tumor}*.params.txt"
 	params:
+		script = OUTDIR + "/AN_WGS_script/phylowgs_parser/parse_cnvs.py"
 		cellularity = get_titan_cellularity
 	threads: 1
 	group: "prep_phylowgs"
@@ -123,7 +125,7 @@ rule parseCNV:
 		mem_mb = 8500
 	shell:
 		"""
-		python2.7 phylowgs_parser/parse_cnvs.py -f titan -c {params.cellularity} --cnv-output {output} {input.segs}
+		python2.7 {params.script} -f titan -c {params.cellularity} --cnv-output {output} {input.segs}
 		"""
 
 ### replace chr1...23 with 1...23 before using phylowgs parser and then remove duplicate rows
@@ -222,7 +224,8 @@ rule parseSNVfromMutect:
 	params:
 		cnv_files = cnvs_param,
 		vcf_files = vcf_files,
-		vcf_format = vcf_format
+		vcf_format = vcf_format,
+		script = OUTDIR + "/AN_WGS_script/phylowgs_parser/parse_cnvs.py"
 	threads: 1
 	group: "prep_phylowgs"
 	resources:
@@ -233,7 +236,7 @@ rule parseSNVfromMutect:
 	shell:
 		"""
 		python2.7 \
-		phylowgs_parser/create_phylowgs_inputs.py \
+		{params.script} \
 		{params.vcf_format} --regions normal_and_abnormal_cn \
 		{params.cnv_files} \
 		--output-cnvs {output.cnv} \

@@ -63,7 +63,7 @@ Multi = Multi[Multi.num_tumours >= 1]
 
 rule all:
 	input:
-		expand(OUTDIR + "/results/titan/hmm/optimalClusterSolution/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N.params.txt",zip,patient = [x.rsplit('-',1)[0] for x in TUMOR],tumor = TUMOR),
+		expand(OUTDIR + "/results/phyloWGS/input/{tumor}_vs_{patient}-N.params.txt",zip,patient = [x.rsplit('-',1)[0] for x in TUMOR],tumor = TUMOR),
 		Multi.phylowgs_path.drop_duplicates().tolist(),
 		Multi.phylowgs_tree_json_path.drop_duplicates().tolist()
 
@@ -97,7 +97,8 @@ rule copyOptSolution:
 ###	phyloWGS
 ###
 
-def get_titan_cellularity(input):
+def get_titan_cellularity(wildcards, input):
+	file = OUTDIR + "/results/phyloWGS/input/" + wildcards.tumor + "_vs_" + wildcards.patient + "-N.params.txt"
 	prop_normal = pd.read_table(input.titan_optimal_params,names = ["name","value"]).iloc[0][1]
 	cellularity = 1 - float(prop_normal)
 	return cellularity

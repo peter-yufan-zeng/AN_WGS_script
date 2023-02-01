@@ -14,7 +14,7 @@ import time
 
 #TMP = "$SCRATCH/temp"
 
-localrules: all, copyOptSolution, parseCNV,fixParsedCNV,filter_mutect2_to_variants_of_interest,tabix,parseSNVfromMutect,parse_phyloWGS_top_trees_into_csv, prep_phylowgs
+localrules: all,copyOptSolution,parseCNV,fixParsedCNV,filter_mutect2_to_variants_of_interest,tabix,parseSNVfromMutect,parse_phyloWGS_top_trees_into_csv, prep_phylowgs
 
 ###
 ### LOAD SAMPLES

@@ -14,7 +14,7 @@ import time
 
 #TMP = "$SCRATCH/temp"
 
-localrules: all,copyOptSolution,parseCNV,fixParsedCNV,filter_mutect2_to_variants_of_interest,tabix,parseSNVfromMutect,parse_phyloWGS_top_trees_into_csv, prep_phylowgs
+localrules: all,copyOptSolution,parseCNV,fixParsedCNV,filter_mutect2_to_variants_of_interest,tabix,parseSNVfromMutect,parse_phyloWGS_top_trees_into_csv, prep_phylowgs, parse_phyloWGS_top_trees_into_csv
 
 ###
 ### LOAD SAMPLES
@@ -306,13 +306,10 @@ rule parse_phyloWGS_top_trees_into_csv:
 	resources:
 		time = 5,
 		mem_mb = 8000
-	group: "phylowgs"
-	container:
-		config["singularity"]["phylowgs"]
 	shell:
 		"""
 		gunzip {input.tree_summary_output}
-		python2.7 {input.parser_script} \
+		python {input.parser_script} \
 		--cnv_input {input.cnv} --ssm_input {input.ssm} \
 		--summary_file {params.unzipped_summary}  --mutasgn_path {input.mutass_output} \
 		--output_folder {params.output_dir} --k 5

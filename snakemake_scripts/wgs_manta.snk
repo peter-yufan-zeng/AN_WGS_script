@@ -12,12 +12,12 @@ rule config_manta:
 		time = 60,
 		mem_mb = 9000
 	container:
-		config["singularity"]["manta"]
+		config["singularity"]["manta_allow_collisions"]
 	group: "manta_call"
 	shell:
 		"""
 		rm -rf {OUTDIR}/temp/Manta/{wildcards.tumor}_vs_{wildcards.patient}-N/*
-		configManta.py \
+		/opt/manta/bin/configManta.py \
 		--normalBam {input.normal} \
 		--tumorBam  {input.tumor} \
 		--reference {input.ref_fasta} \
@@ -43,7 +43,7 @@ rule manta:
 		time = 8*60,
 		mem_mb = 10000
 	container:
-		config["singularity"]["manta"]
+		config["singularity"]["manta_allow_collisions"]
 	group: "manta_call"
 	shell:
 		"""

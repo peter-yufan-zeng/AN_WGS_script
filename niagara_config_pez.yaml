@@ -18,6 +18,7 @@ singularity:
   ichorcna: $NXF_SINGULARITY_CACHEDIR/ichorcna_pz.simg
   kraken2: $NXF_SINGULARITY_CACHEDIR/kraken2.1.2.simg
   manta: $NXF_SINGULARITY_CACHEDIR/depot.galaxyproject.org-singularity-manta-1.6.0--h9ee0642_1.img
+  manta_allow_collisions:  $NXF_SINGULARITY_CACHEDIR/manta_allow_collision.sif
   mosdepth: $NXF_SINGULARITY_CACHEDIR/depot.galaxyproject.org-singularity-mosdepth-0.3.3--hdfd78af_1.img
   msisensor: $NXF_SINGULARITY_CACHEDIR/depot.galaxyproject.org-singularity-msisensor-pro-1.2.0--hfc31af2_0.img
   multiqc: $NXF_SINGULARITY_CACHEDIR/depot.galaxyproject.org-singularity-multiqc-1.13a--pyhdfd78af_1.img

@@ -8,7 +8,7 @@ localrules: all
 ###
 SCRATCH = "/gpfs/fs0/scratch/n/nicholsa/zyfniu"
 print("\n***INPUT FILE: " + config['input'] + "***\n")
-INPUT = pd.read_table(config['input'],names = ['Patient','Sex','n_vs_t','Sample','Lane','Fastq1','Fastq2'])
+INPUT = pd.read_csv(config['input'],names = ['Patient','Sex','n_vs_t','Sample','Lane','Fastq1','Fastq2'])
 INPUT['Lane'] = INPUT.Lane.apply(str)
 INPUT['Sample_Lane'] = INPUT.Sample + "_" + INPUT.Lane
 SAMPLE =  INPUT['Sample'].unique()
@@ -74,7 +74,7 @@ rule hpvviewer:
 	output:
 		o1 = OUTDIR + "/orphan/hpviewer/{sample}/{sample}_HPV_profile.txt",
 		o2 = OUTDIR + "/results/hpviewer/{sample}_HPV_profile.txt"
-	threads: 80
+	threads: 20
 	group: "hpv"
 	shell:
 		"""
@@ -100,7 +100,7 @@ rule polyidus:
 #		o1 = OUTDIR + "/orphan/polyidus/{sample}/results/HpvIntegrationInfo.tsv",
 		o2 = OUTDIR + "/orphan/polyidus/{sample}/results/exactHpvIntegrations.tsv",
 		virusbam = OUTDIR + "/orphan/polyidus/{sample}/viral/virusAligned-final.bam"
-	threads: 80
+	threads: 20
 	group: "hpv"
 	shell:
 		"""
@@ -139,6 +139,11 @@ rule annotate_snpeff:
 		OUTDIR + "/results/hpv/mpileup/{sample}_HPV.snpEff.vcf"
 	threads: 2
 	group: "hpv"
+	resources:
+		time = 60,
+		mem_mb = 10000
+	container:
+		config["singularity"]["hpv_tools"]
 	shell:
 		"""
 		module load CCEnv
@@ -161,12 +166,13 @@ rule variant_calling_for_genotyping:
 		OUTDIR + "/results/hpv/mpileup/{sample}_HPV.for_genotyping.vcf"
 	threads: 1
 	group: "hpv"
+	resources:
+		time = 60,
+		mem_mb = 10000
+	container:
+		config["singularity"]["hpv_tools"]
  	shell:
 		"""
-		module load CCEnv
-		module load StdEnv/2020
-		module load scipy-stack/2020a bowtie2 samtools/1.10 bedtools bcftools
-		source $SCRATCH/singularity_images/polyidus/bin/activate
 		samtools sort {input} | \
 		bcftools mpileup -Ou -T $SCRATCH/AN_WGS/AN_WGS_script/scripts/HPViewer/hpv16lineage.csv.gz -d 10000 -f $SCRATCH/igenomes_ref/bowtie2_index/HPV16REF.1.fa - | \
 		bcftools call -i -C alleles \
@@ -181,8 +187,13 @@ rule copy_files:
 	output:
 		o1 = OUTDIR + "/results/hpv/polyidus/{sample}_HpvIntegrationInfo.tsv",
 		o2 = OUTDIR + "/results/hpv/polyidus/{sample}_exactHpvIntegrations.tsv"
-	threads: 2
+	threads: 1
 	group: "hpv"
+	resources:
+		time = 5,
+		mem_mb = 4000
+	container:
+		config["singularity"]["hpv_tools"]
 	shell:
 		"""
 		cp {input.i1} {output.o1}

@@ -286,7 +286,7 @@ rule output_phyloWGS_results:
 		config["singularity"]["phylowgs"]
 	shell:
 		"""
-		python2.7 /opt/phylowgs/write_results.py \
+		python2.7 /opt/phylowgs/write_results.py --include-multiprimary \
 		--max-multiprimary 0.99 {wildcards.tumour}_vs_{wildcards.patient}-N {input} {output.tree_summary_output} {output.mutlist_output} {output.mutass_output}
 		"""
 ### script from https://raw.githubusercontent.com/aleighbrown/pwgs_snakemake/master/parse_pwgs_output.py
@@ -312,7 +312,7 @@ rule parse_phyloWGS_top_trees_into_csv:
 		python {input.parser_script} \
 		--cnv_input {input.cnv} --ssm_input {input.ssm} \
 		--summary_file {params.unzipped_summary}  --mutasgn_path {input.mutass_output} \
-		--output_folder {params.output_dir} --k 5
+		--output_folder {params.output_dir} --k 5 || true
 		if [ ! -f {output} ]; then
 			echo "parser_failed" > {output}
 		fi

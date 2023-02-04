@@ -39,7 +39,7 @@ rule sort_bam:
 		temp(OUTDIR + "/sorted.bam/{sample}.sorted.bam")
 	threads: 4
 	resources:
-		time = "36h",
+		time = 36*60,
 		mem_mb = 16000
 	group: "bam_to_fastq"
 	container:
@@ -58,7 +58,7 @@ rule bam_to_fastq:
 		r2 = OUTDIR + "/fastq/{sample}_R2.fastq.gz"
 	threads: 2
 	resources:
-		time = "8h",
+		time = 8*60,
 		mem_mb = 8000
 	container:
 		config["singularity"]["samtools"]

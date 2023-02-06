@@ -13,6 +13,7 @@ singularity:
   fastqc: $NXF_SINGULARITY_CACHEDIR/depot.galaxyproject.org-singularity-fastqc-0.11.9--0.img
   fgbio: $NXF_SINGULARITY_CACHEDIR/depot.galaxyproject.org-singularity-fgbio-2.0.2--hdfd78af_0.img
   freebayes:  $NXF_SINGULARITY_CACHEDIR/depot.galaxyproject.org-singularity-freebayes-1.3.6--hbfe0e7f_2.img
+  hpvtools: $NXF_SINGULARITY_CACHEDIR/hpv_tools.sif
   gatk: $NXF_SINGULARITY_CACHEDIR/broadinstitute-gatk-4.2.6.1.img
   gawk: $NXF_SINGULARITY_CACHEDIR/depot.galaxyproject.org-singularity-gawk-5.1.0.img
   ichorcna: $NXF_SINGULARITY_CACHEDIR/ichorcna_pz.simg

@@ -37,12 +37,20 @@ snakemake  --profile nichols_niagara  -s AN_WGS_script/run_wgs.snk  --configfile
 
 ### run_phylowgs on Niagara
 snakemake  --profile nichols_niagara  -s AN_WGS_script/snakemake_scripts/titan_cna/wgs_phylowgs.snk  \
+	--configfile AN_WGS_script/niagara_config.yaml \
 	--config input=$SCRATCH/20221219_gillison/20230123.csv outdir=$SCRATCH/20221219_gillison \
 	--rerun-triggers input \
 	--group-components  phylowgs=4 \
 	--keep-going \
 	--ri
 
+### run polyidus on Niagara
+snakemake  --profile nichols_niagara  -s AN_WGS_script/snakemake_scripts/polyidus.snk  \
+	--configfile AN_WGS_script/niagara_config.yaml \
+	--config input=$SCRATCH/20221219_gillison/20230123.csv outdir=$SCRATCH/20221219_gillison \
+	--rerun-triggers input \
+	--group-components  polyidus=4 hpvviewer=4 hpv=40 \
+	--ri
 
 ####
 ####  Graham

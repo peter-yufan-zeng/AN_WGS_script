@@ -147,8 +147,6 @@ rule annotate_snpeff:
 		mem_mb = 10000
 	params:
 		path_to_snpEff = "$NXF_SINGULARITY_CACHEDIR/snpEff/snpEff.jar"
-	container:
-		config["singularity"]["hpv_tools"]
 	shell:
 		"""
 		module load java

@@ -28,7 +28,7 @@ rule all:
 #		expand(OUTDIR + "/results/hpv/polyidus/{sample}_exactHpvIntegrations.tsv", sample = SAMPLE),
 		expand(OUTDIR + "/results/hpv/mpileup/{sample}_HPV.snpEff.vcf", sample = SAMPLE),
 		expand(OUTDIR + "/results/hpv/hpviewer/{sample}_HPV_profile.txt", sample = SAMPLE),
-		expand(OUTDIR + "/results/hpv/polyidus/{sample}/results/exactHpvIntegrations.tsv", sample = SAMPLE),
+		expand(OUTDIR + "/results/hpv/polyidus/{sample}_exactHpvIntegrations.tsv", sample = SAMPLE),
 		expand(OUTDIR + "/results/hpv/mpileup/{sample}_HPV.for_genotyping.vcf", sample = SAMPLE)
 
 ###
@@ -46,7 +46,7 @@ rule merge_fastq1:
 	threads: 2
 	shell:
 		"""
-		ln -s {input} > {output}
+		cat {input} > {output}
 		"""
 
 def get_fastq2(wildcards):
@@ -60,7 +60,7 @@ rule merge_fastq2:
 	threads: 2
 	shell:
 		"""
-		ln -s {input} > {output}
+		cat {input} > {output}
 		"""
 
 rule hpvviewer:
@@ -92,7 +92,7 @@ rule polyidus:
 		r1 = OUTDIR + "/orphan/merged_fastq/{sample}.merged.r1.fastq.gz",
 		r2 = OUTDIR + "/orphan/merged_fastq/{sample}.merged.r2.fastq.gz"
 	output:
-#		o1 = OUTDIR + "/orphan/polyidus/{sample}/results/HpvIntegrationInfo.tsv",
+		o1 = OUTDIR + "/orphan/polyidus/{sample}/results/HpvIntegrationInfo.tsv",
 		o2 = OUTDIR + "/orphan/polyidus/{sample}/results/exactHpvIntegrations.tsv",
 		virusbam = OUTDIR + "/orphan/polyidus/{sample}/viral/virusAligned-final.bam"
 	threads: 20

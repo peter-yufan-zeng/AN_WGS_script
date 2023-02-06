@@ -75,6 +75,8 @@ rule hpvviewer:
 	resources:
 		time = 12*60,
 		mem_mb = 40000
+	container:
+		config["singularity"]["hpv_tools"]
 	shell:
 		"""
 		python AN_WGS_script/scripts/HPViewer/HPViewer.py \

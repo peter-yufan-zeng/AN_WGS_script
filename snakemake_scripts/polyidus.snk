@@ -1,7 +1,7 @@
 import pandas as pd
 import os
 
-localrules: all
+localrules: all, merge_fastq1, merge_fastq2
 
 ###
 ### LOAD SAMPLES
@@ -46,10 +46,9 @@ rule merge_fastq1:
 	output:
 		temp(OUTDIR + "/orphan/merged_fastq/{sample}.merged.r1.fastq.gz")
 	threads: 2
-	group: "hpv"
 	shell:
 		"""
-		cat {input} > {output}
+		ln -s {input} > {output}
 		"""
 
 def get_fastq2(wildcards):
@@ -61,10 +60,9 @@ rule merge_fastq2:
 	output:
 		temp(OUTDIR + "/orphan/merged_fastq/{sample}.merged.r2.fastq.gz")
 	threads: 2
-	group: "hpv"
 	shell:
 		"""
-		cat {input} > {output}
+		ln -s {input} > {output}
 		"""
 
 rule hpvviewer:
@@ -75,13 +73,12 @@ rule hpvviewer:
 		o1 = OUTDIR + "/orphan/hpviewer/{sample}/{sample}_HPV_profile.txt",
 		o2 = OUTDIR + "/results/hpviewer/{sample}_HPV_profile.txt"
 	threads: 20
-	group: "hpv"
+	group: "hpvviewer"
+	resources:
+		time = 12*60,
+		mem_mb = 40000
 	shell:
 		"""
-		module load CCEnv
-		module load StdEnv/2020
-		module load scipy-stack/2020a bowtie2 samtools/1.10 bedtools
-		source $SCRATCH/singularity_images/polyidus/bin/activate
 		python $SCRATCH/AN_WGS/AN_WGS_script/scripts/HPViewer/HPViewer.py \
 		-1 {input.r1} -2 {input.r2} -p {threads} \
 		-o {OUTDIR}/orphan/hpviewer/{wildcards.sample}
@@ -101,13 +98,14 @@ rule polyidus:
 		o2 = OUTDIR + "/orphan/polyidus/{sample}/results/exactHpvIntegrations.tsv",
 		virusbam = OUTDIR + "/orphan/polyidus/{sample}/viral/virusAligned-final.bam"
 	threads: 20
-	group: "hpv"
+	group: "polyidus"
+	resources:
+		time = 12*60,
+		mem_mb = 40000
+	container:
+		config["singularity"]["hpv_tools"]
 	shell:
 		"""
-		module load CCEnv
-		module load StdEnv/2020
-		module load scipy-stack/2020a bowtie2 samtools/1.10 bedtools
-		source $SCRATCH/singularity_images/polyidus/bin/activate
 		python $SCRATCH/AN_WGS/AN_WGS_script/scripts/polyidus/polyidus.py $SCRATCH/igenomes_ref/bowtie2_index/Homo_sapiens_assembly38 \
 		$SCRATCH/igenomes_ref/bowtie2_index/HPV16 \
 		--fastq {input.r1} {input.r2} \
@@ -121,12 +119,13 @@ rule variant_calling:
 		OUTDIR + "/results/hpv/mpileup/{sample}_HPV.vcf"
 	group: "hpv"
 	threads: 2
+	resources:
+		time = 60,
+		mem_mb = 10000
+	container:
+		config["singularity"]["hpv_tools"]
  	shell:
 		"""
-		module load CCEnv
-		module load StdEnv/2020
-		module load scipy-stack/2020a bowtie2 samtools/1.10 bedtools bcftools
-		source $SCRATCH/singularity_images/polyidus/bin/activate
 		samtools sort {input} | \
 		bcftools mpileup -Ou -d 10000 -f $SCRATCH/igenomes_ref/bowtie2_index/HPV16REF.1.fa - | \
 		bcftools call -mv -Ov - > {output}
@@ -140,18 +139,17 @@ rule annotate_snpeff:
 	threads: 2
 	group: "hpv"
 	resources:
-		time = 60,
+		time = 15,
 		mem_mb = 10000
+	params:
+		path_to_snpEff = "$NXF_SINGULARITY_CACHEDIR/snpEff/snpEff.jar"
 	container:
 		config["singularity"]["hpv_tools"]
 	shell:
 		"""
-		module load CCEnv
-		module load StdEnv/2020
-		module load scipy-stack/2020a bowtie2 samtools/1.10 bedtools java bcftools
-		source $SCRATCH/singularity_images/polyidus/bin/activate
+		module load java
 		cd {OUTDIR}/results/hpv/mpileup/
-		java -jar -Xmx8g $SCRATCH/igenomes_ref/snpEff/snpEff.jar \
+		java -jar -Xmx8g {params.path_to_snpEff} \
 		HPV16 \
 		-csvStats {wildcards.sample}_hpv16_snpEff.csv \
 		-nodownload \

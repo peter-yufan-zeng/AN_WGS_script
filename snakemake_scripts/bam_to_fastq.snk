@@ -72,7 +72,7 @@ rule sort_bam:
         	-o {output} \
         	-l 2 \
 			--show-progress \
-        	--tmpdir {params.temp_dir} \
+        	--tmpdir $AN_WGS_temp \
         	{input}
     	sambamba index \
         	-t {threads} \

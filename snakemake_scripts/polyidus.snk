@@ -130,7 +130,7 @@ rule variant_calling:
 		config["singularity"]["hpv_tools"]
 	params:
 		ref_fasta = config["reference"]["directory"] + "bowtie2_index/HPV16REF.1.fa"
- 	shell:
+	shell:
 		"""
 		samtools sort {input} | \
 		bcftools mpileup -Ou -d 10000 -f {params.ref_fasta} - | \
@@ -177,7 +177,7 @@ rule variant_calling_for_genotyping:
 		config["singularity"]["hpv_tools"]
 	params:
 		ref_fasta = config["reference"]["directory"] + "bowtie2_index/HPV16REF.1.fa"
- 	shell:
+	shell:
 		"""
 		samtools sort {input} | \
 		bcftools mpileup -Ou -T AN_WGS_script/scripts/HPViewer/hpv16lineage.csv.gz -d 10000 -f {params.ref_fasta} - | \

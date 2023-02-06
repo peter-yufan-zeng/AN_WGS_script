@@ -29,8 +29,8 @@ rule all:
 #		expand(OUTDIR + "/results/hpv/polyidus/{sample}_HpvIntegrationInfo.tsv", sample = SAMPLE),
 #		expand(OUTDIR + "/results/hpv/polyidus/{sample}_exactHpvIntegrations.tsv", sample = SAMPLE),
 		expand(OUTDIR + "/results/hpv/mpileup/{sample}_HPV.snpEff.vcf", sample = SAMPLE),
-		expand(OUTDIR + "/results/hpviewer/{sample}_HPV_profile.txt", sample = SAMPLE),
-		expand(OUTDIR + "/orphan/polyidus/{sample}/results/exactHpvIntegrations.tsv", sample = SAMPLE),
+		expand(OUTDIR + "/results/hpv/hpviewer/{sample}_HPV_profile.txt", sample = SAMPLE),
+		expand(OUTDIR + "/results/hpv/polyidus/{sample}/results/exactHpvIntegrations.tsv", sample = SAMPLE),
 		expand(OUTDIR + "/results/hpv/mpileup/{sample}_HPV.for_genotyping.vcf", sample = SAMPLE)
 
 ###
@@ -71,7 +71,7 @@ rule hpvviewer:
 		r2 = OUTDIR + "/orphan/merged_fastq/{sample}.merged.r2.fastq.gz"
 	output:
 		o1 = OUTDIR + "/orphan/hpviewer/{sample}/{sample}_HPV_profile.txt",
-		o2 = OUTDIR + "/results/hpviewer/{sample}_HPV_profile.txt"
+		o2 = OUTDIR + "/results/hpv/hpviewer/{sample}_HPV_profile.txt"
 	threads: 20
 	group: "hpvviewer"
 	resources:
@@ -104,12 +104,16 @@ rule polyidus:
 		mem_mb = 40000
 	container:
 		config["singularity"]["hpv_tools"]
+	params:
+		bowtie2_hg38 = config["reference"]["directory"] + "bowtie2_index/Homo_sapiens_assembly38",
+		bowtie2_hpv16 = config["reference"]["directory"] + "bowtie2_index/HPV16",
+		outdir = OUTDIR + "/orphan/polyidus/{wildcards.sample}"
 	shell:
 		"""
-		python $SCRATCH/AN_WGS/AN_WGS_script/scripts/polyidus/polyidus.py $SCRATCH/igenomes_ref/bowtie2_index/Homo_sapiens_assembly38 \
-		$SCRATCH/igenomes_ref/bowtie2_index/HPV16 \
+		python AN_WGS_script/scripts/polyidus/polyidus.py {params.bowtie2_hg38} \
+		{params.bowtie2_hpv16} \
 		--fastq {input.r1} {input.r2} \
-		--outdir {OUTDIR}/orphan/polyidus/{wildcards.sample}
+		--outdir {params.outdir}
 		"""
 
 rule variant_calling:
@@ -124,10 +128,12 @@ rule variant_calling:
 		mem_mb = 10000
 	container:
 		config["singularity"]["hpv_tools"]
+	params:
+		ref_fasta = config["reference"]["directory"] + "bowtie2_index/HPV16REF.1.fa"
  	shell:
 		"""
 		samtools sort {input} | \
-		bcftools mpileup -Ou -d 10000 -f $SCRATCH/igenomes_ref/bowtie2_index/HPV16REF.1.fa - | \
+		bcftools mpileup -Ou -d 10000 -f {params.ref_fasta} - | \
 		bcftools call -mv -Ov - > {output}
 		"""
 
@@ -169,12 +175,14 @@ rule variant_calling_for_genotyping:
 		mem_mb = 10000
 	container:
 		config["singularity"]["hpv_tools"]
+	params:
+		ref_fasta = config["reference"]["directory"] + "bowtie2_index/HPV16REF.1.fa"
  	shell:
 		"""
 		samtools sort {input} | \
-		bcftools mpileup -Ou -T $SCRATCH/AN_WGS/AN_WGS_script/scripts/HPViewer/hpv16lineage.csv.gz -d 10000 -f $SCRATCH/igenomes_ref/bowtie2_index/HPV16REF.1.fa - | \
+		bcftools mpileup -Ou -T AN_WGS_script/scripts/HPViewer/hpv16lineage.csv.gz -d 10000 -f {params.ref_fasta} - | \
 		bcftools call -i -C alleles \
-		-T $SCRATCH/AN_WGS/AN_WGS_script/scripts/HPViewer/hpv16lineage.csv.gz \
+		-T AN_WGS_script/scripts/HPViewer/hpv16lineage.csv.gz \
 		-m -Ov - > {output}
 		"""
 

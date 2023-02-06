@@ -279,7 +279,7 @@ rule output_phyloWGS_results:
 		mutass_output = OUTDIR + "/results/phyloWGS/{tumour}_vs_{patient}-N/{tumour}_vs_{patient}-N.mutass.zip"
 	threads: 2
 	resources:
-		time = 5,
+		time = 30,
 		mem_mb = 8000
 	group: "phylowgs"
 	container:

@@ -185,7 +185,8 @@ rule annotate_snpeff:
 
 rule variant_calling_for_genotyping:
 	input:
-		OUTDIR + "/orphan/polyidus/{sample}/viral/virusAligned-final.bam"
+		bam = OUTDIR + "/Recal/{sample}.recal.bam",
+		fasta = OUTDIR + "/orphan/polyidus/hpv_genome.fa"
 	output:
 		OUTDIR + "/results/hpv/mpileup/{sample}_HPV.for_genotyping.vcf"
 	threads: 1
@@ -195,12 +196,9 @@ rule variant_calling_for_genotyping:
 		mem_mb = 10000
 	container:
 		config["singularity"]["hpv_tools"]
-	params:
-		ref_fasta = config["reference"]["directory"] + "bowtie2_index/HPV16REF.1.fa"
 	shell:
 		"""
-		samtools sort {input} | \
-		bcftools mpileup -Ou -T AN_WGS_script/scripts/HPViewer/hpv16lineage.csv.gz -d 10000 -f {params.ref_fasta} - | \
+		bcftools mpileup -Ou -T AN_WGS_script/scripts/HPViewer/hpv16lineage.csv.gz -d 10000 -f {input.fasta} {input.bam} | \
 		bcftools call -i -C alleles \
 		-T AN_WGS_script/scripts/HPViewer/hpv16lineage.csv.gz \
 		-m -Ov - > {output}

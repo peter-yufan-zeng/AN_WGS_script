@@ -107,7 +107,7 @@ rule polyidus:
 	params:
 		bowtie2_hg38 = config["reference"]["directory"] + "bowtie2_index/Homo_sapiens_assembly38",
 		bowtie2_hpv16 = config["reference"]["directory"] + "bowtie2_index/HPV16",
-		outdir = OUTDIR + "/orphan/polyidus/{wildcards.sample}"
+		outdir = OUTDIR + "/orphan/polyidus/{sample}"
 	shell:
 		"""
 		python AN_WGS_script/scripts/polyidus/polyidus.py {params.bowtie2_hg38} \
@@ -115,11 +115,12 @@ rule polyidus:
 		--fastq {input.r1} {input.r2} \
 		--outdir {params.outdir}
 		if [ ! -f {output.o1} ]; then
-			echo "no integration sites" > {output.o1}
+			touch {output.o1}
 		fi
-		if [ ! -f {output} ]; then
-			echo "no integration sites" > {output.o2}
+		if [ ! -f {output.o2} ]; then
+			touch {output.o2}
 		fi
+		touch {output.virusbam}
 		"""
 
 rule variant_calling:

@@ -170,7 +170,7 @@ rule annotate_snpeff:
 		time = 15,
 		mem_mb = 10000
 	params:
-		path_to_snpEff = "$NXF_SINGULARITY_CACHEDIR/snpEff/snpEff.jar"
+		path_to_snpEff = config["reference"]["directory"] + "snpEff/snpEff.jar"
 	shell:
 		"""
 		module load java

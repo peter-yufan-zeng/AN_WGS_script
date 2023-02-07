@@ -1,7 +1,7 @@
 import pandas as pd
 import os
 
-localrules: all, merge_fastq1, merge_fastq2
+localrules: all, merge_fastq1, merge_fastq2, make_hpv_fasta
 
 ###
 ### LOAD SAMPLES
@@ -123,15 +123,31 @@ rule polyidus:
 		touch {output.virusbam}
 		"""
 
+rule make_hpv_fasta:
+	input:
+		config["reference"]["directory"] + config["reference"]["fasta"]
+	output:
+		OUTDIR + "/orphan/polyidus/hpv_genome.fa"
+	threads: 1
+	resources:
+		time = 15,
+		mem_mb = 8000
+	shell:
+		"""
+		awk '/HPV/ {print; getline; print}' {input} > {output}
+		"""
+
+
 rule variant_calling:
 	input:
-		OUTDIR + "/orphan/polyidus/{sample}/viral/virusAligned-final.bam"
+		bam = OUTDIR + "/Recal/{sample}.recal.bam",
+		fasta = OUTDIR + "/orphan/polyidus/hpv_genome.fa"
 	output:
 		OUTDIR + "/results/hpv/mpileup/{sample}_HPV.vcf"
 	group: "hpv"
 	threads: 2
 	resources:
-		time = 60,
+		time = 120,
 		mem_mb = 10000
 	container:
 		config["singularity"]["hpv_tools"]
@@ -139,8 +155,7 @@ rule variant_calling:
 		ref_fasta = config["reference"]["directory"] + "bowtie2_index/HPV16REF.1.fa"
 	shell:
 		"""
-		samtools sort {input} | \
-		bcftools mpileup -Ou -d 10000 -f {params.ref_fasta} - | \
+		bcftools mpileup -Ou -d 10000 -f {input.fasta} {input.bam} | \
 		bcftools call -mv -Ov - > {output}
 		"""
 

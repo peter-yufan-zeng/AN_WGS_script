@@ -156,7 +156,7 @@ rule variant_calling:
 	shell:
 		"""
 		bcftools mpileup -Ou -d 10000 -r HPV16,HPV18,HPV33,HPV35 -f {input.fasta} {input.bam} | \
-		bcftools call -r HPV16,HPV18,HPV33,HPV35 -mv -Ov - > {output}
+		bcftools call -m -v > {output}
 		"""
 
 rule annotate_snpeff:
@@ -198,10 +198,8 @@ rule variant_calling_for_genotyping:
 		config["singularity"]["hpv_tools"]
 	shell:
 		"""
-		bcftools mpileup -Ou -T AN_WGS_script/scripts/HPViewer/hpv16lineage.csv.gz -r HPV16,HPV18,HPV33,HPV35 -d 10000 -f {input.fasta} {input.bam} | \
-		bcftools call -i -r HPV16,HPV18,HPV33,HPV35 -C alleles \
-		-T AN_WGS_script/scripts/HPViewer/hpv16lineage.csv.gz \
-		-m -Ov - > {output}
+		bcftools mpileup -Ou -d 10000 -r HPV16,HPV18,HPV33,HPV35 -f {input.fasta} {input.bam} | \
+		bcftools call -m > {output}
 		"""
 
 rule copy_files:

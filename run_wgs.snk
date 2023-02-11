@@ -160,10 +160,10 @@ rule all:
 	shell:
 		"""
 		multiqc {OUTDIR} -n {OUTDIR}/pipeline_info/reports/multiqc_{params.time}.html
-		mv multiqc_data* OUTDIR/pipeline_info/report/
 		cp {params.input_csv} {OUTDIR}/Sample_{params.time}.csv
 		"""
 
+#		mv multiqc OUTDIR/pipeline_info/report/
 
 ###
 ### Step by step

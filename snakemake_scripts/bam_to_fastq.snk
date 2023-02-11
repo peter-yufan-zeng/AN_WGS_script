@@ -56,7 +56,7 @@ rule bam_to_fastq_one_step:
 	output:
 		r1 = OUTDIR + "/fastq/{sample}_R1.fastq.gz",
 		r2 = OUTDIR + "/fastq/{sample}_R2.fastq.gz"
-	threads: 4
+	threads: 8
 	resources:
 		time = 24*60,
 		mem_mb = 8000
@@ -64,10 +64,10 @@ rule bam_to_fastq_one_step:
 		config["singularity"]["samtools"]
 	shell:
 		"""
-		samtools collate --threads {threads} -u -O {input.bam} | \
+		samtools collate --threads 6 -u -O {input} | \
 		samtools fastq -1 {output.r1} -2 {output.r2} \
 		-0 /dev/null -s /dev/null \
-		-O -t --threads {threads} {input}
+		-O -t --threads 6 -n
 		"""
 
 # rule sort_bam:

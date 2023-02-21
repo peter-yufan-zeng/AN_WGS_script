@@ -46,9 +46,9 @@ rule bwa_mem:
 		#fastq2= INPUT[INPUT.Sample_Lane == {sample_lane}].Fastq2
 	output:
 		temp(OUTDIR +"/orphan/{sample_lane}/{sample_lane}.bwa.sam")
-	threads: 20
+	threads: 40
 	resources:
-		time = 12*60,
+		time = 24*60,
 		mem_mb = 32000
 	container:
 		config["singularity"]["bwa"]

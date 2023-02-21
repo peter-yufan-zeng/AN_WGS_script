@@ -97,6 +97,12 @@ snakemake --profile nichols_slurm \
 	--keep-going \
 	--ri
 
+	snakemake  --profile nichols_slurm  -s AN_WGS_script/snakemake_scripts/polyidus.snk  \
+		--configfile AN_WGS_script/graham.yaml \
+		--config input=$SCRATCH/20221219_gillison/20230123.csv outdir=$SCRATCH/20221219_gillison \
+		--rerun-triggers input \
+		--group-components  polyidus=4 hpvviewer=4 hpv=40 \
+		--ri
 
 
   ### run phylowgs on Graham

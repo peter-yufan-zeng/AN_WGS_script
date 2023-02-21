@@ -49,6 +49,11 @@ reference:
   exac_common: "small_exac_common_3.hg38.vcf.gz"
   hg38bed: "hg38.chrom.bed"
   number_of_intervals: 100
+  battenberg_ref: "/scratch/n/nicholsa/zyfniu/gdc_reference/battenberg"
+  ### files for RNA-seq
+  rsem_path: "GRCh38_star/GRCh38"
+  star_path: "GRCh38_star"
+  kraken2_ref: "kraken2_ref"
 
 
 ###

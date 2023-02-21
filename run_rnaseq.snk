@@ -34,7 +34,7 @@ print(config['kraken'] == "yes")
 if config['kraken'] == "yes":
 	kraken_list = expand(OUTDIR + "/kraken2/bracken/{sample}_bracken2.report", sample = SAMPLE)
 else:
-	kraken_list = None
+	kraken_list = config['input']
 
 
 ### PATH TO singularity imgaes

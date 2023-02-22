@@ -27,7 +27,7 @@ snakemake  --profile nichols_niagara  -s AN_WGS_script/run_wgs.snk  --configfile
 	runTitanCNA=titan getHETsitesByChr=titan \
 	selectSolution=titan copyOptSolution=titan ascat=ascat \
 	--group-components  fastqc=12 bwa_mem=2 sort_sam_to_bam=6  \
-	merge_bam_mapped_and_index=6 markdup=4 Merge_Recal_Bam=6  qc=10  \
+	merge_bam_mapped_and_index=4 markdup=4 Merge_Recal_Bam=6  qc=10  \
 	mutect_single_variant_call=100 mutect2_post_call=1  \
 	mutect_together_variant_call=100 mutect2_all_post_call=1  \
 	allelecount=50 ConvertAlleleCounts=10 ascat=10  manta_call=8 manta_annotate=10 \

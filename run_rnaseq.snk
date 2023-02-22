@@ -139,7 +139,7 @@ rule star:
 	group: "star"
 	resources:
 		time = 720,
-		mem_mb = 16000
+		mem_mb = 30000
 	container:
 		config["singularity"]["rsem"]
 	shell:

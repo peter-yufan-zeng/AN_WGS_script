@@ -64,7 +64,7 @@ rule bam_to_fastq_one_step:
 		config["singularity"]["samtools"]
 	shell:
 		"""
-		samtools collate --threads 6 -u -O {input} | \
+		samtools collate --threads 6 -u -O {input} $AN_WGS_temp/{wildcards.sample} | \
 		samtools fastq -1 {output.r1} -2 {output.r2} \
 		-0 /dev/null -s /dev/null \
 		-O -t --threads 6 -n

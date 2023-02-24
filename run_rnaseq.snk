@@ -63,22 +63,50 @@ def star_fastq1(wildcards):
 def star_fastq2(wildcards):
 	return expand(INPUT[INPUT.Sample == wildcards.sample].Fastq2)
 
+#
+# rule rename_files:
+# 	input:
+# 		fastq1 = star_fastq1,
+# 		fastq2 = star_fastq2
+# 	output:
+# 		o1 = OUTDIR + "/ln/{sample}_R1.fq.gz",
+# 		o2 = OUTDIR + "/ln/{sample}_R2.fq.gz"
+# 	threads: 1
+# 	resources:
+# 		time = 1,
+# 		mem_mb = 1000
+# 	shell:
+# 		"""
+# 		ln -s {input.fastq1} {output.o1}
+# 		ln -s {input.fastq2} {output.o2}
+# 		"""
 
-rule rename_files:
+def get_fastq1(wildcards):
+	return expand(INPUT[INPUT.Sample == wildcards.sample].Fastq1)
+
+rule merge_fastq1:
 	input:
-		fastq1 = star_fastq1,
-		fastq2 = star_fastq2
+		get_fastq1
 	output:
-		o1 = OUTDIR + "/ln/{sample}_R1.fq.gz",
-		o2 = OUTDIR + "/ln/{sample}_R2.fq.gz"
-	threads: 1
-	resources:
-		time = 1,
-		mem_mb = 1000
+		temp(OUTDIR + "/ln/{sample}_R1.fq.gz")
+	threads: 2
 	shell:
 		"""
-		ln -s {input.fastq1} {output.o1}
-		ln -s {input.fastq2} {output.o2}
+		cat {input} > {output}
+		"""
+
+def get_fastq2(wildcards):
+	return expand(INPUT[INPUT.Sample == wildcards.sample].Fastq2)
+
+rule merge_fastq2:
+	input:
+		get_fastq2
+	output:
+		temp(OUTDIR + "/ln/{sample}_R2.fq.gz")
+	threads: 2
+	shell:
+		"""
+		cat {input} > {output}
 		"""
 
 rule fastqc_and_move:

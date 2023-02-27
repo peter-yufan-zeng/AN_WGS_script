@@ -32,8 +32,8 @@ singularity:
   strelka: $NXF_SINGULARITY_CACHEDIR/depot.galaxyproject.org-singularity-strelka-2.9.10--h9ee0642_1.img
   rsem: $NXF_SINGULARITY_CACHEDIR/rsem.img
   tabix: $NXF_SINGULARITY_CACHEDIR/depot.galaxyproject.org-singularity-tabix-1.11--hdfd78af_0.img
-  tiddit: $NXF_SINGULARITY_CACHEDIR/depot.galaxyproject.org-singularity-tiddit-3.1.0--py39h59fae87_1.img
   tiddit: $NXF_SINGULARITY_CACHEDIR/depot.galaxyproject.org-singularity-tiddit-3.3.2--py310hc2b7f4b_0.img
+  trust4: $NXF_SINGULARITY_CACHEDIR/trust4-1.0.8.img
   vcftools: $NXF_SINGULARITY_CACHEDIR/depot.galaxyproject.org-singularity-vcftools-0.1.16--he513fc3_4.img
   snpeff: $NXF_SINGULARITY_CACHEDIR/nfcore-snpeff-5.1.GRCh38.img
 
@@ -51,6 +51,10 @@ reference:
   hg38bed: "hg38.chrom.bed"
   number_of_intervals: 100
   battenberg_ref: "/scratch/n/nicholsa/zyfniu/gdc_reference/battenberg"
+  cellranger_exec: "cellranger/cellranger-6.0.1/bin/cellranger"
+  cellranger_grch38_ref: "cellranger/refdata-gex-GRCh38-2020-A"
+  trust4_fasta: "TRUST4/hg38_bcrtcr.fa"
+  trust4_ref: "TRUST4/human_IMGT+C.fa"
   ### files for RNA-seq
   rsem_path: "GRCh38_star/GRCh38"
   star_path: "GRCh38_star"

@@ -14,11 +14,9 @@ localrules: rename_files, copy_final_results, all
 ###
 ### LOAD SAMPLES
 ###
-SCRATCH = "/gpfs/fs0/scratch/n/nicholsa/zyfniu"
 print("\n***INPUT FILE: " + config['input'] + "***\n")
-INPUT = pd.read_table(config['input'],names = ['Sample','num_cells','lanes','Fastq1','Fastq2'])
+INPUT = pd.read_csv(config['input'],names = ['Sample','num_cells','lanes','Fastq1','Fastq2'],header=0)
 SAMPLE =  INPUT['Sample'].unique()
-TMP = "/scratch/n/nicholsa/zyfniu/AN_WGS/temp"
 print(INPUT)
 
 ### PRINT OUTPUT DIRECTORY

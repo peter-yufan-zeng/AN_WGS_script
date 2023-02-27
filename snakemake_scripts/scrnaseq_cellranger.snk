@@ -13,17 +13,22 @@ rule cellranger:
 	output:
 		"{OUTDIR}/{sample}/cellranger/possorted_genome_bam.bam"
 	params:
-		num_cells = get_num_cells
-	threads: 80
+		num_cells = get_num_cells,
+		cellranger_ref = config["reference"]["directory"] + config["reference"]["cellranger_grch38_ref"],
+		cellranger_exec = config["reference"]["directory"] + config["reference"]["cellranger_exec"]
+	threads: 16
+	resources:
+		time = 6*60,
+		mem_mb = 128000
 	shell:
 		"""
-		cellranger count --id={wildcards.sample} \
+		{params.cellranger_exec} count --id={wildcards.sample} \
 		--sample={wildcards.sample} \
-		--transcriptome=$SCRATCH/singularity_images/refdata-gex-GRCh38-2020-A \
+		--transcriptome={params.cellranger_ref} \
 		--fastqs={OUTDIR}/fastq \
 		--include-introns \
-		--expect-cells={params.num_cells} \
+		--force-cells={params.num_cells} \
 		--localcores={threads} \
-		--localmem=160
+		--localmem=100
 		cp -R {wildcards.sample}/outs/* {OUTDIR}/{wildcards.sample}/cellranger ; rm -rf {wildcards.sample}
 		"""

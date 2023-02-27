@@ -3,13 +3,21 @@ rule trust4:
 		bam = "{OUTDIR}/{sample}/cellranger/possorted_genome_bam.bam"
 	output:
 		"{OUTDIR}/{sample}/trust4/{sample}_barcode_report.tsv"
-	threads: 80
+	threads: 8
+	group: "trust4"
+	container:
+		config["singularity"]["trust4"]
+	resources:
+		time = 4*60,
+		mem_mb = 30000
+	params:
+		trust4_fasta =  config["reference"]["directory"] + config["reference"]["trust4_fasta"],
+		trust4_ref =  config["reference"]["directory"] + config["reference"]["human_IMGT+C.fa"]
 	shell:
 		"""
-		module load samtools
-		/scratch/n/nicholsa/zyfniu/singularity_images/TRUST4/run-trust4 \
-		-f /scratch/n/nicholsa/zyfniu/singularity_images/TRUST4/hg38_bcrtcr.fa \
-		--ref /scratch/n/nicholsa/zyfniu/singularity_images/TRUST4/human_IMGT+C.fa \
+		run-trust4 \
+		-f {params.trust4_fasta} \
+		--ref {params.ref} \
 		-b {input.bam} \
 		--barcode CB \
 		-o {wildcards.sample} \

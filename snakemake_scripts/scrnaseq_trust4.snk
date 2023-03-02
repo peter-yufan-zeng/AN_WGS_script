@@ -2,7 +2,7 @@ rule trust4:
 	input:
 		bam = "{OUTDIR}/cellranger/{sample}/possorted_genome_bam.bam"
 	output:
-		"{OUTDIR}/trust4/{sample}/{sample}_barcode_report.tsv"
+		"{OUTDIR}/trust4/trust4_{sample}/{sample}_barcode_report.tsv"
 	threads: 8
 	group: "trust4"
 	container:

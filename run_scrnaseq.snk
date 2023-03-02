@@ -26,7 +26,7 @@ print("***OUTPUT DIRECTORY: " + OUTDIR + "***")
 rule all:
 	input:
 		# expand(OUTDIR + "/{sample}/cellranger/possorted_genome_bam.bam", sample = SAMPLE),
-		expand(OUTDIR + "/trust4/{sample}/{sample}_barcode_report.tsv", sample = SAMPLE),
+		expand(OUTDIR + "/trust4/trust4_{sample}/{sample}_barcode_report.tsv", sample = SAMPLE),
 		expand(OUTDIR + "/final_results/cellranger/{sample}/matrix.mtx.gz",sample = SAMPLE),
 		expand(OUTDIR + "/final_results/trust4/{sample}/{sample}_barcode_report.tsv", sample = SAMPLE)
 
@@ -55,13 +55,14 @@ include: "snakemake_scripts/scrnaseq_trust4.snk"
 rule copy_final_results:
 	input:
 		OUTDIR + "/cellranger/{sample}/possorted_genome_bam.bam",
-		OUTDIR + "/trust4/{sample}/{sample}_barcode_report.tsv"
+		OUTDIR + "/trust4/trust4_{sample}/{sample}_barcode_report.tsv"
 	output:
 		OUTDIR + "/final_results/cellranger/{sample}/matrix.mtx.gz",
 		OUTDIR + "/final_results/trust4/{sample}/{sample}_barcode_report.tsv"
 	threads: 1
 	shell:
 		"""
-		cp {OUTDIR}/{wildcards.sample}/filtered_feature_bc_matrix/* {OUTDIR}/final_results/cellranger/{wildcards.sample}/
-		cp {OUTDIR}/{wildcards.sample}/trust4/* {OUTDIR}/final_results/trust4/{wildcards.sample}/
+		cp {OUTDIR}/cellranger/{wildcards.sample}/filtered_feature_bc_matrix/* {OUTDIR}/final_results/cellranger/{wildcards.sample}/
+		cp {OUTDIR}/cellranger/{wildcards.sample}/web_summary.html {OUTDIR}/final_results/cellranger/{wildcards.sample}/
+		cp {OUTDIR}/trust4/trust4_{wildcards.sample}/* {OUTDIR}/final_results/trust4/{wildcards.sample}/
 		"""

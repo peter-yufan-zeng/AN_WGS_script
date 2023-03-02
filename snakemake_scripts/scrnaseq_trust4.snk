@@ -1,6 +1,6 @@
 rule trust4:
 	input:
-		bam = "{OUTDIR}/cellranger/{sample}/outs/possorted_genome_bam.bam"
+		bam = "{OUTDIR}/cellranger/{sample}/possorted_genome_bam.bam"
 	output:
 		"{OUTDIR}/trust4/{sample}/{sample}_barcode_report.tsv"
 	threads: 8
@@ -17,7 +17,7 @@ rule trust4:
 		"""
 		run-trust4 \
 		-f {params.trust4_fasta} \
-		--ref {params.ref} \
+		--ref {params.trust4_ref} \
 		-b {input.bam} \
 		--barcode CB \
 		-o {wildcards.sample} \

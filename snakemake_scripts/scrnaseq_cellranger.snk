@@ -31,5 +31,5 @@ rule cellranger:
 		--force-cells={params.num_cells} \
 		--localcores={threads} \
 		--localmem=64
-		cp -r {wildcards.sample}/outs/* {OUTDIR}/cellranger/{wildcards.sample}/ ; rm -rf {wildcards.sample}
+		cp -r {wildcards.sample}/outs/* {OUTDIR}/cellranger/{wildcards.sample}/
 		"""

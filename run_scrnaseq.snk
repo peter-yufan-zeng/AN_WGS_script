@@ -25,7 +25,7 @@ print("***OUTPUT DIRECTORY: " + OUTDIR + "***")
 
 rule all:
 	input:
-		expand(OUTDIR + "/{sample}/cellranger/possorted_genome_bam.bam", sample = SAMPLE),
+		# expand(OUTDIR + "/{sample}/cellranger/possorted_genome_bam.bam", sample = SAMPLE),
 		expand(OUTDIR + "/{sample}/trust4/{sample}_barcode_report.tsv", sample = SAMPLE),
 		expand(OUTDIR + "/final_results/cellranger/{sample}/matrix.mtx.gz",sample = SAMPLE),
 		expand(OUTDIR + "/final_results/trust4/{sample}/{sample}_barcode_report.tsv", sample = SAMPLE)
@@ -41,8 +41,8 @@ rule rename_files:
 		r1 = get_fastq1,
 		r2 = get_fastq2
 	output:
-		r1 = "{OUTDIR}/fastq/{sample}_S1_{lanes}_R1_001.fastq.gz",
-		r2 = "{OUTDIR}/fastq/{sample}_S1_{lanes}_R2_001.fastq.gz"
+		r1 = "{OUTDIR}/ln/{sample}_S1_{lanes}_R1_001.fastq.gz",
+		r2 = "{OUTDIR}/ln/{sample}_S1_{lanes}_R2_001.fastq.gz"
 	shell:
 	 	"ln -sr {input.r1} {output.r1} && ln -sr {input.r2} {output.r2}"
 
@@ -54,14 +54,14 @@ include: "snakemake_scripts/scrnaseq_trust4.snk"
 
 rule copy_final_results:
 	input:
-		OUTDIR + "/{sample}/cellranger/possorted_genome_bam.bam",
-		OUTDIR + "/{sample}/trust4/{sample}_barcode_report.tsv"
+		OUTDIR + "/cellranger/{sample}/possorted_genome_bam.bam",
+		OUTDIR + "/trust4/{sample}/{sample}_barcode_report.tsv"
 	output:
 		OUTDIR + "/final_results/cellranger/{sample}/matrix.mtx.gz",
 		OUTDIR + "/final_results/trust4/{sample}/{sample}_barcode_report.tsv"
 	threads: 1
 	shell:
 		"""
-		cp {OUTDIR}/{wildcards.sample}/cellranger/filtered_feature_bc_matrix/* {OUTDIR}/final_results/cellranger/{wildcards.sample}/
+		cp {OUTDIR}/{wildcards.sample}/outs/filtered_feature_bc_matrix/* {OUTDIR}/final_results/cellranger/{wildcards.sample}/
 		cp {OUTDIR}/{wildcards.sample}/trust4/* {OUTDIR}/final_results/trust4/{wildcards.sample}/
 		"""

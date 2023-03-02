@@ -2,33 +2,34 @@ def get_num_cells(wildcards):
 		return expand("{num_cells}",num_cells = INPUT[INPUT.Sample == wildcards.sample].num_cells.drop_duplicates())
 
 def get_renamed_fastq1(wildcards):
-	return expand(OUTDIR + "/fastq/" + wildcards.sample + "_S1_{lanes}_R1_001.fastq.gz", lanes = INPUT[(INPUT['Sample'] == wildcards.sample)].lanes)
+	return expand(OUTDIR + "/ln/" + wildcards.sample + "_S1_{lanes}_R1_001.fastq.gz", lanes = INPUT[(INPUT['Sample'] == wildcards.sample)].lanes)
 def get_renamed_fastq2(wildcards):
-	return expand(OUTDIR + "/fastq/" + wildcards.sample + "_S1_{lanes}_R2_001.fastq.gz", lanes = INPUT[(INPUT['Sample'] == wildcards.sample)].lanes)
+	return expand(OUTDIR + "/ln/" + wildcards.sample + "_S1_{lanes}_R2_001.fastq.gz", lanes = INPUT[(INPUT['Sample'] == wildcards.sample)].lanes)
 
 rule cellranger:
 	input:
 		r1 = get_renamed_fastq1,
 		r2 = get_renamed_fastq2
 	output:
-		"{OUTDIR}/{sample}/cellranger/possorted_genome_bam.bam"
+		"{OUTDIR}/cellranger/{sample}/possorted_genome_bam.bam",
+		"{OUTDIR}/cellranger/{sample}/filtered_feature_bc_matrix.h5"
 	params:
 		num_cells = get_num_cells,
 		cellranger_ref = config["reference"]["directory"] + config["reference"]["cellranger_grch38_ref"],
 		cellranger_exec = config["reference"]["directory"] + config["reference"]["cellranger_exec"]
 	threads: 16
 	resources:
-		time = 6*60,
-		mem_mb = 128000
+		time = 12*60,
+		mem_mb = 80000
 	shell:
 		"""
 		{params.cellranger_exec} count --id={wildcards.sample} \
 		--sample={wildcards.sample} \
 		--transcriptome={params.cellranger_ref} \
-		--fastqs={OUTDIR}/fastq \
+		--fastqs={OUTDIR}/ln \
 		--include-introns \
 		--force-cells={params.num_cells} \
 		--localcores={threads} \
-		--localmem=100
-		cp -R {wildcards.sample}/outs/* {OUTDIR}/{wildcards.sample}/cellranger ; rm -rf {wildcards.sample}
+		--localmem=64
+		cp -r {wildcards.sample}/outs/* {OUTDIR}/cellranger/{wildcards.sample}/ ; rm -rf {wildcards.sample}
 		"""

@@ -1,6 +1,6 @@
 rule trust4:
 	input:
-		bam = "{OUTDIR}/{sample}/cellranger/possorted_genome_bam.bam"
+		bam = "{OUTDIR}/cellranger/{sample}/outs/possorted_genome_bam.bam"
 	output:
 		"{OUTDIR}/{sample}/trust4/{sample}_barcode_report.tsv"
 	threads: 8
@@ -12,7 +12,7 @@ rule trust4:
 		mem_mb = 30000
 	params:
 		trust4_fasta =  config["reference"]["directory"] + config["reference"]["trust4_fasta"],
-		trust4_ref =  config["reference"]["directory"] + config["reference"]["human_IMGT+C.fa"]
+		trust4_ref =  config["reference"]["directory"] + config["reference"]["trust4_ref"]
 	shell:
 		"""
 		run-trust4 \
@@ -21,6 +21,6 @@ rule trust4:
 		-b {input.bam} \
 		--barcode CB \
 		-o {wildcards.sample} \
-		--od {OUTDIR}/{wildcards.sample}/trust4/ \
+		--od {OUTDIR}/trust4/{wildcards.sample}/ \
 		-t {threads}
 		"""

@@ -52,10 +52,10 @@ reference:
   hg38bed: "hg38.chrom.bed"
   number_of_intervals: 100
   battenberg_ref: "/scratch/j/jmymryk/pez/gdc_reference/battenberg"
-  cellranger_exec: "cellranger/cellranger-6.0.1/bin/cellranger"
+  cellranger_exec: "cellranger/cellranger-6.0.2/bin/cellranger"
   cellranger_grch38_ref: "cellranger/refdata-gex-GRCh38-2020-A"
   trust4_fasta: "TRUST4/hg38_bcrtcr.fa"
-  trust4_ref: "TRUST4/human_IMGT+C.fa"
+  trust4_ref: "TRUST4/human_IMGT_C.fa"
   ### files for RNA-seq
   rsem_path: "GRCh38_star/GRCh38"
   star_path: "GRCh38_star"

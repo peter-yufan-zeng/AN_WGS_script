@@ -20,7 +20,7 @@ localrules: all, symlink_reffiles, generate_intervals, make_loci_files_for_ascat
 ### LOAD SAMPLES
 ###
 
-configfile: "AN_WGS_script/graham_config.yaml"
+configfile: "AN_WGS_script/niagara_config.yaml"
 
 print("\n***INPUT FILE: " + config['input'] + "***\n")
 INPUT = pd.read_csv(config['input'],names = ['Patient','Sex','n_vs_t','Sample','Lane','Fastq1','Fastq2'],header=0)

@@ -1,4 +1,3 @@
-
 ###
 ### QC On BAM FILES
 ###
@@ -16,9 +15,9 @@ rule samtools_stats:
 		config["singularity"]["samtools"]
 	group: "qc_samtools_stats"
 	shell:
-	"""
-	samtools stats -t {EXOME_BED} {input.bam} > {output}
-	"""
+		"""
+		samtools stats -t {EXOME_BED} {input.bam} > {output}
+		"""
 
 rule bamqc:
 	input:
@@ -34,16 +33,16 @@ rule bamqc:
 	container:
 		config["singularity"]["qualimap"]
 	shell:
-	"""
-	qualimap --java-mem-size=50G \
-	bamqc \
-	-bam {input.bam} \
-	--feature-file {EXOME_BED} \
-	--paint-chromosome-limits \
-	--genome-gc-distr HUMAN \
-	-nt {threads} \
-	-skip-duplicated \
-	--skip-dup-mode 0 \
-	-outdir {OUTDIR}/QC/{wildcards.sample}/bamQC/ \
-	-outformat HTML
-	"""
+		"""
+		qualimap --java-mem-size=50G \
+		bamqc \
+		-bam {input.bam} \
+		--feature-file {EXOME_BED} \
+		--paint-chromosome-limits \
+		--genome-gc-distr HUMAN \
+		-nt {threads} \
+		-skip-duplicated \
+		--skip-dup-mode 0 \
+		-outdir {OUTDIR}/QC/{wildcards.sample}/bamQC/ \
+		-outformat HTML
+		"""

@@ -29,11 +29,11 @@ rule haplotypecaller:
 		"""
 
 def concat_hc_vcf(wildcards):
-	return expand(OUTDIR + "/results/haplotypecaller/individual/" + wildcards.patient_normal  "/unfiltered_" + wildcards.patient_normal + ".{num}.vcf.gz", , num = NUMBERS)
+	return expand(OUTDIR + "/results/haplotypecaller/individual/" + wildcards.patient_normal + "/unfiltered_" + wildcards.patient_normal + ".{num}.vcf.gz", num = NUMBERS)
 
 rule merge_haplotypecaller_vcf:
 	input:
-		vcf = concat_vcf
+		vcf = concat_hc_vcf
 	output:
 		OUTDIR + "/results/haplotypecaller/individual/{patient_normal}/{patient_normal}.merged.gvcf.gz"
 	threads: 2
@@ -105,7 +105,7 @@ rule genotype_gvcf:
 def concat_genotyped_vcf(wildcards):
 	return expand(OUTDIR + "/results/haplotypecaller/merged/gvcf/merged.{chr}.vcf.gz", chr = config['reference']['haplotypecaller_chr'])
 
-rule merge_haplotypecaller_vcf:
+rule merge_haplotypecaller_genotyped_vcf:
 	input:
 		vcf = concat_genotyped_vcf
 	output:

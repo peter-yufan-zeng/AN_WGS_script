@@ -63,7 +63,7 @@ rule genomic_db_import:
 		ref_fasta = config["reference"]["directory"] + config["reference"]["fasta"]
 	threads: 2
 	resources:
-		time = 720,
+		time = 360,
 		mem_mb = 8000
 	container:
 		config["singularity"]["gatk"]
@@ -71,7 +71,7 @@ rule genomic_db_import:
 		"""
 		mkdir -p $AN_WGS_temp/gatk
 		gatk --java-options "-Djava.io.tmpdir=$AN_WGS_temp/gatk -Xms4G -Xmx4G -XX:ParallelGCThreads=2" GenomicsDBImport \
-  		--genomicsdb-workspace-path {output} \
+  		--genomicsdb-workspace-path {OUTDIR}/results/haplotypecaller/merged/db/merged.{wildcards.chr}.gdb \
   		-R {params.ref_fasta} \
   		-V {params.input_list} \
   		--tmp-dir "$AN_WGS_temp/gatk" \

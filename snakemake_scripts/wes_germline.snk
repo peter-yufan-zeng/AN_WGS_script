@@ -89,7 +89,7 @@ rule genotype_gvcf:
 		ref_fasta = config["reference"]["directory"] + config["reference"]["fasta"]
 	threads: 2
 	resources:
-		time = 360,
+		time = 60,
 		mem_mb = 8000
 	container:
 		config["singularity"]["gatk"]
@@ -111,7 +111,7 @@ rule merge_haplotypecaller_genotyped_vcf:
 		vcf = OUTDIR + "/results/haplotypecaller/merged/gvcf/merged_all_chromosomes.vcf.gz"
 	threads: 2
 	resources:
-		time = 60,
+		time = 15,
 		mem_mb = 8000
 	container:
 		config["singularity"]["gatk"]
@@ -139,7 +139,7 @@ rule variant_recalibrator_snps:
 		ref_fasta = config["reference"]["directory"] + config["reference"]["fasta"]
 	threads: 2
 	resources:
-		time = 120,
+		time = 30,
 		mem_mb = 8000
 	container:
 		config["singularity"]["gatk"]
@@ -177,7 +177,7 @@ rule variant_recalibrator_indel:
 		ref_fasta = config["reference"]["directory"] + config["reference"]["fasta"]
 	threads: 2
 	resources:
-		time = 120,
+		time = 30,
 		mem_mb = 8000
 	container:
 		config["singularity"]["gatk"]
@@ -212,7 +212,7 @@ rule applybqsr_snps:
 		ref_fasta = config["reference"]["directory"] + config["reference"]["fasta"]
 	threads: 2
 	resources:
-		time = 120,
+		time = 60,
 		mem_mb = 8000
 	container:
 		config["singularity"]["gatk"]
@@ -242,7 +242,7 @@ rule applybqsr_indel:
 		ref_fasta = config["reference"]["directory"] + config["reference"]["fasta"]
 	threads: 2
 	resources:
-		time = 120,
+		time = 60,
 		mem_mb = 8000
 	container:
 		config["singularity"]["gatk"]
@@ -267,7 +267,7 @@ rule calculate_posterior:
 		ref_gnomad =  config["reference"]["directory"] + config["reference"]["gnomAD"]
 	threads: 2
 	resources:
-		time = 120,
+		time = 60,
 		mem_mb = 8000
 	container:
 		config["singularity"]["gatk"]

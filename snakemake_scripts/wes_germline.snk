@@ -10,9 +10,9 @@ rule haplotypecaller:
 	output:
 		vcf = temp(OUTDIR + "/results/haplotypecaller/individual/{patient_normal}/unfiltered_{patient_normal}.{num}.vcf.gz")
 		#index =  temp(OUTDIR + "/results/haplotypecaller/{patient_normal}/unfiltered_{patient_normal}.{num}.vcf.tbi")
-	threads: 4
+	threads: 2
 	resources:
-		time = 6*60,
+		time = 1*60,
 		mem_mb = 10500
 	container:
 		config["singularity"]["gatk"]
@@ -20,7 +20,6 @@ rule haplotypecaller:
 		"""
 		gatk --java-options "-Xmx8g" HaplotypeCaller \
 		-I {input.normal}  \
-		-normal {wildcards.patient}-N \
 		-L {input.interval} \
 		-R {input.ref_fasta} \
 		-ERC GVCF \
@@ -46,7 +45,7 @@ rule merge_haplotypecaller_vcf:
 		input_list = lambda wildcards, input: ' -I '.join(input.vcf)
 	shell:
 		"""
-		gatk --java-options "-Xmx~8G"  \
+		gatk --java-options "-Xmx8G"  \
 		MergeVcfs \
 		-I {params.input_list} \
 		--OUTPUT {output}
@@ -61,7 +60,7 @@ rule genomic_db_import:
 		gdb = OUTDIR + "/results/haplotypecaller/merged/db/merged.{chr}.gdb"
 	params:
 		input_list = lambda wildcards, input: ' -V '.join(input.vcf),
-		ref_fasta = OUTDIR + "/reference/" + config["reference"]["fasta"]
+		ref_fasta = config["reference"]["directory"] + config["reference"]["fasta"]
 	threads: 2
 	resources:
 		time = 720,
@@ -73,7 +72,7 @@ rule genomic_db_import:
 		mkdir -p $AN_WGS_temp/gatk
 		gatk --java-options "-Djava.io.tmpdir=$AN_WGS_temp/gatk -Xms4G -Xmx4G -XX:ParallelGCThreads=2" GenomicsDBImport \
   		--genomicsdb-workspace-path {output} \
-  		-R {params.fasta} \
+  		-R {params.ref_fasta} \
   		-V {params.input_list} \
   		--tmp-dir "$AN_WGS_temp/gatk" \
   		--max-num-intervals-to-import-in-parallel 3 \
@@ -86,8 +85,7 @@ rule genotype_gvcf:
 	output:
 		gvcf = OUTDIR + "/results/haplotypecaller/merged/gvcf/merged.{chr}.vcf.gz"
 	params:
-		input_list = lambda wildcards, input: ' -V '.join(input.vcf),
-		ref_fasta = OUTDIR + "/reference/" + config["reference"]["fasta"]
+		ref_fasta = config["reference"]["directory"] + config["reference"]["fasta"]
 	threads: 2
 	resources:
 		time = 720,
@@ -97,7 +95,7 @@ rule genotype_gvcf:
 	shell:
 		"""
 		gatk --java-options "-Djava.io.tmpdir=$AN_WGS_temp/gatk -Xms4G -Xmx4G -XX:ParallelGCThreads=2" GenotypeGVCFs \
-  		    -R {params.fasta} \
+  		    -R {params.ref_fasta} \
   			-V gendb://{input.gdb}
 			-O {output}
 		"""
@@ -258,7 +256,7 @@ rule applybqsr_indel:
 
 rule calculate_posterior:
 	input:
-		vcf = OUTDIR + "/results/haplotypecaller/merged/recal/merged_all_chromosomes.indel.recalibrated_99.9.vcf.gz"
+		vcf = OUTDIR + "/results/haplotypecaller/merged/recal/merged_all_chromosomes.indel.snp.recalibrated_99.9.vcf.gz"
 	output:
 		OUTDIR + "/results/haplotypecaller/merged/recal/posterior_merged_all_chromosomes.indel.snp.recalibrated_99.9.vcf.gz"
 	params:

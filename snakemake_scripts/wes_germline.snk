@@ -63,7 +63,7 @@ rule genomic_db_import:
 		ref_fasta = config["reference"]["directory"] + config["reference"]["fasta"]
 	threads: 2
 	resources:
-		time = 360,
+		time = 120,
 		mem_mb = 8000
 	container:
 		config["singularity"]["gatk"]

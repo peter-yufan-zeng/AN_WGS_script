@@ -57,7 +57,7 @@ rule genomic_db_import:
 	input:
 		vcf = expand(OUTDIR + "/results/haplotypecaller/individual/{patient_normal}/{patient_normal}.merged.gvcf.gz",patient_normal = NORMAL)
 	output:
-		gdb = OUTDIR + "/results/haplotypecaller/merged/db/merged.{chr}.gdb"
+		gdb = OUTDIR + "/results/haplotypecaller/merged/db/merged.{chr}.gdb/vcfheader.vcf"
 	params:
 		input_list = lambda wildcards, input: ' -V '.join(input.vcf),
 		ref_fasta = config["reference"]["directory"] + config["reference"]["fasta"]
@@ -81,14 +81,14 @@ rule genomic_db_import:
 
 rule genotype_gvcf:
 	input:
-		gdb = OUTDIR + "/results/haplotypecaller/merged/db/merged.{chr}.gdb"
+		gdb = OUTDIR + "/results/haplotypecaller/merged/db/merged.{chr}.gdb/vcfheader.vcf"
 	output:
 		gvcf = OUTDIR + "/results/haplotypecaller/merged/gvcf/merged.{chr}.vcf.gz"
 	params:
 		ref_fasta = config["reference"]["directory"] + config["reference"]["fasta"]
 	threads: 2
 	resources:
-		time = 720,
+		time = 360,
 		mem_mb = 8000
 	container:
 		config["singularity"]["gatk"]
@@ -96,7 +96,7 @@ rule genotype_gvcf:
 		"""
 		gatk --java-options "-Djava.io.tmpdir=$AN_WGS_temp/gatk -Xms4G -Xmx4G -XX:ParallelGCThreads=2" GenotypeGVCFs \
   		    -R {params.ref_fasta} \
-  			-V gendb://{input.gdb}
+  			-V gendb://{OUTDIR}/results/haplotypecaller/merged/db/merged.{wildcards.chr}.gdb
 			-O {output}
 		"""
 

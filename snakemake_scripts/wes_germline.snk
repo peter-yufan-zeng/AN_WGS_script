@@ -57,13 +57,13 @@ rule genomic_db_import:
 	input:
 		vcf = expand(OUTDIR + "/results/haplotypecaller/individual/{patient_normal}/{patient_normal}.merged.gvcf.gz",patient_normal = NORMAL)
 	output:
-		gdb = OUTDIR + "/results/haplotypecaller/merged/db/merged.{chr}.gdb/vcfheader.vcf"
+		gdb = OUTDIR + "/results/haplotypecaller/merged/db/checkpoints/merged.{chr}.gdb_checkpoint"
 	params:
 		input_list = lambda wildcards, input: ' -V '.join(input.vcf),
 		ref_fasta = config["reference"]["directory"] + config["reference"]["fasta"]
 	threads: 2
 	resources:
-		time = 120,
+		time = 15,
 		mem_mb = 8000
 	container:
 		config["singularity"]["gatk"]
@@ -77,11 +77,12 @@ rule genomic_db_import:
   		--tmp-dir "$AN_WGS_temp/gatk" \
   		--max-num-intervals-to-import-in-parallel 3 \
   		--intervals {wildcards.chr}
+		touch {output}
 		"""
 
 rule genotype_gvcf:
 	input:
-		gdb = OUTDIR + "/results/haplotypecaller/merged/db/merged.{chr}.gdb/vcfheader.vcf"
+		gdb = OUTDIR + "/results/haplotypecaller/merged/db/checkpoints/merged.{chr}.gdb_checkpoint"
 	output:
 		gvcf = OUTDIR + "/results/haplotypecaller/merged/gvcf/merged.{chr}.vcf.gz"
 	params:

@@ -97,7 +97,7 @@ rule genotype_gvcf:
 		"""
 		gatk --java-options "-Djava.io.tmpdir=$AN_WGS_temp/gatk -Xms4G -Xmx4G -XX:ParallelGCThreads=2" GenotypeGVCFs \
   		    -R {params.ref_fasta} \
-  			-V gendb://{OUTDIR}/results/haplotypecaller/merged/db/merged.{wildcards.chr}.gdb
+  			-V gendb://{OUTDIR}/results/haplotypecaller/merged/db/merged.{wildcards.chr}.gdb \
 			-O {output}
 		"""
 
@@ -135,6 +135,7 @@ rule variant_recalibrator_snps:
 		ref_omni =  config["reference"]["directory"] + config["reference"]["omni"],
 		ref_dbsnp = config["reference"]["directory"] + config["reference"]["dbsnp"],
 		ref_1000g = config["reference"]["directory"] + config["reference"]["gatk_1000g"],
+		ref_hapmap = config["reference"]["directory"] + config["reference"]["hapmap"],
 		ref_fasta = config["reference"]["directory"] + config["reference"]["fasta"]
 	threads: 2
 	resources:
@@ -151,9 +152,11 @@ rule variant_recalibrator_snps:
 			-tranche 92.0 -tranche 91.0 -tranche 90.0 \
   			-R {params.ref_fasta} \
   			-V {input} \
+			--resource:hapmap,known=false,training=true,truth=true,prior=15.0 \
+  	  		{params.ref_hapmap}  \
   			--resource:dbsnp,known=true,training=false,truth=false,prior=2.0 \
   			{params.ref_dbsnp}  \
-  			--resource:omni,known=false,training=true,truth=false,prior=12.0 \
+  			--resource:omni,known=false,training=true,truth=true,prior=12.0 \
   			{params.ref_omni} \
   			--resource:1000G,known=false,training=true,truth=false,prior=10.0 \
   			{params.ref_1000g} \

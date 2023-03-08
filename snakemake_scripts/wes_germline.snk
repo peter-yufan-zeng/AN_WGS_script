@@ -76,7 +76,7 @@ rule genomic_db_import:
   		-V {params.input_list} \
   		--tmp-dir "$AN_WGS_temp/gatk" \
   		--max-num-intervals-to-import-in-parallel 3 \
-  		--intervals {wildcard.chr}
+  		--intervals {wildcards.chr}
 		"""
 
 rule genotype_gvcf:
@@ -101,7 +101,7 @@ rule genotype_gvcf:
 		"""
 
 def concat_genotyped_vcf(wildcards):
-	return expand(OUTDIR + "/results/haplotypecaller/merged/gvcf/merged.{chr}.vcf.gz", chr = config['reference']['haplotypecaller_chr'])
+	return expand(OUTDIR + "/results/haplotypecaller/merged/gvcf/merged.{chr}.vcf.gz", chr = CHRS)
 
 rule merge_haplotypecaller_genotyped_vcf:
 	input:

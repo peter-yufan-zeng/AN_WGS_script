@@ -37,6 +37,7 @@ singularity:
   trust4: $NXF_SINGULARITY_CACHEDIR/trust4-1.0.8.img
   vcftools: $NXF_SINGULARITY_CACHEDIR/depot.galaxyproject.org-singularity-vcftools-0.1.16--he513fc3_4.img
   snpeff: $NXF_SINGULARITY_CACHEDIR/nfcore-snpeff-5.1.GRCh38.img
+  vep: $NXF_SINGULARITY_CACHEDIR/vep_108.2_GRCh38.img
 
 reference:
   directory: "/scratch/pez/gdc_reference/"

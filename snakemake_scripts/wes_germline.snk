@@ -279,3 +279,26 @@ rule calculate_posterior:
    			--supporting-callsets  {params.ref_gnomad}\
    			-O {output}
 		"""
+
+rule vep_germline:
+	input:
+		vcf = OUTDIR + "/results/haplotypecaller/merged/recal/posterior_merged_all_chromosomes.indel.snp.recalibrated_99.9.vcf.gz"
+	output:
+		vcf = OUTDIR + "/results/haplotypecaller/merged/annotated/vep_posterior_merged_all_chromosomes.indel.snp.recalibrated_99.9.vcf.gz",
+		html = OUTDIR + "/results/haplotypecaller/merged/annotated/variant_effect_output.txt_summary.html"
+	threads: 12
+	resources:
+		time = 60,
+		mem_mb = 8000
+	container:
+		config["singularity"]["vep"]
+	shell:
+		"""
+		vep --cache --cache_version 108 \
+		-i {input} \
+		-o {output.vcf} \
+		--stats_file {output.html} \
+		--everything --species homo_sapiens \
+		--assembly GRCh38 --dir /.vep \
+		--fork {threads}
+		"""

@@ -169,14 +169,15 @@ rule annotate_snpeff:
 	resources:
 		time = 15,
 		mem_mb = 10000
+	container:
+		config["singularity"]["snpeff"]
 	params:
 		path_to_snpEff = config["reference"]["directory"] + "snpEff/snpEff.jar"
 	shell:
 		"""
-		module load java
 		cd {OUTDIR}/results/hpv/mpileup/
 		java -jar -Xmx8g {params.path_to_snpEff} \
-		HPV16 \
+		GDC_Cancer \
 		-csvStats {wildcards.sample}_hpv16_snpEff.csv \
 		-nodownload \
 		-canon \

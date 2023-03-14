@@ -284,7 +284,7 @@ rule vep_germline:
 	input:
 		vcf = OUTDIR + "/results/haplotypecaller/merged/recal/posterior_merged_all_chromosomes.indel.snp.recalibrated_99.9.vcf.gz"
 	output:
-		vcf = OUTDIR + "/results/haplotypecaller/merged/annotated/vep_posterior_merged_all_chromosomes.indel.snp.recalibrated_99.9.vcf.gz",
+		vcf = OUTDIR + "/results/haplotypecaller/merged/annotated/vep_posterior_merged_all_chromosomes.indel.snp.recalibrated_99.9.vcf",
 		html = OUTDIR + "/results/haplotypecaller/merged/annotated/variant_effect_output.txt_summary.html"
 	threads: 12
 	resources:
@@ -294,7 +294,7 @@ rule vep_germline:
 		config["singularity"]["vep"]
 	shell:
 		"""
-		vep --cache --cache_version 108 \
+		vep --cache --offline --cache_version 108 \
 		-i {input} \
 		-o {output.vcf} \
 		--stats_file {output.html} \

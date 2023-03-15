@@ -110,7 +110,7 @@ rule polyidus:
 		outdir = OUTDIR + "/orphan/polyidus/{sample}"
 	shell:
 		"""
-		python AN_WGS_script/scripts/polyidus/polyidus.py {params.bowtie2_hg38} \
+		python3 AN_WGS_script/scripts/polyidus/polyidus.py {params.bowtie2_hg38} \
 		{params.bowtie2_hpv16} \
 		--fastq {input.r1} {input.r2} \
 		--outdir {params.outdir}

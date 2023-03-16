@@ -38,15 +38,24 @@ rule all:
 def get_fastq1(wildcards):
 	return expand(INPUT[INPUT.Sample == wildcards.sample].Fastq1)
 
+	def get_samtools_command_to_run(wildcards, input, output, threads):
+			if len(input) == 1:
+				command = "ln -s " + " ".join(input) + " " + " ".join(output)
+			elif len(input) > 1:
+				command = "cat " + " ".join(input) + " > " + " ".join(output)
+			return(command)
+
 rule merge_fastq1:
 	input:
 		get_fastq1
 	output:
 		temp(OUTDIR + "/orphan/merged_fastq/{sample}.merged.r1.fastq.gz")
 	threads: 2
+	params:
+		command = get_samtools_command_to_run
 	shell:
 		"""
-		cat {input} > {output}
+		{params.command}
 		"""
 
 def get_fastq2(wildcards):
@@ -60,7 +69,7 @@ rule merge_fastq2:
 	threads: 2
 	shell:
 		"""
-		cat {input} > {output}
+		{params.command}
 		"""
 
 rule hpvviewer:
@@ -73,7 +82,7 @@ rule hpvviewer:
 	threads: 20
 	group: "hpvviewer"
 	resources:
-		time = 12*60,
+		time = 8*60,
 		mem_mb = 40000
 	container:
 		config["singularity"]["hpv_tools"]
@@ -100,7 +109,7 @@ rule polyidus:
 	threads: 20
 	group: "polyidus"
 	resources:
-		time = 12*60,
+		time = 10*60,
 		mem_mb = 40000
 	container:
 		config["singularity"]["hpv_tools"]
@@ -147,7 +156,7 @@ rule variant_calling:
 	group: "hpv"
 	threads: 2
 	resources:
-		time = 120,
+		time = 15,
 		mem_mb = 10000
 	container:
 		config["singularity"]["hpv_tools"]
@@ -193,7 +202,7 @@ rule variant_calling_for_genotyping:
 	threads: 1
 	group: "hpv"
 	resources:
-		time = 60,
+		time = 15,
 		mem_mb = 10000
 	container:
 		config["singularity"]["hpv_tools"]

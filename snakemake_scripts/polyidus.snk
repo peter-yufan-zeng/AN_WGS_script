@@ -40,7 +40,8 @@ def get_fastq1(wildcards):
 
 def get_merge_command_to_run(wildcards, input, output, threads):
 	if len(input) == 1:
-		command = "ln -s " + " ".join(input) + " " + " ".join(output)
+		path = os.path.abspath(input)
+		command = "ln -s " + " ".join(path) + " ".join(output)
 	elif len(input) > 1:
 		command = "cat " + " ".join(input) + " > " + " ".join(output)
 	return(command)

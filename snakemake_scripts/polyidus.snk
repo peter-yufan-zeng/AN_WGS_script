@@ -38,12 +38,12 @@ rule all:
 def get_fastq1(wildcards):
 	return expand(INPUT[INPUT.Sample == wildcards.sample].Fastq1)
 
-	def get_samtools_command_to_run(wildcards, input, output, threads):
-			if len(input) == 1:
-				command = "ln -s " + " ".join(input) + " " + " ".join(output)
-			elif len(input) > 1:
-				command = "cat " + " ".join(input) + " > " + " ".join(output)
-			return(command)
+def get_merge_command_to_run(wildcards, input, output, threads):
+	if len(input) == 1:
+		command = "ln -s " + " ".join(input) + " " + " ".join(output)
+	elif len(input) > 1:
+		command = "cat " + " ".join(input) + " > " + " ".join(output)
+	return(command)
 
 rule merge_fastq1:
 	input:
@@ -52,7 +52,7 @@ rule merge_fastq1:
 		temp(OUTDIR + "/orphan/merged_fastq/{sample}.merged.r1.fastq.gz")
 	threads: 2
 	params:
-		command = get_samtools_command_to_run
+		command = get_merge_command_to_run
 	shell:
 		"""
 		{params.command}
@@ -67,6 +67,8 @@ rule merge_fastq2:
 	output:
 		temp(OUTDIR + "/orphan/merged_fastq/{sample}.merged.r2.fastq.gz")
 	threads: 2
+	params:
+		command = get_merge_command_to_run
 	shell:
 		"""
 		{params.command}

@@ -58,8 +58,8 @@ rule bam_to_fastq_one_step:
 		r2 = OUTDIR + "/fastq/{sample}_R2.fastq.gz"
 	threads: 8
 	resources:
-		time = 24*60,
-		mem_mb = 8000
+		time = 12*60,
+		mem_mb = 12000
 	container:
 		config["singularity"]["samtools"]
 	shell:

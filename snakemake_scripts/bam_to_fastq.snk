@@ -25,30 +25,11 @@ OUTDIR = config['outdir']
 
 rule all:
 	input:
-		### filtered bam
 		expand(OUTDIR + "/fastq/{samples}_R1.fastq.gz", samples=SAMPLE),
 		expand(OUTDIR + "/fastq/{samples}_R2.fastq.gz", samples=SAMPLE)
 
 def get_bam(wildcards):
 	return expand(INPUT[INPUT.Sample == wildcards.sample].bam)
-
-# rule sort_bam:
-# 	input:
-# 		get_bam
-# 	output:
-# 		temp(OUTDIR + "/sorted.bam/{sample}.sorted.bam")
-# 	threads: 4
-# 	resources:
-# 		time = 36*60,
-# 		mem_mb = 16000
-# 	group: "bam_to_fastq"
-# 	container:
-# 		config["singularity"]["samtools"]
-# 	shell:
-# 		"""
-# 		samtools sort -n -m 3G \
-# 		-o {output} -@ {threads} {input}
-# 		"""
 
 rule bam_to_fastq_one_step:
 	input:
@@ -56,10 +37,10 @@ rule bam_to_fastq_one_step:
 	output:
 		r1 = OUTDIR + "/fastq/{sample}_R1.fastq.gz",
 		r2 = OUTDIR + "/fastq/{sample}_R2.fastq.gz"
-	threads: 12
+	threads: 10
 	resources:
-		time = 10*60,
-		mem_mb = 40000
+		time = 24*60,
+		mem_mb = 60000
 	container:
 		config["singularity"]["samtools"]
 	shell:
@@ -69,52 +50,3 @@ rule bam_to_fastq_one_step:
 		-0 /dev/null -s /dev/null \
 		-O -t --threads 5 -n
 		"""
-
-# rule sort_bam:
-# 	input:
-# 		get_bam
-# 	output:
-# 		temp(OUTDIR + "/sorted.bam/{sample}.sorted.bam")
-# 	threads: 10
-# 	resources:
-# 		time = 36*60,
-# 		mem_mb = 16000
-# 	group: "bam_to_fastq"
-# 	container:
-# 		config["singularity"]["sambamba"]
-# 	params:
-# 		temp_dir = OUTDIR + "/sorted.bam/"
-# 	shell:
-# 		"""
-# 		sambamba sort \
-#         	-t {threads} \
-#         	-m 2G \
-#         	-o {output} \
-#         	-l 2 \
-# 			--show-progress \
-#         	--tmpdir $AN_WGS_temp \
-#         	{input}
-#     	sambamba index \
-#         	-t {threads} \
-#         	--show-progress \
-#         	{output}
-# 		"""
-
-# rule bam_to_fastq:
-# 	input:
-# 		OUTDIR + "/sorted.bam/{sample}.sorted.bam"
-# 	output:
-# 		r1 = OUTDIR + "/fastq/{sample}_R1.fastq.gz",
-# 		r2 = OUTDIR + "/fastq/{sample}_R2.fastq.gz"
-# 	threads: 2
-# 	resources:
-# 		time = 8*60,
-# 		mem_mb = 8000
-# 	container:
-# 		config["singularity"]["samtools"]
-# 	shell:
-# 		"""
-# 		samtools fastq -1 {output.r1} -2 {output.r2} \
-# 		-0 /dev/null -s /dev/null \
-# 		-O -t --threads {threads} {input}
-# 		"""

@@ -37,10 +37,10 @@ rule bam_to_fastq_one_step:
 	output:
 		r1 = OUTDIR + "/fastq/{sample}_R1.fastq.gz",
 		r2 = OUTDIR + "/fastq/{sample}_R2.fastq.gz"
-	threads: 10
+	threads: 6
 	resources:
-		time = 24*60,
-		mem_mb = 60000
+		time = 36*60,
+		mem_mb = 55000
 	container:
 		config["singularity"]["samtools"]
 	shell:

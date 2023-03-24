@@ -74,61 +74,61 @@ rule manta:
 		python {input.script} -m local -j {threads} -g 9
 		"""
 
-		rule mv_manta_files:
-			input:
-				file = OUTDIR + "/temp/Manta/{tumor}_vs_{patient}-N/results/variants/{structure}.vcf.gz",
-				index = OUTDIR + "/temp/Manta/{tumor}_vs_{patient}-N/results/variants/{structure}.vcf.gz.tbi"
-			output:
-				file = OUTDIR + "/results/Manta/{tumor}_vs_{patient}-N/Manta_{tumor}_vs_{patient}-N.{structure}.vcf.gz",
-				index = OUTDIR + "/results/Manta/{tumor}_vs_{patient}-N/Manta_{tumor}_vs_{patient}-N.{structure}.vcf.gz.tbi"
-			group: "manta_annotate"
-			threads: 1
-			resources:
-				time = 30,
-				mem_mb = 4000
-			shell:
-				"""
-				cp {input.file} {output.file}
-				cp {input.index} {output.index}
-				"""
+	rule mv_manta_files:
+		input:
+			file = OUTDIR + "/temp/Manta/{tumor}_vs_{patient}-N/results/variants/{structure}.vcf.gz",
+			index = OUTDIR + "/temp/Manta/{tumor}_vs_{patient}-N/results/variants/{structure}.vcf.gz.tbi"
+		output:
+			file = OUTDIR + "/results/Manta/{tumor}_vs_{patient}-N/Manta_{tumor}_vs_{patient}-N.{structure}.vcf.gz",
+			index = OUTDIR + "/results/Manta/{tumor}_vs_{patient}-N/Manta_{tumor}_vs_{patient}-N.{structure}.vcf.gz.tbi"
+		group: "manta_annotate"
+		threads: 1
+		resources:
+			time = 30,
+			mem_mb = 4000
+		shell:
+			"""
+			cp {input.file} {output.file}
+			cp {input.index} {output.index}
+			"""
 
-		rule annotate_manta:
-			input:
-				vcf = OUTDIR + "/results/Manta/{tumor}_vs_{patient}-N/Manta_{tumor}_vs_{patient}-N.{structure}.vcf.gz"
-			output:
-				annotatedvcf = temp(OUTDIR + "/results/Manta/{tumor}_vs_{patient}-N/Manta_snpeff_{tumor}_vs_{patient}-N.{structure}.ann.vcf")
-			resources:
-				time = 30,
-				mem_mb = 8500
-			container:
-				config["singularity"]["snpeff"]
-			threads: 2
-			group: "manta_annotate"
-			shell:
-				"""
-				cd {OUTDIR}/results/Manta/{wildcards.tumor}_vs_{wildcards.patient}-N
-				snpEff -Xmx8g \
-				GRCh38.105 \
-				-csvStats {wildcards.tumor}_{wildcards.structure}_snpEff.csv \
-				-nodownload \
-				-canon \
-				{input} \
-				> {output}
-				"""
+	rule annotate_manta:
+		input:
+			vcf = OUTDIR + "/results/Manta/{tumor}_vs_{patient}-N/Manta_{tumor}_vs_{patient}-N.{structure}.vcf.gz"
+		output:
+			annotatedvcf = temp(OUTDIR + "/results/Manta/{tumor}_vs_{patient}-N/Manta_snpeff_{tumor}_vs_{patient}-N.{structure}.ann.vcf")
+		resources:
+			time = 30,
+			mem_mb = 8500
+		container:
+			config["singularity"]["snpeff"]
+		threads: 2
+		group: "manta_annotate"
+		shell:
+			"""
+			cd {OUTDIR}/results/Manta/{wildcards.tumor}_vs_{wildcards.patient}-N
+			snpEff -Xmx8g \
+			GRCh38.105 \
+			-csvStats {wildcards.tumor}_{wildcards.structure}_snpEff.csv \
+			-nodownload \
+			-canon \
+			{input} \
+			> {output}
+			"""
 
-		rule zip_manta:
-			input:
-				annotatedvcf = OUTDIR + "/results/Manta/{tumor}_vs_{patient}-N/Manta_snpeff_{tumor}_vs_{patient}-N.{structure}.ann.vcf"
-			output: annotatedvcf = OUTDIR + "/results/Manta/{tumor}_vs_{patient}-N/Manta_snpeff_{tumor}_vs_{patient}-N.{structure}.ann.vcf.gz"
-			threads: 2
-			resources:
-				time = 30,
-				mem_mb = 4500
-			container:
-				config["singularity"]["tabix"]
-			group: "manta_annotate"
-			shell:
-				"""
-				bgzip < {input} > {output}
-				tabix {output}
-				"""
+	rule zip_manta:
+		input:
+			annotatedvcf = OUTDIR + "/results/Manta/{tumor}_vs_{patient}-N/Manta_snpeff_{tumor}_vs_{patient}-N.{structure}.ann.vcf"
+		output: annotatedvcf = OUTDIR + "/results/Manta/{tumor}_vs_{patient}-N/Manta_snpeff_{tumor}_vs_{patient}-N.{structure}.ann.vcf.gz"
+		threads: 2
+		resources:
+			time = 30,
+			mem_mb = 4500
+		container:
+			config["singularity"]["tabix"]
+		group: "manta_annotate"
+		shell:
+			"""
+			bgzip < {input} > {output}
+			tabix {output}
+			"""

@@ -35,6 +35,7 @@ print(INPUT)
 ### PRINT OUTPUT DIRECTORY
 OUTDIR = config['outdir']
 print("***OUTPUT DIRECTORY: " + OUTDIR + "***")
+EXOME_BED = config['EXOME_BED']
 
 ###
 ### GET SAMPLES TO USE MULTI-TUMOUR VARIANT CALLING

@@ -133,25 +133,7 @@ rule all:
 		expand(OUTDIR + "/results/titan/hetPosns/{tumor}/{tumor}.{chr}.vcf",tumor = TUMOR,chr=CHRS),
 		expand(OUTDIR + "/results/titan/tumCounts/{tumor}/{tumor}.tumCounts.{chr}.txt",tumor = TUMOR,chr=CHRS),
 		expand(OUTDIR + "/results/readDepth/{samples}.bin{binSize}.wig",samples=SAMPLE,binSize=str(config["titan"]["binSize"])),
-		titan_output_files,
-		# expand(OUTDIR + "/results/titan/hmm/titanCNA_ploidy{ploidy}/{tumor}_vs_{patient}-N_cluster{clustNum}.titan.txt",
-		# 	patient = [x.rsplit('-',1)[0] for x in TUMOR],
-		# 	tumor = TUMOR,
-		# 	clustNum=CLUST[config["titan"]["TitanCNA_maxNumClonalClusters"]],
-		# 	ploidy=PLOIDY[config["titan"]["TitanCNA_maxPloidy"]]
-		# 	),
-		# expand(OUTDIR + "/results/titan/hmm/titanCNA_ploidy{ploidy}/{tumor}_vs_{patient}-N_cluster{clustNum}.params.txt",patient = [x.rsplit('-',1)[0] for x in TUMOR],tumor = TUMOR,clustNum=CLUST[config["titan"]["TitanCNA_maxNumClonalClusters"]], ploidy=PLOIDY[config["titan"]["TitanCNA_maxPloidy"]]),
-		# expand(OUTDIR + "/results/titan/hmm/titanCNA_ploidy{ploidy}/{tumor}_vs_{patient}-N_cluster{clustNum}.segs.txt",patient = [x.rsplit('-',1)[0] for x in TUMOR],tumor = TUMOR,clustNum=CLUST[config["titan"]["TitanCNA_maxNumClonalClusters"]], ploidy=PLOIDY[config["titan"]["TitanCNA_maxPloidy"]]),
-		# expand(OUTDIR + "/results/titan/hmm/titanCNA_ploidy{ploidy}/{tumor}_vs_{patient}-N_cluster{clustNum}.seg",patient = [x.rsplit('-',1)[0] for x in TUMOR],tumor = TUMOR,clustNum=CLUST[config["titan"]["TitanCNA_maxNumClonalClusters"]], ploidy=PLOIDY[config["titan"]["TitanCNA_maxPloidy"]]),
-		# expand(OUTDIR + "/results/titan/hmm/{tumor}_vs_{patient}-N_optimalClusterSolution.txt",patient = [x.rsplit('-',1)[0] for x in TUMOR],tumor = TUMOR),
-		# expand(OUTDIR+ "/results/titan/hmm/optimalClusterSolution/{tumor}_vs_{patient}-N/",patient = [x.rsplit('-',1)[0] for x in TUMOR],tumor = TUMOR),
-		#### ASCAT
-		expand(OUTDIR + "/results/ASCAT/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N.tumor.cnvs.txt",zip, tumor = TUMOR, patient = [x.rsplit('-',1)[0] for x in TUMOR])
-		### phylowgs output
-#		phylowgs_output_list,
-#		phylowgs_tree_output_list
-		#### QC
-		#expand("reports/{patient}_multiqc.html",patient = PAT)
+		titan_output_files
 	threads: 1
 	container:
 		config["singularity"]["multiqc"]

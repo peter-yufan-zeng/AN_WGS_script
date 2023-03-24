@@ -6,7 +6,7 @@ rule samtools_stats:
 		bam = OUTDIR +"/Recal/{sample}.recal.bam",
 		index = OUTDIR +"/Recal/{sample}.recal.bai"
 	output:
-		stats = OUTDIR + "/QC/{sample}/{sample}.samtools.stats.out"
+		stats = OUTDIR + "/QC/samtools_stats/{sample}/{sample}.samtools.stats.out"
 	threads: 2
 	resources:
 		time = 1*60,
@@ -22,13 +22,14 @@ rule samtools_stats:
 rule bamqc:
 	input:
 		bam = OUTDIR +"/Recal/{sample}.recal.bam",
-		index = OUTDIR +"/Recal/{sample}.recal.bai"
+		index = OUTDIR +"/Recal/{sample}.recal.bai",
+		bed = EXOME_BED
 	output:
-		stats = OUTDIR + "/QC/{sample}/bamQC/qualimapReport.html"
+		stats = OUTDIR + "/QC/bamqc/{sample}/qualimapReport.html"
 	threads: 12
 	resources:
 		time = 1*60,
-		mem_mb = 60000
+		mem_mb = 30000
 	group: "qc_bamqc"
 	container:
 		config["singularity"]["qualimap"]
@@ -37,12 +38,12 @@ rule bamqc:
 		qualimap --java-mem-size=20G \
 		bamqc \
 		-bam {input.bam} \
-		--feature-file {EXOME_BED} \
+		--feature-file {input.bed} \
 		--paint-chromosome-limits \
 		--genome-gc-distr HUMAN \
 		-nt {threads} \
 		-skip-duplicated \
 		--skip-dup-mode 0 \
-		-outdir {OUTDIR}/QC/{wildcards.sample}/bamQC/ \
+		-outdir {OUTDIR}/QC/bamqc/{wildcards.sample}/ \
 		-outformat HTML
 		"""

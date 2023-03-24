@@ -2,24 +2,6 @@
 ### VARIANT CALLING FOR EACH TUMOUR INDIVIDUALLY
 ###
 
-##SET NUMBERS FROM 0000 to 0199
-NUMBERS = [str(a)+str(b)+str(c)+str(d) for a in range(0,1) for b in range(0,2) for c in range(0,10) for d in range(0,10)]
-
-rule scatterIntervals:
-	input:
-		EXOME_BED
-	output:
-		expand(OUTDIR + "/orphan/intervals/{num}-scattered.interval_list", num = NUMBERS)
-	shell:
-		"""
-		singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR},$SCRATCH/AN_WGS/AN_WGS_script /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/gatk-4.1.8.img \
-		gatk --java-options "-Xmx8g" SplitIntervals \
-		-R {REF_fasta} \
-		--scatter-count 200 \
-		-L {input} \
-		-O {OUTDIR}/orphan/intervals
-		"""
-
 rule mutect2:
 	input:
 		normal = OUTDIR +"/Recal/{patient}-N.recal.bam",

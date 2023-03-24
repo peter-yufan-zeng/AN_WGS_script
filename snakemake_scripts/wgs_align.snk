@@ -12,10 +12,10 @@ rule fastqc:
 			fastq1 = bwa_mem_fastq1,
 			fastq2 = bwa_mem_fastq2
 	output:
-		o1 = OUTDIR + "/QC/{sample_lane}/{sample_lane}_R1_fastqc.html",
-		o2 = OUTDIR + "/QC/{sample_lane}/{sample_lane}_R2_fastqc.html",
-		o3 = OUTDIR + "/QC/{sample_lane}/{sample_lane}_R1_fastqc.zip",
-		o4 = OUTDIR + "/QC/{sample_lane}/{sample_lane}_R2_fastqc.zip"
+		o1 = OUTDIR + "/QC/fastqc/{sample_lane}/{sample_lane}_R1_fastqc.html",
+		o2 = OUTDIR + "/QC/fastqc/{sample_lane}/{sample_lane}_R2_fastqc.html",
+		o3 = OUTDIR + "/QC/fastqc/{sample_lane}/{sample_lane}_R1_fastqc.zip",
+		o4 = OUTDIR + "/QC/fastqc/{sample_lane}/{sample_lane}_R2_fastqc.zip"
 	threads: 4
 	resources:
 		time = 6*60,
@@ -25,11 +25,11 @@ rule fastqc:
 	group: "fastqc"
 	shell:
 		"""
-		fastqc -t {threads} {input} --outdir={OUTDIR}/QC/{wildcards.sample_lane}/
-		mv {OUTDIR}/QC/{wildcards.sample_lane}/*R1*_fastqc.html {OUTDIR}/QC/{wildcards.sample_lane}/{wildcards.sample_lane}_R1_fastqc.html
-		mv {OUTDIR}/QC/{wildcards.sample_lane}/*R2*_fastqc.html {OUTDIR}/QC/{wildcards.sample_lane}/{wildcards.sample_lane}_R2_fastqc.html
-		mv {OUTDIR}/QC/{wildcards.sample_lane}/*R1*_fastqc.zip {OUTDIR}/QC/{wildcards.sample_lane}/{wildcards.sample_lane}_R1_fastqc.zip
-		mv {OUTDIR}/QC/{wildcards.sample_lane}/*R2*_fastqc.zip {OUTDIR}/QC/{wildcards.sample_lane}/{wildcards.sample_lane}_R2_fastqc.zip
+		fastqc -t {threads} {input} --outdir={OUTDIR}/QC/fastqc/{wildcards.sample_lane}/
+		mv {OUTDIR}/QC/fastqc/{wildcards.sample_lane}/*R1*_fastqc.html {OUTDIR}/QC/fastqc/{wildcards.sample_lane}/{wildcards.sample_lane}_R1_fastqc.html
+		mv {OUTDIR}/QC/fastqc/{wildcards.sample_lane}/*R2*_fastqc.html {OUTDIR}/QC/fastqc/{wildcards.sample_lane}/{wildcards.sample_lane}_R2_fastqc.html
+		mv {OUTDIR}/QC/fastqc/{wildcards.sample_lane}/*R1*_fastqc.zip {OUTDIR}/QC/fastqc/{wildcards.sample_lane}/{wildcards.sample_lane}_R1_fastqc.zip
+		mv {OUTDIR}/QC/fastqc/{wildcards.sample_lane}/*R2*_fastqc.zip {OUTDIR}/QC/fastqc/{wildcards.sample_lane}/{wildcards.sample_lane}_R2_fastqc.zip
 		"""
 
 def createRG(wildcards):
@@ -67,7 +67,7 @@ rule sort_sam_to_bam:
 		bam = temp(OUTDIR +"/orphan/{sample_lane}/{sample_lane}.bwa.bam")
 	threads: 10
 	resources:
-		time = 12*60,
+		time = 24*60,
 		mem_mb = 36000
 	container:
 		config["singularity"]["samtools"]

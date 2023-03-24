@@ -6,7 +6,7 @@ rule samtools_stats:
 		bam = OUTDIR +"/Recal/{sample}.recal.bam",
 		index = OUTDIR +"/Recal/{sample}.recal.bai"
 	output:
-		stats = OUTDIR + "/QC/{sample}/{sample}.samtools.stats.out"
+		stats = OUTDIR + "/QC/samtools_stats/{sample}/{sample}.samtools.stats.out"
 	threads: 2
 	resources:
 		time = 8*60,
@@ -24,7 +24,7 @@ rule bamqc:
 		bam = OUTDIR +"/Recal/{sample}.recal.bam",
 		index = OUTDIR +"/Recal/{sample}.recal.bai"
 	output:
-		stats = OUTDIR + "/QC/{sample}/bamQC/qualimapReport.html"
+		stats = OUTDIR + "/QC/bamqc/{sample}/qualimapReport.html"
 	threads: 12
 	resources:
 		time = 8*60,
@@ -42,6 +42,6 @@ rule bamqc:
 		-nt {threads} \
 		-skip-duplicated \
 		--skip-dup-mode 0 \
-		-outdir {OUTDIR}/QC/{wildcards.sample}/bamQC/ \
+		-outdir {OUTDIR}/QC/bamqc/{wildcards.sample}/ \
 		-outformat HTML
 		"""

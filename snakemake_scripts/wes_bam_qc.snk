@@ -4,7 +4,8 @@
 rule samtools_stats:
 	input:
 		bam = OUTDIR +"/Recal/{sample}.recal.bam",
-		index = OUTDIR +"/Recal/{sample}.recal.bai"
+		index = OUTDIR +"/Recal/{sample}.recal.bai",
+		bed = EXOME_BED
 	output:
 		stats = OUTDIR + "/QC/samtools_stats/{sample}/{sample}.samtools.stats.out"
 	threads: 2
@@ -16,7 +17,7 @@ rule samtools_stats:
 	group: "qc_samtools_stats"
 	shell:
 		"""
-		samtools stats -t {EXOME_BED} {input.bam} > {output}
+		samtools stats -t {input.bed} {input.bam} > {output}
 		"""
 
 rule bamqc:

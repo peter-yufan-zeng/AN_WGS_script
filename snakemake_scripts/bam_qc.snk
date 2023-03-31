@@ -28,13 +28,13 @@ rule bamqc:
 	threads: 12
 	resources:
 		time = 8*60,
-		mem_mb = 60000
+		mem_mb = 80000
 	group: "qc_bamqc"
 	container:
 		config["singularity"]["qualimap"]
 	shell:
 		"""
-		qualimap --java-mem-size=50G \
+		qualimap --java-mem-size=68G \
 		bamqc \
 		-bam {input.bam} \
 		--paint-chromosome-limits \

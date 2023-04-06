@@ -162,8 +162,8 @@ rule gatk_calcContam_primary:
 	shell:
 		"""
 		gatk --java-options "-Xmx4g" CalculateContamination \
-		-I {input.normal} \
-		-matched {input.primary} \
+		-I {input.primary} \
+		-matched {input.normal} \
 		--tumor-segmentation {output.segment} \
 		-O {output.contamTable}
 		"""

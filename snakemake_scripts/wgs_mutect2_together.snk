@@ -102,7 +102,7 @@ rule gatk_LearnOrientationModel_all_tumour:
 	group: "mutect2_all_post_call"
 	shell:
 		"""
-		gatk LearnReadOrientationModel --stats {params.input_list} -O {output}
+		gatk LearnReadOrientationModel -I {params.input_list} -O {output}
 		"""
 
 

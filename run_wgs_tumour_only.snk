@@ -102,8 +102,8 @@ rule all:
 		####
 		####VARIANT CALLING OUTPUTS
 		####
-		expand(OUTDIR + "/results/mutect2/{tumor}_vs_{patient}/{tumor}_vs_tumour_only_snpEff.ann.vcf.gz",zip, patient = [x.rsplit('-',1)[0] for x in TUMOR],tumor = TUMOR),
-		expand(OUTDIR + "/results/mutect2/{tumor}_vs_{patient}/{tumor}_vs_tumour_only_snpEff.ann.passOnly.vcf.gz",zip, patient = [x.rsplit('-',1)[0] for x in TUMOR],tumor = TUMOR),
+		expand(OUTDIR + "/results/mutect2/{tumor}_vs_tumour_only/{tumor}_vs_tumour_only_snpEff.ann.vcf.gz",zip, patient = [x.rsplit('-',1)[0] for x in TUMOR],tumor = TUMOR),
+		expand(OUTDIR + "/results/mutect2/{tumor}_vs_tumour_only/{tumor}_vs_tumour_only_snpEff.ann.passOnly.vcf.gz",zip, patient = [x.rsplit('-',1)[0] for x in TUMOR],tumor = TUMOR),
 		Multi.path.drop_duplicates().tolist(),
 	threads: 1
 	container:

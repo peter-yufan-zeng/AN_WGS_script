@@ -52,7 +52,7 @@ rule merge_mutect2_vcf:
 		"""
 
 def concat_vcf_stats(wildcards):
-	return expand(OUTDIR + "/results/mutect2/" + wildcards.tumor + "_tumour_only" + "/unfiltered_" + wildcards.tumor + "_vs_" + "tumour_only" + ".{num}.vcf.stats", num = NUMBERS)
+	return expand(OUTDIR + "/results/mutect2/" + wildcards.tumor + "_vs_" + "_tumour_only" + "/unfiltered_" + wildcards.tumor + "_vs_" + "tumour_only" + ".{num}.vcf.stats", num = NUMBERS)
 
 rule merge_stats:
 	input:

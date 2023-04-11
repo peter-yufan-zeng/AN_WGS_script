@@ -26,7 +26,7 @@ rule mutect2:
 		-L {input.interval} \
 		-R {input.ref_fasta} \
 		--germline-resource {input.ref_gnomAD} \
-		--panel-oformals {input.ref_pon} \
+		--panel-of-normals {input.ref_pon} \
 		--f1r2-tar-gz {output.f12} \
 		-O {output.vcf}
 		"""

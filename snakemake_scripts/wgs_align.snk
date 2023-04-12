@@ -9,8 +9,8 @@ def bwa_mem_fastq2(wildcards):
 
 rule fastqc:
 	input:
-			fastq1 = bwa_mem_fastq1,
-			fastq2 = bwa_mem_fastq2
+		fastq1 = bwa_mem_fastq1,
+		fastq2 = bwa_mem_fastq2
 	output:
 		o1 = OUTDIR + "/QC/fastqc/{sample_lane}/fastqc_complete"
 #		o2 = OUTDIR + "/QC/fastqc/{sample_lane}/{sample_lane}_R2_fastqc.html",

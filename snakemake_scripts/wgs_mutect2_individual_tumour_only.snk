@@ -196,7 +196,7 @@ rule annotate_mutect2:
 	group: "mutect2_post_call"
 	shell:
 		"""
-		cd {OUTDIR}/results/mutect2/{wildcards.tumor}_vs_{wildcards.patient}
+		cd {OUTDIR}/results/mutect2/{wildcards.tumor}_vs_tumour_only
 		snpEff -Xmx8g \
 		GRCh38.105 \
 		-csvStats {wildcards.tumor}_snpEff.csv \

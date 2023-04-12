@@ -111,7 +111,7 @@ for tumor in TUMOR:
 rule all:
 	input:
 		###FASTQC + BWA Alignment
-		expand(OUTDIR + "/QC/fastqc/{sample_lane}/{sample_lane}_R1_fastqc.html", sample_lane = SAMPLE_LANE),
+		expand(OUTDIR + "/QC/fastqc/{sample_lane}/fastqc_complete", sample_lane = SAMPLE_LANE),
 		expand(OUTDIR + "/Recal/{sample}.recal.bam", sample = SAMPLE),
 		### using zip https://endrebak.gitbooks.io/the-snakemake-book/chapters/expand/expand.html
 		###BAMQC + samtools_stats

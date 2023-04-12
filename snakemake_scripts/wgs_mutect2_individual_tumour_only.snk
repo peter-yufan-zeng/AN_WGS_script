@@ -200,7 +200,7 @@ rule annotate_mutect2:
 		snpEff -Xmx8g \
 		GRCh38.105 \
 		-csvStats {wildcards.tumor}_snpEff.csv \
-		odownload \
+		-nodownload \
 		-canon \
 		{input} \
 		> {output}

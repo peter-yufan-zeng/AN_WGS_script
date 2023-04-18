@@ -303,8 +303,6 @@ rule selectSolution:
 		ploidy3 = OUTDIR + "/results/titan/hmm/titanCNA_ploidy3",
 		ploidy4 = OUTDIR + "/results/titan/hmm/titanCNA_ploidy4"
 	threads: 2
-	log:
-		OUTDIR + "/logs/titan/selectSolution_{tumor}_vs_{patient}-N.log"
 	resources:
 		time = 30,
 		mem_mb = 8500
@@ -325,7 +323,7 @@ rule selectSolution:
 			ploidyRun4=NULL
 		fi
 		Rscript {params.solutionRscript} \
-		--ploidyRun2 $ploidyRun2 --ploidyRun3 $ploidyRun3 --ploidyRun4 $ploidyRun4 --threshold {params.threshold} --outFile {output} > {log} 2> {log}
+		--ploidyRun2 $ploidyRun2 --ploidyRun3 $ploidyRun3 --ploidyRun4 $ploidyRun4 --threshold {params.threshold} --outFile {output}
 		"""
 
 rule copyOptSolution:

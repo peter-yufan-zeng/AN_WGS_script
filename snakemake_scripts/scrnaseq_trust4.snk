@@ -21,6 +21,6 @@ rule trust4:
 		-b {input.bam} \
 		--barcode CB \
 		-o {wildcards.sample} \
-		--od {OUTDIR}/trust4/{wildcards.sample}/ \
+		--od {OUTDIR}/trust4/trust4_{wildcards.sample}/ \
 		-t {threads}
 		"""

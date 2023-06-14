@@ -3,8 +3,13 @@
 #### module load NiaEnv/2018a
 #### module load python/3.6.4-anaconda5.1.0
 #### source activate snakemake
-#### snakemake -s AN_WGS_script/Snakefile  --cores 1 -j 40 --cluster "sbatch -N 1 -t 20:00:00 --ntasks 80 --output=logs/%x_%j.log" --ri \
-#### --config input=AN_WGS_script/Sample/20200907.tsv.txt outdir=$SCRATCH/AN_WGS_script/20200908_HPV_HNSCC_WGS
+# snakemake  --profile nichols_niagara  \
+# -s AN_WGS_script/run_scrnaseq.snk  \
+# --configfile AN_WGS_script/niagara_config.yaml  \
+# --config input=$SCRATCH/20230612_isgs_scrnaseq/20230613_input.csv \
+# outdir=$SCRATCH/20230612_isgs_scrnaseq \
+# --singularity-args " -B $SCRATCH,$SCRATCH/gdc_reference,$HOME "  \
+# --rerun-triggers input  --ri --keep-going --keep-incomplete 
 
 import pandas as pd
 import os
@@ -44,7 +49,7 @@ rule rename_files:
 		r1 = "{OUTDIR}/ln/{sample}_S1_{lanes}_R1_001.fastq.gz",
 		r2 = "{OUTDIR}/ln/{sample}_S1_{lanes}_R2_001.fastq.gz"
 	shell:
-	 	"ln -sr {input.r1} {output.r1} && ln -sr {input.r2} {output.r2}"
+	 	"ln -sf {input.r1} {output.r1} && ln -sf {input.r2} {output.r2}"
 
 ### Run Cell Ranger
 include: "snakemake_scripts/scrnaseq_cellranger.snk"

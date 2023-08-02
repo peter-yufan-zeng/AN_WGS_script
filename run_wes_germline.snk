@@ -72,8 +72,8 @@ rule all:
 		####
 		####VARIANT CALLING OUTPUTS
 		####
-		expand(OUTDIR + "/results/haplotypecaller/individual/{patient_normal}/{patient_normal}.merged.gvcf.gz",patient_normal = NORMAL),
-		OUTDIR + "/results/haplotypecaller/merged/annotated/vep_posterior_merged_all_chromosomes.indel.snp.recalibrated_99.9.vcf.gz"
+		expand(OUTDIR + "/results/haplotypecaller/individual/{patient_normal}/{patient_normal}.merged.gvcf.gz",patient_normal = NORMAL)
+		# OUTDIR + "/results/haplotypecaller/merged/annotated/vep_posterior_merged_all_chromosomes.indel.snp.recalibrated_99.9.vcf.gz"
 	threads: 1
 	container:
 		config["singularity"]["multiqc"]

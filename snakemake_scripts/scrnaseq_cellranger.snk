@@ -17,7 +17,8 @@ rule cellranger:
 		num_cells = get_num_cells,
 		cellranger_ref = config["reference"]["directory"] + config["reference"]["cellranger_grch38_ref"],
 		cellranger_exec = config["reference"]["directory"] + config["reference"]["cellranger_exec"]
-	threads: 16
+	threads: 32
+	group: "cellranger"
 	resources:
 		time = 12*60,
 		mem_mb = 80000

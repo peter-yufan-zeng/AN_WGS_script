@@ -8,6 +8,7 @@
 # --configfile AN_WGS_script/niagara_config.yaml  \
 # --config input=$SCRATCH/20230612_isgs_scrnaseq/20230613_input.csv \
 # outdir=$SCRATCH/20230612_isgs_scrnaseq \
+# --group-components  cellranger=2 trust4=10  \
 # --singularity-args " -B $SCRATCH,$SCRATCH/gdc_reference,$HOME "  \
 # --rerun-triggers input  --ri --keep-going --keep-incomplete 
 

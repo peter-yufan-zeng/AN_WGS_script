@@ -68,7 +68,7 @@ rule all:
 		### using zip https://endrebak.gitbooks.io/the-snakemake-book/chapters/expand/expand.html
 		###BAMQC + samtools_stats
 		#expand(OUTDIR + "/QC/{sample}/{sample}.samtools.stats.out",sample = SAMPLE),
-		expand(OUTDIR + "/QC/bamqc/{sample}/bamQC/qualimapReport.html",sample = SAMPLE),
+		expand(OUTDIR + "/QC/bamqc/{sample}/qualimapReport.html",sample = SAMPLE),
 		####
 		####VARIANT CALLING OUTPUTS
 		####

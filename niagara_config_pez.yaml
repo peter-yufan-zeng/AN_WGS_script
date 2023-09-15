@@ -36,6 +36,7 @@ singularity:
   tiddit: $NXF_SINGULARITY_CACHEDIR/depot.galaxyproject.org-singularity-tiddit-3.3.2--py310hc2b7f4b_0.img
   trust4: $NXF_SINGULARITY_CACHEDIR/trust4-1.0.8.img
   vcftools: $NXF_SINGULARITY_CACHEDIR/depot.galaxyproject.org-singularity-vcftools-0.1.16--he513fc3_4.img
+  velocyto: $NXF_SINGULARITY_CACHEDIR/velocyto_0.17.17.sif
   snpeff: $NXF_SINGULARITY_CACHEDIR/nfcore-snpeff-5.1.GRCh38.img
   vep: $NXF_SINGULARITY_CACHEDIR/vep_108.2_GRCh38.img
 
@@ -59,6 +60,7 @@ reference:
   battenberg_ref: "/scratch/j/jmymryk/pez/gdc_reference/battenberg"
   cellranger_exec: "cellranger/cellranger-6.0.2/cellranger"
   cellranger_grch38_ref: "cellranger/refdata-gex-GRCh38-2020-A"
+  velocyto_repeat_mask_gtf: "hg38_rmsk.gtf"
   trust4_fasta: "TRUST4/hg38_bcrtcr.fa"
   trust4_ref: "TRUST4/human_IMGT_C.fa"
   ### files for RNA-seq

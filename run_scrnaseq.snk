@@ -34,7 +34,8 @@ rule all:
 		# expand(OUTDIR + "/{sample}/cellranger/possorted_genome_bam.bam", sample = SAMPLE),
 		expand(OUTDIR + "/trust4/trust4_{sample}/{sample}_barcode_report.tsv", sample = SAMPLE),
 		expand(OUTDIR + "/final_results/cellranger/{sample}/matrix.mtx.gz",sample = SAMPLE),
-		expand(OUTDIR + "/final_results/trust4/{sample}/{sample}_barcode_report.tsv", sample = SAMPLE)
+		expand(OUTDIR + "/final_results/trust4/{sample}/{sample}_barcode_report.tsv", sample = SAMPLE),
+		expand(OUTDIR + "/final_results/velocyto/{sample}/{sample}.loom", sample = SAMPLE)
 
 def get_fastq1(wildcards):
 	return expand(INPUT[(INPUT['Sample'] == wildcards.sample) & (INPUT['lanes'] == wildcards.lanes)].Fastq1)

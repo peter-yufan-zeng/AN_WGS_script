@@ -12,6 +12,7 @@ rule cellranger:
 		r2 = get_renamed_fastq2
 	output:
 		"{OUTDIR}/cellranger/{sample}/possorted_genome_bam.bam",
+		"{OUTDIR}/{sample}/outs/possorted_genome_bam.bam",
 		"{OUTDIR}/cellranger/{sample}/filtered_feature_bc_matrix.h5"
 	params:
 		num_cells = get_num_cells,
@@ -37,27 +38,26 @@ rule cellranger:
 
 rule velocyto:
 	input:
-		OUTDIR + "/cellranger/{sample}/possorted_genome_bam.bam"
+		OUTDIR + "/{sample}/outs/possorted_genome_bam.bam",
 	output:
 		o1 = OUTDIR + "/{sample}/velocyto/{sample}.loom",
 		o2 = OUTDIR + "/final_results/velocyto/{sample}/{sample}.loom"
 	params:
-		num_cells = get_num_cells,
 		cellranger_ref_gtf = config["reference"]["directory"] + config["reference"]["cellranger_grch38_ref"] + "/genes/genes.gtf",
 		masked_gtf = config["reference"]["directory"] + config["reference"]["velocyto_repeat_mask_gtf"]
-    threads: 4
+	threads: 4
 	group: "cellranger"
 	container:
 		config["singularity"]["velocyto"]
 	resources:
 		time = 6*60,
 		mem_mb = 12000
-    shell:
-    """
-    velocyto run10x \
-        --samtools-threads {threads} --samtools-memory 2000 \
-        -m {params.masked_gtf} \
-        {OUTDIR}/{wildcards.sample} \
-        {params.cellranger_ref_gtf}
-    cp {output.o1} {output.o2}
-    """
+	shell:
+		"""
+		velocyto run10x \
+		--samtools-threads {threads} --samtools-memory 2000 \
+		-m {params.masked_gtf} \
+		{OUTDIR}/{wildcards.sample} \
+		{params.cellranger_ref_gtf}
+		cp {output.o1} {output.o2}
+		"""

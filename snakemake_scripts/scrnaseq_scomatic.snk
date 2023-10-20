@@ -88,8 +88,9 @@ rule collect_base_count:
 		"""
 
 def get_cell_type_bam(wildcards):
-	bams = [x for x in os.listdir('./scomatic/' + wildcards.sample + '/Step1_BamCellTypes') if x.endswith('.bam')]
-	cell_type = [file.replace(wildcards.sample + ".","").replace(".bam","") for file in bams]
+	# bams = [x for x in os.listdir('./scomatic/' + wildcards.sample + '/Step1_BamCellTypes') if x.endswith('.bam')]
+	# cell_type = [file.replace(wildcards.sample + ".","").replace(".bam","") for file in bams]
+	cell_type = pd.read_csv('./scomatic/barcode_tsv/' + wildcards.sample + '_barcodes.tsv',sep = '\t').Cell_type.unique()
 	return expand(OUTDIR + "/scomatic/" + wildcards.sample + "/Step2_BaseCellCounts/{cell_type}_job.finish.touch", cell_type = cell_type)
 
 rule check_base_count_complete:

@@ -19,7 +19,7 @@ print("***OUTPUT DIRECTORY: " + OUTDIR + "***")
 
 rule all:
 	input:
-		expand(OUTDIR + "/scomatic/{sample}/Step1_BamCellTypes/job.finish.touch", sample = SAMPLE),
+		# expand(OUTDIR + "/scomatic/{sample}/Step1_BamCellTypes/job.finish.touch", sample = SAMPLE),
 		expand(OUTDIR + "/scomatic/{sample}/Step2_BaseCellCounts/job.finish.touch_all", sample = SAMPLE),
 		expand(OUTDIR + "/scomatic/{sample}/Step4_VariantCalling/step2.job.finish.touch", sample = SAMPLE)
 
@@ -36,7 +36,7 @@ rule split_bam:
 		scomatic_script = config["reference"]["directory"] + "SComatic/scripts/SplitBam/SplitBamCellTypes.py",
 		barcode = OUTDIR + "/scomatic/barcode_tsv/{sample}_barcodes.tsv"
 	output:
-		cell_type_bam = OUTDIR + '/scomatic/{sample}/Step1_BamCellTypes/{sample}.{cell_type}.bam'
+		cell_type_bam = OUTDIR + '/scomatic/{sample}/Step1_BamCellTypes/{sample}.{cell_type}.bam',
 		o1 = OUTDIR + "/scomatic/{sample}/Step1_BamCellTypes/{cell_type}_job.finish.touch"
 	params:
 		cellranger_ref_fa = config["reference"]["directory"] + config["reference"]["cellranger_grch38_ref"] + "/fasta/genome.fa"
@@ -71,7 +71,7 @@ rule collect_base_count:
 		o1 = OUTDIR + "/scomatic/{sample}/Step2_BaseCellCounts/{cell_type}_job.finish.touch"
 	params:
 		cellranger_ref_fa = config["reference"]["directory"] + config["reference"]["cellranger_grch38_ref"] + "/fasta/genome.fa"
-	threads: 20
+	threads: 10
 	group: "scomatic"
 	container:
 		config["singularity"]["scomatic"]
@@ -107,7 +107,7 @@ rule check_base_count_complete:
 		check_cell_type_case_count_complete,
 	output:
 		OUTDIR + "/scomatic/{sample}/Step2_BaseCellCounts/job.finish.touch_all"
-	threads: 20
+	threads: 4
 	group: "scomatic"
 	container:
 		config["singularity"]["scomatic"]
@@ -127,7 +127,7 @@ rule merge_base_count_matrix:
 		o1 = OUTDIR + "/scomatic/{sample}/Step3_BaseCellCountsMerged/{sample}.BaseCellCounts.AllCellTypes.tsv"
 	params:
 		cellranger_ref_fa = config["reference"]["directory"] + config["reference"]["cellranger_grch38_ref"] + "/fasta/genome.fa"
-	threads: 20
+	threads: 4
 	group: "scomatic"
 	container:
 		config["singularity"]["scomatic"]
@@ -152,7 +152,7 @@ rule base_calling_step1:
 		o1 = OUTDIR + "/scomatic/{sample}/Step4_VariantCalling/{sample}.calling.step1.tsv"
 	params:
 		cellranger_ref_fa = config["reference"]["directory"] + config["reference"]["cellranger_grch38_ref"] + "/fasta/genome.fa"
-	threads: 20
+	threads: 4
 	group: "scomatic"
 	container:
 		config["singularity"]["scomatic"]
@@ -180,7 +180,7 @@ rule base_calling_step2:
 		o1 = OUTDIR + "/scomatic/{sample}/Step4_VariantCalling/step2.job.finish.touch"
 	params:
 		cellranger_ref_fa = config["reference"]["directory"] + config["reference"]["cellranger_grch38_ref"] + "/fasta/genome.fa"
-	threads: 20
+	threads: 4
 	group: "scomatic"
 	container:
 		config["singularity"]["scomatic"]

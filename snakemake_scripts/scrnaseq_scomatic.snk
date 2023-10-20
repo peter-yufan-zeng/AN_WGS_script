@@ -36,8 +36,8 @@ rule split_bam:
 		scomatic_script = config["reference"]["directory"] + "SComatic/scripts/SplitBam/SplitBamCellTypes.py",
 		barcode = OUTDIR + "/scomatic/barcode_tsv/{sample}_barcodes.tsv"
 	output:
-		cell_type_bam = get_cell_type_bam,
-		o1 = OUTDIR + "/scomatic/{sample}/Step1_BamCellTypes/job.finish.touch"
+		cell_type_bam = OUTDIR + '/scomatic/{sample}/Step1_BamCellTypes/{sample}.{cell_type}.bam'
+		o1 = OUTDIR + "/scomatic/{sample}/Step1_BamCellTypes/{cell_type}_job.finish.touch"
 	params:
 		cellranger_ref_fa = config["reference"]["directory"] + config["reference"]["cellranger_grch38_ref"] + "/fasta/genome.fa"
 	threads: 4
@@ -66,7 +66,7 @@ rule collect_base_count:
 	input:
 		scomatic_script = config["reference"]["directory"] + "SComatic/scripts/BaseCellCounter/BaseCellCounter.py",
 		bam = OUTDIR + '/scomatic/{sample}/Step1_BamCellTypes/{sample}.{cell_type}.bam',
-		o1 = OUTDIR + "/scomatic/{sample}/Step1_BamCellTypes/job.finish.touch"
+		o1 = OUTDIR + "/scomatic/{sample}/Step1_BamCellTypes/{cell_type}_job.finish.touch"
 	output:
 		o1 = OUTDIR + "/scomatic/{sample}/Step2_BaseCellCounts/{cell_type}_job.finish.touch"
 	params:
@@ -96,10 +96,15 @@ rule collect_base_count:
 		touch {output}
 		"""
 
+def check_cell_type_case_count_complete(wildcards):
+	# bams = [x for x in os.listdir('./scomatic/' + wildcards.sample + '/Step1_BamCellTypes') if x.endswith('.bam')]
+	# cell_type = [file.replace(wildcards.sample + ".","").replace(".bam","") for file in bams]
+	cell_type = pd.read_csv('./scomatic/barcode_tsv/' + wildcards.sample + '_barcodes.tsv',sep = '\t').Cell_type.unique()
+	return expand(OUTDIR + "/scomatic/" + wildcards.sample + "/Step2_BaseCellCounts/{cell_type}_job.finish.touch", cell_type = cell_type)
 
 rule check_base_count_complete:
 	input:
-		bam = get_cell_type_bam,
+		check_cell_type_case_count_complete,
 	output:
 		OUTDIR + "/scomatic/{sample}/Step2_BaseCellCounts/job.finish.touch_all"
 	threads: 20

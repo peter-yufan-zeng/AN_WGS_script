@@ -38,6 +38,7 @@ singularity:
   vcftools: $NXF_SINGULARITY_CACHEDIR/depot.galaxyproject.org-singularity-vcftools-0.1.16--he513fc3_4.img
   velocyto: $NXF_SINGULARITY_CACHEDIR/velocyto_0.17.17.sif
   snpeff: $NXF_SINGULARITY_CACHEDIR/nfcore-snpeff-5.1.GRCh38.img
+  scomatic: $NXF_SINGULARITY_CACHEDIR/scomatic-0.0.2.sif
   vep: $NXF_SINGULARITY_CACHEDIR/vep_108.2_GRCh38.img
 
 reference:

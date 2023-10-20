@@ -29,6 +29,7 @@ rule split_bam:
 		scomatic_script = config["reference"]["directory"] + "SComatic/scripts/SplitBam/SplitBamCellTypes.py",
 		barcode = OUTDIR + "/scomatic/barcode_tsv/{sample}_barcodes.tsv"
 	output:
+		bam = OUTDIR + '/scomatic/{sample}/Step1_BamCellTypes/{sample}.{cell_type}.bam',
 		o1 = OUTDIR + "/scomatic/{sample}/Step1_BamCellTypes/job.finish.touch"
 	params:
 		cellranger_ref_fa = config["reference"]["directory"] + config["reference"]["cellranger_grch38_ref"] + "/fasta/genome.fa"
@@ -57,6 +58,7 @@ rule split_bam:
 rule collect_base_count:
 	input:
 		scomatic_script = config["reference"]["directory"] + "SComatic/scripts/BaseCellCounter/BaseCellCounter.py",
+		bam = OUTDIR + '/scomatic/{sample}/Step1_BamCellTypes/{sample}.{cell_type}.bam',
 		o1 = OUTDIR + "/scomatic/{sample}/Step1_BamCellTypes/job.finish.touch"
 	output:
 		o1 = OUTDIR + "/scomatic/{sample}/Step2_BaseCellCounts/{cell_type}_job.finish.touch"
@@ -75,7 +77,7 @@ rule collect_base_count:
 		/bin/bash -c \
 		'source activate SComatic; \
 		python {input.scomatic_script} \
-			--bam ./scomatic/{wildcards.sample}/Step1_BamCellTypes/{wildcards.sample}.{wildcards.cell_type}.bam \
+			--bam {input.bam} \
 			--ref {params.cellranger_ref_fa} \
 			--chrom all \
 			--out_folder {OUTDIR}/scomatic/{wildcards.sample}/Step2_BaseCellCounts \
@@ -96,7 +98,6 @@ def get_cell_type_bam(wildcards):
 rule check_base_count_complete:
 	input:
 		bam = get_cell_type_bam,
-		o1 = OUTDIR + "/scomatic/{sample}/Step2_BaseCellCounts/{cell_type}_job.finish.touch"
 	output:
 		OUTDIR + "/scomatic/{sample}/Step2_BaseCellCounts/job.finish.touch_all"
 	threads: 20

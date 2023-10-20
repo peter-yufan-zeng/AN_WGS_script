@@ -11,6 +11,7 @@ INPUT = pd.read_csv(config['input'],names = ['Sample','num_cells','lanes','Fastq
 SAMPLE =  INPUT['Sample'].unique()
 print(INPUT)
 
+
 ### PRINT OUTPUT DIRECTORY
 OUTDIR = config['outdir']
 print("***OUTPUT DIRECTORY: " + OUTDIR + "***")

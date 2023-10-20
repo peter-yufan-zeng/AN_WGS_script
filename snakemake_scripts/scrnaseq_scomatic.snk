@@ -71,28 +71,27 @@ rule collect_base_count:
 		mem_mb = 12000
 	shell:
 		""" 
-
+		# Command line to submit to cluster
+		/bin/bash -c \
+		'source activate SComatic; \
 		for bam in $(ls -d {OUTDIR}/scomatic/{wildcards.sample}/Step1_BamCellTypes/*bam);do
 			# Cell type
-			cell_type=$(basename $bam | awk -F'.' '{print $(NF-1)}')
+			cell_type=$(basename $bam | awk -F'.' '{{print $(NF-1)}}')
 
 			# Temp folder
-			temp={OUTDIR}/scomatic/{wildcards.sample}/Step2_BaseCellCounts/temp_${cell_type}
+			temp={OUTDIR}/scomatic/{wildcards.sample}/Step2_BaseCellCounts/temp_${{cell_type}}
 			mkdir -p $temp
 
-			# Command line to submit to cluster
-			/bin/bash -c \
-			'source activate SComatic; \
 			python {input.scomatic_script} --bam $bam \
 				--ref {params.cellranger_ref_fa} \
 				--chrom all \
 				--out_folder {OUTDIR}/scomatic/{wildcards.sample}/Step2_BaseCellCounts \
 				--min_bq 30 \
 				--tmp_dir $temp \
-				--nprocs {threads}'
-
+				--nprocs {threads}
 			rm -rf $temp
 		done
+		'
 		touch {output}
 		"""
 

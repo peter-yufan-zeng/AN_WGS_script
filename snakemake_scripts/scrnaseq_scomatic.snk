@@ -71,7 +71,7 @@ rule collect_base_count:
 		mem_mb = 12000
 	shell:
 		""" 
-		mkdir -p {OUTDIR}/scomatic/{wildcards.sample}/Step2_BaseCellCounts/temp_${wildcards.cell_type}
+		mkdir -p {OUTDIR}/scomatic/{wildcards.sample}/Step2_BaseCellCounts/temp_{wildcards.cell_type}
 		/bin/bash -c \
 		'source activate SComatic; \
 		python {input.scomatic_script} \
@@ -90,7 +90,7 @@ rule collect_base_count:
 def get_cell_type_bam(wildcards):
 	bams = [x for x in os.listdir('./scomatic/' + wildcards.sample + '/Step1_BamCellTypes') if x.endswith('.bam')]
 	cell_type = [file.replace(wildcards.sample + ".","").replace(".bam","") for file in bams]
-	return expand(OUTDIR + "/scomatic/" + wildscards.sample + "/Step2_BaseCellCounts/{cell_type}_job.finish.touch", cell_type = cell_type)
+	return expand(OUTDIR + "/scomatic/" + wildcards.sample + "/Step2_BaseCellCounts/{cell_type}_job.finish.touch", cell_type = cell_type)
 
 rule check_base_count_complete:
 	input:

@@ -2,7 +2,8 @@ import pandas as pd
 import os
 
 localrules: rename_files, copy_final_results, all
-
+envvars:
+    "NXF_SINGULARITY_CACHEDIR"
 ###
 ### LOAD SAMPLES
 ###
@@ -10,6 +11,7 @@ print("\n***INPUT FILE: " + config['input'] + "***\n")
 INPUT = pd.read_csv(config['input'],names = ['Sample','num_cells','lanes','Fastq1','Fastq2'],header=0)
 SAMPLE =  INPUT['Sample'].unique()
 print(INPUT)
+
 
 ### PRINT OUTPUT DIRECTORY
 OUTDIR = config['outdir']
@@ -22,8 +24,8 @@ rule all:
 rule split_bam:
 	input:
 		bam = OUTDIR + "/{sample}/outs/possorted_genome_bam.bam",
-        scomatic_script = "$NXF_SINGULARITY_CACHEDIR/SComatic/scripts/SplitBam/SplitBamCellTypes.py",
-        barcode = OUTDIR + "/scomatic/barcode_tsv/{wildcards.sample}_barcodes.tsv"
+		scomatic_script = config["reference"]["directory"] + "/SComatic/scripts/SplitBam/SplitBamCellTypes.py",
+		barcode = OUTDIR + "/scomatic/barcode_tsv/{sample}_barcodes.tsv"
 	output:
 		o1 = OUTDIR + "/scomatic/{sample}/Step1_BamCellTypes/job.finish.touch"
 	params:

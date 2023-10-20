@@ -52,14 +52,17 @@ rule split_bam:
 		touch {output}
 		"""
 
+def get_cell_type_bam(wildcards):
+	bams = [x for x in os.listdir('./scomatic/' + wildcards.sample + '/Step1_BamCellTypes') if x.endswith('.bam')]
+	cell_type = [file.replace(wildcards.sample + ".","").replace(".bam","") for file in bams]
+	return cell_type
 
 rule collect_base_count:
 	input:
-		bam = OUTDIR + "/{sample}/outs/possorted_genome_bam.bam",
 		scomatic_script = config["reference"]["directory"] + "SComatic/scripts/BaseCellCounter/BaseCellCounter.py",
 		o1 = OUTDIR + "/scomatic/{sample}/Step1_BamCellTypes/job.finish.touch"
 	output:
-		o1 = OUTDIR + "/scomatic/{sample}/Step2_BaseCellCounts/job.finish.touch"
+		o1 = OUTDIR + "/scomatic/{sample}/Step2_BaseCellCounts/job.finish.touch_{cell_type}"
 	params:
 		cellranger_ref_fa = config["reference"]["directory"] + config["reference"]["cellranger_grch38_ref"] + "/fasta/genome.fa"
 	threads: 20
@@ -71,34 +74,43 @@ rule collect_base_count:
 		mem_mb = 12000
 	shell:
 		""" 
-		# Command line to submit to cluster
+		mkdir -p {OUTDIR}/scomatic/{wildcards.sample}/Step2_BaseCellCounts/temp_${wildcards.cell_type}
 		/bin/bash -c \
-		'source activate SComatic; \
-		for bam in $(ls -d {OUTDIR}/scomatic/{wildcards.sample}/Step1_BamCellTypes/*bam);do
-			# Cell type
-			cell_type=$(basename $bam | awk -F'.' '{{print $(NF-1)}}')
+		"source activate SComatic; \
+		python {input.scomatic_script} \
+			--bam './scomatic/{wildcards.sample}/Step1_BamCellTypes/{wildcards.sample}.{wildcards.cell_type}.bam' \
+			--ref {params.cellranger_ref_fa} \
+			--chrom all \
+			--out_folder {OUTDIR}/scomatic/{wildcards.sample}/Step2_BaseCellCounts \
+			--min_bq 30 \
+			--tmp_dir {OUTDIR}/scomatic/{wildcards.sample}/Step2_BaseCellCounts/temp_${wildcards.cell_type} \
+			--nprocs {threads}
+		"
+		rm -rf {OUTDIR}/scomatic/{wildcards.sample}/Step2_BaseCellCounts/temp_${wildcards.cell_type}
+		touch {output}
+		"""
 
-			# Temp folder
-			temp={OUTDIR}/scomatic/{wildcards.sample}/Step2_BaseCellCounts/temp_${{cell_type}}
-			mkdir -p $temp
-
-			python {input.scomatic_script} --bam $bam \
-				--ref {params.cellranger_ref_fa} \
-				--chrom all \
-				--out_folder {OUTDIR}/scomatic/{wildcards.sample}/Step2_BaseCellCounts \
-				--min_bq 30 \
-				--tmp_dir $temp \
-				--nprocs {threads}
-			rm -rf $temp
-		done
-		'
+rule check_base_count_complete:
+	input:
+		get_cell_type_bam
+	output:
+		OUTDIR + "/scomatic/{sample}/Step2_BaseCellCounts/job.finish.touch_all"
+	threads: 20
+	group: "scomatic"
+	container:
+		config["singularity"]["scomatic"]
+	resources:
+		time = 1,
+		mem_mb = 12000
+	shell:
+		"""
 		touch {output}
 		"""
 
 rule merge_base_count_matrix:
 	input:
 		scomatic_script = config["reference"]["directory"] + "SComatic/scripts/MergeCounts/MergeBaseCellCounts.py",
-		o2 = OUTDIR + "/scomatic/{sample}/Step2_BaseCellCounts/job.finish.touch"
+		o2 = OUTDIR + "/scomatic/{sample}/Step2_BaseCellCounts/job.finish.touch_all"
 	output:
 		o1 = OUTDIR + "/scomatic/{sample}/Step3_BaseCellCountsMerged/{sample}.BaseCellCounts.AllCellTypes.tsv"
 	params:

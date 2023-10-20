@@ -23,13 +23,20 @@ rule all:
 		expand(OUTDIR + "/scomatic/{sample}/Step2_BaseCellCounts/job.finish.touch_all", sample = SAMPLE),
 		expand(OUTDIR + "/scomatic/{sample}/Step4_VariantCalling/step2.job.finish.touch", sample = SAMPLE)
 
+
+def get_cell_type_bam(wildcards):
+	# bams = [x for x in os.listdir('./scomatic/' + wildcards.sample + '/Step1_BamCellTypes') if x.endswith('.bam')]
+	# cell_type = [file.replace(wildcards.sample + ".","").replace(".bam","") for file in bams]
+	cell_type = pd.read_csv('./scomatic/barcode_tsv/' + wildcards.sample + '_barcodes.tsv',sep = '\t').Cell_type.unique()
+	return expand(OUTDIR + "/scomatic/" + wildcards.sample + "/Step2_BaseCellCounts/{cell_type}_job.finish.touch", cell_type = cell_type)
+
 rule split_bam:
 	input:
 		bam = OUTDIR + "/{sample}/outs/possorted_genome_bam.bam",
 		scomatic_script = config["reference"]["directory"] + "SComatic/scripts/SplitBam/SplitBamCellTypes.py",
 		barcode = OUTDIR + "/scomatic/barcode_tsv/{sample}_barcodes.tsv"
 	output:
-		bam = OUTDIR + '/scomatic/{sample}/Step1_BamCellTypes/{sample}.{cell_type}.bam',
+		cell_type_bam = get_cell_type_bam,
 		o1 = OUTDIR + "/scomatic/{sample}/Step1_BamCellTypes/job.finish.touch"
 	params:
 		cellranger_ref_fa = config["reference"]["directory"] + config["reference"]["cellranger_grch38_ref"] + "/fasta/genome.fa"
@@ -89,11 +96,6 @@ rule collect_base_count:
 		touch {output}
 		"""
 
-def get_cell_type_bam(wildcards):
-	# bams = [x for x in os.listdir('./scomatic/' + wildcards.sample + '/Step1_BamCellTypes') if x.endswith('.bam')]
-	# cell_type = [file.replace(wildcards.sample + ".","").replace(".bam","") for file in bams]
-	cell_type = pd.read_csv('./scomatic/barcode_tsv/' + wildcards.sample + '_barcodes.tsv',sep = '\t').Cell_type.unique()
-	return expand(OUTDIR + "/scomatic/" + wildcards.sample + "/Step2_BaseCellCounts/{cell_type}_job.finish.touch", cell_type = cell_type)
 
 rule check_base_count_complete:
 	input:

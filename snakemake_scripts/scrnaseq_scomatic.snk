@@ -20,7 +20,7 @@ print("***OUTPUT DIRECTORY: " + OUTDIR + "***")
 rule all:
 	input:
 		expand(OUTDIR + "/scomatic/{sample}/Step1_BamCellTypes/job.finish.touch", sample = SAMPLE),
-		expand(OUTDIR + "/scomatic/{sample}/Step2_BaseCellCounts/job.finish.touch", sample = SAMPLE),
+		expand(OUTDIR + "/scomatic/{sample}/Step2_BaseCellCounts/job.finish.touch_all", sample = SAMPLE),
 		expand(OUTDIR + "/scomatic/{sample}/Step4_VariantCalling/step2.job.finish.touch", sample = SAMPLE)
 
 rule split_bam:
@@ -52,10 +52,7 @@ rule split_bam:
 		touch {output}
 		"""
 
-def get_cell_type_bam(wildcards):
-	bams = [x for x in os.listdir('./scomatic/' + wildcards.sample + '/Step1_BamCellTypes') if x.endswith('.bam')]
-	cell_type = [file.replace(wildcards.sample + ".","").replace(".bam","") for file in bams]
-	return cell_type
+
 
 rule collect_base_count:
 	input:
@@ -83,12 +80,17 @@ rule collect_base_count:
 			--chrom all \
 			--out_folder {OUTDIR}/scomatic/{wildcards.sample}/Step2_BaseCellCounts \
 			--min_bq 30 \
-			--tmp_dir {OUTDIR}/scomatic/{wildcards.sample}/Step2_BaseCellCounts/temp_${wildcards.cell_type} \
+			--tmp_dir {OUTDIR}/scomatic/{wildcards.sample}/Step2_BaseCellCounts/temp_{wildcards.cell_type} \
 			--nprocs {threads}
 		"
-		rm -rf {OUTDIR}/scomatic/{wildcards.sample}/Step2_BaseCellCounts/temp_${wildcards.cell_type}
+		rm -rf {OUTDIR}/scomatic/{wildcards.sample}/Step2_BaseCellCounts/temp_{wildcards.cell_type}
 		touch {output}
 		"""
+
+def get_cell_type_bam(wildcards):
+	bams = [x for x in os.listdir('./scomatic/' + wildcards.sample + '/Step1_BamCellTypes') if x.endswith('.bam')]
+	cell_type = [file.replace(wildcards.sample + ".","").replace(".bam","") for file in bams]
+	return expand(OUTDIR + "/scomatic/{sample}/Step2_BaseCellCounts/job.finish.touch_{cell_type}", cell_type = cell_type)
 
 rule check_base_count_complete:
 	input:

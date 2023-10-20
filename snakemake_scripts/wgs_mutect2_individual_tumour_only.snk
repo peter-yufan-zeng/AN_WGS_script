@@ -1,0 +1,259 @@
+###
+### VARIANT CALLING FOR EACH TUMOUR INDIVIDUALLY
+###
+rule mutect2:
+	input:
+		tumor = OUTDIR +"/Recal/{tumor}.recal.bam",
+		interval = OUTDIR + "/pipeline_info/intervals/{num}-scattered.interval_list",
+		ref_fasta = OUTDIR + "/reference/" + config["reference"]["fasta"],
+		ref_gnomAD = OUTDIR + "/reference/" + config["reference"]["gnomAD"],
+		ref_pon = OUTDIR + "/reference/" + config["reference"]["pon"]
+	output:
+		vcf = temp(OUTDIR + "/results/mutect2/{tumor}_vs_tumour_only/unfiltered_{tumor}_vs_tumour_only.{num}.vcf"),
+		stats = temp(OUTDIR + "/results/mutect2/{tumor}_vs_tumour_only/unfiltered_{tumor}_vs_tumour_only.{num}.vcf.stats"),
+		f12 = temp(OUTDIR + "/results/mutect2/{tumor}_vs_tumour_only/unfiltered_{tumor}_vs_tumour_only_f12.{num}.tar.gz"),
+		index =  temp(OUTDIR + "/results/mutect2/{tumor}_vs_tumour_only/unfiltered_{tumor}_vs_tumour_only.{num}.vcf.idx")
+	threads: 4
+	resources:
+		time = 6*60,
+		mem_mb = 10500
+	container:
+		config["singularity"]["gatk"]
+	shell:
+		"""
+		gatk --java-options "-Xmx8g" Mutect2 \
+		-I {input.tumor} \
+		-L {input.interval} \
+		-R {input.ref_fasta} \
+		--germline-resource {input.ref_gnomAD} \
+		--panel-of-normals {input.ref_pon} \
+		--f1r2-tar-gz {output.f12} \
+		-O {output.vcf}
+		"""
+
+def concat_vcf(wildcards):
+	return expand(OUTDIR + "/results/mutect2/" + wildcards.tumor + "_vs_" + "tumour_only" + "/unfiltered_" + wildcards.tumor + "_vs_" + "tumour_only" + ".{num}.vcf", num = NUMBERS)
+
+rule merge_mutect2_vcf:
+	input:
+		concat_vcf
+	output:
+		temp(OUTDIR + "/results/mutect2/{tumor}_vs_tumour_only/unfiltered_{tumor}_vs_tumour_only.vcf")
+	threads: 1
+	resources:
+		time = 15,
+		mem_mb = 4500
+	container:
+		config["singularity"]["bcftools"]
+	group: "mutect2_post_call"
+	shell:
+		"""
+		bcftools concat -Ov {input} > {output}
+		"""
+
+def concat_vcf_stats(wildcards):
+	return expand(OUTDIR + "/results/mutect2/" + wildcards.tumor + "_vs_" + "tumour_only" + "/unfiltered_" + wildcards.tumor + "_vs_" + "tumour_only" + ".{num}.vcf.stats", num = NUMBERS)
+
+rule merge_stats:
+	input:
+		stats = concat_vcf_stats
+	output:
+		temp(OUTDIR + "/results/mutect2/{tumor}_vs_tumour_only/unfiltered_{tumor}_vs_tumour_only_merged.stats")
+	threads: 1
+	resources:
+		time = 15,
+		mem_mb = 4500
+	container:
+		config["singularity"]["gatk"]
+	group: "mutect2_post_call"
+	params:
+		input_list = lambda wildcards, input: ' --stats '.join(input.stats)
+	shell:
+		"""
+		gatk MergeMutectStats --stats {params.input_list} -O {output}
+		"""
+
+def concat_vcf_f12(wildcards):
+	return expand(OUTDIR + "/results/mutect2/" + wildcards.tumor + "_vs_" + "tumour_only" + "/unfiltered_" + wildcards.tumor + "_vs_" +"tumour_only" + "_f12.{num}.tar.gz", num = NUMBERS)
+
+rule gatk_LearnOrientationModel:
+	input:
+		vcf = concat_vcf_f12
+	output:
+		model = OUTDIR + "/results/mutect2/{tumor}_vs_tumour_only/unfiltered_{tumor}_read_orientation_model.tar.gz"
+	threads: 1
+	resources:
+		time = 15,
+		mem_mb = 4500
+	container:
+		config["singularity"]["gatk"]
+	group: "mutect2_post_call"
+	params:
+		input_list = lambda wildcards, input: ' -I '.join(input.vcf)
+	shell:
+		"""
+		gatk LearnReadOrientationModel -I {params.input_list} -O {output}
+		"""
+
+
+rule index_unfiltered_vcf:
+	input:
+		vcf = OUTDIR + "/results/mutect2/{tumor}_vs_tumour_only/unfiltered_{tumor}_vs_tumour_only.vcf",
+	output:
+		vcf_tbi = OUTDIR + "/results/mutect2/{tumor}_vs_tumour_only/unfiltered_{tumor}_vs_tumour_only.vcf.idx"
+	threads: 1
+	resources:
+		time = 15,
+		mem_mb = 4500
+	container:
+		config["singularity"]["gatk"]
+	group: "mutect2_post_call"
+	shell:
+		"""
+		gatk --java-options "-Xmx4g" IndexFeatureFile \
+		-I {input.vcf} \
+		--output {output.vcf_tbi}
+		"""
+
+rule gatk_filterMutect:
+	input:
+		vcf_tbi = OUTDIR + "/results/mutect2/{tumor}_vs_tumour_only/unfiltered_{tumor}_vs_tumour_only.vcf.idx",
+		vcf = OUTDIR + "/results/mutect2/{tumor}_vs_tumour_only/unfiltered_{tumor}_vs_tumour_only.vcf",
+		model = OUTDIR + "/results/mutect2/{tumor}_vs_tumour_only/unfiltered_{tumor}_read_orientation_model.tar.gz",
+		stats = OUTDIR + "/results/mutect2/{tumor}_vs_tumour_only/unfiltered_{tumor}_vs_tumour_only_merged.stats",
+		interval = OUTDIR + "/pipeline_info/intervals/{num}-scattered.interval_list",
+		ref_fasta = OUTDIR + "/reference/" + config["reference"]["fasta"]
+	output:
+		filter_vcf = temp(OUTDIR + "/results/mutect2/{tumor}_vs_tumour_only/filtered_{tumor}_vs_tumour_only.{num}.vcf"),
+		filter_vcf_index = temp(OUTDIR + "/results/mutect2/{tumor}_vs_tumour_only/filtered_{tumor}_vs_tumour_only.{num}.vcf.idx"),
+		filter_vcf_stats = temp(OUTDIR + "/results/mutect2/{tumor}_vs_tumour_only/filtered_{tumor}_vs_tumour_only.{num}.vcf.filteringStats.tsv")
+	threads: 1
+	resources:
+		time = 15,
+		mem_mb = 4500
+	container:
+		config["singularity"]["gatk"]
+	group: "mutect2_post_call"
+	shell:
+		"""
+		gatk --java-options "-Xmx4g" FilterMutectCalls \
+		--ob-priors {input.model} \
+		-stats {input.stats} \
+		-R {input.ref_fasta} \
+		-V {input.vcf} \
+		-L {input.interval} \
+		--output {output.filter_vcf}
+		"""
+
+def concat_vcf_filtered(wildcards):
+	return	expand(OUTDIR + "/results/mutect2/" + wildcards.tumor + "_vs_" + "tumour_only" + "/filtered_" + wildcards.tumor + "_vs_" + "tumour_only" + ".{num}.vcf", num = NUMBERS)
+
+rule merge_mutect2_vcf_filtered:
+	input:
+		concat_vcf_filtered
+	output:
+		temp(OUTDIR + "/results/mutect2/{tumor}_vs_tumour_only/filtered_{tumor}_vs_tumour_only.vcf")
+	threads: 1
+	resources:
+		time = 15,
+		mem_mb = 4500
+	group: "mutect2_post_call"
+	container:
+		config["singularity"]["bcftools"]
+	shell:
+		"bcftools concat -Ov {input} > {output}"
+
+
+rule index_filtered_vcf:
+	input:
+		vcf = OUTDIR + "/results/mutect2/{tumor}_vs_tumour_only/filtered_{tumor}_vs_tumour_only.vcf"
+	output:
+		vcf_tbi = OUTDIR + "/results/mutect2/{tumor}_vs_tumour_only/filtered_{tumor}_vs_tumour_only.vcf.idx"
+	resources:
+		time = 15,
+		mem_mb = 4500
+	container:
+		config["singularity"]["gatk"]
+	group: "mutect2_post_call"
+	shell:
+		"""
+		gatk --java-options "-Xmx4g" IndexFeatureFile \
+		-I {input.vcf} \
+		--output {output.vcf_tbi}
+		"""
+
+rule annotate_mutect2:
+	input:
+		vcf = OUTDIR + "/results/mutect2/{tumor}_vs_tumour_only/filtered_{tumor}_vs_tumour_only.vcf"
+	output:
+		annotatedvcf = temp(OUTDIR + "/results/mutect2/{tumor}_vs_tumour_only/{tumor}_vs_tumour_only_snpEff.ann.vcf")
+	threads: 2
+	resources:
+		time = 15,
+		mem_mb = 8500
+	container:
+		config["singularity"]["snpeff"]
+	group: "mutect2_post_call"
+	shell:
+		"""
+		cd {OUTDIR}/results/mutect2/{wildcards.tumor}_vs_tumour_only
+		snpEff -Xmx8g \
+		GRCh38.105 \
+		-csvStats {wildcards.tumor}_snpEff.csv \
+		-nodownload \
+		-canon \
+		{input} \
+		> {output}
+		"""
+
+rule zip_snpeff:
+	input:
+		annotatedvcf = OUTDIR + "/results/mutect2/{tumor}_vs_tumour_only/{tumor}_vs_tumour_only_snpEff.ann.vcf"
+	output: annotatedvcf = OUTDIR + "/results/mutect2/{tumor}_vs_tumour_only/{tumor}_vs_tumour_only_snpEff.ann.vcf.gz"
+	threads: 1
+	resources:
+		time = 15,
+		mem_mb = 4500
+	group: "mutect2_post_call"
+	container:
+		config["singularity"]["tabix"]
+	shell:
+		"""
+		bgzip < {input} > {output}
+		tabix {output}
+		"""
+
+rule filter_mutect2_passOnly:
+	input:
+		annotatedvcf = OUTDIR + "/results/mutect2/{tumor}_vs_tumour_only/{tumor}_vs_tumour_only_snpEff.ann.vcf.gz"
+	output:
+		annotatedvcf = temp(OUTDIR + "/results/mutect2/{tumor}_vs_tumour_only/{tumor}_vs_tumour_only_snpEff.ann.passOnly.vcf")
+	threads: 1
+	resources:
+		time = 15,
+		mem_mb = 4500
+	group: "mutect2_post_call"
+	container:
+		config["singularity"]["bcftools"]
+	shell:
+		"""
+		bcftools view -Ov -f "PASS" {input} > {output}
+		"""
+
+rule zip_snpeff_passOnly:
+	input:
+		annotatedvcf = OUTDIR + "/results/mutect2/{tumor}_vs_tumour_only/{tumor}_vs_tumour_only_snpEff.ann.passOnly.vcf"
+	output:
+		annotatedvcf = OUTDIR + "/results/mutect2/{tumor}_vs_tumour_only/{tumor}_vs_tumour_only_snpEff.ann.passOnly.vcf.gz"
+	threads: 1
+	resources:
+		time = 15,
+		mem_mb = 4500
+	group: "mutect2_post_call"
+	container:
+		config["singularity"]["tabix"]
+	shell:
+		"""
+		bgzip < {input} > {output}
+		tabix {output}
+		"""

@@ -6,13 +6,16 @@ rule samtools_stats:
 		bam = OUTDIR +"/Recal/{sample}.recal.bam",
 		index = OUTDIR +"/Recal/{sample}.recal.bai"
 	output:
-		stats = OUTDIR + "/QC/{sample}/{sample}.samtools.stats.out"
-	group: "variantCalling"
+		stats = OUTDIR + "/QC/samtools_stats/{sample}/{sample}.samtools.stats.out"
 	threads: 2
+	resources:
+		time = 8*60,
+		mem_mb = 8000
+	container:
+		config["singularity"]["samtools"]
+	group: "qc_samtools_stats"
 	shell:
 		"""
-		singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR} \
-			/gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
 		samtools stats {input.bam} > {output}
 		"""
 
@@ -21,14 +24,17 @@ rule bamqc:
 		bam = OUTDIR +"/Recal/{sample}.recal.bam",
 		index = OUTDIR +"/Recal/{sample}.recal.bai"
 	output:
-		stats = OUTDIR + "/QC/{sample}/bamQC/qualimapReport.html"
-	group: "variantCalling"
-	threads: 40
+		stats = OUTDIR + "/QC/bamqc/{sample}/qualimapReport.html"
+	threads: 12
+	resources:
+		time = 8*60,
+		mem_mb = 80000
+	group: "qc_bamqc"
+	container:
+		config["singularity"]["qualimap"]
 	shell:
 		"""
-		singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR},$SCRATCH/AN_WGS/AN_WGS_script/WES_bedfiles \
-		/gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
-		qualimap --java-mem-size=100G \
+		qualimap --java-mem-size=68G \
 		bamqc \
 		-bam {input.bam} \
 		--paint-chromosome-limits \
@@ -36,6 +42,6 @@ rule bamqc:
 		-nt {threads} \
 		-skip-duplicated \
 		--skip-dup-mode 0 \
-		-outdir {OUTDIR}/QC/{wildcards.sample}/bamQC/ \
+		-outdir {OUTDIR}/QC/bamqc/{wildcards.sample}/ \
 		-outformat HTML
 		"""

@@ -1,35 +1,50 @@
 #!/usr/bin/env Rscript
-library("optparse")
-option_list = list(
-    make_option("--tumorbaf", type="character", default=NULL,
-              help="tumor BAF file", metavar="character"),
-              make_option("--tumorlogr", type="character", default=NULL,
-              help="tumor LogR file", metavar="character"),
-              make_option("--normalbaf", type="character", default=NULL,
-              help="normal BAF file", metavar="character"),
-              make_option("--normallogr", type="character", default=NULL,
-              help="normal LogR file", metavar="character"),
-              make_option("--tumorname", type="character", default=NULL,
-              help="name of tumor sample file", metavar="character"),
-              make_option("--basedir", type="character", default=NULL,
-              help="main Sarek directory for sample", metavar="character"),
-              make_option("--gcfile", type="character", default=NULL,
-              help="GC correction file", metavar="character"),
-              make_option("--gender", type="character", default=NULL,
-              help="gender on format XX or XY", metavar="character"),
-              make_option("--purity", type="double", default=NULL,
-              help="override Ascat purity parameter (rho_manual) ", metavar="character"),
-              make_option("--ploidy", type="double", default=NULL,
-              help="override Ascat ploidy parameter (psi_manual)", metavar="character"))
+#library("optparse")
+# option_list = list(
+#     make_option("--tumorbaf", type="character", default=NULL,
+#               help="tumor BAF file", metavar="character"),
+#               make_option("--tumorlogr", type="character", default=NULL,
+#               help="tumor LogR file", metavar="character"),
+#               make_option("--normalbaf", type="character", default=NULL,
+#               help="normal BAF file", metavar="character"),
+#               make_option("--normallogr", type="character", default=NULL,
+#               help="normal LogR file", metavar="character"),
+#               make_option("--tumorname", type="character", default=NULL,
+#               help="name of tumor sample file", metavar="character"),
+#               make_option("--basedir", type="character", default=NULL,
+#               help="main Sarek directory for sample", metavar="character"),
+#               make_option("--gcfile", type="character", default=NULL,
+#               help="GC correction file", metavar="character"),
+#               make_option("--gender", type="character", default=NULL,
+#               help="gender on format XX or XY", metavar="character"),
+#               make_option("--purity", type="double", default=NULL,
+#               help="override Ascat purity parameter (rho_manual) ", metavar="character"),
+#               make_option("--ploidy", type="double", default=NULL,
+#               help="override Ascat ploidy parameter (psi_manual)", metavar="character"))
+#
+# opt_parser = OptionParser(option_list=option_list)
+# opt = parse_args(opt_parser)
+args <- commandArgs(trailingOnly=TRUE)
+#print(args)
+opt <- list()
+opt$tumorbaf <- args[[1]]
+opt$tumorlogr <- args[[2]]
+opt$normalbaf <- args[[3]]
+opt$normallogr <- args[[4]]
+opt$tumorname <- args[[5]]
+opt$basedir <- args[[6]]
+opt$gcfile <- args[[7]]
+opt$gender <- args[[8]]
+print(opt)
 
-opt_parser = OptionParser(option_list=option_list)
-opt = parse_args(opt_parser)
+
+
 
 if(is.null(opt$tumorbaf) || is.null(opt$tumorlogr) || is.null(opt$normalbaf) || is.null(opt$normallogr) || is.null(opt$tumorname) || is.null(opt$basedir) || is.null(opt$gcfile) || is.null(opt$gender))  {
     print_help(opt_parser)
     stop("At least one of the required arguments missing.", call.=FALSE)
-    } 
-    
+    }
+
 library(ASCAT)
 
 if(!require(RColorBrewer)){

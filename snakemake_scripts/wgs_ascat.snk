@@ -1,20 +1,44 @@
+### Remove chromosomes with _ in loci file
+
+rule make_loci_files_for_ascat:
+	input:
+		acloci = OUTDIR + "/reference/" + config["reference"]["ascat_acloci"],
+		acloci_gc = OUTDIR + "/reference/" + config["reference"]["ascat_acloci_gc"]
+	output:
+		acloci = OUTDIR + "/results/ASCAT/1000G_phase3_GRCh38_maf0.3.cleaned.loci",
+		acloci_gc = OUTDIR + "/results/ASCAT/1000G_phase3_GRCh38_maf0.3.cleaned.loci.gc",
+	threads: 1
+	resources:
+		time = 15,
+		mem_mb = 8500
+	shell:
+		"""
+		sed '/_/d' {input.acloci} > {output.acloci}
+		sed '/_/d' {input.acloci_gc} > {output.acloci_gc}
+		"""
+
 ###
 ### COPY NUMBER USING ASCAT
 ###
 rule alleleCount:
 	input:
-		bam = OUTDIR + "/Recal/{sample}.recal.bam",
-		index = OUTDIR + "/Recal/{sample}.recal.bai",
-		acloci = "/scratch/n/nicholsa/zyfniu/igenomes_ref/1000G_phase3_GRCh38_maf0.3.loci"
+		bam = OUTDIR + "/filtered/{sample}.filtered.bam",
+		index = OUTDIR + "/filtered/{sample}.filtered.bam.bai",
+		acloci = OUTDIR + "/results/ASCAT/1000G_phase3_GRCh38_maf0.3.cleaned.loci",
+		ref_fasta = OUTDIR + "/reference/" + config["reference"]["fasta"]
 	output: OUTDIR + "/results/ASCAT/alleleCount/{sample}.alleleCount"
 	threads: 2
-	group: "ASCAT"
+	resources:
+		time = 16*60,
+		mem_mb = 8500
+	container:
+		config["singularity"]["battenberg"]
+	group:"allelecount"
 	shell:
 		"""
-		singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR} /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
 		alleleCounter \
 		-l {input.acloci} \
-		-r {REF_fasta} \
+		-r {input.ref_fasta} \
 		-b {input.bam} \
 		-o {OUTDIR}/results/ASCAT/alleleCount/{wildcards.sample}.alleleCount
 		"""
@@ -27,7 +51,7 @@ rule ConvertAlleleCounts:
 	input:
 		normal = OUTDIR + "/results/ASCAT/alleleCount/{patient}-N.alleleCount",
 		tumor = OUTDIR + "/results/ASCAT/alleleCount/{tumor}.alleleCount",
-		script = "/scratch/n/nicholsa/zyfniu/AN_WGS/AN_WGS_script/convertAlleleCounts.r"
+		script = "AN_WGS_script/convertAlleleCounts.r"
 	output:
 		normalBaf = OUTDIR + "/results/ASCAT/{tumor}_vs_{patient}-N/{patient}-N.BAF",
 		tumorBaf = OUTDIR + "/results/ASCAT/{tumor}_vs_{patient}-N/{tumor}.BAF",
@@ -35,12 +59,16 @@ rule ConvertAlleleCounts:
 		tumorLogr = OUTDIR + "/results/ASCAT/{tumor}_vs_{patient}-N/{tumor}.LogR"
 	threads: 2
 	params: gender = getGender
-	group: "ASCAT"
+	resources:
+		time = 2*60,
+		mem_mb = 8500
+	container:
+		config["singularity"]["ascat"]
+	group:"ConvertAlleleCounts"
 	shell:
 		"""
 		cd {OUTDIR}/results/ASCAT/{wildcards.tumor}_vs_{wildcards.patient}-N
-		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS/AN_WGS_script,{OUTDIR} /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img Rscript \
-		/scratch/n/nicholsa/zyfniu/AN_WGS/AN_WGS_script/convertAlleleCounts.r \
+		Rscript {OUTDIR}/AN_WGS_script/convertAlleleCounts.r \
 		{wildcards.tumor} {input.tumor} \
 		{wildcards.patient}-N {input.normal} \
 		{params.gender}
@@ -52,13 +80,17 @@ rule ascat:
 		tumorBaf = OUTDIR + "/results/ASCAT/{tumor}_vs_{patient}-N/{tumor}.BAF",
 		normalLogr = OUTDIR + "/results/ASCAT/{tumor}_vs_{patient}-N/{patient}-N.LogR",
 		tumorLogr = OUTDIR + "/results/ASCAT/{tumor}_vs_{patient}-N/{tumor}.LogR",
-		acLociGC = "/scratch/n/nicholsa/zyfniu/igenomes_ref/1000G_phase3_GRCh38_maf0.3.loci.gc"
+		acLociGC = OUTDIR + "/results/ASCAT/1000G_phase3_GRCh38_maf0.3.cleaned.loci.gc"
 	output:
 		results = OUTDIR + "/results/ASCAT/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N.tumor.cnvs.txt"
 	params:
 		gender = getGender
 	threads: 2
-	group: "ASCAT"
+	resources:
+		time = 8*60,
+		mem_mb = 8500
+	container:
+		config["singularity"]["ascat"]
 	shell:
 		"""
 		for f in {OUTDIR}/results/ASCAT/{wildcards.tumor}_vs_{wildcards.patient}-N/*BAF \
@@ -66,16 +98,15 @@ rule ascat:
 		do sed \'s/chr//g\' $f > {OUTDIR}/results/ASCAT/{wildcards.tumor}_vs_{wildcards.patient}-N/tmpFile; \
 		mv {OUTDIR}/results/ASCAT/{wildcards.tumor}_vs_{wildcards.patient}-N/tmpFile $f;done
 		cd {OUTDIR}/results/ASCAT/{wildcards.tumor}_vs_{wildcards.patient}-N
-		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS/AN_WGS_script,{OUTDIR} /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
-		Rscript /scratch/n/nicholsa/zyfniu/AN_WGS/AN_WGS_script/run_ascat.r \
-        --tumorbaf {input.tumorBaf} \
-        --tumorlogr {input.tumorLogr} \
-        --normalbaf {input.normalBaf} \
-        --normallogr {input.normalLogr} \
-        --tumorname {wildcards.tumor} \
-        --basedir {OUTDIR}/results/ASCAT/{wildcards.tumor}_vs_{wildcards.patient}-N \
-        --gcfile {input.acLociGC} \
-        --gender {params.gender}
+		Rscript {OUTDIR}/AN_WGS_script/run_ascat.r \
+         {input.tumorBaf} \
+         {input.tumorLogr} \
+         {input.normalBaf} \
+         {input.normalLogr} \
+         {wildcards.tumor} \
+         {OUTDIR}/results/ASCAT/{wildcards.tumor}_vs_{wildcards.patient}-N \
+         {input.acLociGC} \
+         {params.gender}
 		cd ../../../
 		mv {OUTDIR}/results/ASCAT/{wildcards.tumor}_vs_{wildcards.patient}-N/{wildcards.tumor}.cnvs.txt {output.results}
 		"""

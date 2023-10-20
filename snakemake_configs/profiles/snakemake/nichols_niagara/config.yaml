@@ -1,0 +1,17 @@
+cluster: "~/.config/snakemake/nichols_niagara/slurm-submit.py "
+#cluster-status: "~/.config/snakemake/{{cookiecutter.profile_name}}/slurm-status.py"  #not fully tested yet.. better to rely on filesystem checks..
+jobscript: "slurm-jobscript.sh"
+jobs: 500
+use-singularity: True
+singularity-args: ' --bind $SCRATCH,$AN_WGS_temp '
+max-jobs-per-second: 10
+max-status-checks-per-second: 0.016
+default-resources: "mem_mb=8000" #this is for ensuring grouped-jobs have enough memory (ie. sum of memory request)
+local-cores: 1
+rerun-incomplete: True
+keep-going: True
+show-failed-logs: True
+
+
+set-resources:
+   - mutect2:time=120

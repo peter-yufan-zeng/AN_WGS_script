@@ -1,0 +1,249 @@
+rule genomic_db_import:
+	input:
+		vcf = expand(OUTDIR + "/results/haplotypecaller/individual/{patient_normal}/{patient_normal}.merged.gvcf.gz",patient_normal = NORMAL)
+	output:
+		gdb = OUTDIR + "/results/haplotypecaller/merged/db/checkpoints/merged.{chr}.gdb_checkpoint"
+	params:
+		input_list = lambda wildcards, input: ' -V '.join(input.vcf),
+		ref_fasta = config["reference"]["directory"] + config["reference"]["fasta"]
+	threads: 2
+	resources:
+		time = 15,
+		mem_mb = 8000
+	container:
+		config["singularity"]["gatk"]
+	shell:
+		"""
+		mkdir -p $AN_WGS_temp/gatk
+		gatk --java-options "-Djava.io.tmpdir=$AN_WGS_temp/gatk -Xms4G -Xmx4G -XX:ParallelGCThreads=2" GenomicsDBImport \
+  		--genomicsdb-workspace-path {OUTDIR}/results/haplotypecaller/merged/db/merged.{wildcards.chr}.gdb \
+  		-R {params.ref_fasta} \
+  		-V {params.input_list} \
+  		--tmp-dir "$AN_WGS_temp/gatk" \
+  		--max-num-intervals-to-import-in-parallel 3 \
+  		--intervals {wildcards.chr}
+		touch {output}
+		"""
+
+rule genotype_gvcf:
+	input:
+		gdb = OUTDIR + "/results/haplotypecaller/merged/db/checkpoints/merged.{chr}.gdb_checkpoint"
+	output:
+		gvcf = OUTDIR + "/results/haplotypecaller/merged/gvcf/merged.{chr}.vcf.gz"
+	params:
+		ref_fasta = config["reference"]["directory"] + config["reference"]["fasta"]
+	threads: 2
+	resources:
+		time = 60,
+		mem_mb = 8000
+	container:
+		config["singularity"]["gatk"]
+	shell:
+		"""
+		gatk --java-options "-Djava.io.tmpdir=$AN_WGS_temp/gatk -Xms4G -Xmx4G -XX:ParallelGCThreads=2" GenotypeGVCFs \
+  		    -R {params.ref_fasta} \
+  			-V gendb://{OUTDIR}/results/haplotypecaller/merged/db/merged.{wildcards.chr}.gdb \
+			-O {output}
+		"""
+
+def concat_genotyped_vcf(wildcards):
+	return expand(OUTDIR + "/results/haplotypecaller/merged/gvcf/merged.{chr}.vcf.gz", chr = CHRS)
+
+rule merge_haplotypecaller_genotyped_vcf:
+	input:
+		vcf = concat_genotyped_vcf
+	output:
+		vcf = OUTDIR + "/results/haplotypecaller/merged/gvcf/merged_all_chromosomes.vcf.gz"
+	threads: 2
+	resources:
+		time = 15,
+		mem_mb = 8000
+	container:
+		config["singularity"]["gatk"]
+	params:
+		input_list = lambda wildcards, input: ' -I '.join(input.vcf)
+	shell:
+		"""
+		gatk --java-options "-Xmx4G -XX:ParallelGCThreads=2"  \
+		MergeVcfs \
+		-I {params.input_list} \
+		--OUTPUT {output}
+		"""
+
+rule variant_recalibrator_snps:
+	input:
+		OUTDIR + "/results/haplotypecaller/merged/gvcf/merged_all_chromosomes.vcf.gz"
+	output:
+		recal = OUTDIR + "/results/haplotypecaller/merged/recal/merged_all_chromosomes.SNP1.recal",
+		tranches = OUTDIR + "/results/haplotypecaller/merged/recal/merged_all_chromosomes.SNP1.tranches"
+	params:
+		ref_omni =  config["reference"]["directory"] + config["reference"]["omni"],
+		ref_dbsnp = config["reference"]["directory"] + config["reference"]["dbsnp"],
+		ref_1000g = config["reference"]["directory"] + config["reference"]["gatk_1000g"],
+		ref_hapmap = config["reference"]["directory"] + config["reference"]["hapmap"],
+		ref_fasta = config["reference"]["directory"] + config["reference"]["fasta"]
+	threads: 2
+	resources:
+		time = 30,
+		mem_mb = 8000
+	container:
+		config["singularity"]["gatk"]
+	shell:
+		"""
+		gatk --java-options "-Djava.io.tmpdir=$AN_WGS_temp/gatk -Xms4G -Xmx4G -XX:ParallelGCThreads=2" VariantRecalibrator \
+  			-tranche 100.0 -tranche 99.95 -tranche 99.9 \
+  			-tranche 99.5 -tranche 99.0 -tranche 97.0 -tranche 96.0 \
+  			-tranche 95.0 -tranche 94.0 -tranche 93.5 -tranche 93.0 \
+			-tranche 92.0 -tranche 91.0 -tranche 90.0 \
+  			-R {params.ref_fasta} \
+  			-V {input} \
+			--resource:hapmap,known=false,training=true,truth=true,prior=15.0 \
+  	  		{params.ref_hapmap}  \
+  			--resource:dbsnp,known=true,training=false,truth=false,prior=2.0 \
+  			{params.ref_dbsnp}  \
+  			--resource:omni,known=false,training=true,truth=true,prior=12.0 \
+  			{params.ref_omni} \
+  			--resource:1000G,known=false,training=true,truth=false,prior=10.0 \
+  			{params.ref_1000g} \
+  			-an QD -an MQ -an MQRankSum -an ReadPosRankSum -an FS -an SOR  \
+  			-mode SNP -O {output.recal} --tranches-file {output.tranches}
+		"""
+
+
+rule variant_recalibrator_indel:
+	input:
+		OUTDIR + "/results/haplotypecaller/merged/gvcf/merged_all_chromosomes.vcf.gz"
+	output:
+		recal = OUTDIR + "/results/haplotypecaller/merged/recal/merged_all_chromosomes.indel1.recal",
+		tranches = OUTDIR + "/results/haplotypecaller/merged/recal/merged_all_chromosomes.indel1.tranches"
+	params:
+		ref_mills =  config["reference"]["directory"] + config["reference"]["mills"],
+		ref_dbsnp = config["reference"]["directory"] + config["reference"]["dbsnp"],
+		ref_fasta = config["reference"]["directory"] + config["reference"]["fasta"]
+	threads: 2
+	resources:
+		time = 30,
+		mem_mb = 8000
+	container:
+		config["singularity"]["gatk"]
+	shell:
+		"""
+		gatk --java-options "-Djava.io.tmpdir=$AN_WGS_temp/gatk -Xms4G -Xmx4G -XX:ParallelGCThreads=2" VariantRecalibrator \
+  			-tranche 100.0 -tranche 99.95 -tranche 99.9 \
+  			-tranche 99.5 -tranche 99.0 -tranche 97.0 -tranche 96.0 \
+  			-tranche 95.0 -tranche 94.0 -tranche 93.5 -tranche 93.0 \
+			-tranche 92.0 -tranche 91.0 -tranche 90.0 \
+  			-R {params.ref_fasta} \
+  			-V {input} \
+  			--resource:mills,known=false,training=true,truth=true,prior=12.0 \
+  			{params.ref_mills}  \
+  			--resource:dbsnp,known=true,training=false,truth=false,prior=2.0 \
+  			{params.ref_dbsnp}  \
+  			-an QD -an MQ -an MQRankSum -an ReadPosRankSum -an FS -an SOR  \
+  			-mode INDEL -O {output.recal} --tranches-file {output.tranches}
+		"""
+
+rule applybqsr_snps:
+	input:
+		vcf = OUTDIR + "/results/haplotypecaller/merged/gvcf/merged_all_chromosomes.vcf.gz",
+		recal = OUTDIR + "/results/haplotypecaller/merged/recal/merged_all_chromosomes.SNP1.recal",
+		tranches = OUTDIR + "/results/haplotypecaller/merged/recal/merged_all_chromosomes.SNP1.tranches"
+	output:
+		OUTDIR + "/results/haplotypecaller/merged/recal/merged_all_chromosomes.SNP.recalibrated_99.9.vcf.gz"
+	params:
+		ref_omni =  config["reference"]["directory"] + config["reference"]["omni"],
+		ref_dbsnp = config["reference"]["directory"] + config["reference"]["dbsnp"],
+		ref_1000g = config["reference"]["directory"] + config["reference"]["gatk_1000g"],
+		ref_fasta = config["reference"]["directory"] + config["reference"]["fasta"]
+	threads: 2
+	resources:
+		time = 60,
+		mem_mb = 8000
+	container:
+		config["singularity"]["gatk"]
+	shell:
+		"""
+		gatk --java-options "-Djava.io.tmpdir=$AN_WGS_temp/gatk -Xms4G -Xmx4G -XX:ParallelGCThreads=2" ApplyVQSR \
+  			-V {input.vcf} \
+  			--recal-file {input.recal} \
+  			-mode SNP \
+  			--tranches-file {input.tranches} \
+  			--truth-sensitivity-filter-level 99.9 \
+  			--create-output-variant-index true \
+  			-O {output}
+		"""
+
+rule applybqsr_indel:
+	input:
+		vcf = OUTDIR + "/results/haplotypecaller/merged/recal/merged_all_chromosomes.SNP.recalibrated_99.9.vcf.gz",
+		recal = OUTDIR + "/results/haplotypecaller/merged/recal/merged_all_chromosomes.indel1.recal",
+		tranches = OUTDIR + "/results/haplotypecaller/merged/recal/merged_all_chromosomes.indel1.tranches"
+	output:
+		OUTDIR + "/results/haplotypecaller/merged/recal/merged_all_chromosomes.indel.snp.recalibrated_99.9.vcf.gz"
+	params:
+		ref_omni =  config["reference"]["directory"] + config["reference"]["omni"],
+		ref_dbsnp = config["reference"]["directory"] + config["reference"]["dbsnp"],
+		ref_1000g = config["reference"]["directory"] + config["reference"]["gatk_1000g"],
+		ref_fasta = config["reference"]["directory"] + config["reference"]["fasta"]
+	threads: 2
+	resources:
+		time = 60,
+		mem_mb = 8000
+	container:
+		config["singularity"]["gatk"]
+	shell:
+		"""
+		gatk --java-options "-Djava.io.tmpdir=$AN_WGS_temp/gatk -Xms4G -Xmx4G -XX:ParallelGCThreads=2" ApplyVQSR \
+  			-V {input.vcf} \
+  			--recal-file {input.recal} \
+  			-mode INDEL \
+  			--tranches-file {input.tranches} \
+  			--truth-sensitivity-filter-level 99.9 \
+  			--create-output-variant-index true \
+  			-O {output}
+		"""
+
+rule calculate_posterior:
+	input:
+		vcf = OUTDIR + "/results/haplotypecaller/merged/recal/merged_all_chromosomes.indel.snp.recalibrated_99.9.vcf.gz"
+	output:
+		OUTDIR + "/results/haplotypecaller/merged/recal/posterior_merged_all_chromosomes.indel.snp.recalibrated_99.9.vcf.gz"
+	params:
+		ref_gnomad =  config["reference"]["directory"] + config["reference"]["gnomAD"]
+	threads: 2
+	resources:
+		time = 60,
+		mem_mb = 8000
+	container:
+		config["singularity"]["gatk"]
+	shell:
+		"""
+		gatk --java-options "-Djava.io.tmpdir=$AN_WGS_temp/gatk -Xms4G -Xmx4G -XX:ParallelGCThreads=2" \
+   			CalculateGenotypePosteriors \
+   			-V {input.vcf} \
+   			--supporting-callsets  {params.ref_gnomad}\
+   			-O {output}
+		"""
+
+rule vep_germline:
+	input:
+		vcf = OUTDIR + "/results/haplotypecaller/merged/recal/posterior_merged_all_chromosomes.indel.snp.recalibrated_99.9.vcf.gz"
+	output:
+		vcf = OUTDIR + "/results/haplotypecaller/merged/annotated/vep_posterior_merged_all_chromosomes.indel.snp.recalibrated_99.9.vcf",
+		html = OUTDIR + "/results/haplotypecaller/merged/annotated/variant_effect_output.txt_summary.html"
+	threads: 12
+	resources:
+		time = 60,
+		mem_mb = 8000
+	container:
+		config["singularity"]["vep"]
+	shell:
+		"""
+		vep --cache --offline --cache_version 108 \
+		-i {input} \
+		-o {output.vcf} \
+		--stats_file {output.html} \
+		--everything --species homo_sapiens \
+		--assembly GRCh38 --dir /.vep \
+		--fork {threads}
+		"""

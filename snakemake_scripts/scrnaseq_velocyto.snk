@@ -1,0 +1,46 @@
+import pandas as pd
+import os
+
+localrules: rename_files, copy_final_results, all
+
+###
+### LOAD SAMPLES
+###
+print("\n***INPUT FILE: " + config['input'] + "***\n")
+INPUT = pd.read_csv(config['input'],names = ['Sample','num_cells','lanes','Fastq1','Fastq2'],header=0)
+SAMPLE =  INPUT['Sample'].unique()
+print(INPUT)
+
+### PRINT OUTPUT DIRECTORY
+OUTDIR = config['outdir']
+print("***OUTPUT DIRECTORY: " + OUTDIR + "***")
+
+rule all:
+	input:
+		expand(OUTDIR + "/final_results/velocyto/{sample}/{sample}.loom", sample = SAMPLE)
+
+rule velocyto:
+	input:
+		OUTDIR + "/{sample}/outs/possorted_genome_bam.bam",
+	output:
+		o1 = OUTDIR + "/{sample}/velocyto/{sample}.loom",
+		o2 = OUTDIR + "/final_results/velocyto/{sample}/{sample}.loom"
+	params:
+		cellranger_ref_gtf = config["reference"]["directory"] + config["reference"]["cellranger_grch38_ref"] + "/genes/genes.gtf",
+		masked_gtf = config["reference"]["directory"] + config["reference"]["velocyto_repeat_mask_gtf"]
+	threads: 4
+	group: "cellranger"
+	container:
+		config["singularity"]["velocyto"]
+	resources:
+		time = 6*60,
+		mem_mb = 12000
+	shell:
+		"""
+		velocyto run10x \
+		--samtools-threads {threads} --samtools-memory 2000 \
+		-m {params.masked_gtf} \
+		{OUTDIR}/{wildcards.sample} \
+		{params.cellranger_ref_gtf}
+		cp {output.o1} {output.o2}
+		"""

@@ -9,23 +9,24 @@ def bwa_mem_fastq2(wildcards):
 
 rule fastqc:
 	input:
-			fastq1 = bwa_mem_fastq1,
-			fastq2 = bwa_mem_fastq2
+		fastq1 = bwa_mem_fastq1,
+		fastq2 = bwa_mem_fastq2
 	output:
-		o1 = OUTDIR + "/QC/{sample_lane}/{sample_lane}_R1_fastqc.html",
-		o2 = OUTDIR + "/QC/{sample_lane}/{sample_lane}_R2_fastqc.html",
-		o3 = OUTDIR + "/QC/{sample_lane}/{sample_lane}_R1_fastqc.zip",
-		o4 = OUTDIR + "/QC/{sample_lane}/{sample_lane}_R2_fastqc.zip"
-	threads: 10
-	group: "align"
+		o1 = OUTDIR + "/QC/fastqc/{sample_lane}/fastqc_complete"
+#		o2 = OUTDIR + "/QC/fastqc/{sample_lane}/{sample_lane}_R2_fastqc.html",
+#		o3 = OUTDIR + "/QC/fastqc/{sample_lane}/{sample_lane}_R1_fastqc.zip",
+#		o4 = OUTDIR + "/QC/fastqc/{sample_lane}/{sample_lane}_R2_fastqc.zip"
+	threads: 4
+	resources:
+		time = 6*60,
+		mem_mb = 8500
+	container:
+		config["singularity"]["fastqc"]
+	group: "fastqc"
 	shell:
 		"""
-		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS/raw,{OUTDIR} /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
-		fastqc -t {threads} {input} --outdir={OUTDIR}/QC/{wildcards.sample_lane}/
-		mv {OUTDIR}/QC/{wildcards.sample_lane}/*R1*_fastqc.html {OUTDIR}/QC/{wildcards.sample_lane}/{wildcards.sample_lane}_R1_fastqc.html
-		mv {OUTDIR}/QC/{wildcards.sample_lane}/*R2*_fastqc.html {OUTDIR}/QC/{wildcards.sample_lane}/{wildcards.sample_lane}_R2_fastqc.html
-		mv {OUTDIR}/QC/{wildcards.sample_lane}/*R1*_fastqc.zip {OUTDIR}/QC/{wildcards.sample_lane}/{wildcards.sample_lane}_R1_fastqc.zip
-		mv {OUTDIR}/QC/{wildcards.sample_lane}/*R2*_fastqc.zip {OUTDIR}/QC/{wildcards.sample_lane}/{wildcards.sample_lane}_R2_fastqc.zip
+		fastqc -t {threads} {input} --outdir={OUTDIR}/QC/fastqc/{wildcards.sample_lane}/
+		touch {output}
 		"""
 
 def createRG(wildcards):
@@ -36,18 +37,22 @@ def createRG(wildcards):
 rule bwa_mem:
 	input:
 		fastq1 = bwa_mem_fastq1,
-		fastq2 = bwa_mem_fastq2
+		fastq2 = bwa_mem_fastq2,
+		ref_fasta = OUTDIR + "/reference/" + config["reference"]["fasta"]
 		#fastq1= INPUT[INPUT.Sample_Lane == {sample_lane}].Fastq1,
 		#fastq2= INPUT[INPUT.Sample_Lane == {sample_lane}].Fastq2
 	output:
 		temp(OUTDIR +"/orphan/{sample_lane}/{sample_lane}.bwa.sam")
-	threads: 70
-	group: "align"
+	threads: 40
+	resources:
+		time = 24*60,
+		mem_mb = 32000
+	container:
+		config["singularity"]["bwa"]
 	params:
 		readGroup = createRG
 	shell:
 		"""
-		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS/raw,{OUTDIR} /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
 		bwa mem -K 100000000 -R \"{params.readGroup}\" -B 3 -t {threads} -M {REF_fasta} \
 			{input.fastq1} {input.fastq2} > {output}
 		"""
@@ -57,12 +62,15 @@ rule sort_sam_to_bam:
 		sam = OUTDIR +"/orphan/{sample_lane}/{sample_lane}.bwa.sam"
 	output:
 		bam = temp(OUTDIR +"/orphan/{sample_lane}/{sample_lane}.bwa.bam")
-	threads: 70
+	threads: 10
+	resources:
+		time = 24*60,
+		mem_mb = 36000
+	container:
+		config["singularity"]["samtools"]
 	params:
 		temp = OUTDIR +"/orphan/{sample_lane}/"
-	group: "align"
 	shell:
 		"""
-		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS/raw,{OUTDIR} /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
-		samtools sort -T {params.temp} --threads {threads} -m 2G {input.sam} > {output}
+		samtools sort -T {params.temp} --threads {threads} -m 3G {input.sam} > {output}
 		"""

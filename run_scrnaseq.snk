@@ -3,8 +3,14 @@
 #### module load NiaEnv/2018a
 #### module load python/3.6.4-anaconda5.1.0
 #### source activate snakemake
-#### snakemake -s AN_WGS_script/Snakefile  --cores 1 -j 40 --cluster "sbatch -N 1 -t 20:00:00 --ntasks 80 --output=logs/%x_%j.log" --ri \
-#### --config input=AN_WGS_script/Sample/20200907.tsv.txt outdir=$SCRATCH/AN_WGS_script/20200908_HPV_HNSCC_WGS
+# snakemake  --profile nichols_niagara  \
+# -s AN_WGS_script/run_scrnaseq.snk  \
+# --configfile AN_WGS_script/niagara_config.yaml  \
+# --config input=$SCRATCH/20230612_isgs_scrnaseq/20230613_input.csv \
+# outdir=$SCRATCH/20230612_isgs_scrnaseq \
+# --group-components  cellranger=2 trust4=10  \
+# --singularity-args " -B $SCRATCH,$SCRATCH/gdc_reference,$HOME "  \
+# --rerun-triggers input  --ri --keep-going --keep-incomplete 
 
 import pandas as pd
 import os
@@ -14,11 +20,9 @@ localrules: rename_files, copy_final_results, all
 ###
 ### LOAD SAMPLES
 ###
-SCRATCH = "/gpfs/fs0/scratch/n/nicholsa/zyfniu"
 print("\n***INPUT FILE: " + config['input'] + "***\n")
-INPUT = pd.read_table(config['input'],names = ['Sample','num_cells','lanes','Fastq1','Fastq2'])
+INPUT = pd.read_csv(config['input'],names = ['Sample','num_cells','lanes','Fastq1','Fastq2'],header=0)
 SAMPLE =  INPUT['Sample'].unique()
-TMP = "/scratch/n/nicholsa/zyfniu/AN_WGS/temp"
 print(INPUT)
 
 ### PRINT OUTPUT DIRECTORY
@@ -27,10 +31,11 @@ print("***OUTPUT DIRECTORY: " + OUTDIR + "***")
 
 rule all:
 	input:
-		expand(OUTDIR + "/{sample}/cellranger/possorted_genome_bam.bam", sample = SAMPLE),
-		expand(OUTDIR + "/{sample}/trust4/{sample}_barcode_report.tsv", sample = SAMPLE),
+		# expand(OUTDIR + "/{sample}/cellranger/possorted_genome_bam.bam", sample = SAMPLE),
+		expand(OUTDIR + "/trust4/trust4_{sample}/{sample}_barcode_report.tsv", sample = SAMPLE),
 		expand(OUTDIR + "/final_results/cellranger/{sample}/matrix.mtx.gz",sample = SAMPLE),
-		expand(OUTDIR + "/final_results/trust4/{sample}/{sample}_barcode_report.tsv", sample = SAMPLE)
+		expand(OUTDIR + "/final_results/trust4/{sample}/{sample}_barcode_report.tsv", sample = SAMPLE),
+		expand(OUTDIR + "/final_results/velocyto/{sample}/{sample}.loom", sample = SAMPLE)
 
 def get_fastq1(wildcards):
 	return expand(INPUT[(INPUT['Sample'] == wildcards.sample) & (INPUT['lanes'] == wildcards.lanes)].Fastq1)
@@ -43,10 +48,10 @@ rule rename_files:
 		r1 = get_fastq1,
 		r2 = get_fastq2
 	output:
-		r1 = "{OUTDIR}/fastq/{sample}_S1_{lanes}_R1_001.fastq.gz",
-		r2 = "{OUTDIR}/fastq/{sample}_S1_{lanes}_R2_001.fastq.gz"
+		r1 = "{OUTDIR}/ln/{sample}_S1_{lanes}_R1_001.fastq.gz",
+		r2 = "{OUTDIR}/ln/{sample}_S1_{lanes}_R2_001.fastq.gz"
 	shell:
-	 	"ln -sr {input.r1} {output.r1} && ln -sr {input.r2} {output.r2}"
+	 	"ln -sf {input.r1} {output.r1} && ln -sf {input.r2} {output.r2}"
 
 ### Run Cell Ranger
 include: "snakemake_scripts/scrnaseq_cellranger.snk"
@@ -56,14 +61,15 @@ include: "snakemake_scripts/scrnaseq_trust4.snk"
 
 rule copy_final_results:
 	input:
-		OUTDIR + "/{sample}/cellranger/possorted_genome_bam.bam",
-		OUTDIR + "/{sample}/trust4/{sample}_barcode_report.tsv"
+		OUTDIR + "/cellranger/{sample}/possorted_genome_bam.bam",
+		OUTDIR + "/trust4/trust4_{sample}/{sample}_barcode_report.tsv"
 	output:
 		OUTDIR + "/final_results/cellranger/{sample}/matrix.mtx.gz",
 		OUTDIR + "/final_results/trust4/{sample}/{sample}_barcode_report.tsv"
 	threads: 1
 	shell:
 		"""
-		cp {OUTDIR}/{wildcards.sample}/cellranger/filtered_feature_bc_matrix/* {OUTDIR}/final_results/cellranger/{wildcards.sample}/
-		cp {OUTDIR}/{wildcards.sample}/trust4/* {OUTDIR}/final_results/trust4/{wildcards.sample}/
+		cp {OUTDIR}/cellranger/{wildcards.sample}/filtered_feature_bc_matrix/* {OUTDIR}/final_results/cellranger/{wildcards.sample}/
+		cp {OUTDIR}/cellranger/{wildcards.sample}/web_summary.html {OUTDIR}/final_results/cellranger/{wildcards.sample}/
+		cp {OUTDIR}/trust4/trust4_{wildcards.sample}/* {OUTDIR}/final_results/trust4/{wildcards.sample}/
 		"""

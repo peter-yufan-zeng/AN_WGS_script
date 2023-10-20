@@ -61,8 +61,8 @@ def main(hostindex, viralindex, fastq, outdir, aligner,
          virname, skip_alignment=False):
     report_memory("initialization")
     check_indices(hostindex, viralindex)
-    check_aligner(aligner)
-    check_other_programs()
+    #check_aligner(aligner)
+    #check_other_programs()
     os.makedirs(outdir, exist_ok=True)
     polyidusObj = polyidusEngine(
         hostindex, viralindex,

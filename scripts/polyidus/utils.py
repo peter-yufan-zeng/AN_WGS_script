@@ -778,20 +778,20 @@ class polyidusEngine:
     def align_virus(self):
         if len(self.fastq) == 1:
             job1 = [
-                "bowtie2", "-p", "80", "--local", "-x", self.viralindex,
+                "bowtie2", "-p", "20", "--local", "-x", self.viralindex,
                 "-U", self.fastq[0]]
             job2 = [
                 "samtools",
-                "view", "-@","79", "-bS", "-F", "4", "-o",
+                "view", "-@","19", "-bS", "-F", "4", "-o",
                 self.viralbam_final,
                 "-"]
         elif len(self.fastq) == 2:
             job1 = [
-                "bowtie2", "-p", "80", "--local",
+                "bowtie2", "-p", "20", "--local",
                 "-x", self.viralindex, "-1",
                 self.fastq[0], "-2", self.fastq[1]]
             job2 = [
-                "samtools", "sort", "-@","79", "-o",
+                "samtools", "sort", "-@","19", "-o",
                 self.viralbam_temp, "-"]
         self.command_lists.append(job1 + ["|"] + job2)
         self.update_log()
@@ -808,15 +808,15 @@ class polyidusEngine:
             # Part 1. Pair 1 mapped pair 2 unmapped
             job3 = [
                  "samtools", "view", "-bS", "-f",
-                "4", "-F", "264", "-@","79", self.viralbam_temp,
+                "4", "-F", "264", "-@","19", self.viralbam_temp,
                 "-o", viralbam_temp1]
             # Part 2. Pair 2 mapped pair 1 unmapped
             job4 = [
-                "samtools", "view", "-bS", "-f", "8", "-F", "260","-@","79",
+                "samtools", "view", "-bS", "-f", "8", "-F", "260","-@","19",
                 self.viralbam_temp, "-o", viralbam_temp2]
             # Pair 3. both pairs mapped
             job5 = [
-                "samtools", "view", "-bS", "-f", "1", "-F", "12","-@","79",
+                "samtools", "view", "-bS", "-f", "1", "-F", "12","-@","19",
                 self.viralbam_temp, "-o", viralbam_bothmapped]
             for eachjob in [job3, job4, job5]:
                 self.command_lists.append(eachjob)
@@ -824,7 +824,7 @@ class polyidusEngine:
                 subprocess.run(eachjob, check=True)
             job6 = ["samtools", "merge", "-", viralbam_temp1,
                     viralbam_temp2, viralbam_bothmapped]
-            job7 = ["samtools", "sort", "-n", "-@","79", "-", "-o", self.viralbam_final]
+            job7 = ["samtools", "sort", "-n", "-@","19", "-", "-o", self.viralbam_final]
             self.command_lists.append(job6 + ["|"] + job7)
             self.update_log()
             p3 = subprocess.Popen(job6, stdout=subprocess.PIPE)
@@ -848,21 +848,21 @@ class polyidusEngine:
     def align_host(self):
         if len(self.fastq) == 1:
             job1 = [
-                "bowtie2", "-p", "80", "--local", "-x", self.hostindex,
+                "bowtie2", "-p", "20", "--local", "-x", self.hostindex,
                 "U", self.fastq_path_1]
             job2 = [
                 "samtools",
-                "view", "-@","79","-bS", "-F", "4", "-o",
+                "view", "-@","19","-bS", "-F", "4", "-o",
                 self.hostbam,
                 "-"]
         elif len(self.fastq) == 2:
             job1 = [
-                "bowtie2", "-p", "80", "--local",
+                "bowtie2", "-p", "20", "--local",
                 "-x", self.hostindex, "-1",
                 self.fastq_path_1, "-2", self.fastq_path_2]
             # Version 1.1.0: sort by name! default was position :(
             job2 = [
-                "samtools", "sort", "-n", "-@","79","-o",
+                "samtools", "sort", "-n", "-@","19","-o",
                 self.hostbam, "-"]
         self.command_lists.append(job1 + ["|"] + job2)
         self.update_log()
@@ -870,7 +870,7 @@ class polyidusEngine:
         p2 = subprocess.Popen(job2, stdin=p1.stdout, stdout=subprocess.PIPE)
         p2.communicate()
         # Sort host output
-        job3 = ["samtools", "sort", "-@","79", self.hostbam, "-o", self.hostbam_sorted]
+        job3 = ["samtools", "sort", "-@","19", self.hostbam, "-o", self.hostbam_sorted]
         job4 = ["samtools", "index", self.hostbam_sorted]
         for eachjob in [job3, job4]:
             self.command_lists.append(eachjob)
@@ -880,21 +880,21 @@ class polyidusEngine:
     def align_virus_bwa(self):
         if len(self.fastq) == 1:
             job1 = [
-                "bwa", "mem", "-t", "80", "-T", "1", "-a",
+                "bwa", "mem", "-t", "20", "-T", "1", "-a",
                 "-C", "-Y", self.viralindex,
                 self.fastq[0]]
             job2 = [
                 "samtools",
-                "view", "-@","79","-bS", "-F", "4", "-o",
+                "view", "-@","19","-bS", "-F", "4", "-o",
                 self.viralbam_final,
                 "-"]
         elif len(self.fastq) == 2:
             job1 = [
-                "bwa", "mem", "-t", "80", "-T", "1", "-a", "-C", "-Y",
+                "bwa", "mem", "-t", "20", "-T", "1", "-a", "-C", "-Y",
                 self.viralindex,
                 self.fastq[0], self.fastq[1]]
             job2 = [
-                "samtools", "sort", "-@","79","-o",
+                "samtools", "sort", "-@","19","-o",
                 self.viralbam_temp, "-"]
         self.command_lists.append(job1 + ["|"] + job2)
         self.update_log()
@@ -909,14 +909,14 @@ class polyidusEngine:
             viralbam_bothmapped = os.path.join(
                 self.outdir_viral, "bothPairsMapped.bam")
             job3 = [
-                "samtools", "view", "-@","79","-bS", "-f",
+                "samtools", "view", "-@","19","-bS", "-f",
                 "4", "-F", "264", self.viralbam_temp,
                 "-o", viralbam_temp1]
             job4 = [
-                "samtools" "view", "-@","79","-bS", "-f", "8", "-F", "260",
+                "samtools" "view", "-@","19","-bS", "-f", "8", "-F", "260",
                 self.viralbam_temp, "-o", viralbam_temp2]
             job5 = [
-                "samtools", "view", "-@","79","-bS", "-f", "1", "-F", "12",
+                "samtools", "view", "-@","19","-bS", "-f", "1", "-F", "12",
                 self.viralbam_temp, "-o", viralbam_bothmapped]
             for eachjob in [job3, job4, job5]:
                 self.command_lists.append(eachjob)
@@ -924,7 +924,7 @@ class polyidusEngine:
                 subprocess.run(eachjob, check=True)
             job6 = ["samtools", "merge", "-", viralbam_temp1,
                     viralbam_temp2, viralbam_bothmapped]
-            job7 = ["samtools", "sort", "-n","-@","79", "-", "-o", self.viralbam_final]
+            job7 = ["samtools", "sort", "-n","-@","19", "-", "-o", self.viralbam_final]
             self.command_lists.append(job6 + ["|"] + job7)
             self.update_log()
             p3 = subprocess.Popen(job6, stdout=subprocess.PIPE)
@@ -935,22 +935,22 @@ class polyidusEngine:
     def align_host_bwa(self):
         if len(self.fastq) == 1:
             job1 = [
-                "bwa", "mem", "-t", "80", "-T",
+                "bwa", "mem", "-t", "20", "-T",
                 "1", "-a", "-C", "-Y", self.hostindex,
                 self.fastq_path_1]
             job2 = [
                 "samtools",
-                "view", "-@","79","-bS", "-F", "4", "-o",
+                "view", "-@","19","-bS", "-F", "4", "-o",
                 self.hostbam,
                 "-"]
         elif len(self.fastq) == 2:
             job1 = [
-                "bwa", "mem", "-t", "80", "-T",
+                "bwa", "mem", "-t", "20", "-T",
                 "1", "-a", "-C", "-Y",
                 self.hostindex,
                 self.fastq_path_1, self.fastq_path_2]
             job2 = [
-                "samtools", "sort", "-@","79","-o",
+                "samtools", "sort", "-@","19","-o",
                 self.hostbam, "-"]
         self.command_lists.append(job1 + ["|"] + job2)
         self.update_log()
@@ -958,7 +958,7 @@ class polyidusEngine:
         p2 = subprocess.Popen(job2, stdin=p1.stdout, stdout=subprocess.PIPE)
         p2.communicate()
         #Sort host output
-        job3 = ["samtools", "sort","-@","79", self.hostbam, "-o", self.hostbam_sorted]
+        job3 = ["samtools", "sort","-@","19", self.hostbam, "-o", self.hostbam_sorted]
         job4 = ["samtools", "index", self.hostbam_sorted]
         for eachjob in [job4]:
             self.command_lists.append(eachjob)

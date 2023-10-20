@@ -4,17 +4,23 @@
 rule config_manta:
 	input:
 		normal = OUTDIR + "/Recal/{patient}-N.recal.bam",
-		tumor = OUTDIR + "/Recal/{tumor}.recal.bam"
+		tumor = OUTDIR + "/Recal/{tumor}.recal.bam",
+		ref_fasta = REF_fasta
 	output: OUTDIR + "/temp/Manta/{tumor}_vs_{patient}-N/runWorkflow.py"
-	threads: 2
-	group: "variantCalling"
+	threads: 10
+	resources:
+		time = 60,
+		mem_mb = 9000
+	container:
+		config["singularity"]["manta_allow_collisions"]
+	group: "manta_call"
 	shell:
 		"""
-		singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR} /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
-		configManta.py \
+		rm -rf {OUTDIR}/temp/Manta/{wildcards.tumor}_vs_{wildcards.patient}-N/*
+		/opt/manta/bin/configManta.py \
 		--normalBam {input.normal} \
 		--tumorBam  {input.tumor} \
-		--reference {REF_fasta} \
+		--reference {input.ref_fasta} \
 		--runDir {OUTDIR}/temp/Manta/{wildcards.tumor}_vs_{wildcards.patient}-N
 		"""
 
@@ -32,12 +38,16 @@ rule manta:
 		smallindelIndex = OUTDIR + "/temp/Manta/{tumor}_vs_{patient}-N/results/variants/candidateSmallIndels.vcf.gz.tbi",
 		diploidSVIndex = OUTDIR + "/temp/Manta/{tumor}_vs_{patient}-N/results/variants/diploidSV.vcf.gz.tbi",
 		somaticSVIndex = OUTDIR + "/temp/Manta/{tumor}_vs_{patient}-N/results/variants/somaticSV.vcf.gz.tbi"
-	group: "manta"
-	threads: 80
+	threads: 10
+	resources:
+		time = 8*60,
+		mem_mb = 10000
+	container:
+		config["singularity"]["manta_allow_collisions"]
+	group: "manta_call"
 	shell:
 		"""
-		singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR} /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img \
-		python {input.script} -m local -j {threads} -g 160
+		python {input.script} -m local -j {threads} -g 9
 		"""
 
 rule mv_manta_files:
@@ -47,8 +57,11 @@ rule mv_manta_files:
 	output:
 		file = OUTDIR + "/results/Manta/{tumor}_vs_{patient}-N/Manta_{tumor}_vs_{patient}-N.{structure}.vcf.gz",
 		index = OUTDIR + "/results/Manta/{tumor}_vs_{patient}-N/Manta_{tumor}_vs_{patient}-N.{structure}.vcf.gz.tbi"
-	group: "manta"
+	group: "manta_annotate"
 	threads: 1
+	resources:
+		time = 30,
+		mem_mb = 4000
 	shell:
 		"""
 		cp {input.file} {output.file}
@@ -60,20 +73,23 @@ rule annotate_manta:
 		vcf = OUTDIR + "/results/Manta/{tumor}_vs_{patient}-N/Manta_{tumor}_vs_{patient}-N.{structure}.vcf.gz"
 	output:
 		annotatedvcf = temp(OUTDIR + "/results/Manta/{tumor}_vs_{patient}-N/Manta_snpeff_{tumor}_vs_{patient}-N.{structure}.ann.vcf")
+	resources:
+		time = 30,
+		mem_mb = 8500
+	container:
+		config["singularity"]["snpeff"]
 	threads: 2
-	group: "manta"
+	group: "manta_annotate"
 	shell:
 		"""
 		cd {OUTDIR}/results/Manta/{wildcards.tumor}_vs_{wildcards.patient}-N
-		singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR} $SCRATCH/singularity_images/nfcore-sareksnpeff-2.6.GRCh38.img \
 		snpEff -Xmx8g \
-		GRCh38.86 \
+		GRCh38.105 \
 		-csvStats {wildcards.tumor}_{wildcards.structure}_snpEff.csv \
 		-nodownload \
 		-canon \
 		{input} \
 		> {output}
-		#		mv snpEff_summary.html {wildcards.tumor}_{wildcards.structure}_snpEff.html
 		"""
 
 rule zip_manta:
@@ -81,11 +97,14 @@ rule zip_manta:
 		annotatedvcf = OUTDIR + "/results/Manta/{tumor}_vs_{patient}-N/Manta_snpeff_{tumor}_vs_{patient}-N.{structure}.ann.vcf"
 	output: annotatedvcf = OUTDIR + "/results/Manta/{tumor}_vs_{patient}-N/Manta_snpeff_{tumor}_vs_{patient}-N.{structure}.ann.vcf.gz"
 	threads: 2
-	group: "manta"
+	resources:
+		time = 30,
+		mem_mb = 4500
+	container:
+		config["singularity"]["tabix"]
+	group: "manta_annotate"
 	shell:
 		"""
-		singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR} \
-		/gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img bgzip < {input} > {output}
-		singularity exec -B $SCRATCH/igenomes_ref,{OUTDIR} \
-		/gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-sarek-2.6.img tabix {output}
+		bgzip < {input} > {output}
+		tabix {output}
 		"""

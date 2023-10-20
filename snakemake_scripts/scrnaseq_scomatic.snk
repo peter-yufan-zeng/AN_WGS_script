@@ -1,0 +1,49 @@
+import pandas as pd
+import os
+
+localrules: rename_files, copy_final_results, all
+
+###
+### LOAD SAMPLES
+###
+print("\n***INPUT FILE: " + config['input'] + "***\n")
+INPUT = pd.read_csv(config['input'],names = ['Sample','num_cells','lanes','Fastq1','Fastq2'],header=0)
+SAMPLE =  INPUT['Sample'].unique()
+print(INPUT)
+
+### PRINT OUTPUT DIRECTORY
+OUTDIR = config['outdir']
+print("***OUTPUT DIRECTORY: " + OUTDIR + "***")
+
+rule all:
+	input:
+		expand(OUTDIR + "/scomatic/{sample}/Step1_BamCellTypes/job.finish.touch", sample = SAMPLE)
+
+rule split_bam:
+	input:
+		bam = OUTDIR + "/{sample}/outs/possorted_genome_bam.bam",
+        scomatic_script = "$NXF_SINGULARITY_CACHEDIR/SComatic/scripts/SplitBam/SplitBamCellTypes.py",
+        barcode = OUTDIR + "/scomatic/barcode_tsv/{wildcards.sample}_barcodes.tsv"
+	output:
+		o1 = OUTDIR + "/scomatic/{sample}/Step1_BamCellTypes/job.finish.touch"
+	params:
+		cellranger_ref_fa = config["reference"]["directory"] + config["reference"]["cellranger_grch38_ref"] + "/fasta/genome.fa"
+	threads: 4
+	group: "scomatic"
+	container:
+		config["singularity"]["scomatic"]
+	resources:
+		time = 6*60,
+		mem_mb = 12000
+	shell:
+		"""
+        /bin/bash -c \
+			'source activate SComatic; \
+			python3 {input.scomatic_script} \
+			--bam {input.bam} \
+			--meta {input_barcode} \
+			--id {wildcards.sample} \
+			--n_trim 5 --max_nM 5 --max_NH 1  \
+			--outdir ./scomatic/{wildcards.sample}/Step1_BamCellTypes'
+		touch {output}
+		"""

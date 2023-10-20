@@ -9,13 +9,18 @@ rule kraken:
 	output:
 		out = OUTDIR + "/kraken2/{sample}_kraken2.out",
 		report = OUTDIR + "/kraken2/{sample}_kraken2.report"
-	threads: 80
-	group: "kracken"
+	threads: 20
+	group: "kraken"
+	container:
+		config["singularity"]["kraken2"]
+	params:
+		kraken2_ref = config["reference"]["directory"] + config["reference"]["kraken2_ref"]
+	resources:
+		time = 15,
+		mem_mb = 30000
 	shell:
 		"""
-		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS/raw,{OUTDIR} \
-		/gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/kraken2.1.2.simg \
-		kraken2 --db /scratch/n/nicholsa/zyfniu/igenomes_ref/kraken2_ref/ \
+		kraken2 --db {params.kraken2_ref} \
 		--output {output.out} \
 		--report {output.report} \
 		--paired \
@@ -31,13 +36,18 @@ rule bracken:
 	output:
 		out = OUTDIR + "/kraken2/bracken/{sample}_bracken2.out",
 		report = OUTDIR + "/kraken2/bracken/{sample}_bracken2.report"
-	group: "kracken"
+	group: "kraken"
 	threads: 1
+	resources:
+		time = 10,
+		mem_mb = 12000
+	container:
+		config["singularity"]["bracken2"]
+	params:
+		kraken2_ref = config["reference"]["directory"] + config["reference"]["kraken2_ref"]
 	shell:
 		"""
-		singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS/raw,{OUTDIR} \
-		/gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/bracken2.simg \
-		bracken -d /scratch/n/nicholsa/zyfniu/igenomes_ref/kraken2_ref/ \
+		bracken -d {params.kraken2_ref} \
 		-i {input.report} \
 		-o {output.out} \
 		-w {output.report}

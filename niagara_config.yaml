@@ -1,0 +1,154 @@
+singularity:
+  ascat: $NXF_SINGULARITY_CACHEDIR/ascat-2.5.2.img
+  battenberg: $NXF_SINGULARITY_CACHEDIR/battenberg-2.2.9.sif
+  bcftools: $NXF_SINGULARITY_CACHEDIR/depot.galaxyproject.org-singularity-bcftools-1.16--hfe4b78e_1.img
+  bwa: $NXF_SINGULARITY_CACHEDIR/depot.galaxyproject.org-singularity-bwa-0.7.17--hed695b0_7.img
+  bwa-mem2: $NXF_SINGULARITY_CACHEDIR/depot.galaxyproject.org-singularity-bwa-mem2-2.2.1--he513fc3_0.img
+  bgzip_tabix: $NXF_SINGULARITY_CACHEDIR/depot.galaxyproject.org-singularity-mulled-v2-780d630a9bb6a0ff2e7b6f730906fd703e40e98f-3bdd798e4b9aed6d3e1aaa1596c913a3eeb865cb-0.img
+  bracken2: $NXF_SINGULARITY_CACHEDIR/bracken2.simg
+  cnvkit: $NXF_SINGULARITY_CACHEDIR/depot.galaxyproject.org-singularity-cnvkit-0.9.9--pyhdfd78af_0.img
+  control-freec: $NXF_SINGULARITY_CACHEDIR/depot.galaxyproject.org-singularity-control-freec-11.6--h1b792b2_1.img
+  vep: $NXF_SINGULARITY_CACHEDIR/depot.galaxyproject.org-singularity-ensembl-vep-106.1--pl5321h4a94de4_0.img
+  fastp: $NXF_SINGULARITY_CACHEDIR/depot.galaxyproject.org-singularity-fastp-0.23.2--h79da9fb_0.img
+  fastqc: $NXF_SINGULARITY_CACHEDIR/depot.galaxyproject.org-singularity-fastqc-0.11.9--0.img
+  fgbio: $NXF_SINGULARITY_CACHEDIR/depot.galaxyproject.org-singularity-fgbio-2.0.2--hdfd78af_0.img
+  freebayes:  $NXF_SINGULARITY_CACHEDIR/depot.galaxyproject.org-singularity-freebayes-1.3.6--hbfe0e7f_2.img
+  gatk: $NXF_SINGULARITY_CACHEDIR/broadinstitute-gatk-4.2.6.1.img
+  gawk: $NXF_SINGULARITY_CACHEDIR/depot.galaxyproject.org-singularity-gawk-5.1.0.img
+  hpv_tools: $NXF_SINGULARITY_CACHEDIR/hpv_tools.sif
+  ichorcna: $NXF_SINGULARITY_CACHEDIR/ichorcna_pz.simg
+  kraken2: $NXF_SINGULARITY_CACHEDIR/kraken2.1.2.simg
+  manta: $NXF_SINGULARITY_CACHEDIR/depot.galaxyproject.org-singularity-manta-1.6.0--h9ee0642_1.img
+  manta_allow_collisions:  $NXF_SINGULARITY_CACHEDIR/manta_allow_collision.sif
+  mosdepth: $NXF_SINGULARITY_CACHEDIR/depot.galaxyproject.org-singularity-mosdepth-0.3.3--hdfd78af_1.img
+  msisensor: $NXF_SINGULARITY_CACHEDIR/depot.galaxyproject.org-singularity-msisensor-pro-1.2.0--hfc31af2_0.img
+  multiqc: $NXF_SINGULARITY_CACHEDIR/depot.galaxyproject.org-singularity-multiqc-1.13a--pyhdfd78af_1.img
+  phylowgs: $NXF_SINGULARITY_CACHEDIR/phylowgs.simg
+  pysam: $NXF_SINGULARITY_CACHEDIR/python3-pysam.sif
+  qualimap: $NXF_SINGULARITY_CACHEDIR/qualimap-2.2.1.img
+  rnaseq: $NXF_SINGULARITY_CACHEDIR/nfcore-rnaseq-1.4.2.img
+  samtools: $NXF_SINGULARITY_CACHEDIR/depot.galaxyproject.org-singularity-samtools-1.16.1--h6899075_1.img
+  sambamba: $NXF_SINGULARITY_CACHEDIR/sambamba-1.0.img
+  strelka: $NXF_SINGULARITY_CACHEDIR/depot.galaxyproject.org-singularity-strelka-2.9.10--h9ee0642_1.img
+  rsem: $NXF_SINGULARITY_CACHEDIR/rsem.img
+  tabix: $NXF_SINGULARITY_CACHEDIR/depot.galaxyproject.org-singularity-tabix-1.11--hdfd78af_0.img
+  tiddit: $NXF_SINGULARITY_CACHEDIR/depot.galaxyproject.org-singularity-tiddit-3.3.2--py310hc2b7f4b_0.img
+  trust4: $NXF_SINGULARITY_CACHEDIR/trust4-1.0.8.img
+  vcftools: $NXF_SINGULARITY_CACHEDIR/depot.galaxyproject.org-singularity-vcftools-0.1.16--he513fc3_4.img
+  velocyto: $NXF_SINGULARITY_CACHEDIR/velocyto_0.17.17.sif
+  snpeff: $NXF_SINGULARITY_CACHEDIR/nfcore-snpeff-5.1.GRCh38.img
+  scomatic: $NXF_SINGULARITY_CACHEDIR/scomatic-0.0.2.sif
+  vep: $NXF_SINGULARITY_CACHEDIR/vep_108.2_GRCh38.img
+
+
+reference:
+  directory: "/scratch/n/nicholsa/zyfniu/gdc_reference/"
+  fasta: "GRCh38.d1.vd1.fa" ### downloaded from GDC
+  dbsnp: "dbsnp_146.hg38.vcf.gz"
+  known_indels: "Mills_and_1000G_gold_standard.indels.hg38.vcf.gz"
+  gnomAD: "gnomAD.r2.1.1.GRCh38.PASS.AC.AF.only.vcf.gz"
+  pon: "1000g_pon.hg38.vcf.gz"
+  omni: "1000G_omni2.5.hg38.vcf.gz"
+  gatk_1000g: "1000G_phase1.snps.high_confidence.hg38.vcf.gz"
+  mills: "Mills_and_1000G_gold_standard.indels.hg38.vcf.gz"
+  ascat_acloci: "1000G_phase3_GRCh38_maf0.3.loci"
+  ascat_acloci_gc: "1000G_phase3_GRCh38_maf0.3.loci.gc"
+  exac_common: "small_exac_common_3.hg38.vcf.gz"
+  hg38bed: "hg38.chrom.bed"
+  hapmap: "hapmap_3.3.hg38.vcf.gz"
+  number_of_intervals: 100
+  battenberg_ref: "/scratch/n/nicholsa/zyfniu/gdc_reference/battenberg"
+  cellranger_exec: "cellranger/cellranger-6.0.2/cellranger"
+  cellranger_grch38_ref: "cellranger/refdata-gex-GRCh38-2020-A"
+  velocyto_repeat_mask_gtf: "hg38_rmsk.gtf"
+  trust4_fasta: "TRUST4/hg38_bcrtcr.fa"
+  trust4_ref: "TRUST4/human_IMGT_C.fa"
+  ### files for RNA-seq
+  rsem_path: "GRCh38_star/GRCh38"
+  star_path: "GRCh38_star"
+  kraken2_ref: "kraken2_ref"
+
+###
+### CONFIGs for TITAN
+###
+titan:
+  snpVCF:  /scratch/n/nicholsa/zyfniu/gdc_reference/titan/hapmap_3.3.hg38.vcf.gz
+  ichorCNA_exons: NULL
+  cytobandFile:  /scratch/n/nicholsa/zyfniu/gdc_reference/titan/cytoBand_hg38.txt # only need if hg38
+  centromere:  /scratch/n/nicholsa/zyfniu/gdc_reference/titan/GRCh38.GCA_000001405.2_centromere_acen.txt
+  ichorCNA_gcWig: /scratch/n/nicholsa/zyfniu/gdc_reference/titan/gc_hg38_10kb.wig
+  ichorCNA_mapWig:  /scratch/n/nicholsa/zyfniu/gdc_reference/titan/map_hg38_10kb.wig
+  ## path to tools
+  samTools:  samtools
+  bcfTools:  bcftools
+
+  ## path to scripts ##
+  #readCounterScript:  singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images /gpfs/fs0$SCRATCH/singularity_images/ichorcna_pz.simg readCounter
+  ichorCNA_rscript:  /scratch/n/nicholsa/zyfniu/gdc_reference/ichorCNA/scripts/runIchorCNA.R
+  ichorCNA_libdir: /scratch/n/nicholsa/zyfniu/gdc_reference/ichorCNA/
+  pyCountScript:  /scratch/n/nicholsa/zyfniu/gdc_reference/TitanCNA/scripts/snakemake/code/countPysam.py
+  TitanCNA_rscript: /scratch/n/nicholsa/zyfniu/gdc_reference/TitanCNA/scripts/R_scripts/titanCNA.R
+  TitanCNA_combineTitanIchorCNA:  /scratch/n/nicholsa/zyfniu/gdc_reference/TitanCNA/scripts/snakemake/code/combineTITAN-ichor.R
+  TitanCNA_selectSolutionRscript: /scratch/n/nicholsa/zyfniu/gdc_reference/TitanCNA/scripts/R_scripts/selectSolution.R
+  TitanCNA_libdir: /scratch/n/nicholsa/zyfniu/gdc_reference/TitanCNA
+
+  ## reference settings and paths to reference files ##
+  genomeBuild: hg38
+  genomeStyle:  UCSC
+  #refFasta:  $SCRATCH/igenomes_ref/Homo_sapiens_assembly38.fasta  <- not used as we are gonna use the same refFasta
+  #snpVCF:  $SCRATCH/igenomes_ref/hapmap_3.3.hg38.vcf.gz
+  #ichorCNA_exons: NULL
+  #cytobandFile:  $SCRATCH/igenomes_ref/cytoBand_hg38.txt # only need if hg38
+  #centromere:  $SCRATCH/igenomes_ref/GRCh38.GCA_000001405.2_centromere_acen.txt
+  sex:  None   # use None if both females and males are in sample set
+
+  ## params for each step ##
+
+  ## read depth params ##
+  # use this for NCBI chr naming
+  #chrs: 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,X,Y
+  # use this for UCSC chr naming
+  chrs: chr1,chr2,chr3,chr4,chr5,chr6,chr7,chr8,chr9,chr10,chr11,chr12,chr13,chr14,chr15,chr16,chr17,chr18,chr19,chr20,chr21,chr22,chrX,chrY
+  binSize:  10000
+
+  ## ichorCNA params ##
+  #ichorCNA_gcWig: $SCRATCH/igenomes_ref/gc_hg38_10kb.wig
+  #ichorCNA_mapWig:  $SCRATCH/igenomes_ref/map_hg38_10kb.wig
+  ichorCNA_chrs:  c(1:22, \"X\")
+  ichorCNA_normal:  c(0.5)
+  ichorCNA_ploidy:  c(2,3)
+  ichorCNA_estimateNormal:  TRUE
+  ichorCNA_estimatePloidy:  TRUE
+  ichorCNA_estimateClonality: TRUE
+  ichorCNA_scStates:  c(1,3)
+  ichorCNA_maxCN:  8
+  ichorCNA_includeHOMD: FALSE
+  ichorCNA_txnE:  0.9999
+  ichorCNA_txnStrength:  10000
+  ichorCNA_plotFileType:  png
+  ichorCNA_plotYlim:  c(-2,4)
+
+  ## allele counts - samtools, pysam ##
+  # USERS MUST MODIFY getAlleleCounts.snakefile to use the correct CHRS naming
+  map_quality:  10
+  base_quality: 10
+  vcf_quality:  100
+
+  ## TitanCNA params ##
+  TitanCNA_maxNumClonalClusters: 5
+  TitanCNA_chrs:  c(1:22, \"X\")
+  TitanCNA_normalInit: 0.5
+  TitanCNA_maxPloidy: 4
+  TitanCNA_estimateNormal:  map
+  TitanCNA_estimatePloidy:  TRUE
+  TitanCNA_estimateClonality: TRUE
+  TitanCNA_alleleModel: binomial
+  TitanCNA_alphaK:  10000
+  TitanCNA_alphaR:  10000
+  TitanCNA_txnExpLen: 1e15
+  TitanCNA_plotYlim:  c(-2,4)
+  TitanCNA_solutionThreshold: 0.05
+  TitanCNA_numCores: 16
+
+  ## Combine TitanCNA & ichorCNA
+  mergeIchorHOMD: FALSE  # consider setting to TRUE when working with pure tumor

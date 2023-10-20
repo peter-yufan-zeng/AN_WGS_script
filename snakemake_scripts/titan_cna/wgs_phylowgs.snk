@@ -1,0 +1,320 @@
+#### USAGE
+#### 1) First load snakemake
+#### module load NiaEnv/2018a
+#### module load python/3.6.4-anaconda5.1.0
+#### source activate snakemake
+#### snakemake -s AN_WGS_script/Snakefile  --cores 1 -j 40 --cluster "sbatch -N 1 -t 20:00:00 --ntasks 80 --output=logs/%x_%j.log" --ri \
+#### --config input=AN_WGS_script/Sample/20200907.tsv.txt outdir=$SCRATCH/AN_WGS_script/20200908_HPV_HNSCC_WGS
+
+import pandas as pd
+import os
+import time
+
+# initial settings
+
+#TMP = "$SCRATCH/temp"
+
+localrules: all,copyOptSolution,parseCNV,fixParsedCNV,filter_mutect2_to_variants_of_interest,tabix,parseSNVfromMutect,parse_phyloWGS_top_trees_into_csv, prep_phylowgs, parse_phyloWGS_top_trees_into_csv
+
+###
+### LOAD SAMPLES
+###
+
+configfile: "AN_WGS_script/graham_config.yaml"
+
+print("\n***INPUT FILE: " + config['input'] + "***\n")
+INPUT = pd.read_csv(config['input'],names = ['Patient','Sex','n_vs_t','Sample','Lane','Fastq1','Fastq2'],header=0)
+INPUT['Lane'] = INPUT.Lane.apply(str)
+INPUT['Sample_Lane'] = INPUT.Sample + "_" + INPUT.Lane
+SAMPLE =  INPUT['Sample'].unique()
+PAT = INPUT.Patient.drop_duplicates()
+TUMOR = INPUT[(INPUT.n_vs_t == 1)].Sample.drop_duplicates()
+SAMPLE_LANE = INPUT.Sample_Lane
+print(INPUT)
+
+### PRINT OUTPUT DIRECTORY
+OUTDIR = config['outdir']
+print("***OUTPUT DIRECTORY: " + OUTDIR + "***")
+
+###
+###
+Multi = INPUT[(INPUT.n_vs_t == 1)]
+Multi = Multi[['Patient','Sample']].drop_duplicates()
+Multi.loc[:,'Combined'] = ""
+Multi.loc[:,"num_tumours"] = 1
+for x in Multi['Patient'].drop_duplicates():
+	COMBINED_mutect_samples = ""
+	print(x)
+	n = 1
+	for y in Multi[Multi.Patient == x].Sample.drop_duplicates():
+		print(y)
+		COMBINED_mutect_samples = y + "_" + COMBINED_mutect_samples
+		Multi.loc[(Multi.Patient == x),'num_tumours'] = n
+		n = n + 1
+	COMBINED_mutect_samples = COMBINED_mutect_samples[:-1]
+	Multi.loc[(Multi.Patient == x),'Combined']= COMBINED_mutect_samples
+
+Multi['path'] = OUTDIR + "/results/mutect2/all_"  + Multi.Combined + "_vs_" + Multi.Patient + "-N/" \
++ Multi.Combined + "_vs_" + Multi.Patient + "-N_snpEff.ann.vcf.gz"
+Multi['phylowgs_path'] = OUTDIR + "/results/phyloWGS/" + Multi.Combined + "_vs_" + Multi.Patient + "-N/trees.zip"
+Multi['phylowgs_tree_json_path'] = OUTDIR + "/results/phyloWGS/" + Multi.Combined + "_vs_" + Multi.Patient + "-N/tree_likelihoods.txt"
+Multi = Multi[Multi.num_tumours >= 1]
+
+
+rule all:
+	input:
+		expand(OUTDIR + "/results/phyloWGS/input/{tumor}_vs_{patient}-N.params.txt",zip,patient = [x.rsplit('-',1)[0] for x in TUMOR],tumor = TUMOR),
+		Multi.phylowgs_path.drop_duplicates().tolist(),
+		Multi.phylowgs_tree_json_path.drop_duplicates().tolist()
+
+
+### copy optimal titan solution
+
+rule copyOptSolution:
+	input:
+		OUTDIR + "/results/titan/hmm/{tumor}_vs_{patient}-N_optimalClusterSolution.txt"
+	output:
+		dir = directory(OUTDIR + "/results/titan/hmm/optimalClusterSolution/{tumor}_vs_{patient}-N/"),
+		segs = OUTDIR + "/results/titan/hmm/optimalClusterSolution/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N.segs.txt",
+		titan_optimal_params = OUTDIR + "/results/phyloWGS/input/{tumor}_vs_{patient}-N.params.txt"
+	log:
+		OUTDIR + "/logs/titan/hmm/optSolution/copyOptSolution_{tumor}_vs_{patient}-N.log"
+	threads: 1
+	shell:
+		"""
+		curDir=`pwd`
+		for i in `cut -f11 {input} | grep -v "path"`;
+		do
+			echo -e "Copying ${{i}} to {output.dir}"
+			cp -r ${{i}}* {output.dir}
+			cp -r ${{i}}.segs.txt {output.segs}
+			cp -r ${{i}}.params.txt {output.titan_optimal_params}
+		done
+		"""
+
+
+###
+###	phyloWGS
+###
+
+def get_titan_cellularity(wildcards, input):
+	file = OUTDIR + "/results/phyloWGS/input/" + wildcards.tumor + "_vs_" + wildcards.patient + "-N.params.txt"
+	prop_normal = pd.read_table(input.titan_optimal_params,names = ["name","value"]).iloc[0][1]
+	cellularity = 1 - float(prop_normal)
+	return cellularity
+
+rule parseCNV:
+	input:
+		segs = OUTDIR + "/results/titan/hmm/optimalClusterSolution/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N.segs.txt",
+		# ploidy = OUTDIR + "/results/ASCAT/{tumor}_vs_{patient}-N/{tumor}.purityploidy.txt"
+		titan_optimal_params = OUTDIR + "/results/phyloWGS/input/{tumor}_vs_{patient}-N.params.txt",
+
+	output:
+		OUTDIR + "/results/phyloWGS/input/{tumor}_vs_{patient}-N_cnvs.txt"
+	#params:
+#		awk_command = "awk 'FNR == 1{{print $4}}' " + OUTDIR + "/results/titan/hmm/optimalClusterSolution/{tumor}_vs_{patient}-N/{tumor}*.params.txt"
+	params:
+		script = OUTDIR + "/AN_WGS_script/phylowgs_parser/parse_cnvs.py",
+		cellularity = get_titan_cellularity
+	threads: 1
+	group: "prep_phylowgs"
+	container:
+		config["singularity"]["phylowgs"]
+	resources:
+		time = 15,
+		mem_mb = 8500
+	shell:
+		"""
+		python2.7 {params.script} -f titan -c {params.cellularity} --cnv-output {output} {input.segs}
+		"""
+
+### replace chr1...23 with 1...23 before using phylowgs parser and then remove duplicate rows
+rule fixParsedCNV:
+	input:
+		OUTDIR + "/results/phyloWGS/input/{tumor}_vs_{patient}-N_cnvs.txt"
+	output:
+		remove_chr = OUTDIR + "/results/phyloWGS/input/{tumor}_vs_{patient}-N_cnvs.fixed_chr.txt",
+		remove_dup = OUTDIR + "/results/phyloWGS/input/{tumor}_vs_{patient}-N_cnvs.fixed_chr_dup.txt"
+	threads: 1
+	group: "phylowgs"
+	resources:
+		time = 5,
+		mem_mb = 8500
+	shell:
+		"""
+		sed -e 's/chr//g' {input} > {output.remove_chr}
+		sed -i -e 's/omosome/chromosome/g' {output.remove_chr}
+		awk '$2!=$3' {output.remove_chr} > {output.remove_dup}
+    	"""
+
+rule filter_mutect2_to_variants_of_interest:
+	input:
+		annotatedvcf = OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N_snpEff.ann.passOnly.vcf.gz"
+	output:
+		annotatedvcf = OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N_snpEff.ann.passOnly.inGenes.vcf.gz"
+	threads: 1
+	resources:
+		time = 5,
+		mem_mb = 8500
+	group: "phylowgs"
+	container:
+		config["singularity"]["bcftools"]
+	shell:
+		"""
+		bcftools filter \
+		{input} --exclude \'INFO/ANN ~ \"intron\" | INFO/ANN ~ \"intergenic_region\" | INFO/ANN ~ \"upstream_gene_variant\" | INFO/ANN ~ \"downstream_gene_variant\" | INFO/ANN ~ \"intragenic_variant\"\' -O z> {output}
+		"""
+
+rule tabix:
+	input:
+		OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N_snpEff.ann.passOnly.inGenes.vcf.gz"
+	output:
+		OUTDIR + "/results/mutect2/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N_snpEff.ann.passOnly.inGenes.vcf.tbi"
+	container:
+		config["singularity"]["tabix"]
+	resources:
+		time = 5,
+		mem_mb = 8500
+	group: "phylowgs"
+	shell:
+		"""
+		tabix -p vcf {input}
+		"""
+
+def get_vcfs_for_phylowgs_files(wildcards):
+	samples = Multi[Multi.Patient == wildcards.patient].Sample
+	return expand(OUTDIR +"/results/mutect2/{tumor}_vs_{patient}-N/{tumor}_vs_{patient}-N_snpEff.ann.passOnly.inGenes.vcf.gz", tumor = samples, patient = wildcards.patient)
+
+def get_parsedCNVs_for_phylowgs_files(wildcards):
+	samples = Multi[Multi.Patient == wildcards.patient].Sample
+	return expand(OUTDIR +"/results/phyloWGS/input/{tumor}_vs_{patient}-N_cnvs.fixed_chr_dup.txt", tumor = samples, patient = wildcards.patient)
+
+def cnvs_param(wildcards):
+	multi = Multi[Multi.Patient == wildcards.patient]
+	cnv_param = ""
+	for y in multi.Sample.drop_duplicates():
+		cnv_param = cnv_param + "--cnvs " + y + "=" + OUTDIR + "/results/phyloWGS/input/"+ y + "_vs_" + wildcards.patient + "-N_cnvs.fixed_chr_dup.txt "
+	print(cnv_param)
+	return cnv_param
+
+def vcf_files(wildcards):
+	multi = Multi[Multi.Patient == wildcards.patient]
+	vcf_files = ""
+	for y in multi.Sample.drop_duplicates():
+		vcf_files = vcf_files + y + "=" + OUTDIR + "/results/mutect2/" + y + "_vs_" + wildcards.patient + "-N/" + y + "_vs_" + wildcards.patient + "-N_snpEff.ann.passOnly.inGenes.vcf.gz" + " "
+	print(vcf_files)
+	return vcf_files
+
+def vcf_format(wildcards):
+	multi = Multi[Multi.Patient == wildcards.patient]
+	vcf_format = ""
+	for y in multi.Sample.drop_duplicates():
+		vcf_format = vcf_format + "--vcf-type " + y + "=mutect_smchet "
+	print(vcf_format)
+	return vcf_format
+
+rule parseSNVfromMutect:
+	input:
+		cnvs = get_parsedCNVs_for_phylowgs_files,
+		passOnlyvcf =  get_vcfs_for_phylowgs_files
+	output:
+		ssm = OUTDIR + "/results/phyloWGS/parsedSNV_CNV/{tumour}_vs_{patient}-N_ssm_data.txt",
+		cnv = OUTDIR + "/results/phyloWGS/parsedSNV_CNV/{tumour}_vs_{patient}-N_cnv_data.txt",
+		params = OUTDIR + "/results/phyloWGS/parsedSNV_CNV/{tumour}_vs_{patient}-N_params.json"
+	params:
+		cnv_files = cnvs_param,
+		vcf_files = vcf_files,
+		vcf_format = vcf_format,
+		script = OUTDIR + "/AN_WGS_script/phylowgs_parser/create_phylowgs_inputs.py"
+	threads: 1
+	group: "phylowgs"
+	resources:
+		time = 5,
+		mem_mb = 8500
+	container:
+		config["singularity"]["phylowgs"]
+	shell:
+		"""
+		python2.7 \
+		{params.script} \
+		{params.vcf_format} --regions normal_and_abnormal_cn \
+		{params.cnv_files} \
+		--output-cnvs {output.cnv} \
+		--output-variants {output.ssm} \
+		--output-params {output.params} \
+		{params.vcf_files}
+		"""
+
+rule phyloWGS:
+	input:
+		ssm = OUTDIR + "/results/phyloWGS/parsedSNV_CNV/{tumour}_vs_{patient}-N_ssm_data.txt",
+		cnv = OUTDIR + "/results/phyloWGS/parsedSNV_CNV/{tumour}_vs_{patient}-N_cnv_data.txt",
+		params = OUTDIR + "/results/phyloWGS/parsedSNV_CNV/{tumour}_vs_{patient}-N_params.json"
+	output:
+		OUTDIR + "/results/phyloWGS/{tumour}_vs_{patient}-N/trees.zip"
+	threads: 20
+	resources:
+		time = 60*24,
+		mem_mb = 10000
+	group: "phylowgs"
+	params:
+		output_dir = OUTDIR + "/results/phyloWGS/{tumour}_vs_{patient}-N/",
+		temp_dir = OUTDIR + "/results/phyloWGS/{tumour}_vs_{patient}-N/chains"
+	container:
+		config["singularity"]["phylowgs"]
+	shell:
+		"""
+		mkdir -p {params.temp_dir}
+		python2.7 /opt/phylowgs/multievolve.py \
+		--num-chains {threads} --ssms {input.ssm} --cnvs {input.cnv} --params {input.params} \
+		-O {params.output_dir} -t {params.temp_dir}/
+		"""
+
+rule output_phyloWGS_results:
+	input:
+		OUTDIR + "/results/phyloWGS/{tumour}_vs_{patient}-N/trees.zip"
+	output:
+		tree_summary_output = OUTDIR + "/results/phyloWGS/{tumour}_vs_{patient}-N/{tumour}_vs_{patient}-N.summ.json.gz",
+        mutlist_output = OUTDIR + "/results/phyloWGS/{tumour}_vs_{patient}-N/{tumour}_vs_{patient}-N.muts.json.gz",
+		mutass_output = OUTDIR + "/results/phyloWGS/{tumour}_vs_{patient}-N/{tumour}_vs_{patient}-N.mutass.zip"
+	threads: 2
+	resources:
+		time = 30,
+		mem_mb = 8000
+	group: "phylowgs"
+	container:
+		config["singularity"]["phylowgs"]
+	shell:
+		"""
+		python2.7 /opt/phylowgs/write_results.py --include-multiprimary \
+		--max-multiprimary 0.99 {wildcards.tumour}_vs_{wildcards.patient}-N {input} {output.tree_summary_output} {output.mutlist_output} {output.mutass_output}
+		"""
+### script from https://raw.githubusercontent.com/aleighbrown/pwgs_snakemake/master/parse_pwgs_output.py
+rule parse_phyloWGS_top_trees_into_csv:
+	input:
+		tree_summary_output = OUTDIR + "/results/phyloWGS/{tumour}_vs_{patient}-N/{tumour}_vs_{patient}-N.summ.json.gz",
+		mutass_output = OUTDIR + "/results/phyloWGS/{tumour}_vs_{patient}-N/{tumour}_vs_{patient}-N.mutass.zip",
+		ssm = OUTDIR + "/results/phyloWGS/parsedSNV_CNV/{tumour}_vs_{patient}-N_ssm_data.txt",
+		cnv = OUTDIR + "/results/phyloWGS/parsedSNV_CNV/{tumour}_vs_{patient}-N_cnv_data.txt",
+		parser_script = OUTDIR + "/AN_WGS_script/phylowgs_parser/parse_pwgs_output.py"
+	output:
+		OUTDIR + "/results/phyloWGS/{tumour}_vs_{patient}-N/tree_likelihoods.txt"
+	params:
+		output_dir = OUTDIR + "/results/phyloWGS/{tumour}_vs_{patient}-N/",
+		unzipped_summary = OUTDIR + "/results/phyloWGS/{tumour}_vs_{patient}-N/{tumour}_vs_{patient}-N.summ.json"
+	threads: 2
+	resources:
+		time = 5,
+		mem_mb = 8000
+	shell:
+		"""
+		gunzip {input.tree_summary_output}
+		python {input.parser_script} \
+		--cnv_input {input.cnv} --ssm_input {input.ssm} \
+		--summary_file {params.unzipped_summary}  --mutasgn_path {input.mutass_output} \
+		--output_folder {params.output_dir} --k 5 || true
+		if [ ! -f {output} ]; then
+			echo "parser_failed" > {output}
+		fi
+		gzip {params.unzipped_summary}
+		"""

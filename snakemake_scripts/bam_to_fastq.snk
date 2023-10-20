@@ -2,10 +2,11 @@
 import pandas as pd
 import os
 
+configfile: "graham_config.yml"
 ###
-SCRATCH = "/gpfs/fs0/scratch/n/nicholsa/zyfniu"
+SCRATCH = "/scratch/zyfniu"
 print("\n***INPUT FILE: " + config['input'] + "***\n")
-INPUT = pd.read_table(config['input'],names = ['Patient','Sex','n_vs_t','Sample','Lane','bam'])
+INPUT = pd.read_csv(config['input'],names = ['Patient','Sex','n_vs_t','Sample','Lane','bam'],header = 0)
 INPUT['Lane'] = INPUT.Lane.apply(str)
 INPUT['Sample_Lane'] = INPUT.Sample + "_" + INPUT.Lane
 SAMPLE =  INPUT['Sample'].unique()
@@ -16,44 +17,36 @@ SAMPLE_LANE = INPUT.Sample_Lane
 print(INPUT)
 
 OUTDIR = config['outdir']
-###
-SGL_SAREK_CMD = "singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS/raw,"+ OUTDIR + \
-" $SCRATCH/singularity_images/nfcore-sarek-2.6.img"
 
+###
+###SGL_SAREK_CMD = "singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS/raw,"+ OUTDIR + \
+#" $SCRATCH/singularity_images/nfcore-sarek-2.6.img"
+#SGL_SAREK_CMD = "module purge; module load samtools; "
 
 rule all:
 	input:
-		### filtered bam
 		expand(OUTDIR + "/fastq/{samples}_R1.fastq.gz", samples=SAMPLE),
 		expand(OUTDIR + "/fastq/{samples}_R2.fastq.gz", samples=SAMPLE)
 
 def get_bam(wildcards):
 	return expand(INPUT[INPUT.Sample == wildcards.sample].bam)
 
-rule sort_bam:
+rule bam_to_fastq_one_step:
 	input:
 		get_bam
 	output:
-		temp(OUTDIR + "/sorted.bam/{sample}.sorted.bam")
-	threads: 80
-	group: "bam_to_fastq"
-	shell:
-		"""
-		{SGL_SAREK_CMD} samtools sort -n -m 2G \
-		-o {output} -@ {threads} {input}
-		"""
-
-rule bam_to_fastq:
-	input:
-		OUTDIR + "/sorted.bam/{sample}.sorted.bam"
-	output:
 		r1 = OUTDIR + "/fastq/{sample}_R1.fastq.gz",
 		r2 = OUTDIR + "/fastq/{sample}_R2.fastq.gz"
-	threads: 80
-	group: "bam_to_fastq"
+	threads: 6
+	resources:
+		time = 36*60,
+		mem_mb = 55000
+	container:
+		config["singularity"]["samtools"]
 	shell:
 		"""
-		{SGL_SAREK_CMD} samtools fastq -1 {output.r1} -2 {output.r2} \
+		samtools collate --threads 5 -u -O {input} $AN_WGS_temp/{wildcards.sample} | \
+		samtools fastq -1 {output.r1} -2 {output.r2} \
 		-0 /dev/null -s /dev/null \
-		-O -t --threads {threads} {input}
+		-O -t --threads 5 -n
 		"""

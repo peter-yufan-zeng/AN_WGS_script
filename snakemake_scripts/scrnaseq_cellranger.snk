@@ -2,28 +2,62 @@ def get_num_cells(wildcards):
 		return expand("{num_cells}",num_cells = INPUT[INPUT.Sample == wildcards.sample].num_cells.drop_duplicates())
 
 def get_renamed_fastq1(wildcards):
-	return expand(OUTDIR + "/fastq/" + wildcards.sample + "_S1_{lanes}_R1_001.fastq.gz", lanes = INPUT[(INPUT['Sample'] == wildcards.sample)].lanes)
+	return expand(OUTDIR + "/ln/" + wildcards.sample + "_S1_{lanes}_R1_001.fastq.gz", lanes = INPUT[(INPUT['Sample'] == wildcards.sample)].lanes)
 def get_renamed_fastq2(wildcards):
-	return expand(OUTDIR + "/fastq/" + wildcards.sample + "_S1_{lanes}_R2_001.fastq.gz", lanes = INPUT[(INPUT['Sample'] == wildcards.sample)].lanes)
+	return expand(OUTDIR + "/ln/" + wildcards.sample + "_S1_{lanes}_R2_001.fastq.gz", lanes = INPUT[(INPUT['Sample'] == wildcards.sample)].lanes)
 
 rule cellranger:
 	input:
 		r1 = get_renamed_fastq1,
 		r2 = get_renamed_fastq2
 	output:
-		"{OUTDIR}/{sample}/cellranger/possorted_genome_bam.bam"
+		"{OUTDIR}/cellranger/{sample}/possorted_genome_bam.bam",
+		"{OUTDIR}/{sample}/outs/possorted_genome_bam.bam",
+		"{OUTDIR}/cellranger/{sample}/filtered_feature_bc_matrix.h5"
 	params:
-		num_cells = get_num_cells
-	threads: 80
+		num_cells = get_num_cells,
+		cellranger_ref = config["reference"]["directory"] + config["reference"]["cellranger_grch38_ref"],
+		cellranger_exec = config["reference"]["directory"] + config["reference"]["cellranger_exec"]
+	threads: 32
+	group: "cellranger"
+	resources:
+		time = 12*60,
+		mem_mb = 80000
 	shell:
 		"""
-		cellranger count --id={wildcards.sample} \
+		{params.cellranger_exec} count --id={wildcards.sample} \
 		--sample={wildcards.sample} \
-		--transcriptome=$SCRATCH/singularity_images/refdata-gex-GRCh38-2020-A \
-		--fastqs={OUTDIR}/fastq \
+		--transcriptome={params.cellranger_ref} \
+		--fastqs={OUTDIR}/ln \
 		--include-introns \
-		--expect-cells={params.num_cells} \
+		--force-cells={params.num_cells} \
 		--localcores={threads} \
-		--localmem=160
-		cp -R {wildcards.sample}/outs/* {OUTDIR}/{wildcards.sample}/cellranger ; rm -rf {wildcards.sample}
+		--localmem=64
+		cp -r {wildcards.sample}/outs/* {OUTDIR}/cellranger/{wildcards.sample}/
+		"""
+
+rule velocyto:
+	input:
+		OUTDIR + "/{sample}/outs/possorted_genome_bam.bam",
+	output:
+		o1 = OUTDIR + "/{sample}/velocyto/{sample}.loom",
+		o2 = OUTDIR + "/final_results/velocyto/{sample}/{sample}.loom"
+	params:
+		cellranger_ref_gtf = config["reference"]["directory"] + config["reference"]["cellranger_grch38_ref"] + "/genes/genes.gtf",
+		masked_gtf = config["reference"]["directory"] + config["reference"]["velocyto_repeat_mask_gtf"]
+	threads: 4
+	group: "cellranger"
+	container:
+		config["singularity"]["velocyto"]
+	resources:
+		time = 6*60,
+		mem_mb = 12000
+	shell:
+		"""
+		velocyto run10x \
+		--samtools-threads {threads} --samtools-memory 2000 \
+		-m {params.masked_gtf} \
+		{OUTDIR}/{wildcards.sample} \
+		{params.cellranger_ref_gtf}
+		cp {output.o1} {output.o2}
 		"""

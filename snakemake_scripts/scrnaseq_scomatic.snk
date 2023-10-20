@@ -184,8 +184,8 @@ rule base_calling_step2:
 			python {input.scomatic_script} \
 					--infile {input.base_cell_counts} \
 					--outfile {OUTDIR}/scomatic/{wildcards.sample}/Step4_VariantCalling/{wildcards.sample} \
-          			--editing $editing \
-          			--pon $PON
+          			--editing {input.editing_ref} \
+          			--pon {input.pon_ref}
   			'
 		touch {output}
 		"""

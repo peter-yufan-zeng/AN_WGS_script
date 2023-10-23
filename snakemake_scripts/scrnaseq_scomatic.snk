@@ -45,7 +45,7 @@ rule split_bam:
 	container:
 		config["singularity"]["scomatic"]
 	resources:
-		time = 6*60,
+		time = 16*60,
 		mem_mb = 12000
 	shell:
 		"""

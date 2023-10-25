@@ -21,7 +21,8 @@ rule all:
 	input:
 		# expand(OUTDIR + "/scomatic/{sample}/Step1_BamCellTypes/job.finish.touch", sample = SAMPLE),
 		expand(OUTDIR + "/scomatic/{sample}/Step2_BaseCellCounts/job.finish.touch_all", sample = SAMPLE),
-		expand(OUTDIR + "/scomatic/{sample}/Step4_VariantCalling/step2.job.finish.touch", sample = SAMPLE)
+		expand(OUTDIR + "/scomatic/{sample}/Step4_VariantCalling/step2.job.finish.touch", sample = SAMPLE),
+		expand(OUTDIR + "/scomatic/{sample}/SingleCellAlleles/job.finish.touch_all", sample = SAMPLE)
 
 
 def get_cell_type_bam(wildcards):
@@ -45,7 +46,7 @@ rule split_bam:
 	container:
 		config["singularity"]["scomatic"]
 	resources:
-		time = 16*60,
+		time = 8*60,
 		mem_mb = 12000
 	shell:
 		"""
@@ -177,7 +178,8 @@ rule base_calling_step2:
 		editing_ref = config["reference"]["directory"] + "SComatic/RNAediting/AllEditingSites.hg38.txt",
 		pon_ref = config["reference"]["directory"] + "SComatic/PoNs/PoN.scRNAseq.hg38.tsv",
 	output:
-		o1 = OUTDIR + "/scomatic/{sample}/Step4_VariantCalling/step2.job.finish.touch"
+		o1 = OUTDIR + "/scomatic/{sample}/Step4_VariantCalling/step2.job.finish.touch",
+		o2 = OUTDIR + "/scomatic/{sample}/Step4_VariantCalling/{sample}.calling.step2.tsv"
 	params:
 		cellranger_ref_fa = config["reference"]["directory"] + config["reference"]["cellranger_grch38_ref"] + "/fasta/genome.fa"
 	threads: 4
@@ -197,5 +199,84 @@ rule base_calling_step2:
           			--editing {input.editing_ref} \
           			--pon {input.pon_ref}
   			'
+		touch {output.o1}
+		"""
+
+
+rule filter_step2_tsv:
+	input:
+		tsv = OUTDIR + "/scomatic/{sample}/Step4_VariantCalling/{sample}.calling.step2.tsv",
+		repeat_masker_bed = config["reference"]["directory"] + "SComatic/bed_files_of_interest/UCSC.k100_umap.without.repeatmasker.bed",
+	output:
+		pass_tsv = OUTDIR + "/scomatic/{sample}/Step4_VariantCalling/{sample}.calling.step2.pass.tsv"
+	threads: 4
+	group: "scomatic"
+	container:
+		config["singularity"]["scomatic"]
+	resources:
+		time = 30,
+		mem_mb = 8000
+	shell:
+		"""
+		/bin/bash -c \
+			'source activate SComatic; \
+			bedtools intersect -header -a {input.tsv} \
+				-b {input.repeat_masker_bed} | \
+				awk '$1 ~ /^#/ || $6 == "PASS"' > {output.pass_tsv}'
+		"""
+
+rule genotype_each_cell:
+	input:
+		scomatic_script = config["reference"]["directory"] + "SComatic/scripts/SingleCellGenotype/SingleCellGenotype.py",
+		bam = OUTDIR + '/scomatic/{sample}/Step1_BamCellTypes/{sample}.{cell_type}.bam',
+		barcode = OUTDIR + "/scomatic/barcode_tsv/{sample}_barcodes.tsv",
+		pass_tsv = OUTDIR + "/scomatic/{sample}/Step4_VariantCalling/{sample}.calling.step2.pass.tsv"
+	output:
+		individual_cell_tsv = OUTDIR + "/scomatic/{sample}/SingleCellAlleles/{sample}.{cell_type}.single_cell_genotype.tsv",
+		job_complete = OUTDIR + "/scomatic/{sample}/SingleCellAlleles/{cell_type}_job.finish.touch"
+	params:
+		cellranger_ref_fa = config["reference"]["directory"] + config["reference"]["cellranger_grch38_ref"] + "/fasta/genome.fa"
+	threads: 10
+	group: "scomatic"
+	container:
+		config["singularity"]["scomatic"]
+	resources:
+		time = 6*60,
+		mem_mb = 12000
+	shell:
+		""" 
+		mkdir -p {OUTDIR}/scomatic/{wildcards.sample}/SingleCellAlleles/temp_{wildcards.cell_type}
+		/bin/bash -c \
+		'source activate SComatic; \
+		python {input.scomatic_script} \
+			--infile {input.pass_tsv}   \
+			--nprocs {threads} \
+			--meta {input.barcode}   \
+			--outfile {output.o1}  \
+			--tmp_dir {OUTDIR}/scomatic/{wildcards.sample}/SingleCellAlleles/temp_{wildcards.cell_type} \
+			--ref {params.cellranger_ref_fa}
+		'
+		rm -rf {OUTDIR}/scomatic/{wildcards.sample}/SingleCellAlleles/temp_{wildcards.cell_type}
+		touch {output.job_complete}
+		"""
+
+def check_cell_genotype_complete(wildcards):
+	# bams = [x for x in os.listdir('./scomatic/' + wildcards.sample + '/Step1_BamCellTypes') if x.endswith('.bam')]
+	# cell_type = [file.replace(wildcards.sample + ".","").replace(".bam","") for file in bams]
+	cell_type = pd.read_csv('./scomatic/barcode_tsv/' + wildcards.sample + '_barcodes.tsv',sep = '\t').Cell_type.unique()
+	return expand(OUTDIR + "/scomatic/" + wildcards.sample + "/SingleCellAlleles/{cell_type}_job.finish.touch", cell_type = cell_type)
+
+rule check_cell_type_genotype_complete:
+	input:
+		check_cell_genotype_complete,
+	output:
+		OUTDIR + "/scomatic/{sample}/SingleCellAlleles/job.finish.touch_all"
+	threads: 1
+	group: "scomatic"
+	resources:
+		time = 5,
+		mem_mb = 4000
+	shell:
+		"""
 		touch {output}
 		"""

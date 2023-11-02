@@ -60,6 +60,7 @@ rule star_generate_reference:
 		star_path = config["reference"]["directory"] + config["mouse_reference"]["star_path"] + "/SA"
 	container:
 		config["singularity"]["rsem"]
+	group: "rna"
 	params:
 		star_output_path = config["reference"]["directory"] + config["mouse_reference"]["star_path"]
 	threads: 40
@@ -100,6 +101,7 @@ rule merge_fastq1:
 	output:
 		temp(OUTDIR + "/ln/{sample}_R1.fq.gz")
 	threads: 2
+	group: "rna"
 	shell:
 		"""
 		cat {input} > {output}
@@ -114,6 +116,7 @@ rule merge_fastq2:
 	output:
 		temp(OUTDIR + "/ln/{sample}_R2.fq.gz")
 	threads: 2
+	group: "rna"
 	shell:
 		"""
 		cat {input} > {output}
@@ -129,7 +132,7 @@ rule fastqc_and_move:
 		o3 = OUTDIR + "/QC/fastqc/{sample}_R1_fastqc.zip",
 		o4 = OUTDIR + "/QC/fastqc/{sample}_R2_fastqc.zip"
 	threads: 6
-	group: "fastqc"
+	group: "rna"
 	resources:
 		time = 240,
 		mem_mb = 16000
@@ -153,7 +156,7 @@ rule trim_galore:
 		o1 = OUTDIR + "/trimmed/{sample}_R1_val_1.fq.gz",
 		o2 = OUTDIR + "/trimmed/{sample}_R2_val_2.fq.gz"
 	threads: 6
-	group: "trim_galore"
+	group: "rna"
 	resources:
 		time = 720,
 		mem_mb = 10000
@@ -173,6 +176,7 @@ rule star:
 		o4 = temp(OUTDIR + "/align/{sample}_unmapped_R2.fq"),
 		config["reference"]["directory"] + config["mouse_reference"]["star_path"] + "/SA"
 	threads: 20
+	group: "rna"
 	params:
 		star_path = config["reference"]["directory"] + config["mouse_reference"]["star_path"]
 	resources:
@@ -219,7 +223,7 @@ rule rsem:
 	params:
 		rsem_path = config["reference"]["directory"] + config["mouse_reference"]["rsem_path"]
 	threads: 10
-	group: "star"
+	group: "rna"
 	resources:
 		time = 4*60,
 		mem_mb = 16000

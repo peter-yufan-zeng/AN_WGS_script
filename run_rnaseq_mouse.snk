@@ -1,0 +1,239 @@
+#### USAGE
+#### 1) First load snakemake
+#### module load NiaEnv/2018a
+#### module load python/3.6.4-anaconda5.1.0
+#### source activate snakemake
+#### snakemake -s AN_WGS_script/Snakefile  --cores 1 -j 40 --cluster "sbatch -N 1 -t 20:00:00 --ntasks 80 --output=logs/%x_%j.log" --ri \
+#### --config input=AN_WGS_script/Sample/20200907.tsv.txt outdir=$SCRATCH/AN_WGS_script/20200908_HPV_HNSCC_WGS
+
+import pandas as pd
+import os
+
+localrules: all, rename_files
+
+###
+### LOAD SAMPLES
+###
+SCRATCH = "/gpfs/fs0/scratch/n/nicholsa/zyfniu"
+print("\n***INPUT FILE: " + config['input'] + "***\n")
+INPUT = pd.read_csv(config['input'],names = ['Sample','Fastq1','Fastq2'],header=0)
+SAMPLE =  INPUT['Sample'].unique()
+print(INPUT)
+
+### PRINT OUTPUT DIRECTORY
+OUTDIR = config['outdir']
+print("***OUTPUT DIRECTORY: " + OUTDIR + "***")
+
+###
+###	REFERENCE FILES
+###
+print(config['kraken'] == "yes")
+###Check if kraken is needed to run
+if config['kraken'] == "yes":
+	kraken_list = expand(OUTDIR + "/kraken2/bracken/{sample}_bracken2.report", sample = SAMPLE)
+else:
+	kraken_list = config['input']
+
+
+### PATH TO singularity imgaes
+SGL_STAR_RSEM_CMD = "singularity exec -B $SCRATCH /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/rsem.img"
+SGL_NFCORE_CMD = "singularity exec -B $SCRATCH /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-rnaseq-1.4.2.img"
+
+###
+### Final Results
+###
+rule all:
+	input:
+		###FASTQC + BWA Alignment
+		expand(OUTDIR + "/QC/fastqc/{sample}_R1_fastqc.html", sample = SAMPLE),
+		expand(OUTDIR + "/align/{sample}_Aligned.toTranscriptome.out.bam", sample = SAMPLE),
+		expand(OUTDIR + "/rsem/{sample}.genes.results", sample = SAMPLE),
+		kraken_list
+
+
+### Build References
+rule star_generate_reference:
+	input:
+		fasta = config["reference"]["directory"] + config["mouse_reference"]["fasta"],
+		gtf =  config["reference"]["directory"] + config["mouse_reference"]["gtf"]
+	output:
+		star_path = config["reference"]["directory"] + config["mouse_reference"]["star_path"] + "/SA"
+	container:
+		config["singularity"]["rsem"]
+	params:
+		star_output_path = config["reference"]["directory"] + config["mouse_reference"]["star_path"]
+	threads: 40
+	shell:
+		"""
+		STAR  --runThreadN {threads}  \
+		--runMode genomeGenerate  \
+		--genomeDir {params.star_output_path} \
+		--genomeFastaFiles {input.fasta}  \
+		--sjdbGTFfile {input.gtf}  \
+		--sjdbOverhang 100 \
+		--outFileNamePrefix {params.star_output_path}/GRCm38
+
+		rsem-prepare-reference \
+            --gtf {input.gtf} \
+            --num-threads {threads} \
+            {input.fasta}
+            GRCm38
+		"""
+
+
+###
+###	Quality Control AND align using STAR
+###
+def star_fastq1(wildcards):
+	return expand(INPUT[INPUT.Sample == wildcards.sample].Fastq1)
+
+def star_fastq2(wildcards):
+	return expand(INPUT[INPUT.Sample == wildcards.sample].Fastq2)
+
+
+def get_fastq1(wildcards):
+	return expand(INPUT[INPUT.Sample == wildcards.sample].Fastq1)
+
+rule merge_fastq1:
+	input:
+		get_fastq1
+	output:
+		temp(OUTDIR + "/ln/{sample}_R1.fq.gz")
+	threads: 2
+	shell:
+		"""
+		cat {input} > {output}
+		"""
+
+def get_fastq2(wildcards):
+	return expand(INPUT[INPUT.Sample == wildcards.sample].Fastq2)
+
+rule merge_fastq2:
+	input:
+		get_fastq2
+	output:
+		temp(OUTDIR + "/ln/{sample}_R2.fq.gz")
+	threads: 2
+	shell:
+		"""
+		cat {input} > {output}
+		"""
+
+rule fastqc_and_move:
+	input:
+		i1 = OUTDIR + "/ln/{sample}_R1.fq.gz",
+		i2 = OUTDIR + "/ln/{sample}_R2.fq.gz"
+	output:
+		o1 = OUTDIR + "/QC/fastqc/{sample}_R1_fastqc.html",
+		o2 = OUTDIR + "/QC/fastqc/{sample}_R2_fastqc.html",
+		o3 = OUTDIR + "/QC/fastqc/{sample}_R1_fastqc.zip",
+		o4 = OUTDIR + "/QC/fastqc/{sample}_R2_fastqc.zip"
+	threads: 6
+	group: "fastqc"
+	resources:
+		time = 240,
+		mem_mb = 16000
+	container:
+		config["singularity"]["rnaseq"]
+	shell:
+		"""
+		mkdir -p {OUTDIR}/QC/{wildcards.sample}
+		fastqc -t {threads} {input} --outdir={OUTDIR}/QC/{wildcards.sample}/
+		mv -n {OUTDIR}/QC/{wildcards.sample}/*R1*fastqc.html {OUTDIR}/QC/fastqc/{wildcards.sample}_R1_fastqc.html
+		mv -n {OUTDIR}/QC/{wildcards.sample}/*R2*fastqc.html {OUTDIR}/QC/fastqc/{wildcards.sample}_R2_fastqc.html
+		mv -n {OUTDIR}/QC/{wildcards.sample}/*R1*fastqc.zip {OUTDIR}/QC/fastqc/{wildcards.sample}_R1_fastqc.zip
+		mv -n {OUTDIR}/QC/{wildcards.sample}/*R2*fastqc.zip {OUTDIR}/QC/fastqc/{wildcards.sample}_R2_fastqc.zip
+		"""
+
+rule trim_galore:
+	input:
+		r1 = OUTDIR + "/ln/{sample}_R1.fq.gz",
+		r2 = OUTDIR + "/ln/{sample}_R2.fq.gz"
+	output:
+		o1 = OUTDIR + "/trimmed/{sample}_R1_val_1.fq.gz",
+		o2 = OUTDIR + "/trimmed/{sample}_R2_val_2.fq.gz"
+	threads: 6
+	group: "trim_galore"
+	resources:
+		time = 720,
+		mem_mb = 10000
+	container:
+		config["singularity"]["rnaseq"]
+	shell:
+		"trim_galore --paired {input.r1} {input.r2} -o {OUTDIR}/trimmed -j {threads}"
+
+rule star:
+	input:
+		r1 = OUTDIR + "/trimmed/{sample}_R1_val_1.fq.gz",
+		r2 = OUTDIR + "/trimmed/{sample}_R2_val_2.fq.gz"
+	output:
+		o1 = OUTDIR + "/align/{sample}_Aligned.toTranscriptome.out.bam",
+		o2 = OUTDIR + "/align/{sample}_Chimeric.out.junction",
+		o3 = temp(OUTDIR + "/align/{sample}_unmapped_R1.fq"),
+		o4 = temp(OUTDIR + "/align/{sample}_unmapped_R2.fq"),
+		config["reference"]["directory"] + config["mouse_reference"]["star_path"] + "/SA"
+	threads: 20
+	params:
+		star_path = config["reference"]["directory"] + config["mouse_reference"]["star_path"]
+	resources:
+		time = 4*60,
+		mem_mb = 30000
+	container:
+		config["singularity"]["rsem"]
+	shell:
+		"""
+		STAR --genomeDir {params.star_path} \
+		--readFilesIn {input.r1} {input.r2} \
+		--outFileNamePrefix {OUTDIR}/align/{wildcards.sample}_ \
+		--runThreadN {threads} \
+		--outReadsUnmapped Fastx \
+		--quantMode TranscriptomeSAM \
+		--twopassMode Basic \
+		--readFilesCommand \"gunzip -c\" \
+		--outSAMstrandField intronMotif \
+		--outSAMunmapped Within \
+		--chimSegmentMin 12 \
+		--chimJunctionOverhangMin 12 \
+		--chimOutJunctionFormat 1 \
+		--alignSJDBoverhangMin 10 \
+		--alignMatesGapMax 100000 \
+		--alignIntronMax 100000 \
+		--alignSJstitchMismatchNmax 5 -1 5 5 \
+		--outSAMattrRGline ID:GRPundef \
+		--chimMultimapScoreRange 3 \
+		--chimScoreJunctionNonGTAG -4 \
+		--chimMultimapNmax 20 \
+		--chimNonchimScoreDropMin 10 \
+		--peOverlapNbasesMin 12 \
+		--peOverlapMMp 0.1
+		mv {OUTDIR}/align/{wildcards.sample}_Unmapped.out.mate1 {OUTDIR}/align/{wildcards.sample}_unmapped_R1.fq
+		mv {OUTDIR}/align/{wildcards.sample}_Unmapped.out.mate2 {OUTDIR}/align/{wildcards.sample}_unmapped_R2.fq
+		"""
+
+rule rsem:
+	input:
+		bam = OUTDIR + "/align/{sample}_Aligned.toTranscriptome.out.bam",
+		config["reference"]["directory"] + config["mouse_reference"]["rsem_path"]
+	output:
+		rsem_results = OUTDIR + "/rsem/{sample}.genes.results"
+	params:
+		rsem_path = config["reference"]["directory"] + config["mouse_reference"]["rsem_path"]
+	threads: 10
+	group: "star"
+	resources:
+		time = 4*60,
+		mem_mb = 16000
+	container:
+		config["singularity"]["rsem"]
+	shell:
+		"""
+		cd {OUTDIR}/rsem/
+		rsem-calculate-expression --time \
+		--output-genome-bam -p {threads} \
+		--alignments \
+		--paired-end {input.bam} \
+         {params.rsem_path} {wildcards.sample}
+		"""
+
+### Run TRUST4 and Kraken2
+include: "snakemake_scripts/kraken2.snk"

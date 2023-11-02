@@ -219,10 +219,10 @@ rule filter_step2_tsv:
 	shell:
 		"""
 		/bin/bash -c \
-			'source activate SComatic; \
+			'set +u; source activate SComatic; \
 			bedtools intersect -header -a {input.tsv} \
 				-b {input.repeat_masker_bed} | \
-				awk '$1 ~ /^#/ || $6 == "PASS"' > {output.pass_tsv}'
+				awk "\$1 ~ /^#/ || \$6 == "PASS"" > {output.pass_tsv}'
 		"""
 
 rule genotype_each_cell:
@@ -252,7 +252,7 @@ rule genotype_each_cell:
 			--infile {input.pass_tsv}   \
 			--nprocs {threads} \
 			--meta {input.barcode}   \
-			--outfile {output.o1}  \
+			--outfile {output.individual_cell_tsv}  \
 			--tmp_dir {OUTDIR}/scomatic/{wildcards.sample}/SingleCellAlleles/temp_{wildcards.cell_type} \
 			--ref {params.cellranger_ref_fa}
 		'

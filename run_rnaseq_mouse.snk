@@ -57,12 +57,14 @@ rule star_generate_reference:
 		fasta = config["reference"]["directory"] + config["mouse_reference"]["fasta"],
 		gtf =  config["reference"]["directory"] + config["mouse_reference"]["gtf"]
 	output:
-		star_path = config["reference"]["directory"] + config["mouse_reference"]["star_path"] + "/SA"
+		star_path = config["reference"]["directory"] + config["mouse_reference"]["star_path"] + "/SA",
+		rsem_output = config["reference"]["directory"] + config["mouse_reference"]["rsem_path"] + "/geneInfo.tab"
 	container:
 		config["singularity"]["rsem"]
 	group: "rna"
 	params:
-		star_output_path = config["reference"]["directory"] + config["mouse_reference"]["star_path"]
+		star_output_path = config["reference"]["directory"] + config["mouse_reference"]["star_path"],
+		rsem_path = config["reference"]["directory"] + config["mouse_reference"]["rsem_path"]
 	threads: 40
 	shell:
 		"""
@@ -77,8 +79,8 @@ rule star_generate_reference:
 		rsem-prepare-reference \
             --gtf {input.gtf} \
             --num-threads {threads} \
-            {input.fasta}
-            GRCm38
+            {input.fasta} \
+            {params.rsem_path}
 		"""
 
 
@@ -168,13 +170,13 @@ rule trim_galore:
 rule star:
 	input:
 		r1 = OUTDIR + "/trimmed/{sample}_R1_val_1.fq.gz",
-		r2 = OUTDIR + "/trimmed/{sample}_R2_val_2.fq.gz"
+		r2 = OUTDIR + "/trimmed/{sample}_R2_val_2.fq.gz",
+		star = config["reference"]["directory"] + config["mouse_reference"]["star_path"] + "/SA"
 	output:
 		o1 = OUTDIR + "/align/{sample}_Aligned.toTranscriptome.out.bam",
 		o2 = OUTDIR + "/align/{sample}_Chimeric.out.junction",
 		o3 = temp(OUTDIR + "/align/{sample}_unmapped_R1.fq"),
 		o4 = temp(OUTDIR + "/align/{sample}_unmapped_R2.fq"),
-		config["reference"]["directory"] + config["mouse_reference"]["star_path"] + "/SA"
 	threads: 20
 	group: "rna"
 	params:
@@ -217,7 +219,7 @@ rule star:
 rule rsem:
 	input:
 		bam = OUTDIR + "/align/{sample}_Aligned.toTranscriptome.out.bam",
-		config["reference"]["directory"] + config["mouse_reference"]["rsem_path"]
+		rsem = config["reference"]["directory"] + config["mouse_reference"]["rsem_path"] + "/geneInfo.tab"
 	output:
 		rsem_results = OUTDIR + "/rsem/{sample}.genes.results"
 	params:

@@ -46,7 +46,7 @@ rule star_generate_reference:
 		gtf =  config["reference"]["directory"] + config["mouse_reference"]["gtf"]
 	output:
 		star_path = config["reference"]["directory"] + config["mouse_reference"]["star_path"] + "/SA",
-		rsem_output = config["reference"]["directory"] + config["mouse_reference"]["rsem_path"] + "/geneInfo.tab"
+		rsem_output = config["reference"]["directory"] + config["mouse_reference"]["rsem_path"] + ".transcripts.fa"
 	container:
 		config["singularity"]["rsem"]
 	group: "generate_star"
@@ -211,7 +211,7 @@ rule star:
 rule rsem:
 	input:
 		bam = OUTDIR + "/align/{sample}_Aligned.toTranscriptome.out.bam",
-		rsem = config["reference"]["directory"] + config["mouse_reference"]["rsem_path"] + "/geneInfo.tab"
+		rsem = config["reference"]["directory"] + config["mouse_reference"]["rsem_path"] + ".transcripts.fa"
 	output:
 		rsem_results = OUTDIR + "/rsem/{sample}.genes.results"
 	params:

@@ -130,7 +130,7 @@ rule fastqc_and_move:
 		o4 = OUTDIR + "/QC/fastqc/{sample}_R2_fastqc.zip"
 	threads: 6
 	resources:
-		time = 240,
+		time = 60,
 		mem_mb = 16000
 	container:
 		config["singularity"]["rnaseq"]

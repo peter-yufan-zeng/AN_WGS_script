@@ -41,7 +41,7 @@ print("***OUTPUT DIRECTORY: " + OUTDIR + "***")
 rule all:
 	input:
         ###xengsort ref
-        OUTDIR + "/xengsort/ref/xengsort-k25.hash"
+		OUTDIR + "/xengsort/ref/xengsort-k25.hash"
 		###xengsort reads
 		# expand(OUTDIR + "/xengsort/classify/{sample}.host.1.fq.gz", sample = SAMPLE),
         # expand(OUTDIR + "/xengsort/classify/{sample}.host.2.fq.gz", sample = SAMPLE),
@@ -56,8 +56,8 @@ rule xengsort_generate_reference:
 	input:
 		mouse_dna = OUTDIR + "/xengsort/ref/Mus_musculus.GRCm38.dna.toplevel.fa.gz",
 		human_dna =  OUTDIR + "/xengsort/ref/Homo_sapiens.GRCh38.dna.toplevel.fa.gz",
-        mouse_cdna = OUTDIR + "/xengsort/ref/Mus_musculus.GRCm38.cdna.all.fa.gz",
-        human_cdna = OUTDIR + "/xengsort/ref/Homo_sapiens.GRCh38.cdna.all.fa.gz"
+		mouse_cdna = OUTDIR + "/xengsort/ref/Mus_musculus.GRCm38.cdna.all.fa.gz",
+		human_cdna = OUTDIR + "/xengsort/ref/Homo_sapiens.GRCh38.cdna.all.fa.gz"
 	output:
 		xengsort_hash = OUTDIR + "/xengsort/ref/xengsort-k25.hash"
 	container:
@@ -67,19 +67,19 @@ rule xengsort_generate_reference:
 	resources:
 		time = 2*60,
 		mem_mb = 40000
-    params:
-        xengsort_index_prefix = OUTDIR + "/xengsort/ref/xengsort-k25"
+	params:
+		xengsort_index_prefix = OUTDIR + "/xengsort/ref/xengsort-k25"
 	shell:
 		"""
-        xengsort index \
-            --index {output.xengsort_index} \
-            -H {input.mouse_dna} {input.mouse_cdna} \
-            -G {input.human_dna} {input.human_cdna} \
-            -k 25 \
-            -n 4496607845 \
-            -fill 0.88 \
-            -p 4 \
-            -T {thread}
+		xengsort index \
+		--index {params.xengsort_index_prefix} \
+		-H {input.mouse_dna} {input.mouse_cdna} \
+		-G {input.human_dna} {input.human_cdna} \
+		-k 25 \
+		-n 4496607845 \
+		--fill 0.88 \
+		-p 4 \
+		--weakthreads {threads}
 		"""
 
 
@@ -124,14 +124,14 @@ rule merge_fastq2:
 
 rule xengsort_classify:
 	input:
-        xengsort_hash = OUTDIR + "/xengsort/ref/xengsort-k25.hash",
-        fastq1 = OUTDIR + "/ln/{sample}_R1.fq.gz",
-        fastq2 = OUTDIR + "/ln/{sample}_R2.fq.gz"
+		xengsort_hash = OUTDIR + "/xengsort/ref/xengsort-k25.hash",
+		fastq1 = OUTDIR + "/ln/{sample}_R1.fq.gz",
+		fastq2 = OUTDIR + "/ln/{sample}_R2.fq.gz"
 	output:
 		host1 = OUTDIR + "/xengsort/classify/{sample}.host.1.fq.gz",
-        host2 = OUTDIR + "/xengsort/classify/{sample}.host.2.fq.gz",
-        graft1 = OUTDIR + "/xengsort/classify/{sample}.graft.1.fq.gz",
-        graft2 = OUTDIR + "/xengsort/classify/{sample}.graft.2.fq.gz",
+		host2 = OUTDIR + "/xengsort/classify/{sample}.host.2.fq.gz",
+		graft1 = OUTDIR + "/xengsort/classify/{sample}.graft.1.fq.gz",
+		graft2 = OUTDIR + "/xengsort/classify/{sample}.graft.2.fq.gz",
 	container:
 		config["singularity"]["xengsort"]
 	group: "xengsort"
@@ -139,16 +139,16 @@ rule xengsort_classify:
 	resources:
 		time = 4*60,
 		mem_mb = 30000
-    params:
-        xengsort_index_prefix = OUTDIR + "/xengsort/ref/xengsort-k25"
-        outprefix = OUTDIR + "/xengsort/classify/{sample}"
+	params:
+		xengsort_index_prefix = OUTDIR + "/xengsort/ref/xengsort-k25",
+		outprefix = OUTDIR + "/xengsort/classify/{sample}"
 	shell:
 		"""
-        xengsort classify \
-            --out {params.outprefix} \
-            --index {params.index} \
-            --fastq {input.fastq1} \
-            --pairs {input.fastq2} \
-            --method count \
-            -T {thread}
+		xengsort classify \
+			--out {params.outprefix} \
+			--index {params.index} \
+			--fastq {input.fastq1} \
+			--pairs {input.fastq2} \
+			--method count \
+			-T {thread}
 		"""

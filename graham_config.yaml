@@ -40,6 +40,7 @@ singularity:
   snpeff: $NXF_SINGULARITY_CACHEDIR/nfcore-snpeff-5.1.GRCh38.img
   scomatic: $NXF_SINGULARITY_CACHEDIR/scomatic-0.0.2.sif
   vep: $NXF_SINGULARITY_CACHEDIR/vep_108.2_GRCh38.img
+  xengsort: $NXF_SINGULARITY_CACHEDIR/xengsort-2.0.1.sif
 
 reference:
   directory: "/scratch/pez/gdc_reference/"

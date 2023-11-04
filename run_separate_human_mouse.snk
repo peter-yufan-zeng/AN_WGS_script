@@ -1,0 +1,154 @@
+### NOTE: before running this make sure that you get the genomes and transcriptomes of both humans and mice
+
+#
+# mkdir -p xengsort/ref
+# wget ftp://ftp.ensembl.org/pub/release-98/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.toplevel.fa.gz -P xengsort/ref
+# wget ftp://ftp.ensembl.org/pub/release-98/fasta/mus_musculus/dna/Mus_musculus.GRCm38.dna.toplevel.fa.gz -P xengsort/ref
+# wget ftp://ftp.ensembl.org/pub/release-98/fasta/homo_sapiens/cdna/Homo_sapiens.GRCh38.cdna.all.fa.gz -P xengsort/ref
+# wget ftp://ftp.ensembl.org/pub/release-98/fasta/mus_musculus/cdna/Mus_musculus.GRCm38.cdna.all.fa.gz -P xengsort/ref
+
+
+
+#### USAGE
+#### 1) First load snakemake
+#### module load NiaEnv/2018a
+#### module load python/3.6.4-anaconda5.1.0
+#### source activate snakemake
+#### snakemake -s AN_WGS_script/Snakefile  --cores 1 -j 40 --cluster "sbatch -N 1 -t 20:00:00 --ntasks 80 --output=logs/%x_%j.log" --ri \
+#### --config input=AN_WGS_script/Sample/20200907.tsv.txt outdir=$SCRATCH/AN_WGS_script/20200908_HPV_HNSCC_WGS
+
+import pandas as pd
+import os
+
+localrules: all, rename_files, merge_fastq1, merge_fastq2
+
+###
+### LOAD SAMPLES
+###
+SCRATCH = "/gpfs/fs0/scratch/n/nicholsa/zyfniu"
+print("\n***INPUT FILE: " + config['input'] + "***\n")
+INPUT = pd.read_csv(config['input'],names = ['Sample','Fastq1','Fastq2'],header=0)
+SAMPLE =  INPUT['Sample'].unique()
+print(INPUT)
+
+### PRINT OUTPUT DIRECTORY
+OUTDIR = config['outdir']
+print("***OUTPUT DIRECTORY: " + OUTDIR + "***")
+
+###
+### Final Results
+###
+rule all:
+	input:
+        ###xengsort ref
+        OUTDIR + "/xengsort/ref/xengsort-k25.hash"
+		###xengsort reads
+		# expand(OUTDIR + "/xengsort/classify/{sample}.host.1.fq.gz", sample = SAMPLE),
+        # expand(OUTDIR + "/xengsort/classify/{sample}.host.2.fq.gz", sample = SAMPLE),
+		# expand(OUTDIR + "/xengsort/classify/{sample}.graft.1.fq.gz", sample = SAMPLE),
+        # expand(OUTDIR + "/xengsort/classiy/{sample}.graft.2.fq.gz", sample = SAMPLE)
+
+
+### adapted from https://gitlab.com/genomeinformatics/xengsort/-/blob/master/Snakefile?ref_type=heads
+
+### Build References
+rule xengsort_generate_reference:
+	input:
+		mouse_dna = OUTDIR + "/xengsort/ref/Mus_musculus.GRCm38.dna.toplevel.fa.gz",
+		human_dna =  OUTDIR + "/xengsort/ref/Homo_sapiens.GRCh38.dna.toplevel.fa.gz",
+        mouse_cdna = OUTDIR + "/xengsort/ref/Mus_musculus.GRCm38.cdna.all.fa.gz",
+        human_cdna = OUTDIR + "/xengsort/ref/Homo_sapiens.GRCh38.cdna.all.fa.gz"
+	output:
+		xengsort_hash = OUTDIR + "/xengsort/ref/xengsort-k25.hash"
+	container:
+		config["singularity"]["xengsort"]
+	group: "xengsort"
+	threads: 20
+	resources:
+		time = 2*60,
+		mem_mb = 40000
+    params:
+        xengsort_index_prefix = OUTDIR + "/xengsort/ref/xengsort-k25"
+	shell:
+		"""
+        xengsort index \
+            --index {output.xengsort_index} \
+            -H {input.mouse_dna} {input.mouse_cdna} \
+            -G {input.human_dna} {input.human_cdna} \
+            -k 25 \
+            -n 4496607845 \
+            -fill 0.88 \
+            -p 4 \
+            -T {thread}
+		"""
+
+
+def get_fastq1(wildcards):
+	return expand(INPUT[INPUT.Sample == wildcards.sample].Fastq1)
+
+rule merge_fastq1:
+	input:
+		get_fastq1
+	output:
+		temp(OUTDIR + "/ln/{sample}_R1.fq.gz")
+	threads: 2
+	resources:
+		time = 15,
+		mem_mb = 4000
+	shell:
+		"""
+		cat {input} > {output}
+		"""
+
+def get_fastq2(wildcards):
+	return expand(INPUT[INPUT.Sample == wildcards.sample].Fastq2)
+
+rule merge_fastq2:
+	input:
+		get_fastq2
+	output:
+		temp(OUTDIR + "/ln/{sample}_R2.fq.gz")
+	threads: 2
+	resources:
+		time = 15,
+		mem_mb = 4000
+	shell:
+		"""
+		cat {input} > {output}
+		"""
+
+
+###
+###	now run xengsort classify
+###
+
+rule xengsort_classify:
+	input:
+        xengsort_hash = OUTDIR + "/xengsort/ref/xengsort-k25.hash",
+        fastq1 = OUTDIR + "/ln/{sample}_R1.fq.gz",
+        fastq2 = OUTDIR + "/ln/{sample}_R2.fq.gz"
+	output:
+		host1 = OUTDIR + "/xengsort/classify/{sample}.host.1.fq.gz",
+        host2 = OUTDIR + "/xengsort/classify/{sample}.host.2.fq.gz",
+        graft1 = OUTDIR + "/xengsort/classify/{sample}.graft.1.fq.gz",
+        graft2 = OUTDIR + "/xengsort/classify/{sample}.graft.2.fq.gz",
+	container:
+		config["singularity"]["xengsort"]
+	group: "xengsort"
+	threads: 8
+	resources:
+		time = 4*60,
+		mem_mb = 30000
+    params:
+        xengsort_index_prefix = OUTDIR + "/xengsort/ref/xengsort-k25"
+        outprefix = OUTDIR + "/xengsort/classify/{sample}"
+	shell:
+		"""
+        xengsort classify \
+            --out {params.outprefix} \
+            --index {params.index} \
+            --fastq {input.fastq1} \
+            --pairs {input.fastq2} \
+            --method count \
+            -T {thread}
+		"""

@@ -24,10 +24,6 @@ print(INPUT)
 OUTDIR = config['outdir']
 print("***OUTPUT DIRECTORY: " + OUTDIR + "***")
 
-### PATH TO singularity imgaes
-SGL_STAR_RSEM_CMD = "singularity exec -B $SCRATCH /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/rsem.img"
-SGL_NFCORE_CMD = "singularity exec -B $SCRATCH /gpfs/fs0/scratch/n/nicholsa/zyfniu/singularity_images/nfcore-rnaseq-1.4.2.img"
-
 ###
 ### Final Results
 ###

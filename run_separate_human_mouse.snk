@@ -20,7 +20,7 @@
 import pandas as pd
 import os
 
-localrules: all, rename_files, merge_fastq1, merge_fastq2,decompress
+localrules: all, rename_files, merge_fastq1, merge_fastq2,decompress, compress
 
 ###
 ### LOAD SAMPLES
@@ -35,18 +35,18 @@ print(INPUT)
 OUTDIR = config['outdir']
 print("***OUTPUT DIRECTORY: " + OUTDIR + "***")
 
+SOURCE = {'ambiguous','host','graft','both','neither','unclassified'}
+
 ###
 ### Final Results
 ###
 rule all:
 	input:
         ###xengsort ref
-		OUTDIR + "/xengsort/ref/xengsort-k25.hash"
+		OUTDIR + "/xengsort/ref/xengsort-k25.hash",
 		###xengsort reads
-		# expand(OUTDIR + "/xengsort/classify/{sample}.host.1.fq.gz", sample = SAMPLE),
-        # expand(OUTDIR + "/xengsort/classify/{sample}.host.2.fq.gz", sample = SAMPLE),
-		# expand(OUTDIR + "/xengsort/classify/{sample}.graft.1.fq.gz", sample = SAMPLE),
-        # expand(OUTDIR + "/xengsort/classiy/{sample}.graft.2.fq.gz", sample = SAMPLE)
+		expand(OUTDIR + "/xengsort/classify/{sample}-{source}.1.fq.gz", sample = SAMPLE, source = SOURCE),
+        expand(OUTDIR + "/xengsort/classify/{sample}-{source}.2.fq.gz", sample = SAMPLE, source = SOURCE)
 
 
 ### adapted from https://gitlab.com/genomeinformatics/xengsort/-/blob/master/Snakefile?ref_type=heads
@@ -144,10 +144,16 @@ rule xengsort_classify:
 		fastq1 = OUTDIR + "/ln/{sample}_R1.fq",
 		fastq2 = OUTDIR + "/ln/{sample}_R2.fq"
 	output:
-		host1 = OUTDIR + "/xengsort/classify/{sample}.host.1.fq.gz",
-		host2 = OUTDIR + "/xengsort/classify/{sample}.host.2.fq.gz",
-		graft1 = OUTDIR + "/xengsort/classify/{sample}.graft.1.fq.gz",
-		graft2 = OUTDIR + "/xengsort/classify/{sample}.graft.2.fq.gz",
+		# host1 = OUTDIR + "/xengsort/classify/{sample}.host.1.fq",
+		# host2 = OUTDIR + "/xengsort/classify/{sample}.host.2.fq",
+		# graft1 = OUTDIR + "/xengsort/classify/{sample}.graft.1.fq",
+		# graft2 = OUTDIR + "/xengsort/classify/{sample}.graft.2.fq",
+		expand(
+			OUTDIR + "/xengsort/classify/{sample}-{source}.1.fq",
+		),
+		expand(
+			OUTDIR + "/xengsort/classify/{sample}-{source}.2.fq"
+		)
 	container:
 		config["singularity"]["xengsort"]
 	group: "xengsort"
@@ -162,7 +168,7 @@ rule xengsort_classify:
 		"""
 		xengsort classify \
 			--out {params.outprefix} \
-			--index {xengsort_index_prefix} \
+			--index {params.xengsort_index_prefix} \
 			--fastq {input.fastq1} \
 			--pairs {input.fastq2} \
 			--classification count \
@@ -170,3 +176,21 @@ rule xengsort_classify:
 			--chunksize 32 \
 			--progress
 		"""
+
+rule compress:
+	input:
+		fastq1 = OUTDIR + "/xengsort/classify/{sample}-{source}.1.fq",
+		fastq2 = OUTDIR + "/xengsort/classify/{sample}-{source}.2.fq"
+	output:
+		fastq1 = OUTDIR + "/xengsort/classify/{sample}-{source}.1.fq.gz",
+		fastq2 = OUTDIR + "/xengsort/classify/{sample}-{source}.2.fq.gz"
+	threads: 1
+	resources:
+		time = 60,
+		mem_mb = 8000
+	shell:
+		"""
+		gzip {input.fastq1}
+		gzip {input.fastq2}
+		"""
+		

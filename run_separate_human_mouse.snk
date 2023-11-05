@@ -117,22 +117,22 @@ rule merge_fastq2:
 		cat {input} > {output}
 		"""
 
-rule decompress:
-	input:
-		fastq1 = OUTDIR + "/ln/{sample}_R1.fq.gz",
-		fastq2 = OUTDIR + "/ln/{sample}_R2.fq.gz"
-	output:
-		fastq1 = OUTDIR + "/ln/{sample}_R1.fq"
-		fastq2 = OUTDIR + "/ln/{sample}_R2.fq"
-	threads: 2
-	resources:
-		time = 30,
-		mem_mb = 4000
-	shell:
-		"""
-		gzip -cd {input.fastq1} > {output.fastq1}
-		gzip -cd {input.fastq2} > {output.fastq2}
-		"""
+# rule decompress:
+# 	input:
+# 		fastq1 = OUTDIR + "/ln/{sample}_R1.fq.gz",
+# 		fastq2 = OUTDIR + "/ln/{sample}_R2.fq.gz"
+# 	output:
+# 		fastq1 = OUTDIR + "/ln/{sample}_R1.fq",
+# 		fastq2 = OUTDIR + "/ln/{sample}_R2.fq"
+# 	threads: 2
+# 	resources:
+# 		time = 30,
+# 		mem_mb = 4000
+# 	shell:
+# 		"""
+# 		pigz -cd {input.fastq1} > {output.fastq1}
+# 		pigz -cd {input.fastq2} > {output.fastq2}
+# 		"""
 
 ###
 ###	now run xengsort classify
@@ -141,19 +141,15 @@ rule decompress:
 rule xengsort_classify:
 	input:
 		xengsort_hash = OUTDIR + "/xengsort/ref/xengsort-k25.hash",
-		fastq1 = OUTDIR + "/ln/{sample}_R1.fq",
-		fastq2 = OUTDIR + "/ln/{sample}_R2.fq"
+		fastq1 = OUTDIR + "/ln/{sample}_R1.fq.gz",
+		fastq2 = OUTDIR + "/ln/{sample}_R2.fq.gz"
 	output:
 		# host1 = OUTDIR + "/xengsort/classify/{sample}.host.1.fq",
 		# host2 = OUTDIR + "/xengsort/classify/{sample}.host.2.fq",
 		# graft1 = OUTDIR + "/xengsort/classify/{sample}.graft.1.fq",
 		# graft2 = OUTDIR + "/xengsort/classify/{sample}.graft.2.fq",
-		expand(
-			OUTDIR + "/xengsort/classify/{sample}-{source}.1.fq",
-		),
-		expand(
-			OUTDIR + "/xengsort/classify/{sample}-{source}.2.fq"
-		)
+		OUTDIR + "/xengsort/classify/{sample}-{source}.1.fq.gz",
+		OUTDIR + "/xengsort/classify/{sample}-{source}.2.fq.gz"
 	container:
 		config["singularity"]["xengsort"]
 	group: "xengsort"
@@ -177,20 +173,20 @@ rule xengsort_classify:
 			--progress
 		"""
 
-rule compress:
-	input:
-		fastq1 = OUTDIR + "/xengsort/classify/{sample}-{source}.1.fq",
-		fastq2 = OUTDIR + "/xengsort/classify/{sample}-{source}.2.fq"
-	output:
-		fastq1 = OUTDIR + "/xengsort/classify/{sample}-{source}.1.fq.gz",
-		fastq2 = OUTDIR + "/xengsort/classify/{sample}-{source}.2.fq.gz"
-	threads: 1
-	resources:
-		time = 60,
-		mem_mb = 8000
-	shell:
-		"""
-		gzip {input.fastq1}
-		gzip {input.fastq2}
-		"""
+# rule compress:
+# 	input:
+# 		fastq1 = OUTDIR + "/xengsort/classify/{sample}-{source}.1.fq",
+# 		fastq2 = OUTDIR + "/xengsort/classify/{sample}-{source}.2.fq"
+# 	output:
+# 		fastq1 = OUTDIR + "/xengsort/classify/{sample}-{source}.1.fq.gz",
+# 		fastq2 = OUTDIR + "/xengsort/classify/{sample}-{source}.2.fq.gz"
+# 	threads: 1
+# 	resources:
+# 		time = 60,
+# 		mem_mb = 8000
+# 	shell:
+# 		"""
+# 		pigz {input.fastq1}
+# 		pigz {input.fastq2}
+# 		"""
 		

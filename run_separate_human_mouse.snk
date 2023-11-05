@@ -20,7 +20,7 @@
 import pandas as pd
 import os
 
-localrules: all, rename_files, merge_fastq1, merge_fastq2
+localrules: all, rename_files, merge_fastq1, merge_fastq2,decompress
 
 ###
 ### LOAD SAMPLES
@@ -54,10 +54,10 @@ rule all:
 ### Build References
 rule xengsort_generate_reference:
 	input:
-		mouse_dna = OUTDIR + "/xengsort/ref/Mus_musculus.GRCm38.dna.toplevel.fa.gz",
-		human_dna =  OUTDIR + "/xengsort/ref/Homo_sapiens.GRCh38.dna.toplevel.fa.gz",
-		mouse_cdna = OUTDIR + "/xengsort/ref/Mus_musculus.GRCm38.cdna.all.fa.gz",
-		human_cdna = OUTDIR + "/xengsort/ref/Homo_sapiens.GRCh38.cdna.all.fa.gz"
+		mouse_dna = OUTDIR + "/xengsort/ref/Mus_musculus.GRCm38.dna.toplevel.fa",
+		human_dna =  OUTDIR + "/xengsort/ref/Homo_sapiens.GRCh38.dna.toplevel.fa",
+		mouse_cdna = OUTDIR + "/xengsort/ref/Mus_musculus.GRCm38.cdna.all.fa",
+		human_cdna = OUTDIR + "/xengsort/ref/Homo_sapiens.GRCh38.cdna.all.fa"
 	output:
 		xengsort_hash = OUTDIR + "/xengsort/ref/xengsort-k25.hash"
 	container:
@@ -117,6 +117,22 @@ rule merge_fastq2:
 		cat {input} > {output}
 		"""
 
+rule decompress:
+	input:
+		fastq1 = OUTDIR + "/ln/{sample}_R1.fq.gz",
+		fastq2 = OUTDIR + "/ln/{sample}_R2.fq.gz"
+	output:
+		fastq1 = OUTDIR + "/ln/{sample}_R1.fq"
+		fastq2 = OUTDIR + "/ln/{sample}_R2.fq"
+	threads: 2
+	resources:
+		time = 30,
+		mem_mb = 4000
+	shell:
+		"""
+		gzip -cd {input.fastq1} > {output.fastq1}
+		gzip -cd {input.fastq2} > {output.fastq2}
+		"""
 
 ###
 ###	now run xengsort classify
@@ -125,8 +141,8 @@ rule merge_fastq2:
 rule xengsort_classify:
 	input:
 		xengsort_hash = OUTDIR + "/xengsort/ref/xengsort-k25.hash",
-		fastq1 = OUTDIR + "/ln/{sample}_R1.fq.gz",
-		fastq2 = OUTDIR + "/ln/{sample}_R2.fq.gz"
+		fastq1 = OUTDIR + "/ln/{sample}_R1.fq",
+		fastq2 = OUTDIR + "/ln/{sample}_R2.fq"
 	output:
 		host1 = OUTDIR + "/xengsort/classify/{sample}.host.1.fq.gz",
 		host2 = OUTDIR + "/xengsort/classify/{sample}.host.2.fq.gz",
@@ -146,9 +162,11 @@ rule xengsort_classify:
 		"""
 		xengsort classify \
 			--out {params.outprefix} \
-			--index {params.index} \
+			--index {xengsort_index_prefix} \
 			--fastq {input.fastq1} \
 			--pairs {input.fastq2} \
-			--method count \
-			-T {thread}
+			--classification count \
+			-T {threads} \
+			--chunksize 32 \
+			--progress
 		"""

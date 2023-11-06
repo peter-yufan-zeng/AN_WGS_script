@@ -148,8 +148,12 @@ rule xengsort_classify:
 		# host2 = OUTDIR + "/xengsort/classify/{sample}.host.2.fq",
 		# graft1 = OUTDIR + "/xengsort/classify/{sample}.graft.1.fq",
 		# graft2 = OUTDIR + "/xengsort/classify/{sample}.graft.2.fq",
-		OUTDIR + "/xengsort/classify/{sample}-{source}.1.fq.gz",
-		OUTDIR + "/xengsort/classify/{sample}-{source}.2.fq.gz"
+		expand(
+			OUTDIR + "/xengsort/classify/{sample}-{source}.1.fq.gz", sample = wildcards.sample, source = SOURCE
+		),
+		expand(
+			OUTDIR + "/xengsort/classify/{sample}-{source}.2.fq.gz", sample = wildcards.sample, source = SOURCE
+		)
 	container:
 		config["singularity"]["xengsort"]
 	group: "xengsort"

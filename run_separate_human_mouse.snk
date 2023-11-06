@@ -90,7 +90,7 @@ rule merge_fastq1:
 	input:
 		get_fastq1
 	output:
-		temp(OUTDIR + "/ln/{sample}_R1.fq.gz")
+		OUTDIR + "/ln/{sample}_R1.fq.gz"
 	threads: 2
 	resources:
 		time = 15,
@@ -107,7 +107,7 @@ rule merge_fastq2:
 	input:
 		get_fastq2
 	output:
-		temp(OUTDIR + "/ln/{sample}_R2.fq.gz")
+		OUTDIR + "/ln/{sample}_R2.fq.gz"
 	threads: 2
 	resources:
 		time = 15,

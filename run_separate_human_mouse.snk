@@ -144,18 +144,18 @@ rule xengsort_classify:
 		fastq1 = OUTDIR + "/ln/{sample}_R1.fq.gz",
 		fastq2 = OUTDIR + "/ln/{sample}_R2.fq.gz"
 	output:
-		OUTDIR + "/xengsort/classify/{sample}.host.1.fq.gz",
-		OUTDIR + "/xengsort/classify/{sample}.host.2.fq.gz",
-		OUTDIR + "/xengsort/classify/{sample}.graft.1.fq.gz",
-		OUTDIR + "/xengsort/classify/{sample}.graft.2.fq.gz",
-		OUTDIR + "/xengsort/classify/{sample}.ambiguous.1.fq.gz",
-		OUTDIR + "/xengsort/classify/{sample}.ambiguous.2.fq.gz",
-		OUTDIR + "/xengsort/classify/{sample}.both.1.fq.gz",
-		OUTDIR + "/xengsort/classify/{sample}.both.2.fq.gz",
-		OUTDIR + "/xengsort/classify/{sample}.neither.1.fq.gz",
-		OUTDIR + "/xengsort/classify/{sample}.neither.2.fq.gz",
-		OUTDIR + "/xengsort/classify/{sample}.unclassified.1.fq.gz",
-		OUTDIR + "/xengsort/classify/{sample}.unclassified.2.fq.gz"
+		OUTDIR + "/xengsort/classify/{sample}-host.1.fq.gz",
+		OUTDIR + "/xengsort/classify/{sample}-host.2.fq.gz",
+		OUTDIR + "/xengsort/classify/{sample}-graft.1.fq.gz",
+		OUTDIR + "/xengsort/classify/{sample}-graft.2.fq.gz",
+		OUTDIR + "/xengsort/classify/{sample}-ambiguous.1.fq.gz",
+		OUTDIR + "/xengsort/classify/{sample}-ambiguous.2.fq.gz",
+		OUTDIR + "/xengsort/classify/{sample}-both.1.fq.gz",
+		OUTDIR + "/xengsort/classify/{sample}-both.2.fq.gz",
+		OUTDIR + "/xengsort/classify/{sample}-neither.1.fq.gz",
+		OUTDIR + "/xengsort/classify/{sample}-neither.2.fq.gz",
+		OUTDIR + "/xengsort/classify/{sample}-unclassified.1.fq.gz",
+		OUTDIR + "/xengsort/classify/{sample}-unclassified.2.fq.gz"
 	container:
 		config["singularity"]["xengsort"]
 	group: "xengsort"

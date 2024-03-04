@@ -52,6 +52,35 @@ snakemake  --profile nichols_niagara  -s AN_WGS_script/snakemake_scripts/polyidu
 	--group-components  polyidus=4 hpvviewer=4 hpv=40 \
 	--ri
 
+### xengsort to separate human and mouse reads in PDX models on niagara zyfniu cluster
+
+snakemake  --profile nichols_niagara \
+ -s AN_WGS_script/run_separate_human_mouse.snk \
+ --configfile AN_WGS_script/niagara_config.yaml \
+ --config input=$PWD/input_20974.csv outdir=$PWD \
+ --group-components \
+ xengsort=10 \
+ compress=80 \
+ --rerun-triggers input \
+ --keep-incomplete \
+ --keep-going \
+ --ri
+
+### rnaseq on niagara
+snakemake  --profile nichols_niagara \
+ -s AN_WGS_script/run_rnaseq_mouse.snk \
+ --configfile AN_WGS_script/niagara_config.yaml \
+ --config input=$PWD/input_postxengsort.csv outdir=$PWD \
+ --groups \
+ star_generate_reference=rna fastqc_and_move=rna  trim_galore=rna \
+ star=rna rsem=rna \
+ --group-components \
+ rna=30 \
+ --rerun-triggers input \
+ --keep-incomplete \
+ --keep-going \
+ --ri
+
 ####
 ####  Graham
 ####
@@ -106,3 +135,4 @@ snakemake --profile nichols_slurm \
 
 
   ### run phylowgs on Graham
+

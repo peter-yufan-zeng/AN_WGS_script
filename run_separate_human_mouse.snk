@@ -29,6 +29,15 @@ SCRATCH = "/gpfs/fs0/scratch/n/nicholsa/zyfniu"
 print("\n***INPUT FILE: " + config['input'] + "***\n")
 INPUT = pd.read_csv(config['input'],names = ['Sample','Fastq1','Fastq2'],header=0)
 SAMPLE =  INPUT['Sample'].unique()
+
+
+INPUT['graft_fastq1'] = 'xengsort/' + INPUT['Sample'] + '-graft.1.fq.gz'
+INPUT['graft_fastq2'] = 'xengsort/' + INPUT['Sample'] + '-graft.2.fq.gz'
+INPUT_GRAFT = INPUT[['Sample','graft_fastq1','graft_fastq2']].drop_duplicates()
+INPUT_GRAFT.to_csv(OUTDIR + '/input_postxengsort.csv',index = False)
+
+
+
 print(INPUT)
 
 ### PRINT OUTPUT DIRECTORY
@@ -154,7 +163,8 @@ rule xengsort_classify:
 		OUTDIR + "/xengsort/{sample}-neither.1.fq.gz",
 		OUTDIR + "/xengsort/{sample}-neither.2.fq.gz",
 		OUTDIR + "/xengsort/{sample}-unclassified.1.fq.gz",
-		OUTDIR + "/xengsort/{sample}-unclassified.2.fq.gz"
+		OUTDIR + "/xengsort/{sample}-unclassified.2.fq.gz",
+		OUTDIR + "/xengsort/{sample}-xengsort.stats"
 	container:
 		config["singularity"]["xengsort"]
 	group: "xengsort"
@@ -174,8 +184,7 @@ rule xengsort_classify:
 			--pairs {input.fastq2} \
 			--classification count \
 			-T {threads} \
-			--chunksize 32 \
-			--progress
+			--chunksize 32 > {OUTDIR}/xengsort/{wildcards.sample}-xengsort.stats
 		"""
 
 # rule compress:

@@ -5,7 +5,9 @@ To run Compute Canada Niagara cluster, snakemake -s AN_WGS/Snakefile  --cores 1 
 
 # To Set Up Snakemake on ComputeCanada Niagara Cluster
 
-First set up snakemake
+First, get access to the Niagara cluster and also [BBUFFER](https://docs.scinet.utoronto.ca/index.php/Burst_Buffer)
+
+## Next, set up snakemake
 
 ```
 module load python/3.8.5

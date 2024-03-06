@@ -24,7 +24,8 @@ print(INPUT)
 ### PRINT OUTPUT DIRECTORY
 OUTDIR = config['outdir']
 print("***OUTPUT DIRECTORY: " + OUTDIR + "***")
-
+print("Reference directory is: os.environ['REF_DIR']")
+config["reference"]["directory"] = os.environ['REF_DIR'] + "/"
 rule all:
 	input:
 		expand(OUTDIR + "/{sample}/cellranger/gex_possorted_bam.bam", sample = SAMPLE),

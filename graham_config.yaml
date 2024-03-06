@@ -43,7 +43,6 @@ singularity:
   xengsort: $NXF_SINGULARITY_CACHEDIR/xengsort-v2.0.1.sif
 
 reference:
-  directory: $REF_DIR
   fasta: "GRCh38.d1.vd1.fa" ### downloaded from GDC
   dbsnp: "dbsnp_146.hg38.vcf.gz"
   known_indels: "Mills_and_1000G_gold_standard.indels.hg38.vcf.gz"
@@ -80,25 +79,25 @@ mouse_reference:
 ### CONFIGs for TITAN
 ###
 titan:
-  snpVCF:  $REF_DIR/titan/hapmap_3.3.hg38.vcf.gz
+  snpVCF:  titan/hapmap_3.3.hg38.vcf.gz
   ichorCNA_exons: NULL
-  cytobandFile:  $REF_DIR/titan/cytoBand_hg38.txt # only need if hg38
-  centromere:  $REF_DIR/GRCh38.GCA_000001405.2_centromere_acen.txt
-  ichorCNA_gcWig: $REF_DIR/titan/gc_hg38_10kb.wig
-  ichorCNA_mapWig:  $REF_DIR/titan/map_hg38_10kb.wig
+  cytobandFile:  titan/cytoBand_hg38.txt # only need if hg38
+  centromere:  titan/GRCh38.GCA_000001405.2_centromere_acen.txt
+  ichorCNA_gcWig: titan/gc_hg38_10kb.wig
+  ichorCNA_mapWig:  titan/map_hg38_10kb.wig
   ## path to tools
   samTools:  samtools
   bcfTools:  bcftools
 
   ## path to scripts ##
   #readCounterScript:  singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images /gpfs/fs0$SCRATCH/singularity_images/ichorcna_pz.simg readCounter
-  ichorCNA_rscript:  /$REF_DIR/scripts/runIchorCNA.R
-  ichorCNA_libdir: $REF_DIR/ichorCNA/
-  pyCountScript:  $REF_DIR/TitanCNA/scripts/snakemake/code/countPysam.py
-  TitanCNA_rscript: $REF_DIR/TitanCNA/scripts/R_scripts/titanCNA.R
-  TitanCNA_combineTitanIchorCNA: $REF_DIR/TitanCNA/scripts/snakemake/code/combineTITAN-ichor.R
-  TitanCNA_selectSolutionRscript: $REF_DIR/TitanCNA/scripts/R_scripts/selectSolution.R
-  TitanCNA_libdir: $REF_DIR/TitanCNA
+  ichorCNA_rscript:  ichorCNA/scripts/runIchorCNA.R
+  ichorCNA_libdir: ichorCNA/
+  pyCountScript:  TitanCNA/scripts/snakemake/code/countPysam.py
+  TitanCNA_rscript: TitanCNA/scripts/R_scripts/titanCNA.R
+  TitanCNA_combineTitanIchorCNA:  TitanCNA/scripts/snakemake/code/combineTITAN-ichor.R
+  TitanCNA_selectSolutionRscript: TitanCNA/scripts/R_scripts/selectSolution.R
+  TitanCNA_libdir: TitanCNA
 
   ## reference settings and paths to reference files ##
   genomeBuild: hg38

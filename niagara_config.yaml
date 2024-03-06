@@ -71,10 +71,10 @@ reference:
   xengsort_prefix: "xengsort/xengsort-k25"
 
 mouse_reference:
-  fasta: "Mus_musculus/Ensembl/GRCm38/Sequence/WholeGenomeFasta/genome.fa"
-  gtf:  "Mus_musculus/Ensembl/GRCm38/Annotation/Genes/genes.gtf"
-  star_path: "GRCm38_star"
-  rsem_path: "GRCm38_star/GRCm38"
+  fasta: $REF_DIR/Mus_musculus/Ensembl/GRCm38/Sequence/WholeGenomeFasta/genome.fa
+  gtf:  $REF_DIR/Mus_musculus/Ensembl/GRCm38/Annotation/Genes/genes.gtf
+  star_path: $REF_DIR/GRCm38_star
+  rsem_path: $REF_DIR/GRCm38_star/GRCm38
 
 ###
 ### CONFIGs for TITAN
@@ -93,7 +93,7 @@ titan:
   ## path to scripts ##
   #readCounterScript:  singularity exec -B $SCRATCH/igenomes_ref,$SCRATCH/AN_WGS,$SCRATCH/AN_WGS/raw,$SCRATCH/singularity_images /gpfs/fs0$SCRATCH/singularity_images/ichorcna_pz.simg readCounter
   ichorCNA_rscript:  $REF_DIR/ichorCNA/scripts/runIchorCNA.R
-  ichorCNA_libdir:$REF_DIR/ichorCNA/
+  ichorCNA_libdir: $REF_DIR/ichorCNA/
   pyCountScript:  $REF_DIR/TitanCNA/scripts/snakemake/code/countPysam.py
   TitanCNA_rscript: $REF_DIR/TitanCNA/scripts/R_scripts/titanCNA.R
   TitanCNA_combineTitanIchorCNA:  $REF_DIR/TitanCNA/scripts/snakemake/code/combineTITAN-ichor.R

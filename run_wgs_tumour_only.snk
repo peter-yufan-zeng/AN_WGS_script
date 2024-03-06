@@ -35,7 +35,7 @@ print(INPUT)
 ### PRINT OUTPUT DIRECTORY
 OUTDIR = config['outdir']
 print("***OUTPUT DIRECTORY: " + OUTDIR + "***")
-print("Reference directory is: os.environ['REF_DIR']")
+print("Reference directory is: " + os.environ['REF_DIR'])
 config["reference"]["directory"] = os.environ['REF_DIR'] + "/"
 ###
 ### GET SAMPLES TO USE MULTI-TUMOUR VARIANT CALLING

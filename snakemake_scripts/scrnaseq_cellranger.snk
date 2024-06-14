@@ -12,7 +12,7 @@ rule cellranger:
 		r2 = get_renamed_fastq2
 	output:
 		"{OUTDIR}/cellranger/{sample}/possorted_genome_bam.bam",
-		"{OUTDIR}/{sample}/outs/possorted_genome_bam.bam",
+#		"{OUTDIR}/{sample}/outs/possorted_genome_bam.bam",
 		"{OUTDIR}/cellranger/{sample}/filtered_feature_bc_matrix.h5"
 	params:
 		num_cells = get_num_cells,
@@ -39,6 +39,7 @@ rule cellranger:
 rule velocyto:
 	input:
 		OUTDIR + "/{sample}/outs/possorted_genome_bam.bam",
+		OUTDIR + "/cellranger/{sample}/possorted_genome_bam.bam",
 	output:
 		o1 = OUTDIR + "/{sample}/velocyto/{sample}.loom",
 		o2 = OUTDIR + "/final_results/velocyto/{sample}/{sample}.loom"
